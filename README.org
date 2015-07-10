@@ -1,4 +1,4 @@
 * blorg
-#+BEGIN_SRC haskell
-C-c C-e h h >>= blog
-#+END_SRC
+#+BEGIN_EXAMPLE
+C-c C-e P p >>= blog
+#+END_EXAMPLE
