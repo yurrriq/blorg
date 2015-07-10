@@ -1,0 +1,30 @@
+---
+layout: page
+title:  "Goodbye"
+permalink: /404.html
+---
+
+<p>
+:weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #A1EFE4;">(</span>require '<span style="color: #E6DB74;">[</span><span style="color: #66D9EF;">clojure.core.async</span> <span style="color: #AE81FF;">:refer</span> <span style="color: #66D9EF;">[</span>&lt;! &gt;! chan go-loop timeout<span style="color: #66D9EF;">]</span><span style="color: #E6DB74;">]</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">let</span> <span style="color: #E6DB74;">[</span>feed <span style="color: #66D9EF;">(</span>chan<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">]</span>
+  <span style="color: #E6DB74;">(</span>go-loop <span style="color: #66D9EF;">[]</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #F92672;">doseq</span> <span style="color: #FD971F;">[</span>line <span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">"I'm not here."</span>
+                  <span style="color: #E6DB74;">"This isn't happening."</span>
+                  <span style="color: #E6DB74;">"I'm not here."</span>
+                  <span style="color: #E6DB74;">"I'm not here."</span><span style="color: #A6E22E;">]</span><span style="color: #FD971F;">]</span>
+      <span style="color: #FD971F;">(</span><span style="color: #F92672;">do</span> <span style="color: #A6E22E;">(</span>&gt;! feed line<span style="color: #A6E22E;">)</span>
+          <span style="color: #A6E22E;">(</span>&lt;! <span style="color: #E6DB74;">(</span>timeout <span style="color: #66D9EF;">(</span>* 6 <span style="color: #FD971F;">(</span>/ 60 50<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #F92672;">recur</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+</pre>
+</div>
+
+<!-- <audio autoplay loop> -->
+<!--   <source src="assets/mp3/goodbye.mp3" type="audio/mpeg" /> -->
+<!--   Goodbye. -->
+<!-- </audio> -->
