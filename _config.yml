@@ -1,3 +1,10 @@
+title: ls blorg/_posts
+author: Eric Bailey
 markdown: rdiscount
-pygments: true
-permalink: /:title
+highlighter: pygments
+permalink: /:year/:month/:title
+timezone: America/Chicago
+excerpt_separator: <!--more-->  # you can specify your own separator, of course.
+exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'README.md']
+gems:
+  - jemoji
