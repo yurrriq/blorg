@@ -1,0 +1,4 @@
+* blorg
+#+BEGIN_SRC haskell
+C-c C-e h h >>= blog
+#+END_SRC
