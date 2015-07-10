@@ -1,0 +1,31 @@
+#+OPTIONS: toc:nil
+#+BEGIN_HTML
+---
+layout: page
+title:  "Goodbye"
+permalink: /404.html
+---
+#+END_HTML
+
+:weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary:
+
+#+BEGIN_SRC clojure
+(require '[clojure.core.async :refer [<! >! chan go-loop timeout]])
+
+(let [feed (chan)]
+  (go-loop []
+    (doseq [line ["I'm not here."
+                  "This isn't happening."
+                  "I'm not here."
+                  "I'm not here."]]
+      (do (>! feed line)
+          (<! (timeout (* 6 (/ 60 50))))))
+    (recur)))
+#+END_SRC
+
+#+BEGIN_HTML
+<!-- <audio autoplay loop> -->
+<!--   <source src="assets/mp3/goodbye.mp3" type="audio/mpeg" /> -->
+<!--   Goodbye. -->
+<!-- </audio> -->
+#+END_HTML
