@@ -615,14 +615,15 @@ span.newthought {
 /*-- End of Icomoon icon font section --*/
 
 /*-- EB org src config --*/
-.src:before{
+.src:before {
   color: black;
 }
-.src{
+.src {
   color: white;
   background: #272822; /* #1d1e19; */
 }
 .org-src-container {
+  font-size: 11pt;
   width: 48.5em;
 }
 .org-src-container pre {
