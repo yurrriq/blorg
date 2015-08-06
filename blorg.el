@@ -24,10 +24,12 @@
      :publishing-directory "~/src/yurrriq/blorg/jekyll/"
      :publishing-function org-html-publish-to-html
      :exclude "\\(README\\|setup\\).org"
+     :fontify-natively t
      :recursive t
      :section-numbers nil
      :html-doctype "html5"
      :html-extension "html"
+     :htmlized-source t
      :body-only t))
   (add-to-list
    'org-publish-project-alist
