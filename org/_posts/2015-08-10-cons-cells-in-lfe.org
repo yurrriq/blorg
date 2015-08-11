@@ -7,7 +7,7 @@ date:   Thu 2015-08-10 19:29:09 CDT 2015
 ---
 #+END_HTML
 
-Just as you'd expect from [[http://learnyousomeerlang.com/starting-out-for-real#lists][Erlang]] or [[http://learnyousomeerlang.com/starting-out-for-real#lists][another Lisp]], in [[http://lfe.gitbooks.io/tutorial/content/sequential/lists.html][LFE]], lists are composed of
+Just as you'd expect from [[http://learnyousomeerlang.com/starting-out-for-real#lists][Erlang]] or [[http://clojure.org/lisps][another Lisp]], in [[http://lfe.gitbooks.io/tutorial/content/sequential/lists.html][LFE]], lists are composed of
 [[http://cs.gmu.edu/~sean/lisp/cons/][/cons cells/]] and when you use pattern matching to bind the head and tail of a
 singleton list, ~head~ holds the single element and ~tail~ is the empty list.
 
