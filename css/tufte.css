@@ -618,15 +618,15 @@ span.newthought {
 .src:before {
   color: black;
 }
-.src {
+.src, .example {
   color: white;
   background: #272822; /* #1d1e19; */
 }
-.org-src-container {
+.org-src-container, .example {
   font-size: 11pt;
   width: 48.5em;
 }
-.org-src-container pre {
+.org-src-container pre, .example {
   padding: .5rem .25rem;
 }
 /*-- End EB org src config --*/
