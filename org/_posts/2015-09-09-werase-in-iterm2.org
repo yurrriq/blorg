@@ -13,7 +13,7 @@ since (apparently) I use ~werase~ all the time.
 
 Without further ado, here's the time-saving fix I settled on.
 
-[[file:assets/img/werase.png]]
+[[http://blorg.ericb.me/assets/img/werase.png]]
 
 Shout out to to [[https://manytricks.com/keycodes/][Key Codes]] (and [[http://brew.sh][Homebrew]]) for making it easy to find the
 appropriate hex code.
