@@ -621,7 +621,7 @@ span.newthought {
 .src, .example {
   color: white;
   background: #272822; /* #1d1e19; */
-  overflow-x: scroll;
+  overflow-x: auto;
   max-width: 48.5em;
 }
 .org-src-container, .example {
