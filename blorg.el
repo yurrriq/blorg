@@ -35,7 +35,7 @@
    'org-publish-project-alist
    '("org-static-blorg"
      :base-directory "~/src/yurrriq/blorg/org/"
-     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|ly\\|pdf\\|scm\\|svg\\|mp3"
+     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|lfe\\|ly\\|pdf\\|scm\\|svg\\|mp3"
      :publishing-directory "~/src/yurrriq/blorg/jekyll/"
      :recursive t
      :publishing-function org-publish-attachment))
