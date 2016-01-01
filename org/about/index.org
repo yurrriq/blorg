@@ -7,4 +7,4 @@ title: About
 ---
 #+END_HTML
 
-[[http://orgmode.org][Org mode]] + [[http://jekyllrb.com][Jekyll]] + [[https://github.com/clayh53/tufte-jekyll][Tufte theme]] = :heart_eyes:
+[[http://orgmode.org][Org]] + [[http://jekyllrb.com][Jekyll]] + [[https://github.com/clayh53/tufte-jekyll][Tufte]] = :heart_eyes:
