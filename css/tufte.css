@@ -303,8 +303,10 @@ cite {
 pre code, pre code p, code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   color: #222;
-  font-size: 1.2rem;
-  line-height: 1.63333333333; }
+  /* font-size: 1.2rem; */
+  /* line-height: 1.63333333333; */
+  font-size: 1rem;
+  line-height: 1.2; }
 
 pre {
   margin-top: 1.4rem;
