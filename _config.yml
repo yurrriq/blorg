@@ -1,8 +1,8 @@
 title: ls blorg/_posts
 subtitle: 'Varyingly incoherent ramblings of a hacker/musician'
 author: Eric Bailey
-markdown: rdiscount
-highlighter: pygments
+# markdown: kramdown
+# highlighter: rouge
 permalink: /:year/:month/:title
 timezone: America/Chicago
 excerpt_separator: <!--more-->  # you can specify your own separator, of course.
