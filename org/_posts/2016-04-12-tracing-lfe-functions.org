@@ -1,0 +1,119 @@
+#+OPTIONS: toc:nil ^:{}
+#+BEGIN_HTML
+---
+layout: post
+title:  "Tracing LFE Functions"
+date:   Thu 2016-04-12 01:23:42 CDT
+---
+#+END_HTML
+
+What follows is an LFE translation of Roberto Aloi's [[https://aloiroberto.wordpress.com/2009/02/23/tracing-erlang-functions/][/Tracing Erlang Functions/]].
+
+Tracing LFE functions for debugging purposes is quite simple.
+
+Let's say you have the following module and want to trace one of its functions.
+#+NAME: math
+#+BEGIN_SRC lfe :tangle ../assets/code/maths.lfe
+(defmodule maths
+  (export (sum 2) (diff 2)))
+
+(defun sum (a b) (+ a b))
+
+(defun diff (a b) (- a b))
+#+END_SRC
+
+Before we get started, make sure you compile the =maths= module:
+#+NAME: compile maths
+#+BEGIN_SRC lfe
+(c "/path/to/maths.lfe")
+#+END_SRC
+
+#+RESULTS: compile maths
+#+BEGIN_SRC lfe
+(#(module maths))
+#+END_SRC
+
+Just start the tracer:
+#+NAME: start the tracer
+#+BEGIN_SRC lfe :exports both :results code
+(dbg:tracer)
+#+END_SRC
+
+#+RESULTS: start the tracer
+#+BEGIN_SRC lfe
+#(ok <0.37.0>)
+#+END_SRC
+
+Tell the tracer you are interested in all calls for all processes:
+#+NAME: all calls for all processes
+#+BEGIN_SRC lfe :exports both :results code
+(dbg:p 'all 'c)
+#+END_SRC
+
+#+RESULTS: all calls for all processes
+#+BEGIN_SRC lfe
+#(ok (#(matched nonode@nohost 26)))
+#+END_SRC
+
+Finally, tell it you want to trace the function, =sum=, from the =maths= module:
+#+NAME: trace maths:sum/2
+#+BEGIN_SRC lfe :exports both :results code
+(dbg:tpl 'maths 'sum [])
+#+END_SRC
+
+#+RESULTS: trace maths:sum/2
+#+BEGIN_SRC lfe
+#(ok (#(matched nonode@nohost 1)))
+#+END_SRC
+
+Now, try to call the function, as usual. The tracer is active!
+#+NAME: call maths:sum/2
+#+BEGIN_SRC lfe :exports both :results code
+(maths:sum 2 3)
+#+END_SRC
+
+#+RESULTS: call maths:sum/2
+#+BEGIN_SRC lfe
+5
+(<0.29.0>) call maths:sum(2,3)
+#+END_SRC
+
+To trace all functions from the =maths= module:
+#+NAME: trace all functions from the maths module
+#+BEGIN_SRC lfe
+> (dbg:tpl 'maths [])
+#+END_SRC
+
+To trace the return value for a given function:
+#+NAME: trace return values
+#+BEGIN_SRC lfe :exports both :results code
+(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
+#+END_SRC
+
+#+RESULTS: trace return values
+#+BEGIN_SRC lfe
+#(ok (#(matched nonode@nohost 1) #(saved 1)))
+#+END_SRC
+
+#+NAME: (return_trace) example
+#+BEGIN_SRC lfe :exports both :results code
+(maths:sum 19 23)
+#+END_SRC
+
+#+RESULTS: (return_trace) example
+#+BEGIN_SRC lfe
+42
+(<0.47.0>) call maths:sum(19,23)
+(<0.47.0>) returned from maths:sum/2 -> 42
+#+END_SRC
+
+To stop the trace:
+#+NAME: stop the trace
+#+BEGIN_SRC lfe :exports both :results code
+(dbg:stop)
+#+END_SRC
+
+#+RESULTS: stop the trace
+#+BEGIN_SRC lfe
+ok
+#+END_SRC
