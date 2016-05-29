@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>blorg.ericb.me - Lisp Flavoured Erlang and Pynchon, oh my!</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
+    <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://use.fontawesome.com/668158b00e.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="group">
+        <a href="../../../"><img class="badge" src="../../../images/glider.svg" alt="Glider" /></a>
+        <a href="../../../about/">About</a>
+        <!-- <a href="/contact.html">Contact</a> -->
+        <a href="../../../archive/">Archive</a>
+        <a href="https://github.com/yurrriq/blorg">Source</a>
+      </nav>
+    </header>
+
+    <div id="content">
+      <h1>Lisp Flavoured Erlang and Pynchon, oh my!</h1>
+
+      <div class="info">
+  Posted on  6 August, 2015
+  
+</div>
+
+<p>
+So, lately I've been getting increasingly into <a href="http://lfe.io">Lisp Flavoured Erlang (LFE)</a>.  If
+you haven't tried it yet, or even if you have, check out the <a href="http://help.exercism.io/getting-started-with-lfe.html">Exercism.io track</a> I
+helped organize.  My latest endeavour is porting Robert Levy's <a href="https://github.com/rplevy/swiss-arrows">swiss-arrows</a> from
+Clojure to LFE.  It's been going well so far, despite having to rename it to
+<a href="https://github.com/yurrriq/pynchon">pynchon</a>, since Erlang wasn't down with the hyphenated name and a few people on
+the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang">LFE Google group</a> suggested it.
+</p>
+
+
+<p>
+Without further ado, here's a contrived example:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
+     <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
+            <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
+            <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
+            <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+     <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
+     <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+<b>Note</b>: <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and
+macros for LFE.
+</p>
+
+<p>
+The wild-looking form above expands to something more like:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt;
+ <span style="color: #66D9EF;">(</span><span style="color: #F92672;">progn</span>
+   <span style="color: #A6E22E;">(</span>lfe_io:format
+    '<span style="color: #E6DB74;">"non-updating: ~p\n"</span>
+    <span style="color: #E6DB74;">(</span><span style="color: #F92672;">list</span>
+     <span style="color: #FD971F;">(</span>lists:flatten
+      <span style="color: #F92672;">(</span>lists:duplicate 3 <span style="color: #AE81FF;">(</span>string:substr <span style="color: #E6DB74;">"testing"</span> 1 4<span style="color: #AE81FF;">)</span><span style="color: #F92672;">)</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+   <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span>
+ <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
+ <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+After that, it becomes apparent the "return track" is rather simple:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> <span style="color: #66D9EF;">(</span>string:substr 5 <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
+       <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
+              <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
+              <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
+              <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+       <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
+       <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+non-updating: <span style="color: #E6DB74;">"testtesttest"</span> <span style="color: #75715E;">; printed</span>
+<span style="color: #E6DB74;">"winning"</span>                    <span style="color: #75715E;">; returned</span>
+</pre>
+</div>
+
+
+    </div>
+    <footer>
+      <ul class="footer-links group">
+        <li>
+          <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a>
+        </li>
+      </ul>
+      <!-- <ul class="footer-links group"> -->
+      <!--   <\!-- <li><a href="mailto:hate@spam.net"><span class="icon-mail"></span></a></li> -\-> -->
+      <!--   {% for entry in site.data.social %} -->
+      <!--   <li> -->
+      <!--     <a href="{{ entry.link }}"><span class="{{ entry.icon }}"></span></a> -->
+      <!--   </li> -->
+      <!--   {% endfor %} -->
+      <!-- </ul> -->
+      <div class="credits">
+        <!-- <span>&copy; {{ site.time | date: '%Y' }} {{site.author | upcase }}</span><br /> -->
+        <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample">
+          <img alt="Open Hub profile for Eric Bailey" border="0" height="35" src="https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample" width="230">
+          </a><br />
+          <!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -->
+          <!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -->
+          <!--        width="208" -->
+          <!--        height="58" -->
+          <!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -->
+          <!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -->
+          <!--   </a><br /> -->
+            <span>This site was created with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a> in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span>
+          </div>
+        </footer>
+      </body>
+    </html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>blorg.ericb.me - Matching strings in LFE patterns</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
+    <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://use.fontawesome.com/668158b00e.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="group">
+        <a href="../../../"><img class="badge" src="../../../images/glider.svg" alt="Glider" /></a>
+        <a href="../../../about/">About</a>
+        <!-- <a href="/contact.html">Contact</a> -->
+        <a href="../../../archive/">Archive</a>
+        <a href="https://github.com/yurrriq/blorg">Source</a>
+      </nav>
+    </header>
+
+    <div id="content">
+      <h1>Matching strings in LFE patterns</h1>
+
+      <div class="info">
+  Posted on 28 December, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<p>
+While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 of Advent of Code</a>, I found myself
+wanting to write <code>parse_instruction/1</code> like this:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-erlang"><span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"toggle "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">toggle</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>));
+<span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"turn on "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">turn_on</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>));
+<span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"turn off "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">turn_off</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>)).
+
+<span style="color: #A6E22E;">parse_coordinates</span>(<span style="color: #FD971F;">String</span>) -&gt;
+  {ok,[<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>,<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y2</span>],[]} = <span style="color: #66D9EF;">io_lib</span>:<span style="color: #66D9EF;">fread</span>(<span style="color: #E6DB74;">"~d,~d through ~d,~d"</span>, <span style="color: #FD971F;">String</span>),
+  {{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}.
+
+<span style="color: #A6E22E;">toggle</span>({{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}) -&gt;<span style="color: #A6E22E;"> </span>undefined.
+<span style="color: #A6E22E;">turn_on</span>({{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}) -&gt;<span style="color: #A6E22E;"> </span>undefined.
+<span style="color: #A6E22E;">turn_off</span>({{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}) -&gt;<span style="color: #A6E22E;"> </span>undefined.
+</pre>
+</div>
+
+<p>
+But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">parse-instruction</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"turn off "</span> rest<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span>
+   ...<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"prefix"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+f
+&gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
+exception error: function_clause
+</pre>
+</div>
+
+<p>
+After this discovery, I took to <a href="http://webchat.freenode.net/?channels=erlang-lisp">#erlang-lisp</a> and tried to figure out why.
+Discussing the issue with <code>@rvirding</code> for a few minutes, we decided adding <code>++*</code>
+and having patterns like <code>(++* "prefix" suffix)</code> expand to nested <code>cons</code>-es was
+a solid approach.
+</p>
+
+<p>
+N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-erlang"><span style="color: #75715E;">%% </span><span style="color: #75715E;">Cases with lists of numbers (strings).</span>
+[[<span style="color: #FD971F;">N</span>|<span style="color: #FD971F;">Ns</span>]|<span style="color: #FD971F;">Es</span>] <span style="color: #F92672;">when</span> <span style="color: #F92672;">is_number</span>(<span style="color: #FD971F;">N</span>) -&gt;<span style="color: #A6E22E;"> </span>[cons,<span style="color: #FD971F;">N</span>,[<span style="color: #E6DB74;">'++'</span>,<span style="color: #FD971F;">Ns</span>|<span style="color: #FD971F;">Es</span>]];
+</pre>
+</div>
+
+<p>
+Rather than take the overly complicated approach of counting and limiting the
+number of expanded <code>cons</code>-es and bottoming out to a call to <code>erlang:++</code>, we
+decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep it simple</a> and just let <code>++*</code> patterns do their own thing.
+</p>
+
+<p>
+The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-erlang"><span style="color: #75715E;">%% </span><span style="color: #75715E;">exp_predef(...) -&gt; ...;</span>
+<span style="color: #A6E22E;">exp_predef</span>([<span style="color: #E6DB74;">'++*'</span>|<span style="color: #FD971F;">Abody</span>], <span style="color: #FD971F;">_</span>, <span style="color: #FD971F;">St</span>) -&gt;
+  <span style="color: #FD971F;">Exp</span> = <span style="color: #66D9EF;">exp_prefix</span>(<span style="color: #FD971F;">Abody</span>),
+  {yes,<span style="color: #FD971F;">Exp</span>,<span style="color: #FD971F;">St</span>};
+<span style="color: #75715E;">%% </span><span style="color: #75715E;">exp_predef(...) -&gt; ....</span>
+
+<span style="color: #A6E22E;">exp_prefix</span>([[<span style="color: #FD971F;">N</span>|<span style="color: #FD971F;">Ns</span>]|<span style="color: #FD971F;">Es</span>]) <span style="color: #F92672;">when</span> <span style="color: #F92672;">is_number</span>(<span style="color: #FD971F;">N</span>) -&gt;<span style="color: #A6E22E;"> </span>[cons,<span style="color: #FD971F;">N</span>,[<span style="color: #E6DB74;">'++*'</span>,<span style="color: #FD971F;">Ns</span>|<span style="color: #FD971F;">Es</span>]];
+<span style="color: #A6E22E;">exp_prefix</span>([[]|<span style="color: #FD971F;">Es</span>]) -&gt;<span style="color: #A6E22E;"> </span>[<span style="color: #E6DB74;">'++*'</span>|<span style="color: #FD971F;">Es</span>];
+<span style="color: #A6E22E;">exp_prefix</span>(<span style="color: #FD971F;">Args</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">exp_append</span>(<span style="color: #FD971F;">Args</span>).
+</pre>
+</div>
+
+<p>
+Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span>++* <span style="color: #E6DB74;">"prefix"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+f
+&gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
+<span style="color: #E6DB74;">"suffix"</span>
+</pre>
+</div>
+
+<p>
+or even:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span>++* <span style="color: #E6DB74;">"p"</span> <span style="color: #E6DB74;">"r"</span> <span style="color: #E6DB74;">"e"</span> <span style="color: #E6DB74;">"f"</span> <span style="color: #E6DB74;">"i"</span> <span style="color: #E6DB74;">"x"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+f
+&gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
+<span style="color: #E6DB74;">"suffix"</span>
+</pre>
+</div>
+
+
+    </div>
+    <footer>
+      <ul class="footer-links group">
+        <li>
+          <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a>
+        </li>
+      </ul>
+      <!-- <ul class="footer-links group"> -->
+      <!--   <\!-- <li><a href="mailto:hate@spam.net"><span class="icon-mail"></span></a></li> -\-> -->
+      <!--   {% for entry in site.data.social %} -->
+      <!--   <li> -->
+      <!--     <a href="{{ entry.link }}"><span class="{{ entry.icon }}"></span></a> -->
+      <!--   </li> -->
+      <!--   {% endfor %} -->
+      <!-- </ul> -->
+      <div class="credits">
+        <!-- <span>&copy; {{ site.time | date: '%Y' }} {{site.author | upcase }}</span><br /> -->
+        <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample">
+          <img alt="Open Hub profile for Eric Bailey" border="0" height="35" src="https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample" width="230">
+          </a><br />
+          <!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -->
+          <!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -->
+          <!--        width="208" -->
+          <!--        height="58" -->
+          <!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -->
+          <!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -->
+          <!--   </a><br /> -->
+            <span>This site was created with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a> in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span>
+          </div>
+        </footer>
+      </body>
+    </html>
