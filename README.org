@@ -1,4 +1,20 @@
+#+STARTUP: showall
+
 * blorg
+Install [[http://haskellstack.org][Stack]]:
+#+BEGIN_SRC fish
+brew install haskell-stack
+#+END_SRC
+
+Publish [[http://orgmode.org][Org]] posts:
 #+BEGIN_EXAMPLE
 C-c C-e P p >>= blog
 #+END_EXAMPLE
+
+The [[file:Makefile][Makefile]] requires GNU Make ≥ 3.82 in order to use ~.ONESHELL:~
+for the ~deploy~ target. This is kinda lame, but it gets the job done.
+
+On my Mac, this means I have to call the following to deploy the site:
+#+BEGIN_SRC fish
+gmake deploy
+#+END_SRC
