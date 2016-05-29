@@ -1,4 +1,0 @@
-[submodule "jekyll"]
-	path = jekyll
-	url = git@github.com:yurrriq/blorg.git
-	branch = gh-pages
