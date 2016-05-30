@@ -1,9 +1,8 @@
 #+OPTIONS: toc:nil
 #+BEGIN_HTML
 ---
-layout: post
 title:  "werase in iTerm2"
-date:   Thu 2015-09-09 21:41:42 CDT 2015
+author: Eric Bailey
 ---
 #+END_HTML
 

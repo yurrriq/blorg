@@ -15,10 +15,16 @@
 (unless (boundp 'org-publish-project-alist)
   (setq org-publish-project-alist '(())))
 
-(let* ((base-directory default-directory)
-       (publishing-directory
-        (concat (file-name-directory (directory-file-name base-directory))
-                "hakyll/")))
+;; When run in the Makefile, `default-directory' is hakyll.
+;; As such, load this file from the hakyll directory, i.e.
+;;
+;;     gmake -C hakyll org-setup
+;;
+;; or similar.
+(let* ((base-directory
+        (concat (file-name-directory (directory-file-name default-directory))
+                "src/"))
+       (publishing-directory default-directory))
   ;; Reference: http://orgmode.org/worg/org-tutorials/org-jekyll.html#text-4
   (add-to-list
    'org-publish-project-alist

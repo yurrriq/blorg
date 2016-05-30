@@ -2,7 +2,7 @@
 #+BEGIN_HTML
 ---
 title:  "Bye Bye, Jekyll!"
-author: Eric
+author: Eric Bailey
 ---
 #+END_HTML
 
