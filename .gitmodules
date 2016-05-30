@@ -1,0 +1,4 @@
+[submodule "hakyll/_site"]
+	path = hakyll/_site
+	url = git@github.com:yurrriq/blorg.git
+	branch = gh-pages
