@@ -1,0 +1,13 @@
+#+OPTIONS: toc:nil ^:{}
+#+BEGIN_HTML
+---
+title:  "exercism.io"
+author: Eric
+---
+#+END_HTML
+
+[[http://xkcd.com/353/][Hello, world!]] I started working on the [[http://exercism.io/languages/clojure][Clojure exercises]] from [[http://exercism.io/about][exercism.io]].
+
+Feel free to nitpick [[http://exercism.io/yurrriq][my solutions]], and browse the [[https://github.com/yurrriq/exercism/tree/clojure][source on GitHub]].
+
+Maybe this will prove to be a fun way to explore [[https://github.com/yurrriq/exercism/branches/all][different languages]].
