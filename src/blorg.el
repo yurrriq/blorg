@@ -15,17 +15,10 @@
 (unless (boundp 'org-publish-project-alist)
   (setq org-publish-project-alist '(())))
 
-;; When run in the Makefile, `default-directory' is hakyll.
-;; As such, load this file from the hakyll directory, i.e.
-;;
-;;     gmake -C hakyll org-setup
-;;
-;; or similar.
 (let* ((base-directory
         (concat (file-name-directory (directory-file-name default-directory))
                 "src/"))
        (publishing-directory default-directory))
-  ;; Reference: http://orgmode.org/worg/org-tutorials/org-jekyll.html#text-4
   (add-to-list
    'org-publish-project-alist
    `("blorg"
@@ -42,18 +35,6 @@
      :htmlized-source      t
      :body-only            t)))
 
-;;; Evaluating the following will remove the "blorg" config from
-;;; org-publish-project-alist so we can reset it. with the add-to-list
-;;; form above.
-
-;; (setq org-publish-project-alist
-;;       (delete (assoc "blorg" org-publish-project-alist)
-;;               org-publish-project-alist))
-
-;;; The following is based on work by Kris Jekins and can be found on
-;;; Stack Overflow: http://stackoverflow.com/a/14841597/1793234
-
-;; TODO: Consider making the relative image path customizable.
 (defun org-img-follow (path)
   "Given a relative site `PATH', correct it for Emacs."
   (org-open-file-with-emacs (format "../../images/%s" path)))
@@ -64,8 +45,6 @@ N.B. This only works when `FORMAT' is 'html."
   (cond ((eq format 'html)
          (format "<img src=\"/images/%s\" alt=\"%s\" />" path desc))))
 
-;; Add "img" to the list of `org-link-types', facilitating proper handling of
-;; e.g. [[img:cool.gif]] in blog posts.
 (org-add-link-type "img" 'org-img-follow 'org-img-export)
 
 ;;; blorg.el ends here
