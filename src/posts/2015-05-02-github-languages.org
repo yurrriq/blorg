@@ -1,0 +1,59 @@
+#+OPTIONS: toc:nil ^:{}
+#+BEGIN_HTML
+---
+title:  "GitHub Languages"
+author: Eric
+---
+#+END_HTML
+
+I wrote a little [[http://clojure.org][Clojure]] script[fn:1] to gather the language usage data from
+[[https://github.com/yurrriq?tab=repositories][my GitHub repos]] and sort them in descending order of popularity.
+
+#+BEGIN_SRC json
+{
+  "Ruby" : 4401525,
+  "Java" : 1800870,
+  "Clojure" : 1406457,
+  "LilyPond" : 226858,
+  "Scheme" : 224389,
+  "Common Lisp" : 127554,
+  "HTML" : 111217,
+  "Shell" : 47589,
+  "CSS" : 41034,
+  "Groff" : 25188,
+  "C++" : 16378,
+  "NewLisp" : 15399,
+  "JavaScript" : 12714,
+  "Erlang" : 8041,
+  "Objective-C" : 3825,
+  "Python" : 3285,
+  "Perl6" : 2976,
+  "PLSQL" : 2919,
+  "Scala" : 2814,
+  "Emacs Lisp" : 2420,
+  "OCaml" : 2055,
+  "Elixir" : 1788,
+  "CoffeeScript" : 1787,
+  "PHP" : 1704,
+  "CMake" : 1618,
+  "Lua" : 1160,
+  "Go" : 1025,
+  "Perl" : 844,
+  "Haskell" : 801,
+  "F#" : 799,
+  "C#" : 585,
+  "PostScript" : 485,
+  "Swift" : 467,
+  "Makefile" : 220,
+  "Frege" : 53
+}
+#+END_SRC
+
+*Note*: I don't use Ruby, except when [[https://www.openhub.net/p/homebrew/contributors/2025442152889863][contributing]] to [[http://brew.sh/][Homebrew]]. I also have a
+repo or two of [[https://github.com/yurrriq/exercism][polyglot coding exercises]], which, of course, skew the results.
+
+For the script and an example config, check out [[https://gist.github.com/yurrriq/3272c6b9ebfa699472b9][the gist]].
+
+* Footnotes
+
+[fn:1] Not to be confused with [[https://github.com/clojure/clojurescript][ClojureScript]].

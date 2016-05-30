@@ -1,0 +1,64 @@
+#+OPTIONS: toc:nil ^:{}
+#+BEGIN_HTML
+---
+title:  "#'clojure.core/some-> and the Power of Macros"
+author: Eric
+---
+#+END_HTML
+
+[[http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/][Homoiconicity]], and [[https://twitter.com/yurrriq/status/536036269222936576][metaprogramming]], and [[http://learnxinyminutes.com/docs/clojure-macros/][macros]]! Oh my!
+
+In 2015, my love for these [[http://xkcd.com/297/][elegant weapons]] will undoubtedly [[https://twitter.com/yurrriq/status/525703812833890305][grow fonder]].
+
+#+BEGIN_SRC clojure
+(comment
+  ;; #'clojure.core/some-> is one my favorite Clojure macros.
+  (some-> (meta #'clojure.core/some->) :doc println)
+  ;; When expr is not nil, threads it into the first form (via ->),
+  ;; and when that result is not nil, through the next etc
+
+  (macroexpand '(some-> (meta #'clojure.core/some->) :doc println))
+
+  (let* [G__2986 (meta (var clojure.core/some->))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-> G__2986 :doc))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-> G__2986 println))]
+    G__2986)
+
+  ;; Rewritten more readably to illustrate the point:
+  (let [example (meta #'clojure.core/some->)
+        example (when-not (nil? example)
+                  (:doc example))
+        example (when-not (nil? example)
+                  (println example))]
+    example)
+
+  ;; Which brings me to another of my scattered thoughts,
+  ;; Clojure has the #'clojure.core/when-not macro, but
+  ;; for some reason, I find myself wanting to use 'unless,
+  ;; as in Common Lisp:
+  (defmacro unless (condition &rest body)
+    `(if (not ,condition) (progn ,@body)))
+
+  ;; What better excuse to start writing my own macros?
+  (ns fastidious.macros)
+
+  (defmacro unless
+    [condition & body] `(if (not ~condition) (do ~@body)))
+
+  ;; Side bonus: I used my desire for 'unless to drive
+  ;; my experiments in integrating macros in ClojureScript,
+  ;; with underwhelming success. It just works.
+  (ns client.core
+    (:require-macros [fastidious.macros :refer [unless]]))
+
+  (let [lisp-is-lame? false]
+    (unless lisp-is-lame?
+      (println "IFL Lisp.")
+      (println "Next up: /c[ad]{1,5}r/"))))
+#+END_SRC
+
+See also: [[https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213][~#'clojure.core/some->~ source]] on GitHub
