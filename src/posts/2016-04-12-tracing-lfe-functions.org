@@ -2,7 +2,7 @@
 #+BEGIN_HTML
 ---
 title:  "Tracing LFE Functions"
-author: Eric
+author: Eric Bailey
 ---
 #+END_HTML
 

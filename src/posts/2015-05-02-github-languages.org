@@ -2,7 +2,7 @@
 #+BEGIN_HTML
 ---
 title:  "GitHub Languages"
-author: Eric
+author: Eric Bailey
 ---
 #+END_HTML
 

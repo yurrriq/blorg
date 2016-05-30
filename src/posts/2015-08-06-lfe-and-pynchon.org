@@ -1,9 +1,8 @@
 #+OPTIONS: toc:nil
 #+BEGIN_HTML
 ---
-layout: post
 title:  "Lisp Flavoured Erlang and Pynchon, oh my!"
-date:   Thu 2015-08-06 05:43:33 CDT 2015
+author: Eric Bailey
 ---
 #+END_HTML
 

@@ -1,9 +1,8 @@
 #+OPTIONS: toc:nil
 #+BEGIN_HTML
 ---
-layout: post
 title:  "Hello, world!"
-date:   Fri Jul 10 04:53:29 CDT 2015
+author: Eric Bailey
 ---
 #+END_HTML
 

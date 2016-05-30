@@ -1,9 +1,8 @@
 #+OPTIONS: toc:nil
 #+BEGIN_HTML
 ---
-layout: post
 title:  "Unable to find dad"
-date:   Mon Jul 13 15:55:56 CDT 2015
+author: Eric Bailey
 ---
 #+END_HTML
 
