@@ -1,6 +1,6 @@
 # N.B. This requires Gnu Make >= 3.82 for ONESHELL to work as expected.
 
-SITE_DIR= $(addprefix $(dir $(PWD)), blorg-site)
+SITE_DIR= $(addprefix $(dir $(dir $(PWD))), blorg-site)
 SITE    = @stack exec site
 
 build: ; $(SITE) build

@@ -1,5 +1,0 @@
----
-title: About
----
-
-[[http://orgmode.org/][Org]] + [[https://jaspervdj.be/hakyll/][Hakyll]] + [[https://github.com/clayh53/tufte-jekyll][Tufte]] =  😍

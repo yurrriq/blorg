@@ -1,4 +1,1 @@
-.stack-work/
-_cache
-_site
-posts
+*.beam

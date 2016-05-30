@@ -1,0 +1,18 @@
+#+OPTIONS: toc:nil
+#+BEGIN_HTML
+---
+title:  "icanhazip.com"
+author: Eric Bailey
+---
+#+END_HTML
+
+Often, I find myself needing to know the public IP address of a box I'm
+hacking on. [[http://icanhazip.com][icanhazip.com]] has become my favorite tool for the task.
+
+#+BEGIN_SRC sh
+𝛌 curl icanhazip.com # yass, u can
+#+END_SRC
+
+In my experiments it was the fastest, and I've got a penchant for [[http://www.catb.org/jargon/html/K/KISS-Principle.html][KISS]]ing.
+
+I made [[https://gist.github.com/yurrriq/7fc7634dd00494072f45][a gist]] with a few backups, just in case.
