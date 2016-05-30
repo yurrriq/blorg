@@ -1,9 +1,8 @@
 #+OPTIONS: toc:nil
 #+BEGIN_HTML
 ---
-layout: post
 title:  "So 2016. Much BEAM. Very polyglot."
-date:   Thu 2016-01-01 02:42:42 CDT
+author: Eric Bailey
 ---
 #+END_HTML
 

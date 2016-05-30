@@ -2,7 +2,7 @@
 #+BEGIN_HTML
 ---
 title:  "#'clojure.core/some-> and the Power of Macros"
-author: Eric
+author: Eric Bailey
 ---
 #+END_HTML
 

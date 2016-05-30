@@ -1,9 +1,8 @@
 #+OPTIONS: toc:nil
 #+BEGIN_HTML
 ---
-layout: post
 title:  "Cons Cells in Lisp Flavoured Erlang"
-date:   Thu 2015-08-10 19:29:09 CDT 2015
+author: Eric Bailey
 ---
 #+END_HTML
 

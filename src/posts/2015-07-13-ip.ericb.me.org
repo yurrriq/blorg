@@ -1,9 +1,8 @@
 #+OPTIONS: toc:nil
 #+BEGIN_HTML
 ---
-layout: post
 title:  "ip.ericb.me"
-date:   Mon 2015-07-13 20:33:00 CDT 2015
+author: Eric Bailey
 ---
 #+END_HTML
 
