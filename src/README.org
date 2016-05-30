@@ -1,0 +1,100 @@
+#+STARTUP: showall
+* blorg.el
+  :PROPERTIES:
+  :tangle:   blorg.el
+  :END:
+Front matter:
+#+BEGIN_SRC elisp
+;;; blorg.el -- blorg.ericb.me ox-publish config
+
+;; Author: Eric Bailey <eric@ericb.me>
+;; URL: http://blorg.ericb.me
+
+;;; Commentary:
+
+;; This package ensures the blorg project is in `org-publish-project-alist'.
+
+;;; Code:
+#+END_SRC
+
+Require [[https://github.com/codeasone/org-mode/blob/master/lisp/ox-publish.el][ox-publish]] so we can configure it
+and [[https://github.com/lfe-support/ob-lfe][ob-lfe]] so we can evaluate [[http://lfe.io][LFE]] code in Org mode.
+#+BEGIN_SRC elisp
+(require 'ox-publish)
+(require 'ob-lfe)
+#+END_SRC
+
+Set ~org-publish-project-alist~ to the empty association list if it's not
+already bound. Otherwise, the ~add-to-list~ call below would fail.
+#+BEGIN_SRC elisp
+(unless (boundp 'org-publish-project-alist)
+  (setq org-publish-project-alist '(())))
+#+END_SRC
+
+When run in the [[file:~/src/yurrriq/blorg/hakyll/Makefile][Makefile]], ~default-directory~ is =hakyll=.
+As such, load this file from the [[file:~/src/yurrriq/blorg/hakyll][hakyll]] directory, e.g.
+#+BEGIN_SRC fish :tangle no
+gmake -C hakyll org-setup
+#+END_SRC
+
+Based on the tutorial, [[http://orgmode.org/worg/org-tutorials/org-jekyll.html#text-4][Using org to Blog with Jekyll]],
+configure Org HTML export to play nice with [[https://jaspervdj.be/hakyll/][Hakyll]].
+#+BEGIN_SRC elisp
+(let* ((base-directory
+        (concat (file-name-directory (directory-file-name default-directory))
+                "src/"))
+       (publishing-directory default-directory))
+  (add-to-list
+   'org-publish-project-alist
+   `("blorg"
+     :base-directory       ,base-directory
+     :base-extension       "org"
+     :publishing-directory ,publishing-directory
+     :publishing-function  org-html-publish-to-html
+     :exclude              "\\(README\\|setup\\).org"
+     :fontify-natively     t
+     :recursive            t
+     :section-numbers      nil
+     :html-doctype         "html5"
+     :html-extension       "html"
+     :htmlized-source      t
+     :body-only            t)))
+#+END_SRC
+
+Evaluating the following will remove the =​"blorg"​= config from
+~org-publish-project-alist~ so we can reset it via ~add-to-list~.
+
+#+BEGIN_SRC elisp :tangle no
+(setq org-publish-project-alist
+      (delete (assoc "blorg" org-publish-project-alist)
+              org-publish-project-alist))
+#+END_SRC
+
+The following is based on work by Kris Jenkins on [[http://stackoverflow.com/a/14841597/1793234][Stack Overflow]] and enables
+proper handling of relative image URLs in blog posts. All I did was add
+docstrings and tweak the whitespace.
+
+Someday, it might worth making =​"../../images/%s"​= configurable. I have no need
+for it now, but it could be cool.
+#+BEGIN_SRC elisp
+(defun org-img-follow (path)
+  "Given a relative site `PATH', correct it for Emacs."
+  (org-open-file-with-emacs (format "../../images/%s" path)))
+
+(defun org-img-export (path desc format)
+  "Given a relative site `PATH', `DESC'ription and `FORMAT' return an <IMG>.
+N.B. This only works when `FORMAT' is 'html."
+  (cond ((eq format 'html)
+         (format "<img src=\"/images/%s\" alt=\"%s\" />" path desc))))
+#+END_SRC
+
+Add =​"img"​= to the list of ~org-link-types~, facilitating proper handling of
+e.g. ~[[img:cool.gif]]~.
+#+BEGIN_SRC elisp
+(org-add-link-type "img" 'org-img-follow 'org-img-export)
+#+END_SRC
+
+Back matter:
+#+BEGIN_SRC elisp
+;;; blorg.el ends here
+#+END_SRC
