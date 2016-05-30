@@ -1,0 +1,34 @@
+#+OPTIONS: toc:nil ^:{}
+#+BEGIN_HTML
+---
+title:  "Bye Bye, Jekyll!"
+author: Eric
+---
+#+END_HTML
+
+Back in December of 2014, I set up a blog using [[https://ghost.org][Ghost]] and [[https://github.com/axitkhurana/buster/][Buster]]. That was all
+fine and good, but left quite a bit to be desired. I'm not a Python user and the
+whole workflow was a bit too clunky for my taste.
+
+In July of 2015, I decided to migrate to [[http://jekyllrb.com][Jekyll]]. It's pretty widely used and the
+integration with [[https://pages.github.com][GitHub Pages]] promised to be smooth and easy.  In practice, I
+found its workflow to be similarly annoying. Worst of all, it made me install,
+write and use Ruby[fn:1].  What's more, GitHub seems to have a predilection for
+breaking things so often and dramatically, that [[https://github.com/lfex/dragon][dragon]] was born.
+
+[[http://haskellbook.com][Learning Haskell]] has been a [[https://www.youtube.com/watch?v=-1YjmXSyHa8][fantastic voyage]]. Although I've not yet used it for
+any "real" projects, I'm sold on its expressivity and general
+mind-expanding-ness. I had seen [[https://jaspervdj.be/hakyll/][Hakyll]] pop up on my radar a few times and
+considered migrating to it for quite a while. Last night, I finally made the
+leap. The experience was so great, I can't believe I didn't do it sooner.
+
+From now on[fn:2], my blog will be powered by [[https://jaspervdj.be/hakyll/][Hakyll]]. You can find my [[https://github.com/yurrriq/blorg/blob/master/src/site.hs][site.hs]],
+which will undoubtedly grow and change over time, [[https://github.com/yurrriq/blorg][on GitHub]].
+
+Good riddance.
+
+* Footnotes
+
+[fn:2] ... at least until [[https://github.com/lfex/dragon][dragon]] matures or I find an even better alternative.
+
+[fn:1] I'm a long-time Ruby hater. #sorrynotsorry
