@@ -1,0 +1,128 @@
+#+OPTIONS: toc:nil
+#+BEGIN_HTML
+---
+title:  "(define the-dream (+ 'scheme 'lilypond))"
+author: Eric Bailey
+---
+#+END_HTML
+
+[[img:the-dream-scheme-lilypond.png]]
+
+Lately I've gotten increasingly obsessed with [[http://www.paulgraham.com/lisphistory.html][Lisp family of programming
+languages]] and am determined to write as little non-Lisp code as possible.
+
+As such, I've started experimenting with writing more [[http://www.lilypond.org/doc/v2.19/Documentation/extending/scheme-in-lilypond][Scheme in Lilypond]]. This
+is an entirely impractical example, but it gives a glimpse of what's possible. I
+can't wait to start [[http://www.gnu.org/software/guile/manual/guile.html#List-Mapping][~map~-ping]] lists of musical expressions and [[http://lilypondblog.org/2014/07/trees-music-and-lilypond/][representing
+music as trees]].
+
+*Note to self*: Dive deeper into [[http://lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/][these]] [[http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/][pertinent]] [[http://lilypondblog.org/2014/04/music-functions-3-reusing-code/][blog]] [[http://lilypondblog.org/2014/04/music-functions-4-recursion/][posts]] ASAP.
+
+* [[https://github.com/yurrriq/blorg/tree/master/code/the_dream.scm][~the_dream.scm~]]
+  :PROPERTIES:
+  :tangle:   ../../hakyll/code/the_dream.scm
+  :END:
+#+BEGIN_SRC scheme
+(define riffs
+  (make-hash-table 4))
+
+(hashq-set!
+  riffs 'I
+  #{
+    \mark \markup { I }
+    f4 a c d | f d c a |
+    f4 a c d | ees d c b |
+    #})
+
+(hashq-set!
+  riffs 'IV
+  #{
+    \mark \markup { IV }
+    bes4 d f g | bes g f d |
+    #})
+
+(hashq-set!
+  riffs 'I'
+  #{
+    \mark \markup { "I'" }
+    f,4 a c d | f d c a |
+    #})
+
+(hashq-set!
+  riffs 'V
+  #{
+    \mark \markup { V }
+    g a bes b | c bes a g |
+    #})
+
+(hashq-set!
+  riffs 'turnaround
+  #{
+    f4 f aes aes | g g ges c |
+    #})
+#+END_SRC
+
+* [[https://github.com/yurrriq/blorg/tree/master/code/the_dream.ly][~the_dream.ly~]]
+  :PROPERTIES:
+  :tangle:   ../../hakyll/code/the_dream.ly
+  :noweb:    yes
+  :END:
+#+NAME: lilypond-version
+#+BEGIN_SRC sh :exports none
+# This is hilariously inefficient :)
+lilypond -v | head -n 1 | awk '{printf $3}'
+#+END_SRC
+
+#+BEGIN_SRC lilypond
+\version "<<lilypond-version()>>"
+\include "lilypond-book-preamble.ly"
+\paper { oddFooterMarkup = ##f }
+
+#(load "the_dream.scm")
+
+\score {
+  \relative c' {
+    #(hashq-ref riffs 'I)
+    \break
+    #(hashq-ref riffs 'IV)
+    #(hashq-ref riffs 'I')
+    \break
+    #(hashq-ref riffs 'V)
+    #(hashq-ref riffs 'turnaround)
+    \bar "|."
+  }
+  \layout { indent = 0 }
+}
+#+END_SRC
+
+N.B. This LilyPond code doesn't require version =2.19.x=, so feel free to change
+it to =2.18.x= if you're not [[http://lilypond.org/development.html][living on the edge]].
+
+* Generate the PNG
+  :PROPERTIES:
+  :noweb:    yes
+  :dir:      ../../hakyll/code
+  :results:  none
+  :exports:  none
+  :END:
+#+NAME: generate-png
+#+BEGIN_SRC sh :exports code
+lilypond --png -dresolution=200 -o output the_dream
+#+END_SRC
+
+#+NAME: move-output
+#+BEGIN_SRC sh
+mv output.png ../img/the-dream-scheme-lilypond.png
+#+END_SRC
+
+#+NAME: cleanup
+#+BEGIN_SRC sh
+rm output*.{eps,count,tex*}
+#+END_SRC
+
+#+NAME: just-do-it
+#+BEGIN_SRC sh
+<<generate-png>>
+<<move-output>>
+<<cleanup>>
+#+END_SRC
