@@ -3,6 +3,7 @@
 ---
 title:  "#'clojure.core/some-> and the Power of Macros"
 author: Eric Bailey
+tags: clojure, lisp, metaprogramming
 ---
 #+END_HTML
 

@@ -3,6 +3,7 @@
 ---
 title:  "icanhazip.com"
 author: Eric Bailey
+tags: hack, bash, script
 ---
 #+END_HTML
 

@@ -3,6 +3,7 @@
 ---
 title:  "GitHub Languages"
 author: Eric Bailey
+tags: hack, clojure, script, polyglot
 ---
 #+END_HTML
 

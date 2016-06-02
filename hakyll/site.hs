@@ -1,97 +1,102 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Control.Arrow   (first)
-import           Data.List       (isSuffixOf)
-import           Data.List.Split (splitOn)
-import           Data.Monoid     (mappend)
+import           Control.Monad   (ap, (>=>))
+import           Data.Monoid     (mappend, (<>))
+import           Data.Text       (pack, unpack)
+import qualified Data.Text       as T
 import           Hakyll
-import           System.FilePath (replaceExtension, takeBaseName, takeDirectory,
-                                  takeFileName, (</>))
+import           System.FilePath (takeBaseName, takeDirectory, takeFileName,
+                                  (</>))
 
 
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
-  match "images/*" $ do
-    route   idRoute
-    compile copyFileCompiler
-
-  match "fonts/*" $ do
-    route   idRoute
-    compile copyFileCompiler
-
-  match "css/*" $ do
-    route   idRoute
-    compile compressCssCompiler
-
-  match "code/*" $ do
-    route   idRoute
-    compile copyFileCompiler
+  match "code/*"   $ route idRoute >> compile copyFileCompiler
+  match "css/*"    $ route idRoute >> compile compressCssCompiler
+  match "fonts/*"  $ route idRoute >> compile copyFileCompiler
+  match "images/*" $ route idRoute >> compile copyFileCompiler
 
   match "404.html" $ do
     route   $ idRoute
     compile $ getResourceBody
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeUrls
-      >>= cleanIndexUrls
+      >>= relativizeAndCleanUrls
 
   match "pages/*.html" $ do
     route   $ customRoute ((</> "index.html") . takeBaseName . toFilePath)
     compile $ pandocCompiler
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeUrls
-      >>= cleanIndexUrls
+      >>= relativizeAndCleanUrls
 
-  match "posts/*.html" $ do
+  tags <- buildTags postsPattern (fromCapture "tag/*/index.html")
+
+  tagsRules tags $ \tag pattern -> do
+    route   $ idRoute
+    compile $ do
+      tagCtx <- fmap (postCtxWithTitle (postsAbout tag)) . recentFirst
+               =<< loadAll pattern
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/tag.html"     tagCtx
+        >>= loadAndApplyTemplate "templates/default.html" tagCtx
+        >>= relativizeAndCleanUrls
+
+  match postsPattern $ do
     route   $ postRoute
     compile $ getResourceBody
-      >>= loadAndApplyTemplate "templates/post.html" postCtx
-      >>= loadAndApplyTemplate "templates/default.html" postCtx
-      >>= relativizeUrls
-      >>= cleanIndexUrls
+      >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+      >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+      >>= relativizeAndCleanUrls
 
   create ["posts.html"] $ do
     route   $ cleanRoute
     compile $ do
-      posts <- recentFirst =<< loadAll "posts/*"
-      let archiveCtx = listField "posts" postCtx (return posts) `mappend`
-                       constField "title" "Posts"               `mappend`
-                       defaultContext
+      archiveCtx <- fmap (postCtxWithTitle "All Posts") . recentFirst
+                   =<< loadAll postsPattern
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-        >>= relativizeUrls
-        >>= cleanIndexUrls
+        >>= relativizeAndCleanUrls
 
   match "index.html" $ do
     route   $ customRoute toFileName
     compile $ do
-      posts <- fmap (take 5) . recentFirst =<< loadAll "posts/*"
-      let indexCtx = listField "posts" postCtx (return posts) `mappend`
-                     constField "title" "Recent Posts"        `mappend`
-                     defaultContext
+      indexCtx <- fmap (postCtxWithTitle "Recent Posts" . take 5) . recentFirst
+                 =<< loadAll postsPattern
       getResourceBody
         >>= applyAsTemplate indexCtx
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
-        >>= relativizeUrls
-        >>= cleanIndexUrls
+        >>= relativizeAndCleanUrls
 
   match "templates/*" $ compile templateCompiler
 
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
-postCtx =
-    dateField "date" "%e %B, %Y" `mappend`
-    defaultContext
+postCtx = dateField "date" "%e %B, %Y" <> defaultContext
+
+postCtxWithTags :: Tags -> Context String
+postCtxWithTags tags = tagsField "tags" tags <> postCtx
+
+postCtxWithTitle :: String -> [Item String] -> Context String
+postCtxWithTitle title posts = listField "posts" postCtx (return posts)
+                               <> constField "title" title
+                               <> defaultContext
 
 postRoute :: Routes
 postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
   where
     toBaseName    = takeBaseName . toFilePath
     yearMonthDirs = uncurry (</>) .
-                    first (map dashToSlash . take 7) .
-                    splitAt 11
+                    first (map dashToSlash . take 7) . -- length "YYYY/MM"
+                    splitAt 11 -- length "YYYY-MM-DD-"
+
+postsAbout :: String -> String
+postsAbout = ("Posts about " ++)
+
+postsPattern :: Pattern
+postsPattern = "posts/*.html"
 
 toFileName :: Identifier -> FilePath
 toFileName = takeFileName . toFilePath
@@ -112,16 +117,14 @@ cleanRoute = customRoute (indexPath . toFilePath)
 indexPath :: FilePath -> FilePath
 indexPath p = takeDirectory p </> takeBaseName p </> "index.html"
 
+relativizeAndCleanUrls :: Item String -> Compiler (Item String)
+relativizeAndCleanUrls = relativizeUrls >=> cleanIndexUrls -- >=> cleanIndexHtmls
+
 cleanIndexUrls :: Item String -> Compiler (Item String)
 cleanIndexUrls = return . fmap (withUrls cleanIndex)
 
-cleanIndexHtmls :: Item String -> Compiler (Item String)
-cleanIndexHtmls = return . fmap (replaceAll pattern replacement)
-  where
-    pattern     = "/index.html"
-    replacement = const "/"
+-- cleanIndexHtmls :: Item String -> Compiler (Item String)
+-- cleanIndexHtmls = return . fmap (replaceAll "/index.html" (const "/"))
 
 cleanIndex :: String -> String
-cleanIndex url | idx `isSuffixOf` url = take (length url - length idx) url
-               | otherwise            = url
-  where idx = "index.html"
+cleanIndex = flip maybe unpack `ap` (T.stripSuffix "index.html" . pack)

@@ -3,6 +3,7 @@
 ---
 title:  "ip.ericb.me"
 author: Eric Bailey
+tags: hack, clojure, web-service, open-source
 ---
 #+END_HTML
 

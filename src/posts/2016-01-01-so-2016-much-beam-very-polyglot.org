@@ -3,6 +3,7 @@
 ---
 title:  "So 2016. Much BEAM. Very polyglot."
 author: Eric Bailey
+tags: lfe, lisp, erlang, elixir, polyglot
 ---
 #+END_HTML
 
