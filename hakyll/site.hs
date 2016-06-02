@@ -30,11 +30,23 @@ main = hakyll $ do
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeAndCleanUrls
 
-  match "posts/*.html" $ do
+  tags <- buildTags postsPattern (fromCapture "tag/*/index.html")
+
+  tagsRules tags $ \tag pattern -> do
+    route   $ idRoute
+    compile $ do
+      tagCtx <- fmap (postCtxWithTitle (postsAbout tag)) . recentFirst
+               =<< loadAll pattern
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/tag.html"     tagCtx
+        >>= loadAndApplyTemplate "templates/default.html" tagCtx
+        >>= relativizeAndCleanUrls
+
+  match postsPattern $ do
     route   $ postRoute
     compile $ getResourceBody
-      >>= loadAndApplyTemplate "templates/post.html" postCtx
-      >>= loadAndApplyTemplate "templates/default.html" postCtx
+      >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+      >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
       >>= relativizeAndCleanUrls
 
   create ["posts.html"] $ do
@@ -64,6 +76,9 @@ main = hakyll $ do
 postCtx :: Context String
 postCtx = dateField "date" "%e %B, %Y" <> defaultContext
 
+postCtxWithTags :: Tags -> Context String
+postCtxWithTags tags = tagsField "tags" tags <> postCtx
+
 postCtxWithTitle :: String -> [Item String] -> Context String
 postCtxWithTitle title posts = listField "posts" postCtx (return posts)
                                <> constField "title" title
@@ -74,8 +89,11 @@ postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
   where
     toBaseName    = takeBaseName . toFilePath
     yearMonthDirs = uncurry (</>) .
-                    first (map dashToSlash . take 7) .
-                    splitAt 11
+                    first (map dashToSlash . take 7) . -- length "YYYY/MM"
+                    splitAt 11 -- length "YYYY-MM-DD-"
+
+postsAbout :: String -> String
+postsAbout = ("Posts about " ++)
 
 postsPattern :: Pattern
 postsPattern = "posts/*.html"
