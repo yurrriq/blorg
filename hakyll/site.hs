@@ -4,6 +4,7 @@ import           Control.Arrow   (first)
 import           Data.List       (isSuffixOf)
 import           Data.List.Split (splitOn)
 import           Data.Monoid     (mappend)
+import           Control.Monad   ((>=>))
 import           Hakyll
 import           System.FilePath (replaceExtension, takeBaseName, takeDirectory,
                                   takeFileName, (</>))
@@ -21,23 +22,20 @@ main = hakyll $ do
     route   $ idRoute
     compile $ getResourceBody
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeUrls
-      >>= cleanIndexUrls
+      >>= relativizeAndCleanUrls
 
   match "pages/*.html" $ do
     route   $ customRoute ((</> "index.html") . takeBaseName . toFilePath)
     compile $ pandocCompiler
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeUrls
-      >>= cleanIndexUrls
+      >>= relativizeAndCleanUrls
 
   match "posts/*.html" $ do
     route   $ postRoute
     compile $ getResourceBody
       >>= loadAndApplyTemplate "templates/post.html" postCtx
       >>= loadAndApplyTemplate "templates/default.html" postCtx
-      >>= relativizeUrls
-      >>= cleanIndexUrls
+      >>= relativizeAndCleanUrls
 
   create ["posts.html"] $ do
     route   $ cleanRoute
@@ -49,8 +47,7 @@ main = hakyll $ do
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-        >>= relativizeUrls
-        >>= cleanIndexUrls
+        >>= relativizeAndCleanUrls
 
   match "index.html" $ do
     route   $ customRoute toFileName
@@ -62,8 +59,7 @@ main = hakyll $ do
       getResourceBody
         >>= applyAsTemplate indexCtx
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
-        >>= relativizeUrls
-        >>= cleanIndexUrls
+        >>= relativizeAndCleanUrls
 
   match "templates/*" $ compile templateCompiler
 
@@ -100,6 +96,9 @@ cleanRoute = customRoute (indexPath . toFilePath)
 
 indexPath :: FilePath -> FilePath
 indexPath p = takeDirectory p </> takeBaseName p </> "index.html"
+
+relativizeAndCleanUrls :: Item String -> Compiler (Item String)
+relativizeAndCleanUrls = relativizeUrls >=> cleanIndexUrls -- >=> cleanIndexHtmls
 
 cleanIndexUrls :: Item String -> Compiler (Item String)
 cleanIndexUrls = return . fmap (withUrls cleanIndex)
