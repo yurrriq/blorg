@@ -3,6 +3,7 @@
 ---
 title:  "(define the-dream (+ 'scheme 'lilypond))"
 author: Eric Bailey
+tags: lilypond, scheme, music
 ---
 #+END_HTML
 

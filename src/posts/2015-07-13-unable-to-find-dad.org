@@ -3,6 +3,7 @@
 ---
 title:  "Unable to find dad"
 author: Eric Bailey
+tags: clojure, error
 ---
 #+END_HTML
 

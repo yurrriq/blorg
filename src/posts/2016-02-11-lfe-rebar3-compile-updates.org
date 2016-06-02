@@ -3,6 +3,7 @@
 ---
 title:  "lfe-rebar3/compile updates"
 author: Eric Bailey
+tags: lfe, lisp, erlang, rebar3, tooling, open-source
 ---
 #+END_HTML
 

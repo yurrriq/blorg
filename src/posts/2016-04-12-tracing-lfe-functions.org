@@ -3,6 +3,7 @@
 ---
 title:  "Tracing LFE Functions"
 author: Eric Bailey
+tags: lfe, lisp, erlang, tracing, debugging
 ---
 #+END_HTML
 

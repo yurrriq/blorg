@@ -3,6 +3,7 @@
 ---
 title:  "Hello, world!"
 author: Eric Bailey
+tags: basic, blogging
 ---
 #+END_HTML
 

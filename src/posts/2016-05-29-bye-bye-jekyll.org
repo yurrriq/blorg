@@ -3,6 +3,7 @@
 ---
 title:  "Bye Bye, Jekyll!"
 author: Eric Bailey
+tags: blogging, haskell, open-source
 ---
 #+END_HTML
 
