@@ -1,8 +1,8 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Control.Arrow   (first)
-import           Data.Monoid     (mappend)
 import           Control.Monad   (ap, (>=>))
+import           Data.Monoid     (mappend, (<>))
 import           Data.Text       (pack, unpack)
 import qualified Data.Text       as T
 import           Hakyll
@@ -66,9 +66,7 @@ main = hakyll $ do
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
-postCtx =
-    dateField "date" "%e %B, %Y" `mappend`
-    defaultContext
+postCtx = dateField "date" "%e %B, %Y" <> defaultContext
 
 postRoute :: Routes
 postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
