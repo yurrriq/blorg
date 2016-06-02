@@ -1,10 +1,10 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Control.Arrow   (first)
-import           Data.List       (isSuffixOf)
-import           Data.List.Split (splitOn)
 import           Data.Monoid     (mappend)
-import           Control.Monad   ((>=>))
+import           Control.Monad   (ap, (>=>))
+import           Data.Text       (pack, unpack)
+import qualified Data.Text       as T
 import           Hakyll
 import           System.FilePath (replaceExtension, takeBaseName, takeDirectory,
                                   takeFileName, (</>))
@@ -103,13 +103,8 @@ relativizeAndCleanUrls = relativizeUrls >=> cleanIndexUrls -- >=> cleanIndexHtml
 cleanIndexUrls :: Item String -> Compiler (Item String)
 cleanIndexUrls = return . fmap (withUrls cleanIndex)
 
-cleanIndexHtmls :: Item String -> Compiler (Item String)
-cleanIndexHtmls = return . fmap (replaceAll pattern replacement)
-  where
-    pattern     = "/index.html"
-    replacement = const "/"
+-- cleanIndexHtmls :: Item String -> Compiler (Item String)
+-- cleanIndexHtmls = return . fmap (replaceAll "/index.html" (const "/"))
 
 cleanIndex :: String -> String
-cleanIndex url | idx `isSuffixOf` url = take (length url - length idx) url
-               | otherwise            = url
-  where idx = "index.html"
+cleanIndex = flip maybe unpack `ap` (T.stripSuffix "index.html" . pack)
