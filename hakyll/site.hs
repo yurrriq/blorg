@@ -12,21 +12,10 @@ import           System.FilePath (replaceExtension, takeBaseName, takeDirectory,
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
-  match "images/*" $ do
-    route   idRoute
-    compile copyFileCompiler
-
-  match "fonts/*" $ do
-    route   idRoute
-    compile copyFileCompiler
-
-  match "css/*" $ do
-    route   idRoute
-    compile compressCssCompiler
-
-  match "code/*" $ do
-    route   idRoute
-    compile copyFileCompiler
+  match "code/*"   $ route idRoute >> compile copyFileCompiler
+  match "css/*"    $ route idRoute >> compile compressCssCompiler
+  match "fonts/*"  $ route idRoute >> compile copyFileCompiler
+  match "images/*" $ route idRoute >> compile copyFileCompiler
 
   match "404.html" $ do
     route   $ idRoute
