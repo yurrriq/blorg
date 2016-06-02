@@ -40,10 +40,8 @@ main = hakyll $ do
   create ["posts.html"] $ do
     route   $ cleanRoute
     compile $ do
-      posts <- recentFirst =<< loadAll "posts/*"
-      let archiveCtx = listField "posts" postCtx (return posts) `mappend`
-                       constField "title" "Posts"               `mappend`
-                       defaultContext
+      archiveCtx <- fmap (postCtxWithTitle "All Posts") . recentFirst
+                   =<< loadAll postsPattern
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
@@ -52,10 +50,8 @@ main = hakyll $ do
   match "index.html" $ do
     route   $ customRoute toFileName
     compile $ do
-      posts <- fmap (take 5) . recentFirst =<< loadAll "posts/*"
-      let indexCtx = listField "posts" postCtx (return posts) `mappend`
-                     constField "title" "Recent Posts"        `mappend`
-                     defaultContext
+      indexCtx <- fmap (postCtxWithTitle "Recent Posts" . take 5) . recentFirst
+                 =<< loadAll postsPattern
       getResourceBody
         >>= applyAsTemplate indexCtx
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
@@ -68,6 +64,11 @@ main = hakyll $ do
 postCtx :: Context String
 postCtx = dateField "date" "%e %B, %Y" <> defaultContext
 
+postCtxWithTitle :: String -> [Item String] -> Context String
+postCtxWithTitle title posts = listField "posts" postCtx (return posts)
+                               <> constField "title" title
+                               <> defaultContext
+
 postRoute :: Routes
 postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
   where
@@ -75,6 +76,9 @@ postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
     yearMonthDirs = uncurry (</>) .
                     first (map dashToSlash . take 7) .
                     splitAt 11
+
+postsPattern :: Pattern
+postsPattern = "posts/*.html"
 
 toFileName :: Identifier -> FilePath
 toFileName = takeFileName . toFilePath
