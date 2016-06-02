@@ -3,6 +3,7 @@
 ---
 title:  "werase in iTerm2"
 author: Eric Bailey
+tags: osx, hack, terminal, productivity
 ---
 #+END_HTML
 

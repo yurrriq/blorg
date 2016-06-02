@@ -3,6 +3,7 @@
 ---
 title:  "Matching strings in LFE patterns"
 author: Eric Bailey
+tags: lfe, lisp, erlang, pattern-matching, open-source
 ---
 #+END_HTML
 

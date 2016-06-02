@@ -3,6 +3,7 @@
 ---
 title:  "exercism.io"
 author: Eric Bailey
+tags: clojure, learning, polyglot, open-source
 ---
 #+END_HTML
 
