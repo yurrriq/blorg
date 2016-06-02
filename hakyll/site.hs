@@ -6,8 +6,8 @@ import           Control.Monad   (ap, (>=>))
 import           Data.Text       (pack, unpack)
 import qualified Data.Text       as T
 import           Hakyll
-import           System.FilePath (replaceExtension, takeBaseName, takeDirectory,
-                                  takeFileName, (</>))
+import           System.FilePath (takeBaseName, takeDirectory, takeFileName,
+                                  (</>))
 
 
 --------------------------------------------------------------------------------
