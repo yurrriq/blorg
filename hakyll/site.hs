@@ -16,6 +16,7 @@ main = hakyll $ do
   match "code/*"   $ route idRoute >> compile copyFileCompiler
   match "css/*"    $ route idRoute >> compile compressCssCompiler
   match "fonts/*"  $ route idRoute >> compile copyFileCompiler
+  -- match "mp3/*"  $ route idRoute >> compile copyFileCompiler
   match "images/*" $ route idRoute >> compile copyFileCompiler
 
   -- Templates
@@ -101,9 +102,10 @@ main = hakyll $ do
 ----------------------------------------------------------------------
 
 postCtx :: Tags -> Context String
-postCtx tags = dateField "date" "%e %B, %Y"
-               <> tagsField "tags" tags
-               <> defaultContext
+postCtx tags =
+  dateField "date" "%e %B, %Y"
+  <> tagsField "tags" tags
+  <> defaultContext
 
 postCtxWithTitle :: String -> Tags -> [Item String] -> Context String
 postCtxWithTitle title tags posts =
@@ -150,11 +152,11 @@ relativizeAndCleanUrls = relativizeUrls >=> cleanIndexUrls -- >=> cleanIndexHtml
 cleanIndexUrls :: Item String -> Compiler (Item String)
 cleanIndexUrls = return . fmap (withUrls cleanIndex)
 
--- cleanIndexHtmls :: Item String -> Compiler (Item String)
--- cleanIndexHtmls = return . fmap (replaceAll "/index.html" (const "/"))
-
 cleanIndex :: String -> String
 cleanIndex = flip maybe unpack `ap` (T.stripSuffix "index.html" . pack)
+
+-- cleanIndexHtmls :: Item String -> Compiler (Item String)
+-- cleanIndexHtmls = return . fmap (replaceAll "/index.html" (const "/"))
 
 
 ----------------------------------------------------------------------
@@ -170,6 +172,7 @@ feedConfig = FeedConfiguration
   , feedRoot        = "http://blorg.ericb.me"
   }
 
+-- TODO: lenses?
 tagFeedConfig :: String -> FeedConfiguration
 tagFeedConfig tag = feedConfig
   { feedTitle       = "blorg.ericb.me - " ++ tag
