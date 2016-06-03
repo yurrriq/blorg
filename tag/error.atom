@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - error</title>
+    <link href="http://blorg.ericb.me/tag/error.atom" rel="self" />
+    <link href="http://blorg.ericb.me" />
+    <id>http://blorg.ericb.me/tag/error.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <entry>
+    <title>Unable to find dad</title>
+    <link href="http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
+    <id>http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on 13 July, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
+  
+</div>
+
+<pre class="example">
+  Show: Clojure Java REPL Tooling Duplicates All  (65 frames hidden)
+
+2. Unhandled clojure.lang.Compiler$CompilerException
+
+1. Caused by java.lang.RuntimeException
+   Unable to resolve symbol: dad in this context
+
+                     Util.java:  221  clojure.lang.Util/runtimeException
+</pre>
+
+<p>
+Whoa, that's heavy, man.
+</p>
+
+]]></summary>
+</entry>
+
+</feed>

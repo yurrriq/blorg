@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - music</title>
+    <link href="http://blorg.ericb.me/tag/music.atom" rel="self" />
+    <link href="http://blorg.ericb.me" />
+    <id>http://blorg.ericb.me/tag/music.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2014-12-07T00:00:00Z</updated>
+    <entry>
+    <title>(define the-dream (+ 'scheme 'lilypond))</title>
+    <link href="http://blorg.ericb.me/2014/12/the-dream-scheme-lilypond/index.html" />
+    <id>http://blorg.ericb.me/2014/12/the-dream-scheme-lilypond/index.html</id>
+    <published>2014-12-07T00:00:00Z</published>
+    <updated>2014-12-07T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on  7 December, 2014
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/lilypond/index.html">lilypond</a>, <a href="/tag/scheme/index.html">scheme</a>, <a href="/tag/music/index.html">music</a>
+  
+</div>
+
+<p>
+<img src="/images/the-dream-scheme-lilypond.png" alt="nil" />
+</p>
+
+<p>
+Lately I've gotten increasingly obsessed with <a href="http://www.paulgraham.com/lisphistory.html">Lisp family of programming
+languages</a> and am determined to write as little non-Lisp code as possible.
+</p>
+
+<p>
+As such, I've started experimenting with writing more <a href="http://www.lilypond.org/doc/v2.19/Documentation/extending/scheme-in-lilypond">Scheme in Lilypond</a>. This
+is an entirely impractical example, but it gives a glimpse of what's possible. I
+can't wait to start <a href="http://www.gnu.org/software/guile/manual/guile.html#List-Mapping"><code>map</code>-ping</a> lists of musical expressions and <a href="http://lilypondblog.org/2014/07/trees-music-and-lilypond/">representing
+music as trees</a>.
+</p>
+
+<p>
+<b>Note to self</b>: Dive deeper into <a href="http://lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/">these</a> <a href="http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/">pertinent</a> <a href="http://lilypondblog.org/2014/04/music-functions-3-reusing-code/">blog</a> <a href="http://lilypondblog.org/2014/04/music-functions-4-recursion/">posts</a> ASAP.
+</p>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><a href="https://github.com/yurrriq/blorg/tree/master/code/the_dream.scm"><code>the_dream.scm</code></a></h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #F92672;">define</span> <span style="color: #A6E22E;">riffs</span>
+  (make-hash-table 4))
+
+(hashq-set!
+  riffs 'I
+  #{
+    \mark \markup { I }
+    f4 a c d <span style="color: #E6DB74;">| f d c a |</span>
+    f4 a c d <span style="color: #E6DB74;">| ees d c b |</span>
+    #})
+
+(hashq-set!
+  riffs 'IV
+  #{
+    \mark \markup { IV }
+    bes4 d f g <span style="color: #E6DB74;">| bes g f d |</span>
+    #})
+
+(hashq-set!
+  riffs 'I'
+  #{
+    \mark \markup { <span style="color: #E6DB74;">"I'"</span> }
+    f,4 a c d <span style="color: #E6DB74;">| f d c a |</span>
+    #})
+
+(hashq-set!
+  riffs 'V
+  #{
+    \mark \markup { V }
+    g a bes b <span style="color: #E6DB74;">| c bes a g |</span>
+    #})
+
+(hashq-set!
+  riffs 'turnaround
+  #{
+    f4 f aes aes <span style="color: #E6DB74;">| g g ges c |</span>
+    #})
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><a href="https://github.com/yurrriq/blorg/tree/master/code/the_dream.ly"><code>the_dream.ly</code></a></h2>
+<div class="outline-text-2" id="text-orgheadline2">
+<div class="org-src-container">
+
+<pre class="src src-lilypond"><span style="color: #F92672;">\version</span> <span style="color: #E6DB74;">"2.19.24"</span>
+<span style="color: #F92672;">\include</span> <span style="color: #E6DB74;">"lilypond-book-preamble.ly"</span>
+<span style="color: #F92672;">\paper</span> <span style="color: #AE81FF;">{</span> <span style="color: #FD971F;">oddFooterMarkup</span> = <span style="color: #E6DB74;">##f</span> <span style="color: #AE81FF;">}</span>
+
+<span style="color: #E6DB74;">#(load "the_dream.scm")</span>
+
+<span style="color: #F92672;">\score</span> <span style="color: #AE81FF;">{</span>
+  <span style="color: #F92672;">\relative</span> <span style="color: #66D9EF;">c'</span> <span style="color: #AE81FF;">{</span>
+    <span style="color: #E6DB74;">#(hashq-ref riffs 'I)</span>
+    <span style="color: #F92672;">\break</span>
+    <span style="color: #E6DB74;">#(hashq-ref riffs 'IV)</span>
+    <span style="color: #E6DB74;">#(hashq-ref riffs 'I')</span>
+    <span style="color: #F92672;">\break</span>
+    <span style="color: #E6DB74;">#(hashq-ref riffs 'V)</span>
+    <span style="color: #E6DB74;">#(hashq-ref riffs 'turnaround)</span>
+    <span style="color: #F92672;">\bar</span> <span style="color: #E6DB74;">"|."</span>
+  <span style="color: #AE81FF;">}</span>
+  <span style="color: #F92672;">\layout</span> <span style="color: #AE81FF;">{</span> <span style="color: #FD971F;">indent</span> = <span style="color: #FD971F;">0</span> <span style="color: #AE81FF;">}</span>
+<span style="color: #AE81FF;">}</span>
+</pre>
+</div>
+
+<p>
+N.B. This LilyPond code doesn't require version <code>2.19.x</code>, so feel free to change
+it to <code>2.18.x</code> if you're not <a href="http://lilypond.org/development.html">living on the edge</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3">Generate the PNG</h2>
+<div class="outline-text-2" id="text-orgheadline3">
+<div class="org-src-container">
+
+<pre class="src src-sh" id="orgsrcblock1">lilypond --png -dresolution=200 -o output the_dream
+</pre>
+</div>
+</div>
+</div>
+
+]]></summary>
+</entry>
+
+</feed>

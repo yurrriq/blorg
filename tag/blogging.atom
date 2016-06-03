@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - blogging</title>
+    <link href="http://blorg.ericb.me/tag/blogging.atom" rel="self" />
+    <link href="http://blorg.ericb.me" />
+    <id>http://blorg.ericb.me/tag/blogging.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2016-05-29T00:00:00Z</updated>
+    <entry>
+    <title>Bye Bye, Jekyll!</title>
+    <link href="http://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html" />
+    <id>http://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html</id>
+    <published>2016-05-29T00:00:00Z</published>
+    <updated>2016-05-29T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on 29 May, 2016
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/blogging/index.html">blogging</a>, <a href="/tag/haskell/index.html">haskell</a>, <a href="/tag/open-source/index.html">open-source</a>
+  
+</div>
+
+<p>
+Back in December of 2014, I set up a blog using <a href="https://ghost.org">Ghost</a> and <a href="https://github.com/axitkhurana/buster/">Buster</a>. That was all
+fine and good, but left quite a bit to be desired. I'm not a Python user and the
+whole workflow was a bit too clunky for my taste.
+</p>
+
+<p>
+In July of 2015, I decided to migrate to <a href="http://jekyllrb.com">Jekyll</a>. It's pretty widely used and the
+integration with <a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and easy.  In practice, I
+found its workflow to be similarly annoying. Worst of all, it made me install,
+write and use Ruby<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.  What's more, GitHub seems to have a predilection for
+breaking things so often and dramatically, that <a href="https://github.com/lfex/dragon">dragon</a> was born.
+</p>
+
+<p>
+<a href="http://haskellbook.com">Learning Haskell</a> has been a <a href="https://www.youtube.com/watch?v=-1YjmXSyHa8">fantastic voyage</a>. Although I've not yet used it for
+any "real" projects, I'm sold on its expressivity and general
+mind-expanding-ness. I had seen <a href="https://jaspervdj.be/hakyll/">Hakyll</a> pop up on my radar a few times and
+considered migrating to it for quite a while. Last night, I finally made the
+leap. The experience was so great, I can't believe I didn't do it sooner.
+</p>
+
+<p>
+From now on<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>, my blog will be powered by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>. You can find my <a href="https://github.com/yurrriq/blorg/blob/master/src/site.hs">site.hs</a>,
+which will undoubtedly grow and change over time, <a href="https://github.com/yurrriq/blorg">on GitHub</a>.
+</p>
+
+<p>
+Good riddance.
+</p>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%23sorrynotsorry">#sorrynotsorry</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+&#x2026; at least until <a href="https://github.com/lfex/dragon">dragon</a> matures or I find an even better alternative.
+</p></div></div>
+
+
+</div>
+</div>
+
+]]></summary>
+</entry>
+<entry>
+    <title>Hello, world!</title>
+    <link href="http://blorg.ericb.me/2015/07/hello-world/index.html" />
+    <id>http://blorg.ericb.me/2015/07/hello-world/index.html</id>
+    <published>2015-07-10T00:00:00Z</published>
+    <updated>2015-07-10T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on 10 July, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/basic/index.html">basic</a>, <a href="/tag/blogging/index.html">blogging</a>
+  
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-basic">10 PRINT "HELLO, WORLD!"
+20 GOTO 10
+</pre>
+</div>
+
+]]></summary>
+</entry>
+
+</feed>

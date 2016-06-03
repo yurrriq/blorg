@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - learning</title>
+    <link href="http://blorg.ericb.me/tag/learning.atom" rel="self" />
+    <link href="http://blorg.ericb.me" />
+    <id>http://blorg.ericb.me/tag/learning.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-01-03T00:00:00Z</updated>
+    <entry>
+    <title>exercism.io</title>
+    <link href="http://blorg.ericb.me/2015/01/exercism.io/index.html" />
+    <id>http://blorg.ericb.me/2015/01/exercism.io/index.html</id>
+    <published>2015-01-03T00:00:00Z</published>
+    <updated>2015-01-03T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on  3 January, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/learning/index.html">learning</a>, <a href="/tag/polyglot/index.html">polyglot</a>, <a href="/tag/open-source/index.html">open-source</a>
+  
+</div>
+
+<p>
+<a href="http://xkcd.com/353/">Hello, world!</a> I started working on the <a href="http://exercism.io/languages/clojure">Clojure exercises</a> from <a href="http://exercism.io/about">exercism.io</a>.
+</p>
+
+<p>
+Feel free to nitpick <a href="http://exercism.io/yurrriq">my solutions</a>, and browse the <a href="https://github.com/yurrriq/exercism/tree/clojure">source on GitHub</a>.
+</p>
+
+<p>
+Maybe this will prove to be a fun way to explore <a href="https://github.com/yurrriq/exercism/branches/all">different languages</a>.
+</p>
+
+]]></summary>
+</entry>
+
+</feed>

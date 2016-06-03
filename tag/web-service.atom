@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - web-service</title>
+    <link href="http://blorg.ericb.me/tag/web-service.atom" rel="self" />
+    <link href="http://blorg.ericb.me" />
+    <id>http://blorg.ericb.me/tag/web-service.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <entry>
+    <title>ip.ericb.me</title>
+    <link href="http://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>http://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on 13 July, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/web-service/index.html">web-service</a>, <a href="/tag/open-source/index.html">open-source</a>
+  
+</div>
+
+<p>
+As a follow-up to <a href="http://blorg.ericb.me/2014/12/icanhazip.com">my previous post about icanhazip.com</a>, I figured it bears
+mentioning I've since set up <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a> and am running it at
+<a href="http://ip.ericb.me">ip.ericb.me</a>.
+</p>
+
+
+<p>
+Its excruciatingly simple Clojure source looks something like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defroutes</span> <span style="color: #A6E22E;">app</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #AE81FF;">GET</span> <span style="color: #E6DB74;">"/"</span> <span style="color: #A6E22E;">{</span><span style="color: #E6DB74;">{</span>x-real-ip <span style="color: #E6DB74;">"x-real-ip"</span><span style="color: #E6DB74;">}</span> <span style="color: #AE81FF;">:headers</span><span style="color: #A6E22E;">}</span>
+    <span style="color: #A6E22E;">{</span><span style="color: #AE81FF;">:status</span>  200
+     <span style="color: #AE81FF;">:headers</span> <span style="color: #E6DB74;">{</span><span style="color: #E6DB74;">"Content-Type"</span> <span style="color: #E6DB74;">"text/plain"</span><span style="color: #E6DB74;">}</span>
+     <span style="color: #AE81FF;">:body</span>    x-real-ip<span style="color: #A6E22E;">}</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span><span style="color: #F92672;">defn</span> <span style="color: #A6E22E;">-main</span> <span style="color: #66D9EF;">[</span>&amp; args<span style="color: #66D9EF;">]</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">-&gt;&gt;</span> <span style="color: #A6E22E;">(</span><span style="color: #F92672;">or</span> <span style="color: #E6DB74;">(</span>some-&gt; <span style="color: #FD971F;">(</span>env <span style="color: #AE81FF;">:port</span><span style="color: #FD971F;">)</span> <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">Integer</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #F92672;">parseInt</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span> 5000<span style="color: #A6E22E;">)</span>
+       <span style="color: #A6E22E;">(</span>hash-map <span style="color: #AE81FF;">:port</span><span style="color: #A6E22E;">)</span>
+       <span style="color: #A6E22E;">(</span>run-server app<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+]]></summary>
+</entry>
+
+</feed>

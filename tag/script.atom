@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - script</title>
+    <link href="http://blorg.ericb.me/tag/script.atom" rel="self" />
+    <link href="http://blorg.ericb.me" />
+    <id>http://blorg.ericb.me/tag/script.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-05-02T00:00:00Z</updated>
+    <entry>
+    <title>GitHub Languages</title>
+    <link href="http://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>http://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <published>2015-05-02T00:00:00Z</published>
+    <updated>2015-05-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on  2 May, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/script/index.html">script</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+  
+</div>
+
+<p>
+I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> to gather the language usage data from
+<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and sort them in descending order of popularity.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-json"><span style="color: #AE81FF;">{</span>
+  <span style="color: #F92672;">"Ruby"</span> : <span style="color: #AE81FF;">4401525</span>,
+  <span style="color: #F92672;">"Java"</span> : <span style="color: #AE81FF;">1800870</span>,
+  <span style="color: #F92672;">"Clojure"</span> : <span style="color: #AE81FF;">1406457</span>,
+  <span style="color: #F92672;">"LilyPond"</span> : <span style="color: #AE81FF;">226858</span>,
+  <span style="color: #F92672;">"Scheme"</span> : <span style="color: #AE81FF;">224389</span>,
+  <span style="color: #F92672;">"Common Lisp"</span> : <span style="color: #AE81FF;">127554</span>,
+  <span style="color: #F92672;">"HTML"</span> : <span style="color: #AE81FF;">111217</span>,
+  <span style="color: #F92672;">"Shell"</span> : <span style="color: #AE81FF;">47589</span>,
+  <span style="color: #F92672;">"CSS"</span> : <span style="color: #AE81FF;">41034</span>,
+  <span style="color: #F92672;">"Groff"</span> : <span style="color: #AE81FF;">25188</span>,
+  <span style="color: #F92672;">"C++"</span> : <span style="color: #AE81FF;">16378</span>,
+  <span style="color: #F92672;">"NewLisp"</span> : <span style="color: #AE81FF;">15399</span>,
+  <span style="color: #F92672;">"JavaScript"</span> : <span style="color: #AE81FF;">12714</span>,
+  <span style="color: #F92672;">"Erlang"</span> : <span style="color: #AE81FF;">8041</span>,
+  <span style="color: #F92672;">"Objective-C"</span> : <span style="color: #AE81FF;">3825</span>,
+  <span style="color: #F92672;">"Python"</span> : <span style="color: #AE81FF;">3285</span>,
+  <span style="color: #F92672;">"Perl6"</span> : <span style="color: #AE81FF;">2976</span>,
+  <span style="color: #F92672;">"PLSQL"</span> : <span style="color: #AE81FF;">2919</span>,
+  <span style="color: #F92672;">"Scala"</span> : <span style="color: #AE81FF;">2814</span>,
+  <span style="color: #F92672;">"Emacs Lisp"</span> : <span style="color: #AE81FF;">2420</span>,
+  <span style="color: #F92672;">"OCaml"</span> : <span style="color: #AE81FF;">2055</span>,
+  <span style="color: #F92672;">"Elixir"</span> : <span style="color: #AE81FF;">1788</span>,
+  <span style="color: #F92672;">"CoffeeScript"</span> : <span style="color: #AE81FF;">1787</span>,
+  <span style="color: #F92672;">"PHP"</span> : <span style="color: #AE81FF;">1704</span>,
+  <span style="color: #F92672;">"CMake"</span> : <span style="color: #AE81FF;">1618</span>,
+  <span style="color: #F92672;">"Lua"</span> : <span style="color: #AE81FF;">1160</span>,
+  <span style="color: #F92672;">"Go"</span> : <span style="color: #AE81FF;">1025</span>,
+  <span style="color: #F92672;">"Perl"</span> : <span style="color: #AE81FF;">844</span>,
+  <span style="color: #F92672;">"Haskell"</span> : <span style="color: #AE81FF;">801</span>,
+  <span style="color: #F92672;">"F#"</span> : <span style="color: #AE81FF;">799</span>,
+  <span style="color: #F92672;">"C#"</span> : <span style="color: #AE81FF;">585</span>,
+  <span style="color: #F92672;">"PostScript"</span> : <span style="color: #AE81FF;">485</span>,
+  <span style="color: #F92672;">"Swift"</span> : <span style="color: #AE81FF;">467</span>,
+  <span style="color: #F92672;">"Makefile"</span> : <span style="color: #AE81FF;">220</span>,
+  <span style="color: #F92672;">"Frege"</span> : <span style="color: #AE81FF;">53</span>
+<span style="color: #AE81FF;">}</span>
+</pre>
+</div>
+
+<p>
+<b>Note</b>: I don't use Ruby, except when <a href="https://www.openhub.net/p/homebrew/contributors/2025442152889863">contributing</a> to <a href="http://brew.sh/">Homebrew</a>. I also have a
+repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exercises</a>, which, of course, skew the results.
+</p>
+
+<p>
+For the script and an example config, check out <a href="https://gist.github.com/yurrriq/3272c6b9ebfa699472b9">the gist</a>.
+</p>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
+</p></div></div>
+
+
+</div>
+</div>
+
+]]></summary>
+</entry>
+<entry>
+    <title>icanhazip.com</title>
+    <link href="http://blorg.ericb.me/2014/12/icanhazip.com/index.html" />
+    <id>http://blorg.ericb.me/2014/12/icanhazip.com/index.html</id>
+    <published>2014-12-06T00:00:00Z</published>
+    <updated>2014-12-06T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on  6 December, 2014
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/bash/index.html">bash</a>, <a href="/tag/script/index.html">script</a>
+  
+</div>
+
+<p>
+Often, I find myself needing to know the public IP address of a box I'm
+hacking on. <a href="http://icanhazip.com">icanhazip.com</a> has become my favorite tool for the task.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#120524; curl icanhazip.com <span style="color: #75715E;"># </span><span style="color: #75715E;">yass, u can</span>
+</pre>
+</div>
+
+<p>
+In my experiments it was the fastest, and I've got a penchant for <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">KISS</a>ing.
+</p>
+
+<p>
+I made <a href="https://gist.github.com/yurrriq/7fc7634dd00494072f45">a gist</a> with a few backups, just in case.
+</p>
+
+]]></summary>
+</entry>
+
+</feed>

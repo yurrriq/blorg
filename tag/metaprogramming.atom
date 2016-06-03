@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - metaprogramming</title>
+    <link href="http://blorg.ericb.me/tag/metaprogramming.atom" rel="self" />
+    <link href="http://blorg.ericb.me" />
+    <id>http://blorg.ericb.me/tag/metaprogramming.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-08-06T00:00:00Z</updated>
+    <entry>
+    <title>Lisp Flavoured Erlang and Pynchon, oh my!</title>
+    <link href="http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html" />
+    <id>http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html</id>
+    <published>2015-08-06T00:00:00Z</published>
+    <updated>2015-08-06T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on  6 August, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
+  
+</div>
+
+<p>
+So, lately I've been getting increasingly into <a href="http://lfe.io">Lisp Flavoured Erlang (LFE)</a>.  If
+you haven't tried it yet, or even if you have, check out the <a href="http://help.exercism.io/getting-started-with-lfe.html">Exercism.io track</a> I
+helped organize.  My latest endeavour is porting Robert Levy's <a href="https://github.com/rplevy/swiss-arrows">swiss-arrows</a> from
+Clojure to LFE.  It's been going well so far, despite having to rename it to
+<a href="https://github.com/yurrriq/pynchon">pynchon</a>, since Erlang wasn't down with the hyphenated name and a few people on
+the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang">LFE Google group</a> suggested it.
+</p>
+
+
+<p>
+Without further ado, here's a contrived example:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
+     <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
+            <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
+            <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
+            <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+     <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
+     <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+<b>Note</b>: <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and
+macros for LFE.
+</p>
+
+<p>
+The wild-looking form above expands to something more like:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt;
+ <span style="color: #66D9EF;">(</span><span style="color: #F92672;">progn</span>
+   <span style="color: #A6E22E;">(</span>lfe_io:format
+    '<span style="color: #E6DB74;">"non-updating: ~p\n"</span>
+    <span style="color: #E6DB74;">(</span><span style="color: #F92672;">list</span>
+     <span style="color: #FD971F;">(</span>lists:flatten
+      <span style="color: #F92672;">(</span>lists:duplicate 3 <span style="color: #AE81FF;">(</span>string:substr <span style="color: #E6DB74;">"testing"</span> 1 4<span style="color: #AE81FF;">)</span><span style="color: #F92672;">)</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+   <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span>
+ <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
+ <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+After that, it becomes apparent the "return track" is rather simple:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> <span style="color: #66D9EF;">(</span>string:substr 5 <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
+       <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
+              <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
+              <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
+              <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+       <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
+       <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+non-updating: <span style="color: #E6DB74;">"testtesttest"</span> <span style="color: #75715E;">; printed</span>
+<span style="color: #E6DB74;">"winning"</span>                    <span style="color: #75715E;">; returned</span>
+</pre>
+</div>
+
+]]></summary>
+</entry>
+<entry>
+    <title>#'clojure.core/some-> and the Power of Macros</title>
+    <link href="http://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
+    <id>http://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
+    <published>2015-01-02T00:00:00Z</published>
+    <updated>2015-01-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on  2 January, 2015
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
+  
+</div>
+
+<p>
+<a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
+</p>
+
+<p>
+In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> will undoubtedly <a href="https://twitter.com/yurrriq/status/525703812833890305">grow fonder</a>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #AE81FF;">(</span>comment
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>
+  <span style="color: #66D9EF;">(</span>some-&gt; <span style="color: #A6E22E;">(</span>meta #'<span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #A6E22E;">)</span> <span style="color: #AE81FF;">:doc</span> println<span style="color: #66D9EF;">)</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">When expr is not nil, threads it into the first form (via -&gt;),</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">and when that result is not nil, through the next etc</span>
+
+  <span style="color: #66D9EF;">(</span>macroexpand '<span style="color: #A6E22E;">(</span>some-&gt; <span style="color: #E6DB74;">(</span>meta #'<span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #E6DB74;">)</span> <span style="color: #AE81FF;">:doc</span> println<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">let*</span> <span style="color: #A6E22E;">[</span><span style="color: #AE81FF;">G__2986</span> <span style="color: #E6DB74;">(</span>meta <span style="color: #FD971F;">(</span><span style="color: #F92672;">var</span> <span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
+         <span style="color: #AE81FF;">G__2986</span> <span style="color: #E6DB74;">(</span><span style="color: #F92672;">if</span> <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>nil? <span style="color: #AE81FF;">G__2986</span><span style="color: #FD971F;">)</span>
+                   <span style="color: #AE81FF;">nil</span>
+                   <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #F92672;">-&gt;</span> <span style="color: #AE81FF;">G__2986</span> <span style="color: #AE81FF;">:doc</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
+         <span style="color: #AE81FF;">G__2986</span> <span style="color: #E6DB74;">(</span><span style="color: #F92672;">if</span> <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>nil? <span style="color: #AE81FF;">G__2986</span><span style="color: #FD971F;">)</span>
+                   <span style="color: #AE81FF;">nil</span>
+                   <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #F92672;">-&gt;</span> <span style="color: #AE81FF;">G__2986</span> println<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span>
+    <span style="color: #AE81FF;">G__2986</span><span style="color: #66D9EF;">)</span>
+
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Rewritten more readably to illustrate the point:</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">let</span> <span style="color: #A6E22E;">[</span>example <span style="color: #E6DB74;">(</span>meta #'<span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #E6DB74;">)</span>
+        example <span style="color: #E6DB74;">(</span><span style="color: #F92672;">when-not</span> <span style="color: #FD971F;">(</span>nil? example<span style="color: #FD971F;">)</span>
+                  <span style="color: #FD971F;">(</span><span style="color: #AE81FF;">:doc</span> example<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
+        example <span style="color: #E6DB74;">(</span><span style="color: #F92672;">when-not</span> <span style="color: #FD971F;">(</span>nil? example<span style="color: #FD971F;">)</span>
+                  <span style="color: #FD971F;">(</span>println example<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span>
+    example<span style="color: #66D9EF;">)</span>
+
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Which brings me to another of my scattered thoughts,</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Clojure has the #'clojure.core/when-not macro, but</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">for some reason, I find myself wanting to use 'unless,</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">as in Common Lisp:</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">defmacro</span> <span style="color: #A6E22E;">unless</span> <span style="color: #A6E22E;">(</span>condition &amp;rest body<span style="color: #A6E22E;">)</span>
+    `<span style="color: #A6E22E;">(</span><span style="color: #F92672;">if</span> <span style="color: #E6DB74;">(</span>not ,condition<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span>progn ,@body<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">What better excuse to start writing my own macros?</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">ns</span> <span style="color: #66D9EF;">fastidious.macros</span><span style="color: #66D9EF;">)</span>
+
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">defmacro</span> <span style="color: #A6E22E;">unless</span>
+    <span style="color: #A6E22E;">[</span>condition &amp; body<span style="color: #A6E22E;">]</span> `<span style="color: #A6E22E;">(</span><span style="color: #F92672;">if</span> <span style="color: #E6DB74;">(</span>not ~condition<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span><span style="color: #F92672;">do</span> ~@body<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Side bonus: I used my desire for 'unless to drive</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">my experiments in integrating macros in ClojureScript,</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">with underwhelming success. It just works.</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">ns</span> <span style="color: #66D9EF;">client.core</span>
+    <span style="color: #A6E22E;">(</span><span style="color: #AE81FF;">:require-macros</span> <span style="color: #E6DB74;">[</span><span style="color: #66D9EF;">fastidious.macros</span> <span style="color: #AE81FF;">:refer</span> <span style="color: #FD971F;">[</span>unless<span style="color: #FD971F;">]</span><span style="color: #E6DB74;">]</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">let</span> <span style="color: #A6E22E;">[</span>lisp-is-lame? <span style="color: #AE81FF;">false</span><span style="color: #A6E22E;">]</span>
+    <span style="color: #A6E22E;">(</span>unless lisp-is-lame?
+      <span style="color: #E6DB74;">(</span>println <span style="color: #E6DB74;">"IFL Lisp."</span><span style="color: #E6DB74;">)</span>
+      <span style="color: #E6DB74;">(</span>println <span style="color: #E6DB74;">"Next up: /c[ad]{1,5}r/"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub
+</p>
+
+]]></summary>
+</entry>
+
+</feed>
