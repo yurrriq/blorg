@@ -1,3 +1,4 @@
+#+STARTUP: showall
 #+OPTIONS: toc:nil ^:{}
 #+BEGIN_HTML
 ---
@@ -29,5 +30,5 @@ which will undoubtedly grow and change over time, [[https://github.com/yurrriq/b
 Good riddance.
 
 * Footnotes
-[fn:1] I'm a long-time Ruby hater. #sorrynotsorry
+[fn:1] I'm a long-time Ruby hater. [[https://twitter.com/search?q=%2523sorrynotsorry][#sorrynotsorry]]
 [fn:2] ... at least until [[https://github.com/lfex/dragon][dragon]] matures or I find an even better alternative.
