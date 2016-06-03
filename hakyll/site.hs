@@ -35,7 +35,7 @@ main = hakyll $ do
   tagsRules tags $ \tag pattern -> do
     route   $ idRoute
     compile $ do
-      tagCtx <- fmap (postCtxWithTitle (postsAbout tag)) . recentFirst
+      tagCtx <- fmap (postCtxWithTitle (postsAbout tag) tags) . recentFirst
                =<< loadAll pattern
       makeItem ""
         >>= loadAndApplyTemplate "templates/tag.html"     tagCtx
@@ -45,14 +45,14 @@ main = hakyll $ do
   match postsPattern $ do
     route   $ postRoute
     compile $ getResourceBody
-      >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
-      >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+      >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
+      >>= loadAndApplyTemplate "templates/default.html" (postCtx tags)
       >>= relativizeAndCleanUrls
 
   create ["posts.html"] $ do
     route   $ cleanRoute
     compile $ do
-      archiveCtx <- fmap (postCtxWithTitle "All Posts") . recentFirst
+      archiveCtx <- fmap (postCtxWithTitle "All Posts" tags) . recentFirst
                    =<< loadAll postsPattern
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -62,7 +62,7 @@ main = hakyll $ do
   match "index.html" $ do
     route   $ customRoute toFileName
     compile $ do
-      indexCtx <- fmap (postCtxWithTitle "Recent Posts" . take 5) . recentFirst
+      indexCtx <- fmap (postCtxWithTitle "Recent Posts" tags . take 5) . recentFirst
                  =<< loadAll postsPattern
       getResourceBody
         >>= applyAsTemplate indexCtx
@@ -72,17 +72,18 @@ main = hakyll $ do
   match "templates/*" $ compile templateCompiler
 
 
+
 --------------------------------------------------------------------------------
-postCtx :: Context String
-postCtx = dateField "date" "%e %B, %Y" <> defaultContext
+postCtx :: Tags -> Context String
+postCtx tags = dateField "date" "%e %B, %Y"
+               <> tagsField "tags" tags
+               <> defaultContext
 
-postCtxWithTags :: Tags -> Context String
-postCtxWithTags tags = tagsField "tags" tags <> postCtx
-
-postCtxWithTitle :: String -> [Item String] -> Context String
-postCtxWithTitle title posts = listField "posts" postCtx (return posts)
-                               <> constField "title" title
-                               <> defaultContext
+postCtxWithTitle :: String -> Tags -> [Item String] -> Context String
+postCtxWithTitle title tags posts =
+  listField "posts" (postCtx tags) (return posts)
+  <> constField "title" title
+  <> defaultContext
 
 postRoute :: Routes
 postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
