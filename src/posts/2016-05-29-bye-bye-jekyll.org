@@ -29,7 +29,5 @@ which will undoubtedly grow and change over time, [[https://github.com/yurrriq/b
 Good riddance.
 
 * Footnotes
-
-[fn:2] ... at least until [[https://github.com/lfex/dragon][dragon]] matures or I find an even better alternative.
-
 [fn:1] I'm a long-time Ruby hater. #sorrynotsorry
+[fn:2] ... at least until [[https://github.com/lfex/dragon][dragon]] matures or I find an even better alternative.

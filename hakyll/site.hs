@@ -1,8 +1,8 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+
 import           Control.Arrow   (first)
 import           Control.Monad   (ap, (>=>))
-import           Data.Monoid     (mappend, (<>))
+import           Data.Monoid     ((<>))
 import           Data.Text       (pack, unpack)
 import qualified Data.Text       as T
 import           Hakyll
@@ -10,26 +10,18 @@ import           System.FilePath (takeBaseName, takeDirectory, takeFileName,
                                   (</>))
 
 
---------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
+  -- Static files
   match "code/*"   $ route idRoute >> compile copyFileCompiler
   match "css/*"    $ route idRoute >> compile compressCssCompiler
   match "fonts/*"  $ route idRoute >> compile copyFileCompiler
   match "images/*" $ route idRoute >> compile copyFileCompiler
 
-  match "404.html" $ do
-    route   $ idRoute
-    compile $ getResourceBody
-      >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeAndCleanUrls
+  -- Templates
+  match "templates/*" $ compile templateCompiler
 
-  match "pages/*.html" $ do
-    route   $ customRoute ((</> "index.html") . takeBaseName . toFilePath)
-    compile $ pandocCompiler
-      >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeAndCleanUrls
-
+  -- Tags
   tags <- buildTags postsPattern (fromCapture "tag/*/index.html")
 
   tagsRules tags $ \tag pattern -> do
@@ -42,22 +34,12 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" tagCtx
         >>= relativizeAndCleanUrls
 
-  match postsPattern $ do
-    route   $ postRoute
+  -- Static Pages
+  match "404.html" $ do
+    route   $ idRoute
     compile $ getResourceBody
-      >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
-      >>= loadAndApplyTemplate "templates/default.html" (postCtx tags)
+      >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeAndCleanUrls
-
-  create ["posts.html"] $ do
-    route   $ cleanRoute
-    compile $ do
-      archiveCtx <- fmap (postCtxWithTitle "All Posts" tags) . recentFirst
-                   =<< loadAll postsPattern
-      makeItem ""
-        >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
-        >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-        >>= relativizeAndCleanUrls
 
   match "index.html" $ do
     route   $ customRoute toFileName
@@ -69,11 +51,35 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
         >>= relativizeAndCleanUrls
 
-  match "templates/*" $ compile templateCompiler
+  create ["posts.html"] $ do
+    route   $ cleanRoute
+    compile $ do
+      archiveCtx <- fmap (postCtxWithTitle "All Posts" tags) . recentFirst
+                   =<< loadAll postsPattern
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
+        >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+        >>= relativizeAndCleanUrls
+
+  match "pages/*.html" $ do
+    route   $ customRoute ((</> "index.html") . takeBaseName . toFilePath)
+    compile $ pandocCompiler
+      >>= loadAndApplyTemplate "templates/default.html" defaultContext
+      >>= relativizeAndCleanUrls
+
+  -- Posts
+  match postsPattern $ do
+    route   $ postRoute
+    compile $ getResourceBody
+      >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
+      >>= loadAndApplyTemplate "templates/default.html" (postCtx tags)
+      >>= relativizeAndCleanUrls
 
 
+----------------------------------------------------------------------
+-- Post helper functions
+----------------------------------------------------------------------
 
---------------------------------------------------------------------------------
 postCtx :: Tags -> Context String
 postCtx tags = dateField "date" "%e %B, %Y"
                <> tagsField "tags" tags
@@ -90,8 +96,8 @@ postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
   where
     toBaseName    = takeBaseName . toFilePath
     yearMonthDirs = uncurry (</>) .
-                    first (map dashToSlash . take 7) . -- length "YYYY/MM"
-                    splitAt 11 -- length "YYYY-MM-DD-"
+                    first (map dashToSlash . take (T.length "YYYY/MM")) .
+                    splitAt (T.length "YYYY-MM-DD-")
 
 postsAbout :: String -> String
 postsAbout = ("Posts about " ++)
@@ -107,10 +113,10 @@ dashToSlash '-' = '/'
 dashToSlash c   = c
 
 
---------------------------------------------------------------------------------
--- https://www.rohanjain.in/hakyll-clean-urls/
--- with some tweaks
---------------------------------------------------------------------------------
+----------------------------------------------------------------------
+-- Clean routes
+-- Modified from https://www.rohanjain.in/hakyll-clean-urls/
+----------------------------------------------------------------------
 
 cleanRoute :: Routes
 cleanRoute = customRoute (indexPath . toFilePath)
@@ -129,3 +135,17 @@ cleanIndexUrls = return . fmap (withUrls cleanIndex)
 
 cleanIndex :: String -> String
 cleanIndex = flip maybe unpack `ap` (T.stripSuffix "index.html" . pack)
+
+
+----------------------------------------------------------------------
+-- Config
+----------------------------------------------------------------------
+
+feedConfig :: FeedConfiguration
+feedConfig = FeedConfiguration
+  { feedTitle       = "blorg.ericb.me"
+  , feedDescription = "Varyingly coherent ramblings of yet another Lisp hacker."
+  , feedAuthorName  = "Eric Bailey"
+  , feedAuthorEmail = "eric@ericb.me"
+  , feedRoot        = "http://blorg.ericb.me"
+  }
