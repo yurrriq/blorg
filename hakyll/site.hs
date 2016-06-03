@@ -27,7 +27,7 @@ main = hakyll $ do
   tagsRules tags $ \tag pattern -> do
     route   $ idRoute
     compile $ do
-      tagCtx <- fmap (postCtxWithTitle (postsAbout tag) tags) . recentFirst
+      tagCtx <- fmap (postCtxWithTitle (postsTagged tag) tags) . recentFirst
                =<< loadAll pattern
       makeItem ""
         >>= loadAndApplyTemplate "templates/tag.html"     tagCtx
@@ -119,8 +119,8 @@ postRoute = customRoute $ (</> "index.html") . yearMonthDirs . toBaseName
                     first (map dashToSlash . take (T.length "YYYY/MM")) .
                     splitAt (T.length "YYYY-MM-DD-")
 
-postsAbout :: String -> String
-postsAbout = ("Posts about " ++)
+postsTagged :: String -> String
+postsTagged tag = "Posts tagged \"" ++ tag ++ "\""
 
 postsPattern :: Pattern
 postsPattern = "posts/*.html"
@@ -173,7 +173,7 @@ feedConfig = FeedConfiguration
 tagFeedConfig :: String -> FeedConfiguration
 tagFeedConfig tag = feedConfig
   { feedTitle       = "blorg.ericb.me - " ++ tag
-  , feedDescription = postsAbout tag
+  , feedDescription = postsTagged tag
   }
 
 atomPath :: FilePath -> FilePath
