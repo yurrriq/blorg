@@ -6,8 +6,8 @@ import           Data.Monoid     ((<>))
 import           Data.Text       (pack, unpack)
 import qualified Data.Text       as T
 import           Hakyll
-import           System.FilePath (takeBaseName, takeDirectory, takeFileName,
-                                  (</>))
+import           System.FilePath (replaceExtension, takeBaseName, takeDirectory,
+                                  takeFileName, (</>))
 
 
 main :: IO ()
@@ -72,8 +72,28 @@ main = hakyll $ do
     route   $ postRoute
     compile $ getResourceBody
       >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
+      >>= saveSnapshot "content"
       >>= loadAndApplyTemplate "templates/default.html" (postCtx tags)
       >>= relativizeAndCleanUrls
+
+  -- Feeds
+  let feedCtx = postCtx tags <> bodyField "description"
+
+  -- Main feed
+  create ["index.atom"] $ do
+    route   $ idRoute
+    compile $ do
+      loadAllSnapshots postsPattern "content"
+        >>= fmap (take 10) . recentFirst
+        >>= renderAtom feedConfig feedCtx
+
+  -- Tag feeds
+  tagsRules tags $ \tag pattern -> version "atom" $ do
+    route   $ customRoute (atomPath . toFilePath)
+    compile $ do
+      loadAllSnapshots pattern "content"
+        >>= fmap (take 10) . recentFirst
+        >>= renderAtom (tagFeedConfig tag) feedCtx
 
 
 ----------------------------------------------------------------------
@@ -149,3 +169,12 @@ feedConfig = FeedConfiguration
   , feedAuthorEmail = "eric@ericb.me"
   , feedRoot        = "http://blorg.ericb.me"
   }
+
+tagFeedConfig :: String -> FeedConfiguration
+tagFeedConfig tag = feedConfig
+  { feedTitle       = "blorg.ericb.me - " ++ tag
+  , feedDescription = postsAbout tag
+  }
+
+atomPath :: FilePath -> FilePath
+atomPath = flip replaceExtension ".atom" . takeDirectory
