@@ -23,7 +23,7 @@ commit-site:
 	@git add .
 	@git commit -S -m 'Update hakyll/_site'
 
-deploy: org-publish-project clean rebuild commit-site
+deploy: org-publish-project rebuild commit-site
 
 org-setup: ; $(EMACS) '(load-file "$(blorg.el)")'
 
