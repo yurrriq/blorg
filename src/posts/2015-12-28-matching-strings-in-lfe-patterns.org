@@ -31,7 +31,7 @@ But the literal LFE translation [[https://github.com/rvirding/lfe/issues/176][do
 #+END_SRC
 
 Instead, invocation of a ~defun~ of that form throws a =function_clause= error.
-#+BEGIN_SRC lfe :exports both
+#+BEGIN_SRC lfe :exports code
 > (defun f ([(++ "prefix" suffix)] suffix))
 f
 > (f "prefixsuffix")
