@@ -91,7 +91,7 @@ I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%23sorrynotsor
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
   
 </div>
 
@@ -137,7 +137,7 @@ Just start the tracer:
 
 <div class="org-src-container">
 
-<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok &lt;0.42.0&gt;<span style="color: #AE81FF;">)</span>
+<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>error already_started<span style="color: #AE81FF;">)</span>
 </pre>
 </div>
 
@@ -183,7 +183,7 @@ Now, try to call the function, as usual. The tracer is active!
 <div class="org-src-container">
 
 <pre class="src src-lfe">5
-<span style="color: #AE81FF;">(</span>&lt;0.29.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>2,3<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>&lt;0.133.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>2,3<span style="color: #AE81FF;">)</span>
 </pre>
 </div>
 
@@ -220,8 +220,8 @@ To trace the return value for a given function:
 <div class="org-src-container">
 
 <pre class="src src-lfe">42
-<span style="color: #AE81FF;">(</span>&lt;0.29.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>19,23<span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>&lt;0.29.0&gt;<span style="color: #AE81FF;">)</span> returned from maths:sum/2 -&gt; 42
+<span style="color: #AE81FF;">(</span>&lt;0.133.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>19,23<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>&lt;0.133.0&gt;<span style="color: #AE81FF;">)</span> returned from maths:sum/2 -&gt; 42
 </pre>
 </div>
 
@@ -257,7 +257,7 @@ To stop the trace:
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
   
 </div>
 
@@ -373,7 +373,7 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
   
 </div>
 
@@ -438,7 +438,7 @@ Gott nytt år!
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
   
 </div>
 
@@ -484,16 +484,6 @@ f
 exception error: function_clause
 </pre>
 </div>
-
-<pre class="example">
-exception error: #(unbound_symb f)
-
-&gt; &gt; (f "prefixsuffix")
-exception error: #(unbound_symb &gt;)
-
-&gt; exception error: function_clause
-exception error: #(unbound_symb exception)
-</pre>
 
 <p>
 After this discovery, I took to <a href="http://webchat.freenode.net/?channels=erlang-lisp">#erlang-lisp</a> and tried to figure out why.
@@ -622,7 +612,7 @@ appropriate hex code.
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>
   
 </div>
 
@@ -678,7 +668,7 @@ true
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
   
 </div>
 

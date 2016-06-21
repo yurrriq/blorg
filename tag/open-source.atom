@@ -91,7 +91,7 @@ I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%23sorrynotsor
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
   
 </div>
 
@@ -207,7 +207,7 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
   
 </div>
 
@@ -253,16 +253,6 @@ f
 exception error: function_clause
 </pre>
 </div>
-
-<pre class="example">
-exception error: #(unbound_symb f)
-
-&gt; &gt; (f "prefixsuffix")
-exception error: #(unbound_symb &gt;)
-
-&gt; exception error: function_clause
-exception error: #(unbound_symb exception)
-</pre>
 
 <p>
 After this discovery, I took to <a href="http://webchat.freenode.net/?channels=erlang-lisp">#erlang-lisp</a> and tried to figure out why.
@@ -345,7 +335,7 @@ f
 
 <div class="info">
   
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
+  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
   
 </div>
 

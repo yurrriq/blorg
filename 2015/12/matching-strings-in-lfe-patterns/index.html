@@ -36,7 +36,7 @@
 
 <div class="info">
   
-  Tags: <a href="../../../tag/lfe/">lfe</a>, <a href="../../../tag/lisp/">lisp</a>, <a href="../../../tag/erlang/">erlang</a>, <a href="../../../tag/pattern-matching/">pattern-matching</a>, <a href="../../../tag/open-source/">open-source</a>
+  Tags: <a href="../../../tag/lfe/">lfe</a>, <a href="../../../tag/lisp/">lisp</a>, <a href="../../../tag/beam/">beam</a>, <a href="../../../tag/pattern-matching/">pattern-matching</a>, <a href="../../../tag/open-source/">open-source</a>
   
 </div>
 
@@ -82,16 +82,6 @@ f
 exception error: function_clause
 </pre>
 </div>
-
-<pre class="example">
-exception error: #(unbound_symb f)
-
-&gt; &gt; (f "prefixsuffix")
-exception error: #(unbound_symb &gt;)
-
-&gt; exception error: function_clause
-exception error: #(unbound_symb exception)
-</pre>
 
 <p>
 After this discovery, I took to <a href="http://webchat.freenode.net/?channels=erlang-lisp">#erlang-lisp</a> and tried to figure out why.
