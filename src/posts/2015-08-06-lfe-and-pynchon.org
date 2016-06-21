@@ -3,7 +3,7 @@
 ---
 title:  "Lisp Flavoured Erlang and Pynchon, oh my!"
 author: Eric Bailey
-tags: lfe, lisp, erlang, metaprogramming, open-source
+tags: lfe, lisp, beam, metaprogramming, open-source
 ---
 #+END_HTML
 

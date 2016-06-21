@@ -3,7 +3,7 @@
 ---
 title:  "Cons Cells in Lisp Flavoured Erlang"
 author: Eric Bailey
-tags: lfe, lisp, erlang
+tags: lfe, lisp, beam
 ---
 #+END_HTML
 
