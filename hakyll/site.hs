@@ -64,7 +64,7 @@ main = hakyll $ do
 
   match "pages/*.html" $ do
     route   $ customRoute ((</> "index.html") . takeBaseName . toFilePath)
-    compile $ pandocCompiler
+    compile $ getResourceBody
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeAndCleanUrls
 
