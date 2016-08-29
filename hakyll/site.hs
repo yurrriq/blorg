@@ -9,6 +9,7 @@ import           Hakyll
 import           System.FilePath (replaceExtension, takeBaseName, takeDirectory,
                                   takeFileName, (</>))
 
+-- -------------------------------------------------------------------- [ Main ]
 
 main :: IO ()
 main = hakyll $ do
@@ -96,10 +97,7 @@ main = hakyll $ do
         >>= fmap (take 10) . recentFirst
         >>= renderAtom (tagFeedConfig tag) feedCtx
 
-
-----------------------------------------------------------------------
--- Post helper functions
-----------------------------------------------------------------------
+-- --------------------------------------------------- [ Post helper functions ]
 
 postCtx :: Tags -> Context String
 postCtx tags =
@@ -134,9 +132,7 @@ dashToSlash :: Char -> Char
 dashToSlash '-' = '/'
 dashToSlash c   = c
 
-
-----------------------------------------------------------------------
--- Clean routes
+-- ------------------------------------------------------------ [ Clean routes ]
 -- Modified from https://www.rohanjain.in/hakyll-clean-urls/
 ----------------------------------------------------------------------
 
@@ -158,10 +154,7 @@ cleanIndex = flip maybe unpack `ap` (T.stripSuffix "index.html" . pack)
 -- cleanIndexHtmls :: Item String -> Compiler (Item String)
 -- cleanIndexHtmls = return . fmap (replaceAll "/index.html" (const "/"))
 
-
-----------------------------------------------------------------------
--- Config
-----------------------------------------------------------------------
+-- ------------------------------------------------------------------ [ Config ]
 
 feedConfig :: FeedConfiguration
 feedConfig = FeedConfiguration
@@ -181,3 +174,5 @@ tagFeedConfig tag = feedConfig
 
 atomPath :: FilePath -> FilePath
 atomPath = flip replaceExtension ".atom" . takeDirectory
+
+-- --------------------------------------------------------------------- [ EOF ]
