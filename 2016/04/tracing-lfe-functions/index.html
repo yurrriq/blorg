@@ -82,7 +82,7 @@ Just start the tracer:
 
 <div class="org-src-container">
 
-<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>error already_started<span style="color: #AE81FF;">)</span>
+<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok &lt;0.66.0&gt;<span style="color: #AE81FF;">)</span>
 </pre>
 </div>
 
@@ -97,7 +97,7 @@ Tell the tracer you are interested in all calls for all processes:
 
 <div class="org-src-container">
 
-<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok <span style="color: #66D9EF;">(</span>#<span style="color: #A6E22E;">(</span>matched nonode@nohost 26<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok <span style="color: #66D9EF;">(</span>#<span style="color: #A6E22E;">(</span>matched nonode@nohost 28<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 </pre>
 </div>
 
@@ -128,7 +128,7 @@ Now, try to call the function, as usual. The tracer is active!
 <div class="org-src-container">
 
 <pre class="src src-lfe">5
-<span style="color: #AE81FF;">(</span>&lt;0.133.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>2,3<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>&lt;0.53.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>2,3<span style="color: #AE81FF;">)</span>
 </pre>
 </div>
 
@@ -165,8 +165,8 @@ To trace the return value for a given function:
 <div class="org-src-container">
 
 <pre class="src src-lfe">42
-<span style="color: #AE81FF;">(</span>&lt;0.133.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>19,23<span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>&lt;0.133.0&gt;<span style="color: #AE81FF;">)</span> returned from maths:sum/2 -&gt; 42
+<span style="color: #AE81FF;">(</span>&lt;0.53.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>19,23<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>&lt;0.53.0&gt;<span style="color: #AE81FF;">)</span> returned from maths:sum/2 -&gt; 42
 </pre>
 </div>
 
