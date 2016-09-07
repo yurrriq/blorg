@@ -18,7 +18,9 @@
 (let* ((base-directory
         (concat (file-name-directory (directory-file-name default-directory))
                 "src/"))
-       (publishing-directory default-directory))
+       (publishing-directory
+        (concat (file-name-directory (directory-file-name default-directory))
+                "hakyll/")))
   (add-to-list
    'org-publish-project-alist
    `("blorg"
