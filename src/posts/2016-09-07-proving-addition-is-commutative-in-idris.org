@@ -147,9 +147,7 @@ Tidying up a bit for my taste, we arrive at the complete (and total) definition:
 total
 myPlusCommutative : (n, m : Nat) -> n + m = m + n
 myPlusCommutative  Z    m = sym (plusZeroRightNeutral m)
-myPlusCommutative (S k) m =
-  rewrite myPlusCommutative k m in
-  rewrite plusSuccRightSucc m k in
-          Refl
+myPlusCommutative (S k) m = rewrite myPlusCommutative k m in
+                                    plusSuccRightSucc m k
 #+END_SRC
 $\square$
