@@ -1,20 +1,27 @@
 #+STARTUP: showall
 
 * blorg
-Install [[http://haskellstack.org][Stack]]:
+** Install [[https://nixos.org/nix/][Nix]]
 #+BEGIN_SRC fish
-brew install haskell-stack
+curl https://nixos.org/nix/install | sh
 #+END_SRC
 
-Publish [[http://orgmode.org][Org]] posts:
+** Publish [[http://orgmode.org][Org]] [[file:src/posts/][posts]]
 #+BEGIN_EXAMPLE
-C-c C-e P p >>= blog
+C-c C-e P p
 #+END_EXAMPLE
-
-The [[file:Makefile][Makefile]] requires GNU Make ≥ 3.82 in order to use ~.ONESHELL:~
-for the ~deploy~ target. This is kinda lame, but it gets the job done.
-
-On my Mac, this means I have to call the following to deploy the site:
+or
 #+BEGIN_SRC fish
-gmake deploy
+make -C hakyll org-publish-project
+#+END_SRC
+
+** (Re)build the [[https://github.com/yurrriq/blorg/tree/gh-pages][site]]
+#+BEGIN_SRC fish
+make -C hakyll rebuild
+#+END_SRC
+
+N.B. The [[file:hakyll/Makefile][Makefile]] requires GNU Make ≥ 3.82 in order to use ~.ONESHELL:~
+for the ~deploy~ target.
+#+BEGIN_SRC fish
+nix-env -iA gnumake
 #+END_SRC
