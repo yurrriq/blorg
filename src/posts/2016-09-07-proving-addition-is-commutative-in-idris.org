@@ -1,13 +1,13 @@
 #+STARTUP: showall
 #+OPTIONS: toc:nil ^:{}
 #+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "Proving Addition is Commutative in Idris"
 author: Eric Bailey
 tags: idris, theorem-proving, books
 ---
-#+END_HTML
+#+END_EXPORT
 
 First off, I think [[http://www.idris-lang.org][Idris]] is pretty great. Over the past several months, I've
 been thoroughly enjoying reading and working through [[https://www.manning.com/books/type-driven-development-with-idris][/Type-Driven Development

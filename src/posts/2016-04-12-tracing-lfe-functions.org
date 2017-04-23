@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "Tracing LFE Functions"
 author: Eric Bailey
 tags: lfe, lisp, beam, tracing, debugging
 ---
-#+END_HTML
+#+END_EXPORT
 
 What follows is an LFE translation of Roberto Aloi's [[https://aloiroberto.wordpress.com/2009/02/23/tracing-erlang-functions/][/Tracing Erlang Functions/]].
 

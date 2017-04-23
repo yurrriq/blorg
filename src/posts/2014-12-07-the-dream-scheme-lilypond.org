@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "(define the-dream (+ 'scheme 'lilypond))"
 author: Eric Bailey
 tags: lilypond, scheme, music
 ---
-#+END_HTML
+#+END_EXPORT
 
 [[img:the-dream-scheme-lilypond.png]]
 

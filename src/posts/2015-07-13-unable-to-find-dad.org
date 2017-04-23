@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "Unable to find dad"
 author: Eric Bailey
 tags: clojure, error
 ---
-#+END_HTML
+#+END_EXPORT
 
 #+BEGIN_EXAMPLE
   Show: Clojure Java REPL Tooling Duplicates All  (65 frames hidden)

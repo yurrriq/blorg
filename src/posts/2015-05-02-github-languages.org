@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "GitHub Languages"
 author: Eric Bailey
 tags: hack, clojure, script, polyglot
 ---
-#+END_HTML
+#+END_EXPORT
 
 I wrote a little [[http://clojure.org][Clojure]] script[fn:1] to gather the language usage data from
 [[https://github.com/yurrriq?tab=repositories][my GitHub repos]] and sort them in descending order of popularity.

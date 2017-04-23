@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "Hello, world!"
 author: Eric Bailey
 tags: basic, blogging
 ---
-#+END_HTML
+#+END_EXPORT
 
 #+BEGIN_SRC basic
 10 PRINT "HELLO, WORLD!"
