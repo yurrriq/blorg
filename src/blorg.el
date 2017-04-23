@@ -13,7 +13,7 @@
 (require 'ob-lfe)
 
 (unless (boundp 'org-publish-project-alist)
-  (setq org-publish-project-alist '(())))
+  (setq org-publish-project-alist '()))
 
 (let* ((base-directory
         (concat (file-name-directory (directory-file-name default-directory))
