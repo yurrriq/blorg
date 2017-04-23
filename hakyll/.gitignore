@@ -1,5 +1,6 @@
-.stack-work/
 404.html
 _cache/
 pages/
 posts/
+dist/
+result
