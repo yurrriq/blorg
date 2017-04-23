@@ -1,45 +1,51 @@
 # N.B. This requires Gnu Make >= 3.82 for ONESHELL to work as expected.
 
 SITE_DIR := $(addprefix $(CURDIR), /_site)
-SITE      = @stack exec site
-EMACS     = @emacsclient -e
+SITE_TMP := $(shell mktemp -d)
+SITE      = @ dist/build/site/site
+EMACS     = @ emacsclient -e
 HACKS     = {.git,CNAME,README.org}
 blorg.el := $(addprefix $(dir $(CURDIR)), src/blorg.el)
 
+.PHONY: build clean site commit-site deploy \
+org-setup org-publish-project rebuild do-rebuild restore-submodule stash-submodule
 
-build: ; $(SITE) build
+build: ; ${SITE} build
 
 clean: stash-submodule
-	$(SITE) clean
+	${SITE} clean
+	@ rm -fr dist
 
 .ONESHELL:
 commit-site:
-	@cd $(SITE_DIR)
-	@git checkout gh-pages
-	@git add .
-	@git commit -S -m 'Update site'
-	@git push
-	@cd ..
-	@git add .
-	@git commit -S -m 'Update hakyll/_site'
+	@ cd ${SITE_DIR}
+	@ git checkout gh-pages
+	@ git add .
+	@ git commit -S -m 'Update site'
+	@ git push
+	@ cd ..
+	@ git add .
+	@ git commit -S -m 'Update hakyll/_site'
 
 deploy: org-publish-project rebuild commit-site
 
-org-setup: ; $(EMACS) '(load-file "$(blorg.el)")'
+org-setup: ; ${EMACS} '(load-file "${blorg.el}")'
 
 org-publish-project: org-setup
-	$(EMACS) '(org-publish-project "blorg")'
+	${EMACS} '(org-publish-project "blorg")'
 
 rebuild: clean do-rebuild restore-submodule
 
+# FIXME: nix-build
 do-rebuild:
-	@stack build
-	$(SITE) rebuild
+	nix-shell --run 'cabal build'
+	${SITE} rebuild
 
 restore-submodule:
-	@mv _site-dot-git/$(HACKS) $(SITE_DIR)
-	@rm -r _site-dot-git
+	@ mv ${SITE_TMP}/${HACKS} ${SITE_DIR}
+	@ rm -r ${SITE_TMP}
 
 stash-submodule:
-	@mkdir -p _site-dot-git
-	@mv $(SITE_DIR)/$(HACKS) _site-dot-git
+	@ mkdir -p ${SITE_TMP}
+	@ mv ${SITE_DIR}/${HACKS} ${SITE_TMP}
+	@ echo ${SITE_TMP}
