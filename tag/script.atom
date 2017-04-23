@@ -34,8 +34,7 @@ I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-json"><span style="color: #AE81FF;">{</span>
+<pre class="src src-json">{
   <span style="color: #F92672;">"Ruby"</span> : <span style="color: #AE81FF;">4401525</span>,
   <span style="color: #F92672;">"Java"</span> : <span style="color: #AE81FF;">1800870</span>,
   <span style="color: #F92672;">"Clojure"</span> : <span style="color: #AE81FF;">1406457</span>,
@@ -71,7 +70,7 @@ I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.
   <span style="color: #F92672;">"Swift"</span> : <span style="color: #AE81FF;">467</span>,
   <span style="color: #F92672;">"Makefile"</span> : <span style="color: #AE81FF;">220</span>,
   <span style="color: #F92672;">"Frege"</span> : <span style="color: #AE81FF;">53</span>
-<span style="color: #AE81FF;">}</span>
+}
 </pre>
 </div>
 
@@ -122,7 +121,6 @@ hacking on. <a href="http://icanhazip.com">icanhazip.com</a> has become my favor
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">&#120524; curl icanhazip.com <span style="color: #75715E;"># </span><span style="color: #75715E;">yass, u can</span>
 </pre>
 </div>

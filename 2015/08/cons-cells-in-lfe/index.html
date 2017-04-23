@@ -47,7 +47,6 @@ singleton list, <code>head</code> holds the single element and <code>tail</code>
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>`<span style="color: #E6DB74;">(</span>,head . ,tail<span style="color: #E6DB74;">)</span> '<span style="color: #E6DB74;">(</span>a-single-element<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
     <span style="color: #66D9EF;">(</span>lfe_io:format '<span style="color: #E6DB74;">"Head: ~w~nTail: ~w~n"</span> `<span style="color: #A6E22E;">(</span>,head ,tail<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 </pre>
@@ -66,8 +65,7 @@ the same atom.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span>=:= <span style="color: #66D9EF;">(</span>cons 'a-single-element '<span style="color: #A6E22E;">()</span><span style="color: #66D9EF;">)</span> '<span style="color: #66D9EF;">(</span>a-single-element<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">=:=</span> <span style="color: #66D9EF;">(</span><span style="color: #F92672;">cons</span> 'a-single-element '<span style="color: #A6E22E;">()</span><span style="color: #66D9EF;">)</span> '<span style="color: #66D9EF;">(</span>a-single-element<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 </pre>
 </div>
 

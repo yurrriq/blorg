@@ -115,7 +115,6 @@ recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-erlang"><span style="color: #66D9EF;">rebar_base_compiler</span>:<span style="color: #66D9EF;">run</span>(<span style="color: #FD971F;">Opts</span>, [], <span style="color: #FD971F;">Files</span>, <span style="color: #FD971F;">DoCompile</span>).
 </pre>
 </div>
@@ -129,7 +128,6 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-erlang"><span style="color: #66D9EF;">rebar_base_compiler</span>:<span style="color: #66D9EF;">run</span>(<span style="color: #FD971F;">Config</span>, <span style="color: #FD971F;">FirstFiles</span>,
                         <span style="color: #FD971F;">SourceDir</span>, <span style="color: #E6DB74;">".lfe"</span>, <span style="color: #FD971F;">TargetDir</span>, <span style="color: #E6DB74;">".beam"</span>,
                         <span style="color: #F92672;">fun</span> <span style="color: #66D9EF;">compile/3</span>).
@@ -150,38 +148,35 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 &#x2026; using <code>run/4</code> via <a href="https://github.com/lfe-rebar3/compile/releases/tag/0.2.1">0.2.1</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
 <pre class="example">
- ~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
- ~~&gt;    Compiling ./src/lodox-p.lfe ...
- ~~&gt;    Compiling ./src/lodox-parse.lfe ...
- ~~&gt;    Compiling ./src/lodox-util.lfe ...
- ~~&gt;    Compiling ./src/lodox.lfe ...
- ~~&gt;    Compiling ./src/pandoc.lfe ...
- ~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
-        1.39 real         1.14 user         0.24 sys
+~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
+~~&gt;    Compiling ./src/lodox-p.lfe ...
+~~&gt;    Compiling ./src/lodox-parse.lfe ...
+~~&gt;    Compiling ./src/lodox-util.lfe ...
+~~&gt;    Compiling ./src/lodox.lfe ...
+~~&gt;    Compiling ./src/pandoc.lfe ...
+~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
+       1.39 real         1.14 user         0.24 sys
 </pre>
 
 <p>
 &#x2026; using <code>run/7</code> via <a href="https://github.com/quasiquoting/lfe-compile/releases/tag/0.3.0">0.3.0</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
 <pre class="example">
-        0.94 real         0.73 user         0.20 sys
+0.94 real         0.73 user         0.20 sys
 </pre>
 
 <p>
 A little more :cow::poop: microbenchmarking on a proprietary work project:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash"><span style="color: #75715E;"># </span><span style="color: #75715E;">run/4</span>
         3.58 real         3.02 user         0.58 sys
 
@@ -216,7 +211,6 @@ While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-erlang"><span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"toggle "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">toggle</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>));
 <span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"turn on "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">turn_on</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>));
 <span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"turn off "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">turn_off</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>)).
@@ -235,7 +229,6 @@ wanting to write <code>parse_instruction/1</code> like this:
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">parse-instruction</span>
   <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"turn off "</span> rest<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span>
    ...<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
@@ -246,7 +239,6 @@ But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/
 Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"prefix"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 f
 &gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
@@ -265,7 +257,6 @@ a solid approach.
 N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-erlang"><span style="color: #75715E;">%% </span><span style="color: #75715E;">Cases with lists of numbers (strings).</span>
 [[<span style="color: #FD971F;">N</span>|<span style="color: #FD971F;">Ns</span>]|<span style="color: #FD971F;">Es</span>] <span style="color: #F92672;">when</span> <span style="color: #F92672;">is_number</span>(<span style="color: #FD971F;">N</span>) -&gt;<span style="color: #A6E22E;"> </span>[cons,<span style="color: #FD971F;">N</span>,[<span style="color: #E6DB74;">'++'</span>,<span style="color: #FD971F;">Ns</span>|<span style="color: #FD971F;">Es</span>]];
 </pre>
@@ -281,7 +272,6 @@ decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep 
 The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-erlang"><span style="color: #75715E;">%% </span><span style="color: #75715E;">exp_predef(...) -&gt; ...;</span>
 <span style="color: #A6E22E;">exp_predef</span>([<span style="color: #E6DB74;">'++*'</span>|<span style="color: #FD971F;">Abody</span>], <span style="color: #FD971F;">_</span>, <span style="color: #FD971F;">St</span>) -&gt;
   <span style="color: #FD971F;">Exp</span> = <span style="color: #66D9EF;">exp_prefix</span>(<span style="color: #FD971F;">Abody</span>),
@@ -298,8 +288,7 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span>++* <span style="color: #E6DB74;">"prefix"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++*</span> <span style="color: #E6DB74;">"prefix"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 f
 &gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
 <span style="color: #E6DB74;">"suffix"</span>
@@ -310,8 +299,7 @@ f
 or even:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span>++* <span style="color: #E6DB74;">"p"</span> <span style="color: #E6DB74;">"r"</span> <span style="color: #E6DB74;">"e"</span> <span style="color: #E6DB74;">"f"</span> <span style="color: #E6DB74;">"i"</span> <span style="color: #E6DB74;">"x"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++*</span> <span style="color: #E6DB74;">"p"</span> <span style="color: #E6DB74;">"r"</span> <span style="color: #E6DB74;">"e"</span> <span style="color: #E6DB74;">"f"</span> <span style="color: #E6DB74;">"i"</span> <span style="color: #E6DB74;">"x"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 f
 &gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
 <span style="color: #E6DB74;">"suffix"</span>
@@ -353,7 +341,6 @@ the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang"
 Without further ado, here's a contrived example:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
      <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
             <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
@@ -373,7 +360,6 @@ macros for LFE.
 The wild-looking form above expands to something more like:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt;
  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">progn</span>
    <span style="color: #A6E22E;">(</span>lfe_io:format
@@ -391,13 +377,11 @@ The wild-looking form above expands to something more like:
 After that, it becomes apparent the "return track" is rather simple:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> <span style="color: #66D9EF;">(</span>string:substr 5 <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
        <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
               <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
@@ -443,7 +427,6 @@ Its excruciatingly simple Clojure source looks something like this:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-clojure"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defroutes</span> <span style="color: #A6E22E;">app</span>
   <span style="color: #66D9EF;">(</span><span style="color: #AE81FF;">GET</span> <span style="color: #E6DB74;">"/"</span> <span style="color: #A6E22E;">{</span><span style="color: #E6DB74;">{</span>x-real-ip <span style="color: #E6DB74;">"x-real-ip"</span><span style="color: #E6DB74;">}</span> <span style="color: #AE81FF;">:headers</span><span style="color: #A6E22E;">}</span>
     <span style="color: #A6E22E;">{</span><span style="color: #AE81FF;">:status</span>  200

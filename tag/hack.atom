@@ -48,7 +48,6 @@ appropriate hex code.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">brew cask install key-codes
 </pre>
 </div>
@@ -86,7 +85,6 @@ Its excruciatingly simple Clojure source looks something like this:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-clojure"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defroutes</span> <span style="color: #A6E22E;">app</span>
   <span style="color: #66D9EF;">(</span><span style="color: #AE81FF;">GET</span> <span style="color: #E6DB74;">"/"</span> <span style="color: #A6E22E;">{</span><span style="color: #E6DB74;">{</span>x-real-ip <span style="color: #E6DB74;">"x-real-ip"</span><span style="color: #E6DB74;">}</span> <span style="color: #AE81FF;">:headers</span><span style="color: #A6E22E;">}</span>
     <span style="color: #A6E22E;">{</span><span style="color: #AE81FF;">:status</span>  200
@@ -127,8 +125,7 @@ I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-json"><span style="color: #AE81FF;">{</span>
+<pre class="src src-json">{
   <span style="color: #F92672;">"Ruby"</span> : <span style="color: #AE81FF;">4401525</span>,
   <span style="color: #F92672;">"Java"</span> : <span style="color: #AE81FF;">1800870</span>,
   <span style="color: #F92672;">"Clojure"</span> : <span style="color: #AE81FF;">1406457</span>,
@@ -164,7 +161,7 @@ I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.
   <span style="color: #F92672;">"Swift"</span> : <span style="color: #AE81FF;">467</span>,
   <span style="color: #F92672;">"Makefile"</span> : <span style="color: #AE81FF;">220</span>,
   <span style="color: #F92672;">"Frege"</span> : <span style="color: #AE81FF;">53</span>
-<span style="color: #AE81FF;">}</span>
+}
 </pre>
 </div>
 
@@ -215,7 +212,6 @@ hacking on. <a href="http://icanhazip.com">icanhazip.com</a> has become my favor
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">&#120524; curl icanhazip.com <span style="color: #75715E;"># </span><span style="color: #75715E;">yass, u can</span>
 </pre>
 </div>

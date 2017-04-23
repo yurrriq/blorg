@@ -48,7 +48,6 @@ recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-erlang"><span style="color: #66D9EF;">rebar_base_compiler</span>:<span style="color: #66D9EF;">run</span>(<span style="color: #FD971F;">Opts</span>, [], <span style="color: #FD971F;">Files</span>, <span style="color: #FD971F;">DoCompile</span>).
 </pre>
 </div>
@@ -62,7 +61,6 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-erlang"><span style="color: #66D9EF;">rebar_base_compiler</span>:<span style="color: #66D9EF;">run</span>(<span style="color: #FD971F;">Config</span>, <span style="color: #FD971F;">FirstFiles</span>,
                         <span style="color: #FD971F;">SourceDir</span>, <span style="color: #E6DB74;">".lfe"</span>, <span style="color: #FD971F;">TargetDir</span>, <span style="color: #E6DB74;">".beam"</span>,
                         <span style="color: #F92672;">fun</span> <span style="color: #66D9EF;">compile/3</span>).
@@ -83,38 +81,35 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 &#x2026; using <code>run/4</code> via <a href="https://github.com/lfe-rebar3/compile/releases/tag/0.2.1">0.2.1</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
 <pre class="example">
- ~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
- ~~&gt;    Compiling ./src/lodox-p.lfe ...
- ~~&gt;    Compiling ./src/lodox-parse.lfe ...
- ~~&gt;    Compiling ./src/lodox-util.lfe ...
- ~~&gt;    Compiling ./src/lodox.lfe ...
- ~~&gt;    Compiling ./src/pandoc.lfe ...
- ~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
-        1.39 real         1.14 user         0.24 sys
+~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
+~~&gt;    Compiling ./src/lodox-p.lfe ...
+~~&gt;    Compiling ./src/lodox-parse.lfe ...
+~~&gt;    Compiling ./src/lodox-util.lfe ...
+~~&gt;    Compiling ./src/lodox.lfe ...
+~~&gt;    Compiling ./src/pandoc.lfe ...
+~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
+       1.39 real         1.14 user         0.24 sys
 </pre>
 
 <p>
 &#x2026; using <code>run/7</code> via <a href="https://github.com/quasiquoting/lfe-compile/releases/tag/0.3.0">0.3.0</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
 <pre class="example">
-        0.94 real         0.73 user         0.20 sys
+0.94 real         0.73 user         0.20 sys
 </pre>
 
 <p>
 A little more :cow::poop: microbenchmarking on a proprietary work project:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash"><span style="color: #75715E;"># </span><span style="color: #75715E;">run/4</span>
         3.58 real         3.02 user         0.58 sys
 
