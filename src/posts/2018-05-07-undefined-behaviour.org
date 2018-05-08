@@ -63,10 +63,8 @@ EOS
 
 Unsurprisingly, GCC computes the final value of ~x~ to be =10=, the
 same as its initial value, after being incremented and
-decremented.
-
-It's markedly *less* intuitive to me that the final value of ~y~ is
-=20=.
+decremented. It's markedly *less* intuitive to me that the final value
+of ~y~ is =20=.
 
 Clang, on the other hand, agrees with me, i.e. computes the final
 value of ~y~ to be ~21~.
@@ -77,9 +75,9 @@ value of ~y~ to be ~21~.
 
 Both compilers warn about unsequenced modifications and the resultant
 undefined behaviour. Digging around a bit leads to some fascinating
-discussions. The GCC team maintains a [[https://gcc.gnu.org/readings.html][list of further reading]], include
-a few formal models and analyses of sequence points in C. Further
-exploration is left as an exercise for the reader.
+discussions. The GCC team maintains a [[https://gcc.gnu.org/readings.html][list of further reading]],
+including a few formal models and analyses of sequence points in
+C. Further exploration is left as an exercise for the reader.
 
 *tl;dr* (from https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
 
