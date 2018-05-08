@@ -108,12 +108,8 @@ x = 10, y = 20
 <p>
 Unsurprisingly, GCC computes the final value of <code>x</code> to be <code>10</code>, the
 same as its initial value, after being incremented and
-decremented.
-</p>
-
-<p>
-It's markedly <b>less</b> intuitive to me that the final value of <code>y</code> is
-<code>20</code>.
+decremented. It's markedly <b>less</b> intuitive to me that the final value
+of <code>y</code> is <code>20</code>.
 </p>
 
 <p>
@@ -135,9 +131,9 @@ x = 10, y = 21
 <p>
 Both compilers warn about unsequenced modifications and the resultant
 undefined behaviour. Digging around a bit leads to some fascinating
-discussions. The GCC team maintains a <a href="https://gcc.gnu.org/readings.html">list of further reading</a>, include
-a few formal models and analyses of sequence points in C. Further
-exploration is left as an exercise for the reader.
+discussions. The GCC team maintains a <a href="https://gcc.gnu.org/readings.html">list of further reading</a>,
+including a few formal models and analyses of sequence points in
+C. Further exploration is left as an exercise for the reader.
 </p>
 
 <p>
