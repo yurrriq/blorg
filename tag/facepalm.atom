@@ -46,7 +46,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c" id="declarations">int x, y;
+<pre class="src src-c" id="declarations"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -55,7 +55,7 @@ We can inspect the final state of <code>x</code> and <code>y</code> with a simpl
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c" id="print-final-state">printf("x = %d, y = %d\n", x, y);
+<pre class="src src-c" id="print-final-state">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 </pre>
 </div>
 
@@ -64,15 +64,15 @@ Now, let's see how different compilers handle <a href="https://github.com/yurrri
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c">#include &lt;stdio.h&gt;
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;stdio.h&gt;</span>
 
 
-int main(int argc, char **argv)
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span>(<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #92a65e; font-weight: bold;">char</span> **<span style="color: #cae682;">argv</span>)
 {
     x = 10;
     y = ++x + --x;
 
-    printf("x = %d, y = %d\n", x, y);
+    printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 }
 </pre>
 </div>
