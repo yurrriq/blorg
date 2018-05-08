@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "Lisp Flavoured Erlang and Pynchon, oh my!"
 author: Eric Bailey
 tags: lfe, lisp, beam, metaprogramming, open-source
 ---
-#+END_EXPORT
+#+END_HTML
 
 So, lately I've been getting increasingly into [[http://lfe.io][Lisp Flavoured Erlang (LFE)]].  If
 you haven't tried it yet, or even if you have, check out the [[http://help.exercism.io/getting-started-with-lfe.html][Exercism.io track]] I

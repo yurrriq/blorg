@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "werase in iTerm2"
 author: Eric Bailey
 tags: osx, hack, terminal, productivity
 ---
-#+END_EXPORT
+#+END_HTML
 
 Using a fresh install of [[https://www.iterm2.com][iTerm2]], I found that =⌥⌫= wasn't working as
 expected. Within minutes, I noticed a *significant* decrease in productivity,

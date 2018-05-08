@@ -655,4 +655,8 @@ p {
 .footpara p {
   margin-top: 0;
 }
+
+blockquote {
+  margin-left: 2em;
+}
 /*-- End EB org src config --*/

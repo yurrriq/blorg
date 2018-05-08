@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "lfe-rebar3/compile updates"
 author: Eric Bailey
 tags: lfe, lisp, erlang, beam, rebar3, tooling, open-source
 ---
-#+END_EXPORT
+#+END_HTML
 
 Since much of my time these days is spent ~(or 'writing 'developing
 'evangelizing)~ [[http://lfe.io][LFE]], it should come as no surprise that I use the [[https://github.com/lfe-rebar3/compile][rebar3

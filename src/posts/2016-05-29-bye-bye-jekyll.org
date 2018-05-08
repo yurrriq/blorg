@@ -1,12 +1,12 @@
 #+STARTUP: showall
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "Bye Bye, Jekyll!"
 author: Eric Bailey
 tags: blogging, haskell, open-source
 ---
-#+END_EXPORT
+#+END_HTML
 
 Back in December of 2014, I set up a blog using [[https://ghost.org][Ghost]] and [[https://github.com/axitkhurana/buster/][Buster]]. That was all
 fine and good, but left quite a bit to be desired. I'm not a Python user and the

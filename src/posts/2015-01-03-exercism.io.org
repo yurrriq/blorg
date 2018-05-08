@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "exercism.io"
 author: Eric Bailey
 tags: clojure, learning, polyglot, open-source
 ---
-#+END_EXPORT
+#+END_HTML
 
 [[http://xkcd.com/353/][Hello, world!]] I started working on the [[http://exercism.io/languages/clojure][Clojure exercises]] from [[http://exercism.io/about][exercism.io]].
 

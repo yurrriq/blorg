@@ -1,10 +1,10 @@
 #+OPTIONS: toc:nil
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "Goodbye"
 permalink: /404.html
 ---
-#+END_EXPORT
+#+END_HTML
 
 # :weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary::weary:
 
@@ -22,9 +22,9 @@ permalink: /404.html
     (recur)))
 #+END_SRC
 
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 <!-- <audio autoplay loop> -->
 <!--   <source src="assets/mp3/goodbye.mp3" type="audio/mpeg" /> -->
 <!--   Goodbye. -->
 <!-- </audio> -->
-#+END_EXPORT
+#+END_HTML

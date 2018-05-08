@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "Matching strings in LFE patterns"
 author: Eric Bailey
 tags: lfe, lisp, beam, pattern-matching, open-source
 ---
-#+END_EXPORT
+#+END_HTML
 
 While writing an LFE solution for [[http://adventofcode.com/day/6][Day 6 of Advent of Code]], I found myself
 wanting to write ~parse_instruction/1~ like this:

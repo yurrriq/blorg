@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 ---
 title:  "Cons Cells in Lisp Flavoured Erlang"
 author: Eric Bailey
 tags: lfe, lisp, beam
 ---
-#+END_EXPORT
+#+END_HTML
 
 Just as you'd expect from [[http://learnyousomeerlang.com/starting-out-for-real#lists][Erlang]] or [[http://clojure.org/lisps][another Lisp]], in [[http://lfe.gitbooks.io/tutorial/content/sequential/lists.html][LFE]], lists are composed of
 [[http://cs.gmu.edu/~sean/lisp/cons/][/cons cells/]] and when you use pattern matching to bind the head and tail of a
