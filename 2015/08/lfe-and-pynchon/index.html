@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -54,13 +54,14 @@ the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang"
 Without further ado, here's a contrived example:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
-     <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
-            <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
-            <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
-            <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-     <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
-     <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">(-&lt;&gt; "testing"
+     (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
+            (lists:duplicate 3)
+            (compose #'list/1 #'lists:flatten/1)
+            (lfe_io:format '"non-updating: ~p\n"))
+     (string:substr 5)
+     (++ "winn" &lt;&gt;))
 </pre>
 </div>
 
@@ -73,16 +74,17 @@ macros for LFE.
 The wild-looking form above expands to something more like:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt;
- <span style="color: #66D9EF;">(</span><span style="color: #F92672;">progn</span>
-   <span style="color: #A6E22E;">(</span>lfe_io:format
-    '<span style="color: #E6DB74;">"non-updating: ~p\n"</span>
-    <span style="color: #E6DB74;">(</span><span style="color: #F92672;">list</span>
-     <span style="color: #FD971F;">(</span>lists:flatten
-      <span style="color: #F92672;">(</span>lists:duplicate 3 <span style="color: #AE81FF;">(</span>string:substr <span style="color: #E6DB74;">"testing"</span> 1 4<span style="color: #AE81FF;">)</span><span style="color: #F92672;">)</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
-   <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span>
- <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
- <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">(-&lt;&gt;
+ (progn
+   (lfe_io:format
+    '"non-updating: ~p\n"
+    (list
+     (lists:flatten
+      (lists:duplicate 3 (string:substr "testing" 1 4)))))
+   "testing")
+ (string:substr 5)
+ (++ "winn" &lt;&gt;))
 </pre>
 </div>
 
@@ -90,20 +92,22 @@ The wild-looking form above expands to something more like:
 After that, it becomes apparent the "return track" is rather simple:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> <span style="color: #66D9EF;">(</span>string:substr 5 <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">(++ "winn" (string:substr 5 "testing"))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
-       <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
-              <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
-              <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
-              <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-       <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
-       <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-non-updating: <span style="color: #E6DB74;">"testtesttest"</span> <span style="color: #75715E;">; printed</span>
-<span style="color: #E6DB74;">"winning"</span>                    <span style="color: #75715E;">; returned</span>
+
+<pre class="src src-lfe">&gt; (-&lt;&gt; "testing"
+       (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
+              (lists:duplicate 3)
+              (compose #'list/1 #'lists:flatten/1)
+              (lfe_io:format '"non-updating: ~p\n"))
+       (string:substr 5)
+       (++ "winn" &lt;&gt;))
+non-updating: "testtesttest" ; printed
+"winning"                    ; returned
 </pre>
 </div>
 

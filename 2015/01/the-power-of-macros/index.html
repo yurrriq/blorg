@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -49,54 +49,55 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 </p>
 
 <div class="org-src-container">
-<pre class="src src-clojure"><span style="color: #AE81FF;">(</span>comment
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>
-  <span style="color: #66D9EF;">(</span>some-&gt; <span style="color: #A6E22E;">(</span>meta #'<span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #A6E22E;">)</span> <span style="color: #AE81FF;">:doc</span> println<span style="color: #66D9EF;">)</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">When expr is not nil, threads it into the first form (via -&gt;),</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">and when that result is not nil, through the next etc</span>
 
-  <span style="color: #66D9EF;">(</span>macroexpand '<span style="color: #A6E22E;">(</span>some-&gt; <span style="color: #E6DB74;">(</span>meta #'<span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #E6DB74;">)</span> <span style="color: #AE81FF;">:doc</span> println<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">let*</span> <span style="color: #A6E22E;">[</span><span style="color: #AE81FF;">G__2986</span> <span style="color: #E6DB74;">(</span>meta <span style="color: #FD971F;">(</span><span style="color: #F92672;">var</span> <span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
-         <span style="color: #AE81FF;">G__2986</span> <span style="color: #E6DB74;">(</span><span style="color: #F92672;">if</span> <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>nil? <span style="color: #AE81FF;">G__2986</span><span style="color: #FD971F;">)</span>
-                   <span style="color: #AE81FF;">nil</span>
-                   <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #F92672;">-&gt;</span> <span style="color: #AE81FF;">G__2986</span> <span style="color: #AE81FF;">:doc</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
-         <span style="color: #AE81FF;">G__2986</span> <span style="color: #E6DB74;">(</span><span style="color: #F92672;">if</span> <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>nil? <span style="color: #AE81FF;">G__2986</span><span style="color: #FD971F;">)</span>
-                   <span style="color: #AE81FF;">nil</span>
-                   <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #F92672;">-&gt;</span> <span style="color: #AE81FF;">G__2986</span> println<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span>
-    <span style="color: #AE81FF;">G__2986</span><span style="color: #66D9EF;">)</span>
-
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Rewritten more readably to illustrate the point:</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">let</span> <span style="color: #A6E22E;">[</span>example <span style="color: #E6DB74;">(</span>meta #'<span style="color: #66D9EF;">clojure.core</span><span style="color: #F8F8F2; background-color: #272822;">/</span>some-&gt;<span style="color: #E6DB74;">)</span>
-        example <span style="color: #E6DB74;">(</span><span style="color: #F92672;">when-not</span> <span style="color: #FD971F;">(</span>nil? example<span style="color: #FD971F;">)</span>
-                  <span style="color: #FD971F;">(</span><span style="color: #AE81FF;">:doc</span> example<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
-        example <span style="color: #E6DB74;">(</span><span style="color: #F92672;">when-not</span> <span style="color: #FD971F;">(</span>nil? example<span style="color: #FD971F;">)</span>
-                  <span style="color: #FD971F;">(</span>println example<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span>
-    example<span style="color: #66D9EF;">)</span>
-
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Which brings me to another of my scattered thoughts,</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Clojure has the #'clojure.core/when-not macro, but</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">for some reason, I find myself wanting to use 'unless,</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">as in Common Lisp:</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">defmacro</span> <span style="color: #A6E22E;">unless</span> <span style="color: #A6E22E;">(</span>condition &amp;rest body<span style="color: #A6E22E;">)</span>
-    `<span style="color: #A6E22E;">(</span><span style="color: #F92672;">if</span> <span style="color: #E6DB74;">(</span>not ,condition<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span>progn ,@body<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">What better excuse to start writing my own macros?</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">ns</span> <span style="color: #66D9EF;">fastidious.macros</span><span style="color: #66D9EF;">)</span>
-
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">defmacro</span> <span style="color: #A6E22E;">unless</span>
-    <span style="color: #A6E22E;">[</span>condition &amp; body<span style="color: #A6E22E;">]</span> `<span style="color: #A6E22E;">(</span><span style="color: #F92672;">if</span> <span style="color: #E6DB74;">(</span>not ~condition<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span><span style="color: #F92672;">do</span> ~@body<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Side bonus: I used my desire for 'unless to drive</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">my experiments in integrating macros in ClojureScript,</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E;">with underwhelming success. It just works.</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">ns</span> <span style="color: #66D9EF;">client.core</span>
-    <span style="color: #A6E22E;">(</span><span style="color: #AE81FF;">:require-macros</span> <span style="color: #E6DB74;">[</span><span style="color: #66D9EF;">fastidious.macros</span> <span style="color: #AE81FF;">:refer</span> <span style="color: #FD971F;">[</span>unless<span style="color: #FD971F;">]</span><span style="color: #E6DB74;">]</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">let</span> <span style="color: #A6E22E;">[</span>lisp-is-lame? <span style="color: #AE81FF;">false</span><span style="color: #A6E22E;">]</span>
-    <span style="color: #A6E22E;">(</span>unless lisp-is-lame?
-      <span style="color: #E6DB74;">(</span>println <span style="color: #E6DB74;">"IFL Lisp."</span><span style="color: #E6DB74;">)</span>
-      <span style="color: #E6DB74;">(</span>println <span style="color: #E6DB74;">"Next up: /c[ad]{1,5}r/"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>comment
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>
+  <span style="color: #93a8c6;">(</span>some-&gt; <span style="color: #b0b1a3;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #b0b1a3;">)</span> <span style="color: #e5786d;">:doc</span> println<span style="color: #93a8c6;">)</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">When expr is not nil, threads it into the first form (via -&gt;),</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">and when that result is not nil, through the next etc</span>
+
+  <span style="color: #93a8c6;">(</span>macroexpand '<span style="color: #b0b1a3;">(</span>some-&gt; <span style="color: #97b098;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #97b098;">)</span> <span style="color: #e5786d;">:doc</span> println<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
+
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let*</span> <span style="color: #b0b1a3;">[</span><span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span>meta <span style="color: #aebed8;">(</span><span style="color: #8ac6f2; font-weight: bold;">var</span> <span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>
+         <span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>nil? <span style="color: #e5786d;">G__2986</span><span style="color: #aebed8;">)</span>
+                   <span style="color: #e5786d;">nil</span>
+                   <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> <span style="color: #e5786d;">G__2986</span> <span style="color: #e5786d;">:doc</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>
+         <span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>nil? <span style="color: #e5786d;">G__2986</span><span style="color: #aebed8;">)</span>
+                   <span style="color: #e5786d;">nil</span>
+                   <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> <span style="color: #e5786d;">G__2986</span> println<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">]</span>
+    <span style="color: #e5786d;">G__2986</span><span style="color: #93a8c6;">)</span>
+
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Rewritten more readably to illustrate the point:</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #b0b1a3;">[</span>example <span style="color: #97b098;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #97b098;">)</span>
+        example <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">when-not</span> <span style="color: #aebed8;">(</span>nil? example<span style="color: #aebed8;">)</span>
+                  <span style="color: #aebed8;">(</span><span style="color: #e5786d;">:doc</span> example<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>
+        example <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">when-not</span> <span style="color: #aebed8;">(</span>nil? example<span style="color: #aebed8;">)</span>
+                  <span style="color: #aebed8;">(</span>println example<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">]</span>
+    example<span style="color: #93a8c6;">)</span>
+
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Which brings me to another of my scattered thoughts,</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Clojure has the #'clojure.core/when-not macro, but</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">for some reason, I find myself wanting to use 'unless,</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">as in Common Lisp:</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span> <span style="color: #b0b1a3;">(</span>condition &amp;rest body<span style="color: #b0b1a3;">)</span>
+    `<span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #97b098;">(</span>not ,condition<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>progn ,@body<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
+
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">What better excuse to start writing my own macros?</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">fastidious.macros</span><span style="color: #93a8c6;">)</span>
+
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span>
+    <span style="color: #b0b1a3;">[</span>condition &amp; body<span style="color: #b0b1a3;">]</span> `<span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #97b098;">(</span>not ~condition<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">do</span> ~@body<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
+
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Side bonus: I used my desire for 'unless to drive</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">my experiments in integrating macros in ClojureScript,</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">with underwhelming success. It just works.</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">client.core</span>
+    <span style="color: #b0b1a3;">(</span><span style="color: #e5786d;">:require-macros</span> <span style="color: #97b098;">[</span><span style="color: #92a65e; font-weight: bold;">fastidious.macros</span> <span style="color: #e5786d;">:refer</span> <span style="color: #aebed8;">[</span>unless<span style="color: #aebed8;">]</span><span style="color: #97b098;">]</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
+
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #b0b1a3;">[</span>lisp-is-lame? <span style="color: #e5786d;">false</span><span style="color: #b0b1a3;">]</span>
+    <span style="color: #b0b1a3;">(</span>unless lisp-is-lame?
+      <span style="color: #97b098;">(</span>println <span style="color: #95e454;">"IFL Lisp."</span><span style="color: #97b098;">)</span>
+      <span style="color: #97b098;">(</span>println <span style="color: #95e454;">"Next up: /c[ad]{1,5}r/"</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 

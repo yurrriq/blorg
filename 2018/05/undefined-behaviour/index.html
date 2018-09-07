@@ -58,7 +58,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c" id="declarations"><span style="color: #66D9EF; font-weight: bold;">int</span> <span style="color: #FD971F;">x</span>, <span style="color: #FD971F;">y</span>;
+<pre class="src src-c" id="declarations"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -67,7 +67,7 @@ We can inspect the final state of <code>x</code> and <code>y</code> with a simpl
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c" id="print-final-state">printf(<span style="color: #E6DB74;">"x = %d, y = %d\n"</span>, x, y);
+<pre class="src src-c" id="print-final-state">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 </pre>
 </div>
 
@@ -76,15 +76,15 @@ Now, let's see how different compilers handle <a href="https://github.com/yurrri
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c"><span style="color: #F92672;">#include</span> <span style="color: #E6DB74;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;stdio.h&gt;</span>
 
 
-<span style="color: #66D9EF; font-weight: bold;">int</span> <span style="color: #A6E22E;">main</span>(<span style="color: #66D9EF; font-weight: bold;">int</span> <span style="color: #FD971F;">argc</span>, <span style="color: #66D9EF; font-weight: bold;">char</span> **<span style="color: #FD971F;">argv</span>)
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span>(<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #92a65e; font-weight: bold;">char</span> **<span style="color: #cae682;">argv</span>)
 {
     x = 10;
     y = ++x + --x;
 
-    printf(<span style="color: #E6DB74;">"x = %d, y = %d\n"</span>, x, y);
+    printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 }
 </pre>
 </div>
@@ -101,6 +101,12 @@ incdec.c: In function ‘main’:
 incdec.c:9:9: warning: operation on ‘x’ may be undefined [-Wsequence-point]
      y = ++x + --x;
          ^~~
+clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/5snssls8miq22r0pya9gkxcchndsfpp0-Libsystem-osx-10.11.6/include' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/drp99kzvq6c8r38kyd8prka9xjlw2ks9-gcc-7.3.0/lib/gcc/x86_64-apple-darwin/7.3.0/include-fixed' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-D _FORTIFY_SOURCE=2' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-fstack-protector-strong' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '--param ssp-buffer-size=4' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-fno-strict-overflow' [-Wunused-command-line-argument]
 
 x = 10, y = 20
 </pre>
@@ -118,7 +124,7 @@ value of <code>y</code> to be <code>21</code>.
 </p>
 
 <pre class="example">
-clang version 5.0.1 (tags/RELEASE_501/final)
+clang version 5.0.2 (tags/RELEASE_502/final)
 
 incdec.c:9:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
     y = ++x + --x;

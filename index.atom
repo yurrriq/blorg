@@ -8,8 +8,83 @@
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
     </author>
-    <updated>2018-05-07T00:00:00Z</updated>
+    <updated>2018-09-07T00:00:00Z</updated>
     <entry>
+    <title>Spooky Security</title>
+    <link href="http://blorg.ericb.me/2018/09/spooky-security/index.html" />
+    <id>http://blorg.ericb.me/2018/09/spooky-security/index.html</id>
+    <published>2018-09-07T00:00:00Z</published>
+    <updated>2018-09-07T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<div class="info">
+  Posted on  7 September, 2018
+  
+    by Eric Bailey
+  
+</div>
+
+<div class="info">
+  
+  Tags: <a href="/tag/darwin/index.html">darwin</a>, <a href="/tag/keyboard/index.html">keyboard</a>, <a href="/tag/security/index.html">security</a>, <a href="/tag/skhd/index.html">skhd</a>, <a href="/tag/chunkwm/index.html">chunkwm</a>
+  
+</div>
+
+<p>
+I've been using <a href="https://koekeishiya.github.io/chunkwm/">chunkwm</a> and <a href="https://github.com/koekeishiya/skhd">skhd</a> to help make Darwin more palatable, but <code>skhd</code>
+suddenly stopped working. When I try to start it manually, I get the following
+error.
+</p>
+
+<blockquote>
+<p>
+skhd: secure keyboard entry is enabled! abort..
+</p>
+</blockquote>
+
+<p>
+<a href="https://github.com/koekeishiya/skhd/issues/48">The internet suggested</a> I disable <a href="https://iterm2.com/">iTerm 2</a>'s <i>Secure Keyboard Entry</i>, but I've
+switched to <a href="https://sw.kovidgoyal.net/kitty/">kitty</a>.
+</p>
+
+<p>
+After some further frantic <a href="https://duckduckgo.com/">DuckDuckGo</a>-ing, I came across a function,
+<code>DisableSecureEventInput</code>, which seemed like the answer, so I wrote a quick
+program to call it and try to end my troubles.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;Carbon/Carbon.h&gt;</span>
+
+
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span>(<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #8ac6f2; font-weight: bold;">const</span> <span style="color: #92a65e; font-weight: bold;">char</span> *<span style="color: #cae682;">argv</span>[])
+{
+    <span style="color: #8ac6f2; font-weight: bold;">if</span> (IsSecureEventInputEnabled())
+        printf(<span style="color: #95e454;">"Secure keyboard entry is enabled.\n"</span>);
+
+    DisableSecureEventInput();
+
+    <span style="color: #8ac6f2; font-weight: bold;">if</span> (IsSecureEventInputEnabled())
+        printf(<span style="color: #95e454;">"Secure keyboard entry is still enabled.\n"</span>);
+
+
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+
+<pre class="example">
+Secure keyboard entry is enabled.
+Secure keyboard entry is still enabled.
+</pre>
+
+<p>
+No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literally dying</a>.
+</p>
+
+]]></summary>
+</entry>
+<entry>
     <title>Undefined Behaviour</title>
     <link href="http://blorg.ericb.me/2018/05/undefined-behaviour/index.html" />
     <id>http://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
@@ -46,7 +121,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c" id="declarations"><span style="color: #66D9EF; font-weight: bold;">int</span> <span style="color: #FD971F;">x</span>, <span style="color: #FD971F;">y</span>;
+<pre class="src src-c" id="declarations"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -55,7 +130,7 @@ We can inspect the final state of <code>x</code> and <code>y</code> with a simpl
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c" id="print-final-state">printf(<span style="color: #E6DB74;">"x = %d, y = %d\n"</span>, x, y);
+<pre class="src src-c" id="print-final-state">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 </pre>
 </div>
 
@@ -64,15 +139,15 @@ Now, let's see how different compilers handle <a href="https://github.com/yurrri
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c"><span style="color: #F92672;">#include</span> <span style="color: #E6DB74;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;stdio.h&gt;</span>
 
 
-<span style="color: #66D9EF; font-weight: bold;">int</span> <span style="color: #A6E22E;">main</span>(<span style="color: #66D9EF; font-weight: bold;">int</span> <span style="color: #FD971F;">argc</span>, <span style="color: #66D9EF; font-weight: bold;">char</span> **<span style="color: #FD971F;">argv</span>)
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span>(<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #92a65e; font-weight: bold;">char</span> **<span style="color: #cae682;">argv</span>)
 {
     x = 10;
     y = ++x + --x;
 
-    printf(<span style="color: #E6DB74;">"x = %d, y = %d\n"</span>, x, y);
+    printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 }
 </pre>
 </div>
@@ -89,6 +164,12 @@ incdec.c: In function ‘main’:
 incdec.c:9:9: warning: operation on ‘x’ may be undefined [-Wsequence-point]
      y = ++x + --x;
          ^~~
+clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/5snssls8miq22r0pya9gkxcchndsfpp0-Libsystem-osx-10.11.6/include' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/drp99kzvq6c8r38kyd8prka9xjlw2ks9-gcc-7.3.0/lib/gcc/x86_64-apple-darwin/7.3.0/include-fixed' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-D _FORTIFY_SOURCE=2' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-fstack-protector-strong' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '--param ssp-buffer-size=4' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-fno-strict-overflow' [-Wunused-command-line-argument]
 
 x = 10, y = 20
 </pre>
@@ -106,7 +187,7 @@ value of <code>y</code> to be <code>21</code>.
 </p>
 
 <pre class="example">
-clang version 5.0.1 (tags/RELEASE_501/final)
+clang version 5.0.2 (tags/RELEASE_502/final)
 
 incdec.c:9:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
     y = ++x + --x;
@@ -183,11 +264,12 @@ post. Here goes.
 <p>
 In this example, we're trying to prove that addition of natural numbers is
 <a href="https://en.wikipedia.org/wiki/Commutative_property">commutative</a>, i.e.
-\[\forall n,m \in \mathbb{N}\ (n + m \equiv m + n)\]
+$$\forall n,m \in \mathbb{N}\ (n + m \equiv m + n)$$
 &#x2026; which we can express in Idris as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #FD971F;">:</span> (<span style="color: #F8F8F2; background-color: #272822;">n</span>, <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>) <span style="color: #FD971F;">-&gt;</span> <span style="color: #F8F8F2; background-color: #272822;">n</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">n</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> (<span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>) <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
 </pre>
 </div>
 
@@ -198,7 +280,7 @@ all natural numbers <code>n</code> and <code>m</code>, <code>n</code> plus <code
 </p>
 
 <p>
-Over-simplifying the <a href="https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence">Curry-Howard correspondence</a>, if we can write a <a href="https://en.wikipedia.org/wiki/Total_functional_programming">total
+Over-simplifying the <a href="https://en.wikipedia.org/wiki/Curry%25E2%2580%2593Howard_correspondence">Curry-Howard correspondence</a>, if we can write a <a href="https://en.wikipedia.org/wiki/Total_functional_programming">total
 function</a> that satisfies the type signature, then we've effectively written a
 proof for the corresponding <a href="https://en.wikipedia.org/wiki/Universal_quantification">universal quantification</a>.
 </p>
@@ -209,8 +291,9 @@ bit here too. For a start, we can call <code>idris-add-clause</code> (<code>M-RE
 <a href="http://spacemacs.org/layers/+lang/idris/README.html">Spacemacs</a>) to get:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #FD971F;">:</span> (<span style="color: #F8F8F2; background-color: #272822;">n</span>, <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>) <span style="color: #FD971F;">-&gt;</span> <span style="color: #F8F8F2; background-color: #272822;">n</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">n</span>
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #F8F8F2; background-color: #272822;">n</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">?myPlusCommutative</span><span style="color: #F8F8F2; background-color: #272822;">_rhs</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> (<span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>) <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs</span>
 </pre>
 </div>
 
@@ -218,10 +301,11 @@ bit here too. For a start, we can call <code>idris-add-clause</code> (<code>M-RE
 The prefix <code>?</code> signifies a hole and in this case, the type of that hole is:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">  <span style="color: #F8F8F2; background-color: #272822;">n</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>
-  <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>
-<span style="color: #75715E;">--------------------------------------</span>
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative_rhs</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">n</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F8F8F2; background-color: #272822;">n</span>
+
+<pre class="src src-idris">  <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+  <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+<span style="color: #99968b;">--------------------------------------</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
 </pre>
 </div>
 
@@ -229,9 +313,10 @@ The prefix <code>?</code> signifies a hole and in this case, the type of that ho
 Next, we can case split (<code>idris-case-split</code>, <code>M-RET c</code>) on <code>n</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #FD971F;">:</span> (<span style="color: #F8F8F2; background-color: #272822;">n</span>, <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>) <span style="color: #FD971F;">-&gt;</span> <span style="color: #F8F8F2; background-color: #272822;">n</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">n</span>
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span>  <span style="color: #F8F8F2; background-color: #272822;">Z</span>    <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">?myPlusCommutative</span><span style="color: #F8F8F2; background-color: #272822;">_rhs_1</span>
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>) <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">?myPlusCommutative</span><span style="color: #F8F8F2; background-color: #272822;">_rhs_2</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> (<span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>) <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span>  <span style="color: #f6f3e8; background-color: #242424;">Z</span>    <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_1</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>) <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_2</span>
 </pre>
 </div>
 
@@ -239,7 +324,8 @@ Next, we can case split (<code>idris-case-split</code>, <code>M-RET c</code>) on
 For <code>?myPlusCommutative_rhs_1</code> we need to prove that \(m = m + 0\).
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative_rhs_1</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> 0
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs_1</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> 0
 </pre>
 </div>
 
@@ -247,7 +333,8 @@ For <code>?myPlusCommutative_rhs_1</code> we need to prove that \(m = m + 0\).
 Fortunately, the <code>Prelude</code> has a proof that's almost exactly what we want:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">plusZeroRightNeutral</span> <span style="color: #FD971F;">:</span> (<span style="color: #F8F8F2; background-color: #272822;">left</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>) <span style="color: #FD971F;">-&gt;</span> <span style="color: #F8F8F2; background-color: #272822;">left</span> <span style="color: #FD971F;">+</span> 0 <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">left</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">plusZeroRightNeutral</span> <span style="color: #cae682;">:</span> (<span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>) <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">+</span> 0 <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">left</span>
 </pre>
 </div>
 
@@ -255,7 +342,8 @@ Fortunately, the <code>Prelude</code> has a proof that's almost exactly what we 
 Since we need to swap the left- and right-hand sides, we can use <code>sym</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">sym</span> <span style="color: #FD971F;">:</span> (<span style="color: #F8F8F2; background-color: #272822;">left</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">right</span>) <span style="color: #FD971F;">-&gt;</span> <span style="color: #F8F8F2; background-color: #272822;">right</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">left</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">sym</span> <span style="color: #cae682;">:</span> (<span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">right</span>) <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">right</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">left</span>
 </pre>
 </div>
 
@@ -263,7 +351,8 @@ Since we need to swap the left- and right-hand sides, we can use <code>sym</code
 So the complete definition for the <a href="https://en.wikipedia.org/wiki/Mathematical_induction"><i>base case</i></a> of <code>myPlusCommutative</code> is:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span>  <span style="color: #F8F8F2; background-color: #272822;">Z</span>    <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">sym</span> (<span style="color: #F8F8F2; background-color: #272822;">plusZeroRightNeutral</span> <span style="color: #F8F8F2; background-color: #272822;">m</span>)
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span>  <span style="color: #f6f3e8; background-color: #242424;">Z</span>    <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">sym</span> (<span style="color: #f6f3e8; background-color: #242424;">plusZeroRightNeutral</span> <span style="color: #f6f3e8; background-color: #242424;">m</span>)
 </pre>
 </div>
 
@@ -272,10 +361,11 @@ Next, we've got to tackle the <i>inductive step</i>. Since we know we'll need to
 reduce to the <i>base case</i>, let's define a local variable <code>inductiveHypothesis</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>) <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span>
-  <span style="color: #F92672;">let</span> <span style="color: #F8F8F2; background-color: #272822;">inductiveHypothesis</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F92672;">in</span>
-    <span style="color: #F92672;">rewrite</span> <span style="color: #F8F8F2; background-color: #272822;">inductiveHypothesis</span> <span style="color: #F92672;">in</span>
-    <span style="color: #F8F8F2; background-color: #272822;">?myPlusCommutative</span><span style="color: #F8F8F2; background-color: #272822;">_rhs_2</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>) <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span>
+  <span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_2</span>
 </pre>
 </div>
 
@@ -283,27 +373,29 @@ reduce to the <i>base case</i>, let's define a local variable <code>inductiveHyp
 Examining the type of <code>?myPlusCommutative_rhs_2</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">  <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>
-  <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>
-  <span style="color: #F8F8F2; background-color: #272822;">inductiveHypothesis</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>
-  _<span style="color: #F92672;">rewrite</span><span style="color: #F8F8F2; background-color: #272822;">_rule</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>
-<span style="color: #75715E;">--------------------------------------</span>
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative_rhs_2</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">S</span> (<span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>) <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>)
+
+<pre class="src src-idris">  <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+  <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+  <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>
+  _<span style="color: #8ac6f2; font-weight: bold;">rewrite</span><span style="color: #f6f3e8; background-color: #242424;">_rule</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>
+<span style="color: #99968b;">--------------------------------------</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs_2</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">S</span> (<span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>) <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>)
 </pre>
 </div>
 
 <p>
 &#x2026; we see we need to prove the successor of \(k\) plus \(m\) is exactly equivalent
 to \(m\) plus the successor of \(k\), i.e.
-\[\forall m \in \mathbb{N}\ (S(k + m) \equiv m + S(k))\]
+$$\forall m \in \mathbb{N}\ (S(k + m) \equiv m + S(k))$$
 </p>
 
 <p>
 Prelude to the rescue, yet again:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">plusSuccRightSucc</span> <span style="color: #FD971F;">:</span> (<span style="color: #F8F8F2; background-color: #272822;">left</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>) <span style="color: #FD971F;">-&gt;</span>
-                    (<span style="color: #F8F8F2; background-color: #272822;">right</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>) <span style="color: #FD971F;">-&gt;</span> <span style="color: #F8F8F2; background-color: #272822;">S</span> (<span style="color: #F8F8F2; background-color: #272822;">left</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">right</span>) <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">left</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">right</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #cae682;">:</span> (<span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>) <span style="color: #cae682;">-&gt;</span>
+                    (<span style="color: #f6f3e8; background-color: #242424;">right</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>) <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">S</span> (<span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">right</span>) <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">right</span>
 </pre>
 </div>
 
@@ -312,11 +404,12 @@ Now we can <code>rewrite</code> the hole using <code>plusSuccRightSucc</code> wi
 <code>k</code> as <code>right</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>) <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span>
-  <span style="color: #F92672;">let</span> <span style="color: #F8F8F2; background-color: #272822;">inductiveHypothesis</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F92672;">in</span>
-    <span style="color: #F92672;">rewrite</span> <span style="color: #F8F8F2; background-color: #272822;">inductiveHypothesis</span> <span style="color: #F92672;">in</span>
-    <span style="color: #F92672;">rewrite</span> <span style="color: #F8F8F2; background-color: #272822;">plusSuccRightSucc</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F92672;">in</span>
-            <span style="color: #F8F8F2; background-color: #272822;">?myPlusCommutative</span><span style="color: #F8F8F2; background-color: #272822;">_rhs_2</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>) <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span>
+  <span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+            <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_2</span>
 </pre>
 </div>
 
@@ -324,7 +417,8 @@ Now we can <code>rewrite</code> the hole using <code>plusSuccRightSucc</code> wi
 Eliding the repetitive bits, we get:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative_rhs_2</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>) <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">plus</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>)
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs_2</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>) <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>)
 </pre>
 </div>
 
@@ -332,7 +426,8 @@ Eliding the repetitive bits, we get:
 &#x2026; which looks like our old friend, <code>Refl</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">Refl</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">x</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">x</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">Refl</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">x</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">x</span>
 </pre>
 </div>
 
@@ -342,11 +437,12 @@ At this point, Idris can fill in the hole for us, via <code>idris-proof-search</
 </p>
 
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>) <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span>
-  <span style="color: #F92672;">let</span> <span style="color: #F8F8F2; background-color: #272822;">inductiveHypothesis</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F92672;">in</span>
-    <span style="color: #F92672;">rewrite</span> <span style="color: #F8F8F2; background-color: #272822;">inductiveHypothesis</span> <span style="color: #F92672;">in</span>
-    <span style="color: #F92672;">rewrite</span> <span style="color: #F8F8F2; background-color: #272822;">plusSuccRightSucc</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F92672;">in</span>
-            <span style="color: #F8F8F2; background-color: #272822;">Refl</span>
+
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>) <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span>
+  <span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+            <span style="color: #f6f3e8; background-color: #242424;">Refl</span>
 </pre>
 </div>
 
@@ -354,12 +450,13 @@ At this point, Idris can fill in the hole for us, via <code>idris-proof-search</
 Tidying up a bit for my taste, we arrive at the complete (and total) definition:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="color: #75715E;">|||</span><span style="color: #75715E;"> Addition of natural numbers is commutative.</span>
-<span style="color: #F92672;">total</span>
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #FD971F;">:</span> (<span style="color: #F8F8F2; background-color: #272822;">n</span>, <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">:</span> <span style="color: #F8F8F2; background-color: #272822;">Nat</span>) <span style="color: #FD971F;">-&gt;</span> <span style="color: #F8F8F2; background-color: #272822;">n</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">+</span> <span style="color: #F8F8F2; background-color: #272822;">n</span>
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span>  <span style="color: #F8F8F2; background-color: #272822;">Z</span>    <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F8F8F2; background-color: #272822;">sym</span> (<span style="color: #F8F8F2; background-color: #272822;">plusZeroRightNeutral</span> <span style="color: #F8F8F2; background-color: #272822;">m</span>)
-<span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> (<span style="color: #F8F8F2; background-color: #272822;">S</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>) <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #FD971F;">=</span> <span style="color: #F92672;">rewrite</span> <span style="color: #F8F8F2; background-color: #272822;">myPlusCommutative</span> <span style="color: #F8F8F2; background-color: #272822;">k</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F92672;">in</span>
-                                    <span style="color: #F8F8F2; background-color: #272822;">plusSuccRightSucc</span> <span style="color: #F8F8F2; background-color: #272822;">m</span> <span style="color: #F8F8F2; background-color: #272822;">k</span>
+
+<pre class="src src-idris"><span style="color: #99968b;">|||</span><span style="color: #95e454;"> Addition of natural numbers is commutative.</span>
+<span style="color: #8ac6f2; font-weight: bold;">total</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> (<span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>) <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span>  <span style="color: #f6f3e8; background-color: #242424;">Z</span>    <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">sym</span> (<span style="color: #f6f3e8; background-color: #242424;">plusZeroRightNeutral</span> <span style="color: #f6f3e8; background-color: #242424;">m</span>)
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> (<span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>) <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+                                    <span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>
 </pre>
 </div>
 <p>
@@ -397,7 +494,7 @@ whole workflow was a bit too clunky for my taste.
 In July of 2015, I decided to migrate to <a href="http://jekyllrb.com">Jekyll</a>. It's pretty widely used and the
 integration with <a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and easy.  In practice, I
 found its workflow to be similarly annoying. Worst of all, it made me install,
-write and use Ruby<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.  What's more, GitHub seems to have a predilection for
+write and use Ruby<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>.  What's more, GitHub seems to have a predilection for
 breaking things so often and dramatically, that <a href="https://github.com/lfex/dragon">dragon</a> was born.
 </p>
 
@@ -410,7 +507,7 @@ leap. The experience was so great, I can't believe I didn't do it sooner.
 </p>
 
 <p>
-From now on<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>, my blog will be powered by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>. You can find my <a href="https://github.com/yurrriq/blorg/blob/master/src/site.hs">site.hs</a>,
+From now on<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>, my blog will be powered by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>. You can find my <a href="https://github.com/yurrriq/blorg/blob/master/src/site.hs">site.hs</a>,
 which will undoubtedly grow and change over time, <a href="https://github.com/yurrriq/blorg">on GitHub</a>.
 </p>
 
@@ -421,13 +518,13 @@ Good riddance.
 <h2 class="footnotes">Footnotes: </h2>
 <div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%23sorrynotsorry">#sorrynotsorry</a>
-</p></div></div>
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a>
+</p></div>
 
-<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
 &#x2026; at least until <a href="https://github.com/lfex/dragon">dragon</a> matures or I find an even better alternative.
-</p></div></div>
+</p></div>
 
 
 </div>
@@ -466,12 +563,13 @@ Tracing LFE functions for debugging purposes is quite simple.
 Let's say you have the following module and want to trace one of its functions.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org722a384"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">maths</span>
-  <span style="color: #66D9EF;">(</span>export <span style="color: #A6E22E;">(</span>sum 2<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>diff 2<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
 
-<span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">sum</span> <span style="color: #66D9EF;">(</span>a b<span style="color: #66D9EF;">)</span> <span style="color: #66D9EF;">(</span><span style="color: #F92672;">+</span> a b<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-lfe" id="math">(defmodule maths
+  (export (sum 2) (diff 2)))
 
-<span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">diff</span> <span style="color: #66D9EF;">(</span>a b<span style="color: #66D9EF;">)</span> <span style="color: #66D9EF;">(</span><span style="color: #F92672;">-</span> a b<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+(defun sum (a b) (+ a b))
+
+(defun diff (a b) (- a b))
 </pre>
 </div>
 
@@ -479,7 +577,14 @@ Let's say you have the following module and want to trace one of its functions.
 Before we get started, make sure you compile the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org371d791"><span style="color: #AE81FF;">(</span>c <span style="color: #E6DB74;">"/path/to/maths.lfe"</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="compile-maths">(c "/path/to/maths.lfe")
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-lfe">(#(module maths))
 </pre>
 </div>
 
@@ -487,12 +592,14 @@ Before we get started, make sure you compile the <code>maths</code> module:
 Just start the tracer:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org2e953c2"><span style="color: #AE81FF;">(</span>dbg:tracer<span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="start-the-tracer">(dbg:tracer)
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok &lt;0.46.0&gt;<span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">#(ok &lt;0.46.0&gt;)
 </pre>
 </div>
 
@@ -500,12 +607,14 @@ Just start the tracer:
 Tell the tracer you are interested in all calls for all processes:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org53d96b5"><span style="color: #AE81FF;">(</span>dbg:p 'all 'c<span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="all-calls-for-all-processes">(dbg:p 'all 'c)
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok <span style="color: #66D9EF;">(</span>#<span style="color: #A6E22E;">(</span>matched nonode@nohost 26<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 26)))
 </pre>
 </div>
 
@@ -513,12 +622,14 @@ Tell the tracer you are interested in all calls for all processes:
 Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org13bacf0"><span style="color: #AE81FF;">(</span>dbg:tpl 'maths 'sum <span style="color: #66D9EF;">[]</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="trace-maths:sum/2">(dbg:tpl 'maths 'sum [])
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok <span style="color: #66D9EF;">(</span>#<span style="color: #A6E22E;">(</span>matched nonode@nohost 1<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 1)))
 </pre>
 </div>
 
@@ -526,13 +637,15 @@ Finally, tell it you want to trace the function, <code>sum</code>, from the <cod
 Now, try to call the function, as usual. The tracer is active!
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org3ecd90e"><span style="color: #AE81FF;">(</span>maths:sum 2 3<span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="call-maths:sum/2">(maths:sum 2 3)
 </pre>
 </div>
 
 <div class="org-src-container">
+
 <pre class="src src-lfe">5
-<span style="color: #AE81FF;">(</span>&lt;0.29.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>2,3<span style="color: #AE81FF;">)</span>
+(&lt;0.29.0&gt;) call maths:sum(2,3)
 </pre>
 </div>
 
@@ -540,7 +653,8 @@ Now, try to call the function, as usual. The tracer is active!
 To trace all functions from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgaefca85">&gt; <span style="color: #AE81FF;">(</span>dbg:tpl 'maths <span style="color: #66D9EF;">[]</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="trace-all-functions-from-the-maths-module">&gt; (dbg:tpl 'maths [])
 </pre>
 </div>
 
@@ -548,24 +662,28 @@ To trace all functions from the <code>maths</code> module:
 To trace the return value for a given function:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org4a8e240"><span style="color: #AE81FF;">(</span>dbg:tpl 'maths 'sum <span style="color: #66D9EF;">(</span><span style="color: #F92672;">match-spec</span> <span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">[</span>_<span style="color: #E6DB74;">]</span> <span style="color: #E6DB74;">(</span>return_trace<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="trace-return-values">(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">#<span style="color: #AE81FF;">(</span>ok <span style="color: #66D9EF;">(</span>#<span style="color: #A6E22E;">(</span>matched nonode@nohost 1<span style="color: #A6E22E;">)</span> #<span style="color: #A6E22E;">(</span>saved 1<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 1) #(saved 1)))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe" id="org320c3a9"><span style="color: #AE81FF;">(</span>maths:sum 19 23<span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="return_trace-example">(maths:sum 19 23)
 </pre>
 </div>
 
 <div class="org-src-container">
+
 <pre class="src src-lfe">42
-<span style="color: #AE81FF;">(</span>&lt;0.56.0&gt;<span style="color: #AE81FF;">)</span> call maths:sum<span style="color: #AE81FF;">(</span>19,23<span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>&lt;0.56.0&gt;<span style="color: #AE81FF;">)</span> returned from maths:sum/2 -&gt; 42
+(&lt;0.56.0&gt;) call maths:sum(19,23)
+(&lt;0.56.0&gt;) returned from maths:sum/2 -&gt; 42
 </pre>
 </div>
 
@@ -573,11 +691,13 @@ To trace the return value for a given function:
 To stop the trace:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org17ec73c"><span style="color: #AE81FF;">(</span>dbg:stop<span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe" id="stop-the-trace">(dbg:stop)
 </pre>
 </div>
 
 <div class="org-src-container">
+
 <pre class="src src-lfe">ok
 </pre>
 </div>
@@ -623,7 +743,8 @@ recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="color: #66D9EF;">rebar_base_compiler</span>:<span style="color: #66D9EF;">run</span>(<span style="color: #FD971F;">Opts</span>, [], <span style="color: #FD971F;">Files</span>, <span style="color: #FD971F;">DoCompile</span>).
+
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Opts</span>, [], <span style="color: #cae682;">Files</span>, <span style="color: #cae682;">DoCompile</span>).
 </pre>
 </div>
 
@@ -636,9 +757,10 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="color: #66D9EF;">rebar_base_compiler</span>:<span style="color: #66D9EF;">run</span>(<span style="color: #FD971F;">Config</span>, <span style="color: #FD971F;">FirstFiles</span>,
-                        <span style="color: #FD971F;">SourceDir</span>, <span style="color: #E6DB74;">".lfe"</span>, <span style="color: #FD971F;">TargetDir</span>, <span style="color: #E6DB74;">".beam"</span>,
-                        <span style="color: #F92672;">fun</span> <span style="color: #66D9EF;">compile/3</span>).
+
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Config</span>, <span style="color: #cae682;">FirstFiles</span>,
+                        <span style="color: #cae682;">SourceDir</span>, <span style="color: #95e454;">".lfe"</span>, <span style="color: #cae682;">TargetDir</span>, <span style="color: #95e454;">".beam"</span>,
+                        <span style="color: #8ac6f2; font-weight: bold;">fun</span> <span style="color: #92a65e; font-weight: bold;">compile/3</span>).
 </pre>
 </div>
 
@@ -656,39 +778,42 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 &#x2026; using <code>run/4</code> via <a href="https://github.com/lfe-rebar3/compile/releases/tag/0.2.1">0.2.1</a>:
 </p>
 <div class="org-src-container">
+
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
 <pre class="example">
-~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
-~~&gt;    Compiling ./src/lodox-p.lfe ...
-~~&gt;    Compiling ./src/lodox-parse.lfe ...
-~~&gt;    Compiling ./src/lodox-util.lfe ...
-~~&gt;    Compiling ./src/lodox.lfe ...
-~~&gt;    Compiling ./src/pandoc.lfe ...
-~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
-       1.39 real         1.14 user         0.24 sys
+ ~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
+ ~~&gt;    Compiling ./src/lodox-p.lfe ...
+ ~~&gt;    Compiling ./src/lodox-parse.lfe ...
+ ~~&gt;    Compiling ./src/lodox-util.lfe ...
+ ~~&gt;    Compiling ./src/lodox.lfe ...
+ ~~&gt;    Compiling ./src/pandoc.lfe ...
+ ~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
+        1.39 real         1.14 user         0.24 sys
 </pre>
 
 <p>
 &#x2026; using <code>run/7</code> via <a href="https://github.com/quasiquoting/lfe-compile/releases/tag/0.3.0">0.3.0</a>:
 </p>
 <div class="org-src-container">
+
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
 <pre class="example">
-0.94 real         0.73 user         0.20 sys
+        0.94 real         0.73 user         0.20 sys
 </pre>
 
 <p>
 A little more :cow::poop: microbenchmarking on a proprietary work project:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #75715E;"># </span><span style="color: #75715E;">run/4</span>
+
+<pre class="src src-bash"># run/4
         3.58 real         3.02 user         0.58 sys
 
-<span style="color: #75715E;"># </span><span style="color: #75715E;">run/7</span>
+# run/7
         1.83 real         1.46 user         0.35 sys
 </pre>
 </div>
@@ -722,17 +847,18 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 
 <a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">
 <div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">progn</span>
-  <span style="color: #66D9EF;">(</span>include-lib <span style="color: #E6DB74;">"clj/include/compose.lfe"</span><span style="color: #66D9EF;">)</span> <span style="color: #75715E;">; Clojure threading macros</span>
-  <span style="color: #66D9EF;">(</span>-&gt; <span style="color: #A6E22E;">(</span>lodox-parse:docs #<span style="color: #E6DB74;">"lodox"</span><span style="color: #A6E22E;">)</span>         <span style="color: #75715E;">; lodox docs map, generated by lodox</span>
-      <span style="color: #A6E22E;">(</span><span style="color: #F92672;">mref</span> 'modules<span style="color: #A6E22E;">)</span>                     <span style="color: #75715E;">; lodox modules (Maclisp)</span>
-      <span style="color: #A6E22E;">(</span>cadddr<span style="color: #A6E22E;">)</span>                            <span style="color: #75715E;">; 4th module =:= lodox-parse (CL)</span>
-      <span style="color: #A6E22E;">(</span><span style="color: #F92672;">mref</span> 'exports<span style="color: #A6E22E;">)</span>                     <span style="color: #75715E;">; lodox-parse exports (Maclisp)</span>
-      <span style="color: #A6E22E;">(</span><span style="color: #F92672;">hd</span><span style="color: #A6E22E;">)</span>                                <span style="color: #75715E;">; first function =:= docs/1 (Erlang)</span>
-      <span style="color: #A6E22E;">(</span><span style="color: #F92672;">mref</span> 'doc<span style="color: #A6E22E;">)</span>                         <span style="color: #75715E;">; docstring of docs/1</span>
-      <span style="color: #A6E22E;">(</span>list_to_binary<span style="color: #A6E22E;">)</span>                    <span style="color: #75715E;">; string-&gt;binary</span>
-      <span style="color: #A6E22E;">(</span>Elixir.Markdown:to_html            <span style="color: #75715E;">; Elixir app wrapping C lib</span>
-       '<span style="color: #E6DB74;">[</span>#<span style="color: #FD971F;">(</span>fenced_code true<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">]</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>          <span style="color: #75715E;">; as in GitHub Flavored Markdown</span>
+
+<pre class="src src-lfe">(progn
+  (include-lib "clj/include/compose.lfe") ; Clojure threading macros
+  (-&gt; (lodox-parse:docs #"lodox")         ; lodox docs map, generated by lodox
+      (mref 'modules)                     ; lodox modules (Maclisp)
+      (cadddr)                            ; 4th module =:= lodox-parse (CL)
+      (mref 'exports)                     ; lodox-parse exports (Maclisp)
+      (hd)                                ; first function =:= docs/1 (Erlang)
+      (mref 'doc)                         ; docstring of docs/1
+      (list_to_binary)                    ; string-&gt;binary
+      (Elixir.Markdown:to_html            ; Elixir app wrapping C lib
+       '[#(fenced_code true)])))          ; as in GitHub Flavored Markdown
 </pre>
 </div>
 </a>
@@ -741,18 +867,26 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 Gott nytt år!
 </p>
 
-<div id="outline-container-orgefdf5fd" class="outline-2">
-<h2 id="orgefdf5fd">References</h2>
-<div class="outline-text-2" id="text-orgefdf5fd">
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">References</h2>
+<div class="outline-text-2" id="text-1">
 <ul class="org-ul">
-<li><a href="https://github.com/lfex/clj#future-">clj: Clojure functions and macros for LFE</a></li>
-<li><a href="https://github.com/quasiquoting/lodox">Lodox: Like Codox for LFE</a></li>
-<li><a href="http://www.maclisp.info/pitmanual/index.html">The Revised Maclisp Manual</a></li>
-<li><a href="http://quasiquoting.org/lodox/lodox-parse.html#func-docs.2F1">lodox-parse:docs/1</a></li>
-<li><a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Learn You Some Erlang: Lists!</a></li>
-<li><a href="https://github.com/devinus/markdown">Markdown: A simple Elixir Markdown to HTML conversion library</a></li>
-<li><a href="https://github.com/hoedown/hoedown">Hoedown: Standard C99 Markdown parser</a></li>
-<li><a href="https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks">GitHub Flavored Markdown: Fenced code blocks</a></li>
+<li><a href="https://github.com/lfex/clj#future-">clj: Clojure functions and macros for LFE</a>
+</li>
+<li><a href="https://github.com/quasiquoting/lodox">Lodox: Like Codox for LFE</a>
+</li>
+<li><a href="http://www.maclisp.info/pitmanual/index.html">The Revised Maclisp Manual</a>
+</li>
+<li><a href="http://quasiquoting.org/lodox/lodox-parse.html#func-docs.2F1">lodox-parse:docs/1</a>
+</li>
+<li><a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Learn You Some Erlang: Lists!</a>
+</li>
+<li><a href="https://github.com/devinus/markdown">Markdown: A simple Elixir Markdown to HTML conversion library</a>
+</li>
+<li><a href="https://github.com/hoedown/hoedown">Hoedown: Standard C99 Markdown parser</a>
+</li>
+<li><a href="https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks">GitHub Flavored Markdown: Fenced code blocks</a>
+</li>
 </ul>
 </div>
 </div>
@@ -783,17 +917,18 @@ While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"toggle "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">toggle</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>));
-<span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"turn on "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">turn_on</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>));
-<span style="color: #A6E22E;">parse_instruction</span>(<span style="color: #E6DB74;">"turn off "</span> ++ <span style="color: #FD971F;">Rest</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">turn_off</span>(<span style="color: #66D9EF;">parse_coordinates</span>(<span style="color: #FD971F;">Rest</span>)).
 
-<span style="color: #A6E22E;">parse_coordinates</span>(<span style="color: #FD971F;">String</span>) -&gt;
-  {ok,[<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>,<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y2</span>],[]} = <span style="color: #66D9EF;">io_lib</span>:<span style="color: #66D9EF;">fread</span>(<span style="color: #E6DB74;">"~d,~d through ~d,~d"</span>, <span style="color: #FD971F;">String</span>),
-  {{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}.
+<pre class="src src-erlang"><span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"toggle "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">toggle</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
+<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn on "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_on</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
+<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn off "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_off</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>)).
 
-<span style="color: #A6E22E;">toggle</span>({{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}) -&gt;<span style="color: #A6E22E;"> </span>undefined.
-<span style="color: #A6E22E;">turn_on</span>({{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}) -&gt;<span style="color: #A6E22E;"> </span>undefined.
-<span style="color: #A6E22E;">turn_off</span>({{<span style="color: #FD971F;">X0</span>,<span style="color: #FD971F;">Y0</span>},{<span style="color: #FD971F;">X1</span>,<span style="color: #FD971F;">Y1</span>}}) -&gt;<span style="color: #A6E22E;"> </span>undefined.
+<span style="color: #cae682;">parse_coordinates</span>(<span style="color: #cae682;">String</span>) -&gt;
+  {ok,[<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>,<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y2</span>],[]} = <span style="color: #92a65e; font-weight: bold;">io_lib</span>:<span style="color: #92a65e; font-weight: bold;">fread</span>(<span style="color: #95e454;">"~d,~d through ~d,~d"</span>, <span style="color: #cae682;">String</span>),
+  {{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}.
+
+<span style="color: #cae682;">toggle</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_on</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_off</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
 </pre>
 </div>
 
@@ -801,9 +936,10 @@ wanting to write <code>parse_instruction/1</code> like this:
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">parse-instruction</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"turn off "</span> rest<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span>
-   ...<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">(defun parse-instruction
+  ([(++ "turn off " rest)]
+   ...))
 </pre>
 </div>
 
@@ -811,9 +947,10 @@ But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/
 Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"prefix"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">&gt; (defun f ([(++ "prefix" suffix)] suffix))
 f
-&gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
+&gt; (f "prefixsuffix")
 exception error: function_clause
 </pre>
 </div>
@@ -829,8 +966,9 @@ a solid approach.
 N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="color: #75715E;">%% </span><span style="color: #75715E;">Cases with lists of numbers (strings).</span>
-[[<span style="color: #FD971F;">N</span>|<span style="color: #FD971F;">Ns</span>]|<span style="color: #FD971F;">Es</span>] <span style="color: #F92672;">when</span> <span style="color: #F92672;">is_number</span>(<span style="color: #FD971F;">N</span>) -&gt;<span style="color: #A6E22E;"> </span>[cons,<span style="color: #FD971F;">N</span>,[<span style="color: #E6DB74;">'++'</span>,<span style="color: #FD971F;">Ns</span>|<span style="color: #FD971F;">Es</span>]];
+
+<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">Cases with lists of numbers (strings).</span>
+[[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>] <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
 </pre>
 </div>
 
@@ -844,15 +982,16 @@ decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep 
 The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="color: #75715E;">%% </span><span style="color: #75715E;">exp_predef(...) -&gt; ...;</span>
-<span style="color: #A6E22E;">exp_predef</span>([<span style="color: #E6DB74;">'++*'</span>|<span style="color: #FD971F;">Abody</span>], <span style="color: #FD971F;">_</span>, <span style="color: #FD971F;">St</span>) -&gt;
-  <span style="color: #FD971F;">Exp</span> = <span style="color: #66D9EF;">exp_prefix</span>(<span style="color: #FD971F;">Abody</span>),
-  {yes,<span style="color: #FD971F;">Exp</span>,<span style="color: #FD971F;">St</span>};
-<span style="color: #75715E;">%% </span><span style="color: #75715E;">exp_predef(...) -&gt; ....</span>
 
-<span style="color: #A6E22E;">exp_prefix</span>([[<span style="color: #FD971F;">N</span>|<span style="color: #FD971F;">Ns</span>]|<span style="color: #FD971F;">Es</span>]) <span style="color: #F92672;">when</span> <span style="color: #F92672;">is_number</span>(<span style="color: #FD971F;">N</span>) -&gt;<span style="color: #A6E22E;"> </span>[cons,<span style="color: #FD971F;">N</span>,[<span style="color: #E6DB74;">'++*'</span>,<span style="color: #FD971F;">Ns</span>|<span style="color: #FD971F;">Es</span>]];
-<span style="color: #A6E22E;">exp_prefix</span>([[]|<span style="color: #FD971F;">Es</span>]) -&gt;<span style="color: #A6E22E;"> </span>[<span style="color: #E6DB74;">'++*'</span>|<span style="color: #FD971F;">Es</span>];
-<span style="color: #A6E22E;">exp_prefix</span>(<span style="color: #FD971F;">Args</span>) -&gt;<span style="color: #A6E22E;"> </span><span style="color: #66D9EF;">exp_append</span>(<span style="color: #FD971F;">Args</span>).
+<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ...;</span>
+<span style="color: #cae682;">exp_predef</span>([<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Abody</span>], <span style="color: #cae682;">_</span>, <span style="color: #cae682;">St</span>) -&gt;
+  <span style="color: #cae682;">Exp</span> = <span style="color: #92a65e; font-weight: bold;">exp_prefix</span>(<span style="color: #cae682;">Abody</span>),
+  {yes,<span style="color: #cae682;">Exp</span>,<span style="color: #cae682;">St</span>};
+<span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ....</span>
+
+<span style="color: #cae682;">exp_prefix</span>([[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>]) <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++*'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
+<span style="color: #cae682;">exp_prefix</span>([[]|<span style="color: #cae682;">Es</span>]) -&gt;<span style="color: #cae682;"> </span>[<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Es</span>];
+<span style="color: #cae682;">exp_prefix</span>(<span style="color: #cae682;">Args</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">exp_append</span>(<span style="color: #cae682;">Args</span>).
 </pre>
 </div>
 
@@ -860,10 +999,11 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++*</span> <span style="color: #E6DB74;">"prefix"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">&gt; (defun f ([(++* "prefix" suffix)] suffix))
 f
-&gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
-<span style="color: #E6DB74;">"suffix"</span>
+&gt; (f "prefixsuffix")
+"suffix"
 </pre>
 </div>
 
@@ -871,10 +1011,11 @@ f
 or even:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">f</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">(</span><span style="color: #F92672;">++*</span> <span style="color: #E6DB74;">"p"</span> <span style="color: #E6DB74;">"r"</span> <span style="color: #E6DB74;">"e"</span> <span style="color: #E6DB74;">"f"</span> <span style="color: #E6DB74;">"i"</span> <span style="color: #E6DB74;">"x"</span> suffix<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">]</span> suffix<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">&gt; (defun f ([(++* "p" "r" "e" "f" "i" "x" suffix)] suffix))
 f
-&gt; <span style="color: #AE81FF;">(</span>f <span style="color: #E6DB74;">"prefixsuffix"</span><span style="color: #AE81FF;">)</span>
-<span style="color: #E6DB74;">"suffix"</span>
+&gt; (f "prefixsuffix")
+"suffix"
 </pre>
 </div>
 
@@ -919,6 +1060,7 @@ appropriate hex code.
 </p>
 
 <div class="org-src-container">
+
 <pre class="src src-sh">brew cask install key-codes
 </pre>
 </div>
@@ -951,8 +1093,9 @@ singleton list, <code>head</code> holds the single element and <code>tail</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>`<span style="color: #E6DB74;">(</span>,head . ,tail<span style="color: #E6DB74;">)</span> '<span style="color: #E6DB74;">(</span>a-single-element<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-    <span style="color: #66D9EF;">(</span>lfe_io:format '<span style="color: #E6DB74;">"Head: ~w~nTail: ~w~n"</span> `<span style="color: #A6E22E;">(</span>,head ,tail<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">&gt; (let ((`(,head . ,tail) '(a-single-element)))
+    (lfe_io:format '"Head: ~w~nTail: ~w~n" `(,head ,tail)))
 </pre>
 </div>
 
@@ -969,137 +1112,14 @@ the same atom.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span><span style="color: #F92672;">=:=</span> <span style="color: #66D9EF;">(</span><span style="color: #F92672;">cons</span> 'a-single-element '<span style="color: #A6E22E;">()</span><span style="color: #66D9EF;">)</span> '<span style="color: #66D9EF;">(</span>a-single-element<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<pre class="src src-lfe">&gt; (=:= (cons 'a-single-element '()) '(a-single-element))
 </pre>
 </div>
 
 <pre class="example">
 true
 </pre>
-
-]]></summary>
-</entry>
-<entry>
-    <title>Lisp Flavoured Erlang and Pynchon, oh my!</title>
-    <link href="http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html" />
-    <id>http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html</id>
-    <published>2015-08-06T00:00:00Z</published>
-    <updated>2015-08-06T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  6 August, 2015
-  
-    by Eric Bailey
-  
-</div>
-
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
-So, lately I've been getting increasingly into <a href="http://lfe.io">Lisp Flavoured Erlang (LFE)</a>.  If
-you haven't tried it yet, or even if you have, check out the <a href="http://help.exercism.io/getting-started-with-lfe.html">Exercism.io track</a> I
-helped organize.  My latest endeavour is porting Robert Levy's <a href="https://github.com/rplevy/swiss-arrows">swiss-arrows</a> from
-Clojure to LFE.  It's been going well so far, despite having to rename it to
-<a href="https://github.com/yurrriq/pynchon">pynchon</a>, since Erlang wasn't down with the hyphenated name and a few people on
-the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang">LFE Google group</a> suggested it.
-</p>
-
-
-<p>
-Without further ado, here's a contrived example:
-</p>
-<div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
-     <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
-            <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
-            <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
-            <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-     <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
-     <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-</pre>
-</div>
-
-<p>
-<b>Note</b>: <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and
-macros for LFE.
-</p>
-
-<p>
-The wild-looking form above expands to something more like:
-</p>
-<div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span>-&lt;&gt;
- <span style="color: #66D9EF;">(</span><span style="color: #F92672;">progn</span>
-   <span style="color: #A6E22E;">(</span>lfe_io:format
-    '<span style="color: #E6DB74;">"non-updating: ~p\n"</span>
-    <span style="color: #E6DB74;">(</span><span style="color: #F92672;">list</span>
-     <span style="color: #FD971F;">(</span>lists:flatten
-      <span style="color: #F92672;">(</span>lists:duplicate 3 <span style="color: #AE81FF;">(</span>string:substr <span style="color: #E6DB74;">"testing"</span> 1 4<span style="color: #AE81FF;">)</span><span style="color: #F92672;">)</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
-   <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span>
- <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
- <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-</pre>
-</div>
-
-<p>
-After that, it becomes apparent the "return track" is rather simple:
-</p>
-<div class="org-src-container">
-<pre class="src src-lfe"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> <span style="color: #66D9EF;">(</span>string:substr 5 <span style="color: #E6DB74;">"testing"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-lfe">&gt; <span style="color: #AE81FF;">(</span>-&lt;&gt; <span style="color: #E6DB74;">"testing"</span>
-       <span style="color: #66D9EF;">(</span>-!&lt;&gt;&gt; <span style="color: #A6E22E;">(</span>string:substr &lt;&gt; 1 4<span style="color: #A6E22E;">)</span>
-              <span style="color: #A6E22E;">(</span>lists:duplicate 3<span style="color: #A6E22E;">)</span>
-              <span style="color: #A6E22E;">(</span>compose #'list/1 #'lists:flatten/1<span style="color: #A6E22E;">)</span>
-              <span style="color: #A6E22E;">(</span>lfe_io:format '<span style="color: #E6DB74;">"non-updating: ~p\n"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-       <span style="color: #66D9EF;">(</span>string:substr 5<span style="color: #66D9EF;">)</span>
-       <span style="color: #66D9EF;">(</span><span style="color: #F92672;">++</span> <span style="color: #E6DB74;">"winn"</span> &lt;&gt;<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-non-updating: <span style="color: #E6DB74;">"testtesttest"</span> <span style="color: #75715E;">; printed</span>
-<span style="color: #E6DB74;">"winning"</span>                    <span style="color: #75715E;">; returned</span>
-</pre>
-</div>
-
-]]></summary>
-</entry>
-<entry>
-    <title>Unable to find dad</title>
-    <link href="http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
-    <id>http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
-    <published>2015-07-13T00:00:00Z</published>
-    <updated>2015-07-13T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 13 July, 2015
-  
-    by Eric Bailey
-  
-</div>
-
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
-  
-</div>
-
-<pre class="example">
-  Show: Clojure Java REPL Tooling Duplicates All  (65 frames hidden)
-
-2. Unhandled clojure.lang.Compiler$CompilerException
-
-1. Caused by java.lang.RuntimeException
-   Unable to resolve symbol: dad in this context
-
-                     Util.java:  221  clojure.lang.Util/runtimeException
-</pre>
-
-<p>
-Whoa, that's heavy, man.
-</p>
 
 ]]></summary>
 </entry>

@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -41,47 +41,48 @@
 </div>
 
 <p>
-I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> to gather the language usage data from
+I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> to gather the language usage data from
 <a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and sort them in descending order of popularity.
 </p>
 
 <div class="org-src-container">
+
 <pre class="src src-json">{
-  <span style="color: #F92672;">"Ruby"</span> : <span style="color: #AE81FF;">4401525</span>,
-  <span style="color: #F92672;">"Java"</span> : <span style="color: #AE81FF;">1800870</span>,
-  <span style="color: #F92672;">"Clojure"</span> : <span style="color: #AE81FF;">1406457</span>,
-  <span style="color: #F92672;">"LilyPond"</span> : <span style="color: #AE81FF;">226858</span>,
-  <span style="color: #F92672;">"Scheme"</span> : <span style="color: #AE81FF;">224389</span>,
-  <span style="color: #F92672;">"Common Lisp"</span> : <span style="color: #AE81FF;">127554</span>,
-  <span style="color: #F92672;">"HTML"</span> : <span style="color: #AE81FF;">111217</span>,
-  <span style="color: #F92672;">"Shell"</span> : <span style="color: #AE81FF;">47589</span>,
-  <span style="color: #F92672;">"CSS"</span> : <span style="color: #AE81FF;">41034</span>,
-  <span style="color: #F92672;">"Groff"</span> : <span style="color: #AE81FF;">25188</span>,
-  <span style="color: #F92672;">"C++"</span> : <span style="color: #AE81FF;">16378</span>,
-  <span style="color: #F92672;">"NewLisp"</span> : <span style="color: #AE81FF;">15399</span>,
-  <span style="color: #F92672;">"JavaScript"</span> : <span style="color: #AE81FF;">12714</span>,
-  <span style="color: #F92672;">"Erlang"</span> : <span style="color: #AE81FF;">8041</span>,
-  <span style="color: #F92672;">"Objective-C"</span> : <span style="color: #AE81FF;">3825</span>,
-  <span style="color: #F92672;">"Python"</span> : <span style="color: #AE81FF;">3285</span>,
-  <span style="color: #F92672;">"Perl6"</span> : <span style="color: #AE81FF;">2976</span>,
-  <span style="color: #F92672;">"PLSQL"</span> : <span style="color: #AE81FF;">2919</span>,
-  <span style="color: #F92672;">"Scala"</span> : <span style="color: #AE81FF;">2814</span>,
-  <span style="color: #F92672;">"Emacs Lisp"</span> : <span style="color: #AE81FF;">2420</span>,
-  <span style="color: #F92672;">"OCaml"</span> : <span style="color: #AE81FF;">2055</span>,
-  <span style="color: #F92672;">"Elixir"</span> : <span style="color: #AE81FF;">1788</span>,
-  <span style="color: #F92672;">"CoffeeScript"</span> : <span style="color: #AE81FF;">1787</span>,
-  <span style="color: #F92672;">"PHP"</span> : <span style="color: #AE81FF;">1704</span>,
-  <span style="color: #F92672;">"CMake"</span> : <span style="color: #AE81FF;">1618</span>,
-  <span style="color: #F92672;">"Lua"</span> : <span style="color: #AE81FF;">1160</span>,
-  <span style="color: #F92672;">"Go"</span> : <span style="color: #AE81FF;">1025</span>,
-  <span style="color: #F92672;">"Perl"</span> : <span style="color: #AE81FF;">844</span>,
-  <span style="color: #F92672;">"Haskell"</span> : <span style="color: #AE81FF;">801</span>,
-  <span style="color: #F92672;">"F#"</span> : <span style="color: #AE81FF;">799</span>,
-  <span style="color: #F92672;">"C#"</span> : <span style="color: #AE81FF;">585</span>,
-  <span style="color: #F92672;">"PostScript"</span> : <span style="color: #AE81FF;">485</span>,
-  <span style="color: #F92672;">"Swift"</span> : <span style="color: #AE81FF;">467</span>,
-  <span style="color: #F92672;">"Makefile"</span> : <span style="color: #AE81FF;">220</span>,
-  <span style="color: #F92672;">"Frege"</span> : <span style="color: #AE81FF;">53</span>
+  "Ruby" : 4401525,
+  "Java" : 1800870,
+  "Clojure" : 1406457,
+  "LilyPond" : 226858,
+  "Scheme" : 224389,
+  "Common Lisp" : 127554,
+  "HTML" : 111217,
+  "Shell" : 47589,
+  "CSS" : 41034,
+  "Groff" : 25188,
+  "C++" : 16378,
+  "NewLisp" : 15399,
+  "JavaScript" : 12714,
+  "Erlang" : 8041,
+  "Objective-C" : 3825,
+  "Python" : 3285,
+  "Perl6" : 2976,
+  "PLSQL" : 2919,
+  "Scala" : 2814,
+  "Emacs Lisp" : 2420,
+  "OCaml" : 2055,
+  "Elixir" : 1788,
+  "CoffeeScript" : 1787,
+  "PHP" : 1704,
+  "CMake" : 1618,
+  "Lua" : 1160,
+  "Go" : 1025,
+  "Perl" : 844,
+  "Haskell" : 801,
+  "F#" : 799,
+  "C#" : 585,
+  "PostScript" : 485,
+  "Swift" : 467,
+  "Makefile" : 220,
+  "Frege" : 53
 }
 </pre>
 </div>
@@ -98,9 +99,9 @@ For the script and an example config, check out <a href="https://gist.github.com
 <h2 class="footnotes">Footnotes: </h2>
 <div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
 Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
-</p></div></div>
+</p></div>
 
 
 </div>
