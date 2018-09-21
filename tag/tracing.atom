@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html</id>
     <published>2016-04-12T00:00:00Z</published>
     <updated>2016-04-12T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 12 April, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 12 April, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 What follows is an LFE translation of Roberto Aloi's <a href="https://aloiroberto.wordpress.com/2009/02/23/tracing-erlang-functions/"><i>Tracing Erlang Functions</i></a>.
 </p>
 
@@ -179,6 +186,7 @@ To stop the trace:
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 

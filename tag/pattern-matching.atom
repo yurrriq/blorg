@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html</id>
     <published>2015-12-28T00:00:00Z</published>
     <updated>2015-12-28T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 28 December, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 28 December, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 of Advent of Code</a>, I found myself
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
@@ -135,6 +142,7 @@ f
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 

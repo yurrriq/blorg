@@ -10,35 +10,68 @@
   <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
   <body>
-    <header>
-  <nav class="group">
-    <a href="../../../"><img class="badge" src="../../../images/glider.svg" alt="Glider" /></a>
-    <a href="../../../about/">About</a>
-    <!-- <a href="/contact.html">Contact</a> -->
-    <a href="../../../posts/">Posts</a>
-    <a href="https://github.com/yurrriq/blorg">Source</a>
-  </nav>
-</header>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
 
-    <div id="content">
+    <article>
       <h1>Spooky Security</h1>
-      <div class="info">
-  Posted on  7 September, 2018
-  
-    by Eric Bailey
-  
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle" />
+    <span class="marginnote">
+      Posted on  7 September, 2018
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="../../../tag/darwin/">darwin</a>, <a href="../../../tag/keyboard/">keyboard</a>, <a href="../../../tag/security/">security</a>, <a href="../../../tag/skhd/">skhd</a>, <a href="../../../tag/chunkwm/">chunkwm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<b>Update (21 September, 2018)</b>: It turns <a href="https://github.com/keybase/client">Keybase.app</a> was to blame. I've since quit it and removed it
+from my login items, and all is well again. This <a href="https://github.com/koekeishiya/skhd/issues/48">skhd issue thread</a> details some
+excellent debugging strategies, which I've modified slightly here.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ioreg -lw 0 <span style="color: #95e454;">\</span>
+    | perl -nle <span style="color: #95e454;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="color: #95e454;">\</span>
+    | uniq <span style="color: #95e454;">\</span>
+    | xargs ps -o <span style="color: #cae682;">comm</span>= -p
+</pre>
 </div>
 
-<div class="info">
-  
-  Tags: <a href="../../../tag/darwin/">darwin</a>, <a href="../../../tag/keyboard/">keyboard</a>, <a href="../../../tag/security/">security</a>, <a href="../../../tag/skhd/">skhd</a>, <a href="../../../tag/chunkwm/">chunkwm</a>
-  
-</div>
+<p>
+For example, when I enable secure keyboard entry in <code>Terminal.app</code>, I see the
+following output.
+</p>
+
+<pre class="example">
+/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+</pre>
+
+<hr>
 
 <p>
 I've been using <a href="https://koekeishiya.github.io/chunkwm/">chunkwm</a> and <a href="https://github.com/koekeishiya/skhd">skhd</a> to help make Darwin more palatable, but <code>skhd</code>
@@ -46,11 +79,9 @@ suddenly stopped working. When I try to start it manually, I get the following
 error.
 </p>
 
-<blockquote>
-<p>
+<pre class="example">
 skhd: secure keyboard entry is enabled! abort..
-</p>
-</blockquote>
+</pre>
 
 <p>
 <a href="https://github.com/koekeishiya/skhd/issues/48">The internet suggested</a> I disable <a href="https://iterm2.com/">iTerm 2</a>'s <i>Secure Keyboard Entry</i>, but I've
@@ -84,7 +115,6 @@ program to call it and try to end my troubles.
 </pre>
 </div>
 
-
 <pre class="example">
 Secure keyboard entry is enabled.
 Secure keyboard entry is still enabled.
@@ -94,37 +124,41 @@ Secure keyboard entry is still enabled.
 No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literally dying</a>.
 </p>
 
+</section>
 
-    </div>
-    <footer>
-  <ul class="footer-links group">
-    <li>
-      <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a>
-    </li>
-    <li>
-      <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a>
-    </li>
-    <li>
-      <a href="../../../index.atom"><i class="fa fa-rss"></i></a>
-    </li>
-  </ul>
-  <div class="credits">
-    <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample">
-      <img alt="Open Hub profile for Eric Bailey" border="0" height="35" src="https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample" width="230">
-    </a><br />
-    <!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -->
-    <!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -->
-    <!--        width="208" -->
-    <!--        height="58" -->
-    <!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -->
-    <!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -->
-    <!--   </a><br /> -->
-    <span>
-      This site was created by Eric Bailey
-      with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a>
-      in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span>
-  </div>
-</footer>
+    </article>
+    <!-- <footer> -->
+<!--   <ul class="footer-links group"> -->
+<!--     <li> -->
+<!--       <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="/index.atom"><i class="fa fa-rss"></i></a> -->
+<!--     </li> -->
+<!--   </ul> -->
+<!--   <div class="credits"> -->
+<!--     <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample"> -->
+<!--       <img alt='Open Hub profile for Eric Bailey' -->
+<!--            border='0' -->
+<!--            height='35' -->
+<!--            src='https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample' width='230'> -->
+<!--     </a><br /> -->
+<!--     <\!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -\-> -->
+<!--     <\!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -\-> -->
+<!--     <\!--        width="208" -\-> -->
+<!--     <\!--        height="58" -\-> -->
+<!--     <\!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -\-> -->
+<!--     <\!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -\-> -->
+<!--     <\!--   </a><br /> -\-> -->
+<!--     <span> -->
+<!--       This site was created by Eric Bailey -->
+<!--       with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a> -->
+<!--       in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span> -->
+<!--   </div> -->
+<!-- </footer> -->
 
   </body>
 </html>

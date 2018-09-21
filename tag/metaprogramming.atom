@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html</id>
     <published>2015-08-06T00:00:00Z</published>
     <updated>2015-08-06T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  6 August, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  6 August, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 So, lately I've been getting increasingly into <a href="http://lfe.io">Lisp Flavoured Erlang (LFE)</a>.  If
 you haven't tried it yet, or even if you have, check out the <a href="http://help.exercism.io/getting-started-with-lfe.html">Exercism.io track</a> I
 helped organize.  My latest endeavour is porting Robert Levy's <a href="https://github.com/rplevy/swiss-arrows">swiss-arrows</a> from
@@ -99,6 +106,7 @@ non-updating: "testtesttest" ; printed
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -107,20 +115,27 @@ non-updating: "testtesttest" ; printed
     <id>http://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
     <published>2015-01-02T00:00:00Z</published>
     <updated>2015-01-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  2 January, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 January, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 <a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
 </p>
 
@@ -185,6 +200,7 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub
 </p>
 
+</section>
 ]]></summary>
 </entry>
 

@@ -15,26 +15,34 @@
     <id>http://blorg.ericb.me/2015/07/hello-world/index.html</id>
     <published>2015-07-10T00:00:00Z</published>
     <updated>2015-07-10T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 10 July, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/basic/index.html">basic</a>, <a href="/tag/blogging/index.html">blogging</a>
-  
-</div>
-
-<div class="org-src-container">
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 10 July, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/basic/index.html">basic</a>, <a href="/tag/blogging/index.html">blogging</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <div class="org-src-container">
 
 <pre class="src src-basic">10 PRINT "HELLO, WORLD!"
 20 GOTO 10
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 

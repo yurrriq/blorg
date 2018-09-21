@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2014/12/the-dream-scheme-lilypond/index.html</id>
     <published>2014-12-07T00:00:00Z</published>
     <updated>2014-12-07T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  7 December, 2014
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lilypond/index.html">lilypond</a>, <a href="/tag/scheme/index.html">scheme</a>, <a href="/tag/music/index.html">music</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  7 December, 2014
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lilypond/index.html">lilypond</a>, <a href="/tag/scheme/index.html">scheme</a>, <a href="/tag/music/index.html">music</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 <img src="/images/the-dream-scheme-lilypond.png" alt="nil" />
 </p>
 
@@ -140,6 +147,7 @@ it to <code>2.18.x</code> if you're not <a href="http://lilypond.org/development
 </div>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 

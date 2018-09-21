@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html</id>
     <published>2016-01-01T00:00:00Z</published>
     <updated>2016-01-01T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  1 January, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
-  
-</div>
-
-<pre>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  1 January, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre>
 <p>
 (→ This (is (why (→ I (love <a href="http://lfe.io">Lisp Flavoured Erlang</a>)))))
 </p>
@@ -80,6 +87,7 @@ Gott nytt år!
 </div>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -88,23 +96,42 @@ Gott nytt år!
     <id>http://blorg.ericb.me/2015/05/github-languages/index.html</id>
     <published>2015-05-02T00:00:00Z</published>
     <updated>2015-05-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  2 May, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/script/index.html">script</a>, <a href="/tag/polyglot/index.html">polyglot</a>
-  
-</div>
-
-<p>
-I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> to gather the language usage data from
-<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and sort them in descending order of popularity.
-</p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 May, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/script/index.html">script</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+I wrote a little <a href="http://clojure.org">Clojure</a> script
+<label for="sn-clojurescript"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-clojurescript"
+       class="margin-toggle"/>
+<span class="marginnote">
+Not to be confused with
+<a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
+</span>
+to gather the language usage data from
+<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and
+sort them in descending order of popularity.
 
 <div class="org-src-container">
 
@@ -156,18 +183,8 @@ repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exe
 <p>
 For the script and an example config, check out <a href="https://gist.github.com/yurrriq/3272c6b9ebfa699472b9">the gist</a>.
 </p>
-<div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
-<div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
-Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
-</p></div>
-
-
-</div>
-</div>
-
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -176,20 +193,27 @@ Not to be confused with <a href="https://github.com/clojure/clojurescript">Cloju
     <id>http://blorg.ericb.me/2015/01/exercism.io/index.html</id>
     <published>2015-01-03T00:00:00Z</published>
     <updated>2015-01-03T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  3 January, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/learning/index.html">learning</a>, <a href="/tag/polyglot/index.html">polyglot</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  3 January, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/learning/index.html">learning</a>, <a href="/tag/polyglot/index.html">polyglot</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 <a href="http://xkcd.com/353/">Hello, world!</a> I started working on the <a href="http://exercism.io/languages/clojure">Clojure exercises</a> from <a href="http://exercism.io/about">exercism.io</a>.
 </p>
 
@@ -201,6 +225,7 @@ Feel free to nitpick <a href="http://exercism.io/yurrriq">my solutions</a>, and 
 Maybe this will prove to be a fun way to explore <a href="https://github.com/yurrriq/exercism/branches/all">different languages</a>.
 </p>
 
+</section>
 ]]></summary>
 </entry>
 

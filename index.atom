@@ -15,18 +15,51 @@
     <id>http://blorg.ericb.me/2018/09/spooky-security/index.html</id>
     <published>2018-09-07T00:00:00Z</published>
     <updated>2018-09-07T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  7 September, 2018
-  
-    by Eric Bailey
-  
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  7 September, 2018
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/darwin/index.html">darwin</a>, <a href="/tag/keyboard/index.html">keyboard</a>, <a href="/tag/security/index.html">security</a>, <a href="/tag/skhd/index.html">skhd</a>, <a href="/tag/chunkwm/index.html">chunkwm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<b>Update (21 September, 2018)</b>: It turns <a href="https://github.com/keybase/client">Keybase.app</a> was to blame. I've since quit it and removed it
+from my login items, and all is well again. This <a href="https://github.com/koekeishiya/skhd/issues/48">skhd issue thread</a> details some
+excellent debugging strategies, which I've modified slightly here.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ioreg -lw 0 <span style="color: #95e454;">\</span>
+    | perl -nle <span style="color: #95e454;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="color: #95e454;">\</span>
+    | uniq <span style="color: #95e454;">\</span>
+    | xargs ps -o <span style="color: #cae682;">comm</span>= -p
+</pre>
 </div>
 
-<div class="info">
-  
-  Tags: <a href="/tag/darwin/index.html">darwin</a>, <a href="/tag/keyboard/index.html">keyboard</a>, <a href="/tag/security/index.html">security</a>, <a href="/tag/skhd/index.html">skhd</a>, <a href="/tag/chunkwm/index.html">chunkwm</a>
-  
-</div>
+<p>
+For example, when I enable secure keyboard entry in <code>Terminal.app</code>, I see the
+following output.
+</p>
+
+<pre class="example">
+/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+</pre>
+
+<hr >
 
 <p>
 I've been using <a href="https://koekeishiya.github.io/chunkwm/">chunkwm</a> and <a href="https://github.com/koekeishiya/skhd">skhd</a> to help make Darwin more palatable, but <code>skhd</code>
@@ -34,11 +67,9 @@ suddenly stopped working. When I try to start it manually, I get the following
 error.
 </p>
 
-<blockquote>
-<p>
+<pre class="example">
 skhd: secure keyboard entry is enabled! abort..
-</p>
-</blockquote>
+</pre>
 
 <p>
 <a href="https://github.com/koekeishiya/skhd/issues/48">The internet suggested</a> I disable <a href="https://iterm2.com/">iTerm 2</a>'s <i>Secure Keyboard Entry</i>, but I've
@@ -72,7 +103,6 @@ program to call it and try to end my troubles.
 </pre>
 </div>
 
-
 <pre class="example">
 Secure keyboard entry is enabled.
 Secure keyboard entry is still enabled.
@@ -82,6 +112,7 @@ Secure keyboard entry is still enabled.
 No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literally dying</a>.
 </p>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -90,20 +121,27 @@ No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literall
     <id>http://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
     <published>2018-05-07T00:00:00Z</published>
     <updated>2018-05-07T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  7 May, 2018
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/c/index.html">c</a>, <a href="/tag/compilers/index.html">compilers</a>, <a href="/tag/school/index.html">school</a>, <a href="/tag/facepalm/index.html">facepalm</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  7 May, 2018
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/c/index.html">c</a>, <a href="/tag/compilers/index.html">compilers</a>, <a href="/tag/school/index.html">school</a>, <a href="/tag/facepalm/index.html">facepalm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 A friend at work today was telling me about his wife's C++ class,
 wherein the students were asked to predict the behaviour of the
 following snippet.
@@ -223,6 +261,7 @@ over the precise meaning of the sequence point rules in subtle cases.
 </p>
 </blockquote>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -231,20 +270,27 @@ over the precise meaning of the sequence point rules in subtle cases.
     <id>http://blorg.ericb.me/2016/09/proving-addition-is-commutative-in-idris/index.html</id>
     <published>2016-09-07T00:00:00Z</published>
     <updated>2016-09-07T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  7 September, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/idris/index.html">idris</a>, <a href="/tag/theorem-proving/index.html">theorem-proving</a>, <a href="/tag/books/index.html">books</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  7 September, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/idris/index.html">idris</a>, <a href="/tag/theorem-proving/index.html">theorem-proving</a>, <a href="/tag/books/index.html">books</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 First off, I think <a href="http://www.idris-lang.org">Idris</a> is pretty great. Over the past several months, I've
 been thoroughly enjoying reading and working through <a href="https://www.manning.com/books/type-driven-development-with-idris"><i>Type-Driven Development
 with Idris</i></a>, as well as chatting with the community on IRC (<code>#idris</code> on
@@ -463,6 +509,7 @@ Tidying up a bit for my taste, we arrive at the complete (and total) definition:
 \(\square\)
 </p>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -471,31 +518,54 @@ Tidying up a bit for my taste, we arrive at the complete (and total) definition:
     <id>http://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html</id>
     <published>2016-05-29T00:00:00Z</published>
     <updated>2016-05-29T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 29 May, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/blogging/index.html">blogging</a>, <a href="/tag/haskell/index.html">haskell</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 29 May, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/blogging/index.html">blogging</a>, <a href="/tag/haskell/index.html">haskell</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Back in December of 2014, I set up a blog using <a href="https://ghost.org">Ghost</a> and <a href="https://github.com/axitkhurana/buster/">Buster</a>. That was all
 fine and good, but left quite a bit to be desired. I'm not a Python user and the
 whole workflow was a bit too clunky for my taste.
 </p>
 
 <p>
-In July of 2015, I decided to migrate to <a href="http://jekyllrb.com">Jekyll</a>. It's pretty widely used and the
-integration with <a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and easy.  In practice, I
-found its workflow to be similarly annoying. Worst of all, it made me install,
-write and use Ruby<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>.  What's more, GitHub seems to have a predilection for
-breaking things so often and dramatically, that <a href="https://github.com/lfex/dragon">dragon</a> was born.
+In July of 2015, I decided to migrate to
+<a href="http://jekyllrb.com">Jekyll</a>.
+It's pretty widely used and the integration with
+<a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and
+easy.  In practice, I found its workflow to be similarly annoying. Worst of all,
+it made me install, write and use Ruby.
+<label for="sn-ruby-hater"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-ruby-hater"
+       class="margin-toggle"/>
+<span class="marginnote">
+I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a>
+</span>
+</p>
+
+<p>
+What's more, GitHub seems to have a predilection for breaking things so often
+and dramatically, that <a href="https://github.com/lfex/dragon">dragon</a> was born.
 </p>
 
 <p>
@@ -507,29 +577,29 @@ leap. The experience was so great, I can't believe I didn't do it sooner.
 </p>
 
 <p>
-From now on<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>, my blog will be powered by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>. You can find my <a href="https://github.com/yurrriq/blorg/blob/master/src/site.hs">site.hs</a>,
-which will undoubtedly grow and change over time, <a href="https://github.com/yurrriq/blorg">on GitHub</a>.
+From now on, my blog will be powered by
+<a href="https://jaspervdj.be/hakyll/">Hakyll</a>.
+<label for="sn-dragon"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-dragon"
+       class="margin-toggle"/>
+<span class="marginnote">
+... at least until <a href="https://github.com/lfex/dragon">dragon</a> matures,
+or I find an even better alternative.
+</span>
+You can find my
+<a href="https://github.com/yurrriq/blorg/blob/master/hakyll/site.hs">
+<code>site.hs</code></a>, which will undoubtedly grow and change over time, on
+<a href="https://github.com/yurrriq/blorg">GitHub</a>.
 </p>
-
 <p>
 Good riddance.
 </p>
-<div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
-<div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
-I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a>
-</p></div>
-
-<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
-&#x2026; at least until <a href="https://github.com/lfex/dragon">dragon</a> matures or I find an even better alternative.
-</p></div>
-
-
-</div>
-</div>
-
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -538,20 +608,27 @@ I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynots
     <id>http://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html</id>
     <published>2016-04-12T00:00:00Z</published>
     <updated>2016-04-12T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 12 April, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 12 April, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 What follows is an LFE translation of Roberto Aloi's <a href="https://aloiroberto.wordpress.com/2009/02/23/tracing-erlang-functions/"><i>Tracing Erlang Functions</i></a>.
 </p>
 
@@ -702,6 +779,7 @@ To stop the trace:
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -710,20 +788,27 @@ To stop the trace:
     <id>http://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
     <published>2016-02-11T00:00:00Z</published>
     <updated>2016-02-11T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 11 February, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 11 February, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Since much of my time these days is spent <code>(or 'writing 'developing
 'evangelizing)</code> <a href="http://lfe.io">LFE</a>, it should come as no surprise that I use the <a href="https://github.com/lfe-rebar3/compile">rebar3
 compiler plugin</a> extensively. In doing so, I noticed it always recompiles every
@@ -818,6 +903,7 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -826,20 +912,27 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
     <id>http://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html</id>
     <published>2016-01-01T00:00:00Z</published>
     <updated>2016-01-01T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  1 January, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
-  
-</div>
-
-<pre>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  1 January, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre>
 <p>
 (→ This (is (why (→ I (love <a href="http://lfe.io">Lisp Flavoured Erlang</a>)))))
 </p>
@@ -891,6 +984,7 @@ Gott nytt år!
 </div>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -899,20 +993,27 @@ Gott nytt år!
     <id>http://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html</id>
     <published>2015-12-28T00:00:00Z</published>
     <updated>2015-12-28T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 28 December, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 28 December, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 of Advent of Code</a>, I found myself
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
@@ -1019,6 +1120,7 @@ f
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -1027,20 +1129,27 @@ f
     <id>http://blorg.ericb.me/2015/09/werase-in-iterm2/index.html</id>
     <published>2015-09-09T00:00:00Z</published>
     <updated>2015-09-09T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  9 September, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/osx/index.html">osx</a>, <a href="/tag/hack/index.html">hack</a>, <a href="/tag/terminal/index.html">terminal</a>, <a href="/tag/productivity/index.html">productivity</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  9 September, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/osx/index.html">osx</a>, <a href="/tag/hack/index.html">hack</a>, <a href="/tag/terminal/index.html">terminal</a>, <a href="/tag/productivity/index.html">productivity</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Using a fresh install of <a href="https://www.iterm2.com">iTerm2</a>, I found that <code>⌥⌫</code> wasn't working as
 expected. Within minutes, I noticed a <b>significant</b> decrease in productivity,
 since (apparently) I use <code>werase</code> all the time.
@@ -1065,6 +1174,7 @@ appropriate hex code.
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -1073,20 +1183,27 @@ appropriate hex code.
     <id>http://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html</id>
     <published>2015-08-10T00:00:00Z</published>
     <updated>2015-08-10T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 10 August, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 10 August, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Just as you'd expect from <a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Erlang</a> or <a href="http://clojure.org/lisps">another Lisp</a>, in <a href="http://lfe.gitbooks.io/tutorial/content/sequential/lists.html">LFE</a>, lists are composed of
 <a href="http://cs.gmu.edu/~sean/lisp/cons/"><i>cons cells</i></a> and when you use pattern matching to bind the head and tail of a
 singleton list, <code>head</code> holds the single element and <code>tail</code> is the empty list.
@@ -1121,6 +1238,7 @@ the same atom.
 true
 </pre>
 
+</section>
 ]]></summary>
 </entry>
 

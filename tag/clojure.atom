@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
     <published>2015-07-13T00:00:00Z</published>
     <updated>2015-07-13T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 13 July, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
-  
-</div>
-
-<pre class="example">
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre class="example">
   Show: Clojure Java REPL Tooling Duplicates All  (65 frames hidden)
 
 2. Unhandled clojure.lang.Compiler$CompilerException
@@ -43,6 +50,7 @@
 Whoa, that's heavy, man.
 </p>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -51,20 +59,27 @@ Whoa, that's heavy, man.
     <id>http://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
     <published>2015-07-13T00:00:00Z</published>
     <updated>2015-07-13T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 13 July, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/web-service/index.html">web-service</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/web-service/index.html">web-service</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 As a follow-up to <a href="http://blorg.ericb.me/2014/12/icanhazip.com">my previous post about icanhazip.com</a>, I figured it bears
 mentioning I've since set up <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a> and am running it at
 <a href="http://ip.ericb.me">ip.ericb.me</a>.
@@ -90,6 +105,7 @@ Its excruciatingly simple Clojure source looks something like this:
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -98,23 +114,42 @@ Its excruciatingly simple Clojure source looks something like this:
     <id>http://blorg.ericb.me/2015/05/github-languages/index.html</id>
     <published>2015-05-02T00:00:00Z</published>
     <updated>2015-05-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  2 May, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/script/index.html">script</a>, <a href="/tag/polyglot/index.html">polyglot</a>
-  
-</div>
-
-<p>
-I wrote a little <a href="http://clojure.org">Clojure</a> script<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> to gather the language usage data from
-<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and sort them in descending order of popularity.
-</p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 May, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/script/index.html">script</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+I wrote a little <a href="http://clojure.org">Clojure</a> script
+<label for="sn-clojurescript"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-clojurescript"
+       class="margin-toggle"/>
+<span class="marginnote">
+Not to be confused with
+<a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
+</span>
+to gather the language usage data from
+<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and
+sort them in descending order of popularity.
 
 <div class="org-src-container">
 
@@ -166,18 +201,8 @@ repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exe
 <p>
 For the script and an example config, check out <a href="https://gist.github.com/yurrriq/3272c6b9ebfa699472b9">the gist</a>.
 </p>
-<div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
-<div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
-Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
-</p></div>
-
-
-</div>
-</div>
-
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -186,20 +211,27 @@ Not to be confused with <a href="https://github.com/clojure/clojurescript">Cloju
     <id>http://blorg.ericb.me/2015/01/exercism.io/index.html</id>
     <published>2015-01-03T00:00:00Z</published>
     <updated>2015-01-03T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  3 January, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/learning/index.html">learning</a>, <a href="/tag/polyglot/index.html">polyglot</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  3 January, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/learning/index.html">learning</a>, <a href="/tag/polyglot/index.html">polyglot</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 <a href="http://xkcd.com/353/">Hello, world!</a> I started working on the <a href="http://exercism.io/languages/clojure">Clojure exercises</a> from <a href="http://exercism.io/about">exercism.io</a>.
 </p>
 
@@ -211,6 +243,7 @@ Feel free to nitpick <a href="http://exercism.io/yurrriq">my solutions</a>, and 
 Maybe this will prove to be a fun way to explore <a href="https://github.com/yurrriq/exercism/branches/all">different languages</a>.
 </p>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -219,20 +252,27 @@ Maybe this will prove to be a fun way to explore <a href="https://github.com/yur
     <id>http://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
     <published>2015-01-02T00:00:00Z</published>
     <updated>2015-01-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  2 January, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 January, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 <a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
 </p>
 
@@ -297,6 +337,7 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub
 </p>
 
+</section>
 ]]></summary>
 </entry>
 

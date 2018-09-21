@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
     <published>2018-05-07T00:00:00Z</published>
     <updated>2018-05-07T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  7 May, 2018
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/c/index.html">c</a>, <a href="/tag/compilers/index.html">compilers</a>, <a href="/tag/school/index.html">school</a>, <a href="/tag/facepalm/index.html">facepalm</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  7 May, 2018
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/c/index.html">c</a>, <a href="/tag/compilers/index.html">compilers</a>, <a href="/tag/school/index.html">school</a>, <a href="/tag/facepalm/index.html">facepalm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 A friend at work today was telling me about his wife's C++ class,
 wherein the students were asked to predict the behaviour of the
 following snippet.
@@ -148,6 +155,7 @@ over the precise meaning of the sequence point rules in subtle cases.
 </p>
 </blockquote>
 
+</section>
 ]]></summary>
 </entry>
 

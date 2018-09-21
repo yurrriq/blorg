@@ -10,37 +10,44 @@
   <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
   <body>
-    <header>
-  <nav class="group">
-    <a href="../../../"><img class="badge" src="../../../images/glider.svg" alt="Glider" /></a>
-    <a href="../../../about/">About</a>
-    <!-- <a href="/contact.html">Contact</a> -->
-    <a href="../../../posts/">Posts</a>
-    <a href="https://github.com/yurrriq/blorg">Source</a>
-  </nav>
-</header>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
 
-    <div id="content">
+    <article>
       <h1>ip.ericb.me</h1>
-      <div class="info">
-  Posted on 13 July, 2015
-  
-    by Eric Bailey
-  
-</div>
+      
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="../../../tag/hack/">hack</a>, <a href="../../../tag/clojure/">clojure</a>, <a href="../../../tag/web-service/">web-service</a>, <a href="../../../tag/open-source/">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle" />
+    <span class="marginnote">
+      Posted on 13 July, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="../../../tag/hack/">hack</a>, <a href="../../../tag/clojure/">clojure</a>, <a href="../../../tag/web-service/">web-service</a>, <a href="../../../tag/open-source/">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 As a follow-up to <a href="http://blorg.ericb.me/2014/12/icanhazip.com">my previous post about icanhazip.com</a>, I figured it bears
 mentioning I've since set up <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a> and am running it at
 <a href="http://ip.ericb.me">ip.ericb.me</a>.
@@ -53,50 +60,54 @@ Its excruciatingly simple Clojure source looks something like this:
 
 <div class="org-src-container">
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defroutes</span> <span style="color: #cae682;">app</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #e5786d;">GET</span> <span style="color: #95e454;">"/"</span> <span style="color: #b0b1a3;">{</span><span style="color: #97b098;">{</span>x-real-ip <span style="color: #95e454;">"x-real-ip"</span><span style="color: #97b098;">}</span> <span style="color: #e5786d;">:headers</span><span style="color: #b0b1a3;">}</span>
-    <span style="color: #b0b1a3;">{</span><span style="color: #e5786d;">:status</span>  200
-     <span style="color: #e5786d;">:headers</span> <span style="color: #97b098;">{</span><span style="color: #95e454;">"Content-Type"</span> <span style="color: #95e454;">"text/plain"</span><span style="color: #97b098;">}</span>
-     <span style="color: #e5786d;">:body</span>    x-real-ip<span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
-
-<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defn</span> <span style="color: #cae682;">-main</span> <span style="color: #93a8c6;">[</span>&amp; args<span style="color: #93a8c6;">]</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;&gt;</span> <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">or</span> <span style="color: #97b098;">(</span>some-&gt; <span style="color: #aebed8;">(</span>env <span style="color: #e5786d;">:port</span><span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">Integer</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #e5786d;">parseInt</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span> 5000<span style="color: #b0b1a3;">)</span>
-       <span style="color: #b0b1a3;">(</span>hash-map <span style="color: #e5786d;">:port</span><span style="color: #b0b1a3;">)</span>
-       <span style="color: #b0b1a3;">(</span>run-server app<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defroutes</span> <span style="color: #cae682;">app</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #e5786d;">GET</span> <span style="color: #95e454;">"/"</span> <span style="color: #b0b1a3;">{</span><span style="color: #97b098;">{</span>x-real-ip <span style="color: #95e454;">"x-real-ip"</span><span style="color: #97b098;">}</span> <span style="color: #e5786d;">:headers</span><span style="color: #b0b1a3;">}</span>
+    <span style="color: #b0b1a3;">{</span><span style="color: #e5786d;">:status</span>  200
+     <span style="color: #e5786d;">:headers</span> <span style="color: #97b098;">{</span><span style="color: #95e454;">"Content-Type"</span> <span style="color: #95e454;">"text/plain"</span><span style="color: #97b098;">}</span>
+     <span style="color: #e5786d;">:body</span>    x-real-ip<span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defn</span> <span style="color: #cae682;">-main</span> <span style="color: #93a8c6;">[</span>&amp; args<span style="color: #93a8c6;">]</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;&gt;</span> <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">or</span> <span style="color: #97b098;">(</span>some-&gt; <span style="color: #aebed8;">(</span>env <span style="color: #e5786d;">:port</span><span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">Integer</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #e5786d;">parseInt</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span> 5000<span style="color: #b0b1a3;">)</span>
+       <span style="color: #b0b1a3;">(</span>hash-map <span style="color: #e5786d;">:port</span><span style="color: #b0b1a3;">)</span>
+       <span style="color: #b0b1a3;">(</span>run-server app<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
+</section>
 
-    </div>
-    <footer>
-  <ul class="footer-links group">
-    <li>
-      <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a>
-    </li>
-    <li>
-      <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a>
-    </li>
-    <li>
-      <a href="../../../index.atom"><i class="fa fa-rss"></i></a>
-    </li>
-  </ul>
-  <div class="credits">
-    <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample">
-      <img alt="Open Hub profile for Eric Bailey" border="0" height="35" src="https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample" width="230">
-    </a><br />
-    <!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -->
-    <!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -->
-    <!--        width="208" -->
-    <!--        height="58" -->
-    <!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -->
-    <!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -->
-    <!--   </a><br /> -->
-    <span>
-      This site was created by Eric Bailey
-      with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a>
-      in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span>
-  </div>
-</footer>
+    </article>
+    <!-- <footer> -->
+<!--   <ul class="footer-links group"> -->
+<!--     <li> -->
+<!--       <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="/index.atom"><i class="fa fa-rss"></i></a> -->
+<!--     </li> -->
+<!--   </ul> -->
+<!--   <div class="credits"> -->
+<!--     <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample"> -->
+<!--       <img alt='Open Hub profile for Eric Bailey' -->
+<!--            border='0' -->
+<!--            height='35' -->
+<!--            src='https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample' width='230'> -->
+<!--     </a><br /> -->
+<!--     <\!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -\-> -->
+<!--     <\!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -\-> -->
+<!--     <\!--        width="208" -\-> -->
+<!--     <\!--        height="58" -\-> -->
+<!--     <\!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -\-> -->
+<!--     <\!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -\-> -->
+<!--     <\!--   </a><br /> -\-> -->
+<!--     <span> -->
+<!--       This site was created by Eric Bailey -->
+<!--       with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a> -->
+<!--       in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span> -->
+<!--   </div> -->
+<!-- </footer> -->
 
   </body>
 </html>

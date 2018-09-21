@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html</id>
     <published>2016-01-01T00:00:00Z</published>
     <updated>2016-01-01T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  1 January, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
-  
-</div>
-
-<pre>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  1 January, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre>
 <p>
 (→ This (is (why (→ I (love <a href="http://lfe.io">Lisp Flavoured Erlang</a>)))))
 </p>
@@ -80,6 +87,7 @@ Gott nytt år!
 </div>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 

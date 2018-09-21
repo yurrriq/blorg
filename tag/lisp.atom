@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html</id>
     <published>2016-04-12T00:00:00Z</published>
     <updated>2016-04-12T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 12 April, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 12 April, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 What follows is an LFE translation of Roberto Aloi's <a href="https://aloiroberto.wordpress.com/2009/02/23/tracing-erlang-functions/"><i>Tracing Erlang Functions</i></a>.
 </p>
 
@@ -179,6 +186,7 @@ To stop the trace:
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -187,20 +195,27 @@ To stop the trace:
     <id>http://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
     <published>2016-02-11T00:00:00Z</published>
     <updated>2016-02-11T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 11 February, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 11 February, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Since much of my time these days is spent <code>(or 'writing 'developing
 'evangelizing)</code> <a href="http://lfe.io">LFE</a>, it should come as no surprise that I use the <a href="https://github.com/lfe-rebar3/compile">rebar3
 compiler plugin</a> extensively. In doing so, I noticed it always recompiles every
@@ -295,6 +310,7 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -303,20 +319,27 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
     <id>http://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html</id>
     <published>2016-01-01T00:00:00Z</published>
     <updated>2016-01-01T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  1 January, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
-  
-</div>
-
-<pre>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  1 January, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre>
 <p>
 (→ This (is (why (→ I (love <a href="http://lfe.io">Lisp Flavoured Erlang</a>)))))
 </p>
@@ -368,6 +391,7 @@ Gott nytt år!
 </div>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -376,20 +400,27 @@ Gott nytt år!
     <id>http://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html</id>
     <published>2015-12-28T00:00:00Z</published>
     <updated>2015-12-28T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 28 December, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 28 December, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 of Advent of Code</a>, I found myself
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
@@ -496,6 +527,7 @@ f
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -504,20 +536,27 @@ f
     <id>http://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html</id>
     <published>2015-08-10T00:00:00Z</published>
     <updated>2015-08-10T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 10 August, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 10 August, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Just as you'd expect from <a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Erlang</a> or <a href="http://clojure.org/lisps">another Lisp</a>, in <a href="http://lfe.gitbooks.io/tutorial/content/sequential/lists.html">LFE</a>, lists are composed of
 <a href="http://cs.gmu.edu/~sean/lisp/cons/"><i>cons cells</i></a> and when you use pattern matching to bind the head and tail of a
 singleton list, <code>head</code> holds the single element and <code>tail</code> is the empty list.
@@ -552,6 +591,7 @@ the same atom.
 true
 </pre>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -560,20 +600,27 @@ true
     <id>http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html</id>
     <published>2015-08-06T00:00:00Z</published>
     <updated>2015-08-06T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  6 August, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  6 August, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 So, lately I've been getting increasingly into <a href="http://lfe.io">Lisp Flavoured Erlang (LFE)</a>.  If
 you haven't tried it yet, or even if you have, check out the <a href="http://help.exercism.io/getting-started-with-lfe.html">Exercism.io track</a> I
 helped organize.  My latest endeavour is porting Robert Levy's <a href="https://github.com/rplevy/swiss-arrows">swiss-arrows</a> from
@@ -644,6 +691,7 @@ non-updating: "testtesttest" ; printed
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -652,20 +700,27 @@ non-updating: "testtesttest" ; printed
     <id>http://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
     <published>2015-01-02T00:00:00Z</published>
     <updated>2015-01-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on  2 January, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 January, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 <a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
 </p>
 
@@ -730,6 +785,7 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub
 </p>
 
+</section>
 ]]></summary>
 </entry>
 

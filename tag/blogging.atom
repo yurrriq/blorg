@@ -15,31 +15,54 @@
     <id>http://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html</id>
     <published>2016-05-29T00:00:00Z</published>
     <updated>2016-05-29T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 29 May, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/blogging/index.html">blogging</a>, <a href="/tag/haskell/index.html">haskell</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 29 May, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/blogging/index.html">blogging</a>, <a href="/tag/haskell/index.html">haskell</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Back in December of 2014, I set up a blog using <a href="https://ghost.org">Ghost</a> and <a href="https://github.com/axitkhurana/buster/">Buster</a>. That was all
 fine and good, but left quite a bit to be desired. I'm not a Python user and the
 whole workflow was a bit too clunky for my taste.
 </p>
 
 <p>
-In July of 2015, I decided to migrate to <a href="http://jekyllrb.com">Jekyll</a>. It's pretty widely used and the
-integration with <a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and easy.  In practice, I
-found its workflow to be similarly annoying. Worst of all, it made me install,
-write and use Ruby<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>.  What's more, GitHub seems to have a predilection for
-breaking things so often and dramatically, that <a href="https://github.com/lfex/dragon">dragon</a> was born.
+In July of 2015, I decided to migrate to
+<a href="http://jekyllrb.com">Jekyll</a>.
+It's pretty widely used and the integration with
+<a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and
+easy.  In practice, I found its workflow to be similarly annoying. Worst of all,
+it made me install, write and use Ruby.
+<label for="sn-ruby-hater"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-ruby-hater"
+       class="margin-toggle"/>
+<span class="marginnote">
+I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a>
+</span>
+</p>
+
+<p>
+What's more, GitHub seems to have a predilection for breaking things so often
+and dramatically, that <a href="https://github.com/lfex/dragon">dragon</a> was born.
 </p>
 
 <p>
@@ -51,29 +74,29 @@ leap. The experience was so great, I can't believe I didn't do it sooner.
 </p>
 
 <p>
-From now on<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>, my blog will be powered by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>. You can find my <a href="https://github.com/yurrriq/blorg/blob/master/src/site.hs">site.hs</a>,
-which will undoubtedly grow and change over time, <a href="https://github.com/yurrriq/blorg">on GitHub</a>.
+From now on, my blog will be powered by
+<a href="https://jaspervdj.be/hakyll/">Hakyll</a>.
+<label for="sn-dragon"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-dragon"
+       class="margin-toggle"/>
+<span class="marginnote">
+... at least until <a href="https://github.com/lfex/dragon">dragon</a> matures,
+or I find an even better alternative.
+</span>
+You can find my
+<a href="https://github.com/yurrriq/blorg/blob/master/hakyll/site.hs">
+<code>site.hs</code></a>, which will undoubtedly grow and change over time, on
+<a href="https://github.com/yurrriq/blorg">GitHub</a>.
 </p>
-
 <p>
 Good riddance.
 </p>
-<div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
-<div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
-I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a>
-</p></div>
-
-<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
-&#x2026; at least until <a href="https://github.com/lfex/dragon">dragon</a> matures or I find an even better alternative.
-</p></div>
-
-
-</div>
-</div>
-
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -82,26 +105,34 @@ I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynots
     <id>http://blorg.ericb.me/2015/07/hello-world/index.html</id>
     <published>2015-07-10T00:00:00Z</published>
     <updated>2015-07-10T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 10 July, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/basic/index.html">basic</a>, <a href="/tag/blogging/index.html">blogging</a>
-  
-</div>
-
-<div class="org-src-container">
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 10 July, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/basic/index.html">basic</a>, <a href="/tag/blogging/index.html">blogging</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <div class="org-src-container">
 
 <pre class="src src-basic">10 PRINT "HELLO, WORLD!"
 20 GOTO 10
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 

@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
     <published>2016-02-11T00:00:00Z</published>
     <updated>2016-02-11T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 11 February, 2016
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
-  
-</div>
-
-<p>
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 11 February, 2016
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
 Since much of my time these days is spent <code>(or 'writing 'developing
 'evangelizing)</code> <a href="http://lfe.io">LFE</a>, it should come as no surprise that I use the <a href="https://github.com/lfe-rebar3/compile">rebar3
 compiler plugin</a> extensively. In doing so, I noticed it always recompiles every
@@ -123,6 +130,7 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 </pre>
 </div>
 
+</section>
 ]]></summary>
 </entry>
 

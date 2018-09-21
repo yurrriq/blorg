@@ -15,20 +15,27 @@
     <id>http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
     <published>2015-07-13T00:00:00Z</published>
     <updated>2015-07-13T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<div class="info">
-  Posted on 13 July, 2015
-  
-    by Eric Bailey
-  
-</div>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
 
-<div class="info">
-  
-  Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
-  
-</div>
-
-<pre class="example">
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre class="example">
   Show: Clojure Java REPL Tooling Duplicates All  (65 frames hidden)
 
 2. Unhandled clojure.lang.Compiler$CompilerException
@@ -43,6 +50,7 @@
 Whoa, that's heavy, man.
 </p>
 
+</section>
 ]]></summary>
 </entry>
 

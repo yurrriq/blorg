@@ -10,36 +10,36 @@
   <link rel="stylesheet" type="text/css" href="./css/tufte.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="./index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
   <body>
-    <header>
-  <nav class="group">
-    <a href="./"><img class="badge" src="./images/glider.svg" alt="Glider" /></a>
-    <a href="./about/">About</a>
-    <!-- <a href="/contact.html">Contact</a> -->
-    <a href="./posts/">Posts</a>
-    <a href="https://github.com/yurrriq/blorg">Source</a>
-  </nav>
-</header>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
 
-    <div id="content">
+    <article>
       <h1>Goodbye</h1>
       <div class="org-src-container">
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>require '<span style="color: #93a8c6;">[</span><span style="color: #92a65e; font-weight: bold;">clojure.core.async</span> <span style="color: #e5786d;">:refer</span> <span style="color: #b0b1a3;">[</span>&lt;! &gt;! chan go-loop timeout<span style="color: #b0b1a3;">]</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">)</span>
-
-<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #93a8c6;">[</span>feed <span style="color: #b0b1a3;">(</span>chan<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">]</span>
-  <span style="color: #93a8c6;">(</span>go-loop <span style="color: #b0b1a3;">[]</span>
-    <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">doseq</span> <span style="color: #97b098;">[</span>line <span style="color: #aebed8;">[</span><span style="color: #95e454;">"I'm not here."</span>
-                  <span style="color: #95e454;">"This isn't happening."</span>
-                  <span style="color: #95e454;">"I'm not here."</span>
-                  <span style="color: #95e454;">"I'm not here."</span><span style="color: #aebed8;">]</span><span style="color: #97b098;">]</span>
-      <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">do</span> <span style="color: #aebed8;">(</span>&gt;! feed line<span style="color: #aebed8;">)</span>
-          <span style="color: #aebed8;">(</span>&lt;! <span style="color: #b0b0b3;">(</span>timeout <span style="color: #90a890;">(</span>* 6 <span style="color: #a2b6da;">(</span>/ 60 50<span style="color: #a2b6da;">)</span><span style="color: #90a890;">)</span><span style="color: #b0b0b3;">)</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span>
-    <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">recur</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>require '<span style="color: #93a8c6;">[</span><span style="color: #92a65e; font-weight: bold;">clojure.core.async</span> <span style="color: #e5786d;">:refer</span> <span style="color: #b0b1a3;">[</span>&lt;! &gt;! chan go-loop timeout<span style="color: #b0b1a3;">]</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #93a8c6;">[</span>feed <span style="color: #b0b1a3;">(</span>chan<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">]</span>
+  <span style="color: #93a8c6;">(</span>go-loop <span style="color: #b0b1a3;">[]</span>
+    <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">doseq</span> <span style="color: #97b098;">[</span>line <span style="color: #aebed8;">[</span><span style="color: #95e454;">"I'm not here."</span>
+                  <span style="color: #95e454;">"This isn't happening."</span>
+                  <span style="color: #95e454;">"I'm not here."</span>
+                  <span style="color: #95e454;">"I'm not here."</span><span style="color: #aebed8;">]</span><span style="color: #97b098;">]</span>
+      <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">do</span> <span style="color: #aebed8;">(</span>&gt;! feed line<span style="color: #aebed8;">)</span>
+          <span style="color: #aebed8;">(</span>&lt;! <span style="color: #b0b0b3;">(</span>timeout <span style="color: #90a890;">(</span>* 6 <span style="color: #a2b6da;">(</span>/ 60 50<span style="color: #a2b6da;">)</span><span style="color: #90a890;">)</span><span style="color: #b0b0b3;">)</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span>
+    <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">recur</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -48,36 +48,39 @@
 <!--   Goodbye. -->
 <!-- </audio> -->
 
-    </div>
-    <footer>
-  <ul class="footer-links group">
-    <li>
-      <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a>
-    </li>
-    <li>
-      <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a>
-    </li>
-    <li>
-      <a href="./index.atom"><i class="fa fa-rss"></i></a>
-    </li>
-  </ul>
-  <div class="credits">
-    <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample">
-      <img alt="Open Hub profile for Eric Bailey" border="0" height="35" src="https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample" width="230">
-    </a><br />
-    <!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -->
-    <!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -->
-    <!--        width="208" -->
-    <!--        height="58" -->
-    <!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -->
-    <!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -->
-    <!--   </a><br /> -->
-    <span>
-      This site was created by Eric Bailey
-      with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a>
-      in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span>
-  </div>
-</footer>
+    </article>
+    <!-- <footer> -->
+<!--   <ul class="footer-links group"> -->
+<!--     <li> -->
+<!--       <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="/index.atom"><i class="fa fa-rss"></i></a> -->
+<!--     </li> -->
+<!--   </ul> -->
+<!--   <div class="credits"> -->
+<!--     <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample"> -->
+<!--       <img alt='Open Hub profile for Eric Bailey' -->
+<!--            border='0' -->
+<!--            height='35' -->
+<!--            src='https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample' width='230'> -->
+<!--     </a><br /> -->
+<!--     <\!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -\-> -->
+<!--     <\!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -\-> -->
+<!--     <\!--        width="208" -\-> -->
+<!--     <\!--        height="58" -\-> -->
+<!--     <\!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -\-> -->
+<!--     <\!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -\-> -->
+<!--     <\!--   </a><br /> -\-> -->
+<!--     <span> -->
+<!--       This site was created by Eric Bailey -->
+<!--       with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a> -->
+<!--       in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span> -->
+<!--   </div> -->
+<!-- </footer> -->
 
   </body>
 </html>
