@@ -59,3 +59,7 @@ stash-submodule:
 	@ mkdir -p ${SITE_TMP}
 	@ mv ${SITE_DIR}/${HACKS} ${SITE_TMP}
 	@ echo ${SITE_TMP}
+
+
+fix-clojure: _site/2015/07/ip.ericb.me/index.html _site/404.html
+	sed -i 's///' $^
