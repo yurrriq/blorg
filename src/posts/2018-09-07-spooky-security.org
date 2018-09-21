@@ -8,13 +8,33 @@ tags: darwin, keyboard, security, skhd, chunkwm
 ---
 #+END_HTML
 
+*Update (21 September, 2018)*: It turns [[https://github.com/keybase/client][Keybase.app]] was to blame. I've since quit it and removed it
+from my login items, and all is well again. This [[https://github.com/koekeishiya/skhd/issues/48][skhd issue thread]] details some
+excellent debugging strategies, which I've modified slightly here.
+
+#+BEGIN_SRC sh
+ioreg -lw 0 \
+    | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' \
+    | uniq \
+    | xargs ps -o comm= -p
+#+END_SRC
+
+For example, when I enable secure keyboard entry in ~Terminal.app~, I see the
+following output.
+
+#+BEGIN_EXAMPLE
+/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+#+END_EXAMPLE
+
+--------------------------------------------------------------------------------
+
 I've been using [[https://koekeishiya.github.io/chunkwm/][chunkwm]] and [[https://github.com/koekeishiya/skhd][skhd]] to help make Darwin more palatable, but ~skhd~
 suddenly stopped working. When I try to start it manually, I get the following
 error.
 
-#+BEGIN_QUOTE
+#+BEGIN_EXAMPLE
 skhd: secure keyboard entry is enabled! abort..
-#+END_QUOTE
+#+END_EXAMPLE
 
 [[https://github.com/koekeishiya/skhd/issues/48][The internet suggested]] I disable [[https://iterm2.com/][iTerm 2]]'s /Secure Keyboard Entry/, but I've
 switched to [[https://sw.kovidgoyal.net/kitty/][kitty]].
@@ -41,7 +61,6 @@ int main(int argc, const char *argv[])
     return 0;
 }
 #+END_SRC
-
 
 #+BEGIN_SRC sh :exports results :results output :dir ../../hakyll/code
 /usr/bin/gcc -framework Carbon -o fix-skhd ./fix-skhd.c
