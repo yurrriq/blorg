@@ -7,8 +7,25 @@ tags: hack, clojure, script, polyglot
 ---
 #+END_HTML
 
-I wrote a little [[http://clojure.org][Clojure]] script[fn:1] to gather the language usage data from
-[[https://github.com/yurrriq?tab=repositories][my GitHub repos]] and sort them in descending order of popularity.
+# FIXME: obviously
+#+BEGIN_HTML
+<p>
+I wrote a little <a href="http://clojure.org">Clojure</a> script
+<label for="sn-clojurescript"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-clojurescript"
+       class="margin-toggle"/>
+<span class="marginnote">
+Not to be confused with
+<a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
+</span>
+to gather the language usage data from
+<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and
+sort them in descending order of popularity.
+#+END_HTML
 
 #+BEGIN_SRC json
 {
@@ -54,7 +71,3 @@ I wrote a little [[http://clojure.org][Clojure]] script[fn:1] to gather the lang
 repo or two of [[https://github.com/yurrriq/exercism][polyglot coding exercises]], which, of course, skew the results.
 
 For the script and an example config, check out [[https://gist.github.com/yurrriq/3272c6b9ebfa699472b9][the gist]].
-
-* Footnotes
-
-[fn:1] Not to be confused with [[https://github.com/clojure/clojurescript][ClojureScript]].

@@ -1,14 +1,22 @@
-<div class="info">
-  Posted on $date$
-  $if(author)$
-    by $author$
-  $endif$
-</div>
-
-<div class="info">
-  $if(tags)$
-  Tags: $tags$
-  $endif$
-</div>
-
-$body$
+$if(author)$
+<p class="subtitle">$author$</p>
+$endif$
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on $date$
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      $if(tags)$
+      Tags: $tags$
+      $endif$
+    </span>
+  </p>
+</section>
+<section>
+  $body$
+</section>
