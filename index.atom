@@ -36,9 +36,10 @@
 </section>
 <section>
   <p>
-<b>Update (21 September, 2018)</b>: It turns <a href="https://github.com/keybase/client">Keybase.app</a> was to blame. I've since quit it and removed it
-from my login items, and all is well again. This <a href="https://github.com/koekeishiya/skhd/issues/48">skhd issue thread</a> details some
-excellent debugging strategies, which I've modified slightly here.
+<b>Update (21 September, 2018)</b>: It turns out <a href="https://github.com/keybase/client">Keybase.app</a> was to blame. I've since
+quit it and removed it from my login items, and all is well again.  This
+<a href="https://github.com/koekeishiya/skhd/issues/48">skhd issue thread</a> details some excellent debugging strategies, which I've
+modified slightly here.
 </p>
 
 <div class="org-src-container">
