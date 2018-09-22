@@ -8,9 +8,10 @@ tags: darwin, keyboard, security, skhd, chunkwm
 ---
 #+END_HTML
 
-*Update (21 September, 2018)*: It turns [[https://github.com/keybase/client][Keybase.app]] was to blame. I've since quit it and removed it
-from my login items, and all is well again. This [[https://github.com/koekeishiya/skhd/issues/48][skhd issue thread]] details some
-excellent debugging strategies, which I've modified slightly here.
+*Update (21 September, 2018)*: It turns out [[https://github.com/keybase/client][Keybase.app]] was to blame. I've since
+quit it and removed it from my login items, and all is well again.  This
+[[https://github.com/koekeishiya/skhd/issues/48][skhd issue thread]] details some excellent debugging strategies, which I've
+modified slightly here.
 
 #+BEGIN_SRC sh
 ioreg -lw 0 \
