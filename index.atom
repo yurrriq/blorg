@@ -8,8 +8,200 @@
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
     </author>
-    <updated>2018-09-07T00:00:00Z</updated>
+    <updated>2019-06-17T00:00:00Z</updated>
     <entry>
+    <title>OpenConnect Launch Daemon</title>
+    <link href="http://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html" />
+    <id>http://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html</id>
+    <published>2019-06-17T00:00:00Z</published>
+    <updated>2019-06-17T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 17 June, 2019
+    </span>
+  </p>
+  <p>
+    <span class="marginnote">
+      
+      Tags: <a href="/tag/darwin/index.html">darwin</a>, <a href="/tag/vpn/index.html">vpn</a>, <a href="/tag/openconnect/index.html">openconnect</a>, <a href="/tag/launchd/index.html">launchd</a>, <a href="/tag/daemon/index.html">daemon</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+What follows is a sparsely documented literate program to manage an OpenConnect
+VPN connection with <code>launchd</code> on macOS. Many thanks to <a href="https://github.com/ashgillman">Ashley Gilman</a> for their
+blog post, <a href="https://ashgillman.github.io/2017/02/14/openconnect-launchd.html">Managing an Openconnect VPN Connection with launchd on OSX</a>, upon
+which this is based.
+</p>
+
+<div id="outline-container-org7804262" class="outline-2">
+<h2 id="org7804262">OpenConnect Wrapper</h2>
+<div class="outline-text-2" id="text-org7804262">
+<p>
+Define a function <code>handler</code> to send an <code>INT</code> signal to <code>$PID</code>, then <code>trap</code>
+<code>TERM</code> signals and call <code>handler</code> instead, which will enable ending an
+<code>openconnect</code> process gracefully with <code>launchd</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #cae682;">handler</span>() {
+    kill -INT <span style="color: #95e454;">"$PID"</span> 2&gt;/dev/null
+}
+
+<span style="color: #8ac6f2; font-weight: bold;">trap</span> handler SIGTERM
+</pre>
+</div>
+
+<p>
+Pipe <code>STDIN</code> and pass any given arguments to <code>/usr/local/bin/openconnect</code>, and
+send to the background.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">cat | /usr/local/bin/openconnect <span style="color: #95e454;">"$@"</span> &amp;
+</pre>
+</div>
+
+<p>
+Keep the wrapper process alive as long as the <code>openconnect</code> process is, by
+capturing its PID and <code>wait</code>-ing for it.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #cae682;">PID</span>=$<span style="color: #cae682;">!</span>
+<span style="color: #e5786d;">wait</span> <span style="color: #95e454;">"$PID"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8372b8c" class="outline-2">
+<h2 id="org8372b8c">Password File</h2>
+<div class="outline-text-2" id="text-org8372b8c">
+<p>
+Store the password (without a trailing newline) in a file,
+<code>/etc/openconnect/passwd</code>, owned by <code>root</code>.
+</p>
+
+<p>
+Remove read/write access from all but <code>root</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo chmod og-rw /etc/openconnect/passwd
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge5907a8" class="outline-2">
+<h2 id="orge5907a8">Launch Daemon</h2>
+<div class="outline-text-2" id="text-orge5907a8">
+<p>
+Set up a launch daemon by creating a property list file,
+<code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span style="color: #95e454;">&lt;?</span><span style="color: #8ac6f2; font-weight: bold;">xml</span><span style="color: #95e454;"> </span><span style="color: #95e454;">version="1.0" encoding="UTF-8"</span><span style="color: #95e454;">?&gt;</span>
+<span style="color: #95e454;">&lt;!</span><span style="color: #95e454;">DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+&lt;<span style="color: #cae682;">plist</span> <span style="color: #cae682;">version</span>=<span style="color: #95e454;">"1.0"</span>&gt;
+  &lt;<span style="color: #cae682;">dict</span>&gt;
+    &lt;<span style="color: #cae682;">key</span>&gt;Label&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;me.ericb.openconnect-example&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Specify that the password, stored in <code>/etc/openconnect/passwd-example</code>, will be
+supplied via stdin.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">    &lt;<span style="color: #cae682;">key</span>&gt;StandardInPath&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;/etc/openconnect/passwd-example&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Use the wrapper defined above.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">    &lt;<span style="color: #cae682;">key</span>&gt;ProgramArguments&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">array</span>&gt;
+      &lt;<span style="color: #cae682;">string</span>&gt;/etc/openconnect-wrapper&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Tell <code>openconnect</code> we're supplying the password via stdin.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--passwd-on-stdin&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the OpenConnect protocol to AnyConnect.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--protocol=anyconnect&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the reconnect timeout to <code>1800</code> seconds.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--reconnect-timeout=1800&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the username.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--user=alice&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Finally, specify the VPN server hostname.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;vpn.example.com&lt;/<span style="color: #cae682;">string</span>&gt;
+    &lt;/<span style="color: #cae682;">array</span>&gt;
+</pre>
+</div>
+
+<p>
+Configure log files for debugging.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">    &lt;<span style="color: #cae682;">key</span>&gt;StandardOutPath&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;/var/log/me.ericb.openconnectconsole.log&lt;/<span style="color: #cae682;">string</span>&gt;
+    &lt;<span style="color: #cae682;">key</span>&gt;StandardErrorPath&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;/var/log/me.ericb.openconnect/error.log&lt;/<span style="color: #cae682;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Close the open XML tags.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">  &lt;/<span style="color: #cae682;">dict</span>&gt;
+&lt;/<span style="color: #cae682;">plist</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
     <title>Spooky Security</title>
     <link href="http://blorg.ericb.me/2018/09/spooky-security/index.html" />
     <id>http://blorg.ericb.me/2018/09/spooky-security/index.html</id>
@@ -43,7 +235,6 @@ modified slightly here.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">ioreg -lw 0 <span style="color: #95e454;">\</span>
     | perl -nle <span style="color: #95e454;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="color: #95e454;">\</span>
     | uniq <span style="color: #95e454;">\</span>
@@ -60,7 +251,7 @@ following output.
 /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
 </pre>
 
-<hr >
+<hr>
 
 <p>
 I've been using <a href="https://koekeishiya.github.io/chunkwm/">chunkwm</a> and <a href="https://github.com/koekeishiya/skhd">skhd</a> to help make Darwin more palatable, but <code>skhd</code>
@@ -84,7 +275,6 @@ program to call it and try to end my troubles.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;Carbon/Carbon.h&gt;</span>
 
 
@@ -103,11 +293,6 @@ program to call it and try to end my troubles.
 }
 </pre>
 </div>
-
-<pre class="example">
-Secure keyboard entry is enabled.
-Secure keyboard entry is still enabled.
-</pre>
 
 <p>
 No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literally dying</a>.
@@ -149,8 +334,7 @@ following snippet.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-c" id="unsequenced">x = 10;
+<pre class="src src-c" id="org7bd0c33">x = 10;
 y = ++x + --x;
 </pre>
 </div>
@@ -159,8 +343,7 @@ y = ++x + --x;
 For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-c" id="declarations"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
+<pre class="src src-c" id="org163c55a"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -168,8 +351,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-c" id="print-final-state">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
+<pre class="src src-c" id="orgf4542c0">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 </pre>
 </div>
 
@@ -177,7 +359,6 @@ We can inspect the final state of <code>x</code> and <code>y</code> with a simpl
 Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c">our program</a>.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;stdio.h&gt;</span>
 
 
@@ -197,20 +378,15 @@ initialization of <code>y</code> to evaluate to <code>11 + 10</code>, i.e. <code
 </p>
 
 <pre class="example">
-gcc (GCC) 7.3.0
+Apple LLVM version 10.0.1 (clang-1001.0.46.4)
 
-incdec.c: In function ‘main’:
-incdec.c:9:9: warning: operation on ‘x’ may be undefined [-Wsequence-point]
-     y = ++x + --x;
-         ^~~
-clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/5snssls8miq22r0pya9gkxcchndsfpp0-Libsystem-osx-10.11.6/include' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/drp99kzvq6c8r38kyd8prka9xjlw2ks9-gcc-7.3.0/lib/gcc/x86_64-apple-darwin/7.3.0/include-fixed' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-D _FORTIFY_SOURCE=2' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-fstack-protector-strong' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '--param ssp-buffer-size=4' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-fno-strict-overflow' [-Wunused-command-line-argument]
+incdec.c:9:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
+    y = ++x + --x;
+        ^     ~~
+1 warning generated.
 
-x = 10, y = 20
+x = 10, y = 21
+
 </pre>
 
 <p>
@@ -226,7 +402,7 @@ value of <code>y</code> to be <code>21</code>.
 </p>
 
 <pre class="example">
-clang version 5.0.2 (tags/RELEASE_502/final)
+Apple LLVM version 10.0.1 (clang-1001.0.46.4)
 
 incdec.c:9:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
     y = ++x + --x;
@@ -234,6 +410,7 @@ incdec.c:9:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
 1 warning generated.
 
 x = 10, y = 21
+
 </pre>
 
 <p>
@@ -1174,70 +1351,6 @@ appropriate hex code.
 <pre class="src src-sh">brew cask install key-codes
 </pre>
 </div>
-
-</section>
-]]></summary>
-</entry>
-<entry>
-    <title>Cons Cells in Lisp Flavoured Erlang</title>
-    <link href="http://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html" />
-    <id>http://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html</id>
-    <published>2015-08-10T00:00:00Z</published>
-    <updated>2015-08-10T00:00:00Z</updated>
-    <summary type="html"><![CDATA[
-<p class="subtitle">Eric Bailey</p>
-
-<section>
-  <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
-    <span class="marginnote">
-      Posted on 10 August, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
-      
-      Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>
-      
-    </span>
-  </p>
-</section>
-<section>
-  <p>
-Just as you'd expect from <a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Erlang</a> or <a href="http://clojure.org/lisps">another Lisp</a>, in <a href="http://lfe.gitbooks.io/tutorial/content/sequential/lists.html">LFE</a>, lists are composed of
-<a href="http://cs.gmu.edu/~sean/lisp/cons/"><i>cons cells</i></a> and when you use pattern matching to bind the head and tail of a
-singleton list, <code>head</code> holds the single element and <code>tail</code> is the empty list.
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-lfe">&gt; (let ((`(,head . ,tail) '(a-single-element)))
-    (lfe_io:format '"Head: ~w~nTail: ~w~n" `(,head ,tail)))
-</pre>
-</div>
-
-<pre class="example">
-Head: a-single-element
-Tail: ()
-ok
-</pre>
-
-<p>
-We can confirm this by checking that a <i>cons cell</i> of the atom
-<code>a-single-element</code> and the empty list is <a href="http://erlang.org/doc/reference_manual/expressions.html#id80197">exactly equal to</a> a singleton list of
-the same atom.
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-lfe">&gt; (=:= (cons 'a-single-element '()) '(a-single-element))
-</pre>
-</div>
-
-<pre class="example">
-true
-</pre>
 
 </section>
 ]]></summary>

@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+handler() {
+    kill -INT "$PID" 2>/dev/null
+}
+
+trap handler SIGTERM
+
+cat | /usr/local/bin/openconnect "$@" &
+
+PID=$!
+wait "$PID"
