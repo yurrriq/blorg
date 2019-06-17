@@ -1,12 +1,12 @@
 #+STARTUP: showall
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "Undefined Behaviour"
 author: Eric Bailey
 tags: c, compilers, school, facepalm
 ---
-#+END_HTML
+#+END_EXPORT
 
 A friend at work today was telling me about his wife's C++ class,
 wherein the students were asked to predict the behaviour of the

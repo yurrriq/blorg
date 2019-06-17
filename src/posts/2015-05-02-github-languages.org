@@ -1,14 +1,14 @@
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "GitHub Languages"
 author: Eric Bailey
 tags: hack, clojure, script, polyglot
 ---
-#+END_HTML
+#+END_EXPORT
 
 # FIXME: obviously
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 <p>
 I wrote a little <a href="http://clojure.org">Clojure</a> script
 <label for="sn-clojurescript"
@@ -25,7 +25,7 @@ Not to be confused with
 to gather the language usage data from
 <a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and
 sort them in descending order of popularity.
-#+END_HTML
+#+END_EXPORT
 
 #+BEGIN_SRC json
 {

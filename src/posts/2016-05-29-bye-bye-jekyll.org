@@ -1,19 +1,19 @@
 #+STARTUP: showall
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "Bye Bye, Jekyll!"
 author: Eric Bailey
 tags: blogging, haskell, open-source
 ---
-#+END_HTML
+#+END_EXPORT
 
 Back in December of 2014, I set up a blog using [[https://ghost.org][Ghost]] and [[https://github.com/axitkhurana/buster/][Buster]]. That was all
 fine and good, but left quite a bit to be desired. I'm not a Python user and the
 whole workflow was a bit too clunky for my taste.
 
 # FIXME: obviously
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 <p>
 In July of 2015, I decided to migrate to
 <a href="http://jekyllrb.com">Jekyll</a>.
@@ -32,7 +32,7 @@ it made me install, write and use Ruby.
 I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a>
 </span>
 </p>
-#+END_HTML
+#+END_EXPORT
 
 What's more, GitHub seems to have a predilection for breaking things so often
 and dramatically, that [[https://github.com/lfex/dragon][dragon]] was born.
@@ -43,7 +43,7 @@ mind-expanding-ness. I had seen [[https://jaspervdj.be/hakyll/][Hakyll]] pop up 
 considered migrating to it for quite a while. Last night, I finally made the
 leap. The experience was so great, I can't believe I didn't do it sooner.
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 <p>
 From now on, my blog will be powered by
 <a href="https://jaspervdj.be/hakyll/">Hakyll</a>.
@@ -64,5 +64,5 @@ You can find my
 <a href="https://github.com/yurrriq/blorg">GitHub</a>.
 </p>
 
-#+END_HTML
+#+END_EXPORT
 Good riddance.

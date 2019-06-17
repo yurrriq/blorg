@@ -1,12 +1,12 @@
 #+STARTUP: showall
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "Spooky Security"
 author: Eric Bailey
 tags: darwin, keyboard, security, skhd, chunkwm
 ---
-#+END_HTML
+#+END_EXPORT
 
 *Update (21 September, 2018)*: It turns out [[https://github.com/keybase/client][Keybase.app]] was to blame. I've since
 quit it and removed it from my login items, and all is well again.  This

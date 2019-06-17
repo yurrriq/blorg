@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil ^:{}
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "#'clojure.core/some-> and the Power of Macros"
 author: Eric Bailey
 tags: clojure, lisp, metaprogramming
 ---
-#+END_HTML
+#+END_EXPORT
 
 [[http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/][Homoiconicity]], and [[https://twitter.com/yurrriq/status/536036269222936576][metaprogramming]], and [[http://learnxinyminutes.com/docs/clojure-macros/][macros]]! Oh my!
 

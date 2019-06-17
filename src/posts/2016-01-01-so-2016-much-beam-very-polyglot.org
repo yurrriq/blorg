@@ -1,23 +1,23 @@
 #+OPTIONS: toc:nil
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "So 2016. Much BEAM. Very polyglot."
 author: Eric Bailey
 tags: lfe, lisp, elixir, beam, polyglot
 ---
-#+END_HTML
+#+END_EXPORT
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 <pre>
-#+END_HTML
+#+END_EXPORT
 (→ This (is (why (→ I (love [[http://lfe.io][Lisp Flavoured Erlang]])))))
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 </pre>
-#+END_HTML
+#+END_EXPORT
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 <a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">
-#+END_HTML
+#+END_EXPORT
 #+BEGIN_SRC lfe :tangle ../../hakyll/code/so-2016.lfe
 (progn
   (include-lib "clj/include/compose.lfe") ; Clojure threading macros
@@ -31,9 +31,9 @@ tags: lfe, lisp, elixir, beam, polyglot
       (Elixir.Markdown:to_html            ; Elixir app wrapping C lib
        '[#(fenced_code true)])))          ; as in GitHub Flavored Markdown
 #+END_SRC
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 </a>
-#+END_HTML
+#+END_EXPORT
 
 Gott nytt år!
 

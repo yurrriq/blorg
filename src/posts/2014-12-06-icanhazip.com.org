@@ -1,11 +1,11 @@
 #+OPTIONS: toc:nil
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title:  "icanhazip.com"
 author: Eric Bailey
 tags: hack, bash, script
 ---
-#+END_HTML
+#+END_EXPORT
 
 Often, I find myself needing to know the public IP address of a box I'm
 hacking on. [[http://icanhazip.com][icanhazip.com]] has become my favorite tool for the task.
