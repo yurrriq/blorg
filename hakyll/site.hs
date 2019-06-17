@@ -162,7 +162,7 @@ feedConfig = FeedConfiguration
   , feedDescription = "Varyingly coherent ramblings of yet another Lisp hacker."
   , feedAuthorName  = "Eric Bailey"
   , feedAuthorEmail = "eric@ericb.me"
-  , feedRoot        = "http://blorg.ericb.me"
+  , feedRoot        = "https://blorg.ericb.me"
   }
 
 -- TODO: lenses?
