@@ -2,8 +2,7 @@
 
 SITE_DIR := $(addprefix $(CURDIR), /_site)
 SITE_TMP := $(shell mktemp -d)
-# FIXME: nix-build
-SITE     := result/bin/site
+SITE     := site
 EMACS     = @ emacsclient -e
 HACKS     = {.git,CNAME,README.org}
 blorg.el := $(addprefix $(dir $(CURDIR)), src/blorg.el)
@@ -63,3 +62,7 @@ stash-submodule:
 
 fix-clojure: _site/2015/07/ip.ericb.me/index.html _site/404.html
 	sed -i 's///' $^
+
+
+release.nix: blorg.cabal
+	@ cabal2nix --maintainer yurrriq . >$@
