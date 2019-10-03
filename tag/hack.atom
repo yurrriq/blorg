@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - hack</title>
-    <link href="http://blorg.ericb.me/tag/hack.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/hack.atom</id>
+    <link href="https://blorg.ericb.me/tag/hack.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/hack.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2015-09-09T00:00:00Z</updated>
     <entry>
     <title>werase in iTerm2</title>
-    <link href="http://blorg.ericb.me/2015/09/werase-in-iterm2/index.html" />
-    <id>http://blorg.ericb.me/2015/09/werase-in-iterm2/index.html</id>
+    <link href="https://blorg.ericb.me/2015/09/werase-in-iterm2/index.html" />
+    <id>https://blorg.ericb.me/2015/09/werase-in-iterm2/index.html</id>
     <published>2015-09-09T00:00:00Z</published>
     <updated>2015-09-09T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -55,7 +55,6 @@ appropriate hex code.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">brew cask install key-codes
 </pre>
 </div>
@@ -65,8 +64,8 @@ appropriate hex code.
 </entry>
 <entry>
     <title>ip.ericb.me</title>
-    <link href="http://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
-    <id>http://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <link href="https://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>https://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
     <published>2015-07-13T00:00:00Z</published>
     <updated>2015-07-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -101,17 +100,16 @@ Its excruciatingly simple Clojure source looks something like this:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-clojure">(defroutes app
+  (GET "/" {{x-real-ip "x-real-ip"} :headers}
+    {:status  200
+     :headers {"Content-Type" "text/plain"}
+     :body    x-real-ip}))
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defroutes</span> <span style="color: #cae682;">app</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #e5786d;">GET</span> <span style="color: #95e454;">"/"</span> <span style="color: #b0b1a3;">{</span><span style="color: #97b098;">{</span>x-real-ip <span style="color: #95e454;">"x-real-ip"</span><span style="color: #97b098;">}</span> <span style="color: #e5786d;">:headers</span><span style="color: #b0b1a3;">}</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">{</span><span style="color: #e5786d;">:status</span>  200&#57344;&#57345;&#57345;
-     <span style="color: #e5786d;">:headers</span> <span style="color: #97b098;">{</span><span style="color: #95e454;">"Content-Type"</span> <span style="color: #95e454;">"text/plain"</span><span style="color: #97b098;">}</span>&#57344;&#57345;&#57345;
-     <span style="color: #e5786d;">:body</span>    x-real-ip<span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defn</span> <span style="color: #cae682;">-main</span> <span style="color: #93a8c6;">[</span>&amp; args<span style="color: #93a8c6;">]</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;&gt;</span> <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">or</span> <span style="color: #97b098;">(</span>some-&gt; <span style="color: #aebed8;">(</span>env <span style="color: #e5786d;">:port</span><span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">Integer</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #e5786d;">parseInt</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span> 5000<span style="color: #b0b1a3;">)</span>&#57344;&#57345;&#57345;
-       <span style="color: #b0b1a3;">(</span>hash-map <span style="color: #e5786d;">:port</span><span style="color: #b0b1a3;">)</span>&#57344;&#57345;&#57345;
-       <span style="color: #b0b1a3;">(</span>run-server app<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>&#57344;&#57345;&#57345;
+(defn -main [&amp; args]
+  (-&gt;&gt; (or (some-&gt; (env :port) (Integer/parseInt)) 5000)
+       (hash-map :port)
+       (run-server app)))
 </pre>
 </div>
 
@@ -120,8 +118,8 @@ Its excruciatingly simple Clojure source looks something like this:
 </entry>
 <entry>
     <title>GitHub Languages</title>
-    <link href="http://blorg.ericb.me/2015/05/github-languages/index.html" />
-    <id>http://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <link href="https://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>https://blorg.ericb.me/2015/05/github-languages/index.html</id>
     <published>2015-05-02T00:00:00Z</published>
     <updated>2015-05-02T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -162,7 +160,6 @@ to gather the language usage data from
 sort them in descending order of popularity.
 
 <div class="org-src-container">
-
 <pre class="src src-json">{
   "Ruby" : 4401525,
   "Java" : 1800870,
@@ -217,8 +214,8 @@ For the script and an example config, check out <a href="https://gist.github.com
 </entry>
 <entry>
     <title>icanhazip.com</title>
-    <link href="http://blorg.ericb.me/2014/12/icanhazip.com/index.html" />
-    <id>http://blorg.ericb.me/2014/12/icanhazip.com/index.html</id>
+    <link href="https://blorg.ericb.me/2014/12/icanhazip.com/index.html" />
+    <id>https://blorg.ericb.me/2014/12/icanhazip.com/index.html</id>
     <published>2014-12-06T00:00:00Z</published>
     <updated>2014-12-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -247,7 +244,6 @@ hacking on. <a href="http://icanhazip.com">icanhazip.com</a> has become my favor
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">&#120524; curl icanhazip.com <span style="color: #99968b;"># </span><span style="color: #99968b;">yass, u can</span>
 </pre>
 </div>

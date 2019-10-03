@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - terminal</title>
-    <link href="http://blorg.ericb.me/tag/terminal.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/terminal.atom</id>
+    <link href="https://blorg.ericb.me/tag/terminal.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/terminal.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2015-09-09T00:00:00Z</updated>
     <entry>
     <title>werase in iTerm2</title>
-    <link href="http://blorg.ericb.me/2015/09/werase-in-iterm2/index.html" />
-    <id>http://blorg.ericb.me/2015/09/werase-in-iterm2/index.html</id>
+    <link href="https://blorg.ericb.me/2015/09/werase-in-iterm2/index.html" />
+    <id>https://blorg.ericb.me/2015/09/werase-in-iterm2/index.html</id>
     <published>2015-09-09T00:00:00Z</published>
     <updated>2015-09-09T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -55,7 +55,6 @@ appropriate hex code.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">brew cask install key-codes
 </pre>
 </div>

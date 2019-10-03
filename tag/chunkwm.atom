@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - chunkwm</title>
-    <link href="http://blorg.ericb.me/tag/chunkwm.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/chunkwm.atom</id>
+    <link href="https://blorg.ericb.me/tag/chunkwm.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/chunkwm.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2018-09-07T00:00:00Z</updated>
     <entry>
     <title>Spooky Security</title>
-    <link href="http://blorg.ericb.me/2018/09/spooky-security/index.html" />
-    <id>http://blorg.ericb.me/2018/09/spooky-security/index.html</id>
+    <link href="https://blorg.ericb.me/2018/09/spooky-security/index.html" />
+    <id>https://blorg.ericb.me/2018/09/spooky-security/index.html</id>
     <published>2018-09-07T00:00:00Z</published>
     <updated>2018-09-07T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -43,7 +43,6 @@ modified slightly here.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">ioreg -lw 0 <span style="color: #95e454;">\</span>
     | perl -nle <span style="color: #95e454;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="color: #95e454;">\</span>
     | uniq <span style="color: #95e454;">\</span>
@@ -60,7 +59,7 @@ following output.
 /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
 </pre>
 
-<hr >
+<hr>
 
 <p>
 I've been using <a href="https://koekeishiya.github.io/chunkwm/">chunkwm</a> and <a href="https://github.com/koekeishiya/skhd">skhd</a> to help make Darwin more palatable, but <code>skhd</code>
@@ -84,7 +83,6 @@ program to call it and try to end my troubles.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;Carbon/Carbon.h&gt;</span>
 
 
@@ -103,11 +101,6 @@ program to call it and try to end my troubles.
 }
 </pre>
 </div>
-
-<pre class="example">
-Secure keyboard entry is enabled.
-Secure keyboard entry is still enabled.
-</pre>
 
 <p>
 No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literally dying</a>.

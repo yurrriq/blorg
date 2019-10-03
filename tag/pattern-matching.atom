@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - pattern-matching</title>
-    <link href="http://blorg.ericb.me/tag/pattern-matching.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/pattern-matching.atom</id>
+    <link href="https://blorg.ericb.me/tag/pattern-matching.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/pattern-matching.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2015-12-28T00:00:00Z</updated>
     <entry>
     <title>Matching strings in LFE patterns</title>
-    <link href="http://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html" />
-    <id>http://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html</id>
+    <link href="https://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html" />
+    <id>https://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html</id>
     <published>2015-12-28T00:00:00Z</published>
     <updated>2015-12-28T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -40,18 +40,17 @@ While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
 <div class="org-src-container">
+<pre class="src src-erlang">parse_instruction("toggle " ++ Rest) -&gt; toggle(parse_coordinates(Rest));
+parse_instruction("turn on " ++ Rest) -&gt; turn_on(parse_coordinates(Rest));
+parse_instruction("turn off " ++ Rest) -&gt; turn_off(parse_coordinates(Rest)).
 
-<pre class="src src-erlang"><span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"toggle "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">toggle</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
-<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn on "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_on</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
-<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn off "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_off</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>)).
+parse_coordinates(String) -&gt;
+  {ok,[X0,Y0,X1,Y2],[]} = io_lib:fread("~d,~d through ~d,~d", String),
+  {{X0,Y0},{X1,Y1}}.
 
-<span style="color: #cae682;">parse_coordinates</span>(<span style="color: #cae682;">String</span>) -&gt;
-  {ok,[<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>,<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y2</span>],[]} = <span style="color: #92a65e; font-weight: bold;">io_lib</span>:<span style="color: #92a65e; font-weight: bold;">fread</span>(<span style="color: #95e454;">"~d,~d through ~d,~d"</span>, <span style="color: #cae682;">String</span>),
-  {{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}.
-
-<span style="color: #cae682;">toggle</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
-<span style="color: #cae682;">turn_on</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
-<span style="color: #cae682;">turn_off</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
+toggle({{X0,Y0},{X1,Y1}}) -&gt; undefined.
+turn_on({{X0,Y0},{X1,Y1}}) -&gt; undefined.
+turn_off({{X0,Y0},{X1,Y1}}) -&gt; undefined.
 </pre>
 </div>
 
@@ -59,7 +58,6 @@ wanting to write <code>parse_instruction/1</code> like this:
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">(defun parse-instruction
   ([(++ "turn off " rest)]
    ...))
@@ -70,7 +68,6 @@ But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/
 Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (defun f ([(++ "prefix" suffix)] suffix))
 f
 &gt; (f "prefixsuffix")
@@ -89,9 +86,8 @@ a solid approach.
 N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">Cases with lists of numbers (strings).</span>
-[[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>] <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
+<pre class="src src-erlang">%% Cases with lists of numbers (strings).
+[[N|Ns]|Es] when is_number(N) -&gt; [cons,N,['++',Ns|Es]];
 </pre>
 </div>
 
@@ -105,16 +101,15 @@ decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep 
 The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
 </p>
 <div class="org-src-container">
+<pre class="src src-erlang">%% exp_predef(...) -&gt; ...;
+exp_predef(['++*'|Abody], _, St) -&gt;
+  Exp = exp_prefix(Abody),
+  {yes,Exp,St};
+%% exp_predef(...) -&gt; ....
 
-<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ...;</span>
-<span style="color: #cae682;">exp_predef</span>([<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Abody</span>], <span style="color: #cae682;">_</span>, <span style="color: #cae682;">St</span>) -&gt;
-  <span style="color: #cae682;">Exp</span> = <span style="color: #92a65e; font-weight: bold;">exp_prefix</span>(<span style="color: #cae682;">Abody</span>),
-  {yes,<span style="color: #cae682;">Exp</span>,<span style="color: #cae682;">St</span>};
-<span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ....</span>
-
-<span style="color: #cae682;">exp_prefix</span>([[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>]) <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++*'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
-<span style="color: #cae682;">exp_prefix</span>([[]|<span style="color: #cae682;">Es</span>]) -&gt;<span style="color: #cae682;"> </span>[<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Es</span>];
-<span style="color: #cae682;">exp_prefix</span>(<span style="color: #cae682;">Args</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">exp_append</span>(<span style="color: #cae682;">Args</span>).
+exp_prefix([[N|Ns]|Es]) when is_number(N) -&gt; [cons,N,['++*',Ns|Es]];
+exp_prefix([[]|Es]) -&gt; ['++*'|Es];
+exp_prefix(Args) -&gt; exp_append(Args).
 </pre>
 </div>
 
@@ -122,7 +117,6 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (defun f ([(++* "prefix" suffix)] suffix))
 f
 &gt; (f "prefixsuffix")
@@ -134,7 +128,6 @@ f
 or even:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (defun f ([(++* "p" "r" "e" "f" "i" "x" suffix)] suffix))
 f
 &gt; (f "prefixsuffix")

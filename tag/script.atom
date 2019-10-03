@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - script</title>
-    <link href="http://blorg.ericb.me/tag/script.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/script.atom</id>
+    <link href="https://blorg.ericb.me/tag/script.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/script.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2015-05-02T00:00:00Z</updated>
     <entry>
     <title>GitHub Languages</title>
-    <link href="http://blorg.ericb.me/2015/05/github-languages/index.html" />
-    <id>http://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <link href="https://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>https://blorg.ericb.me/2015/05/github-languages/index.html</id>
     <published>2015-05-02T00:00:00Z</published>
     <updated>2015-05-02T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -53,7 +53,6 @@ to gather the language usage data from
 sort them in descending order of popularity.
 
 <div class="org-src-container">
-
 <pre class="src src-json">{
   "Ruby" : 4401525,
   "Java" : 1800870,
@@ -108,8 +107,8 @@ For the script and an example config, check out <a href="https://gist.github.com
 </entry>
 <entry>
     <title>icanhazip.com</title>
-    <link href="http://blorg.ericb.me/2014/12/icanhazip.com/index.html" />
-    <id>http://blorg.ericb.me/2014/12/icanhazip.com/index.html</id>
+    <link href="https://blorg.ericb.me/2014/12/icanhazip.com/index.html" />
+    <id>https://blorg.ericb.me/2014/12/icanhazip.com/index.html</id>
     <published>2014-12-06T00:00:00Z</published>
     <updated>2014-12-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -138,7 +137,6 @@ hacking on. <a href="http://icanhazip.com">icanhazip.com</a> has become my favor
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">&#120524; curl icanhazip.com <span style="color: #99968b;"># </span><span style="color: #99968b;">yass, u can</span>
 </pre>
 </div>

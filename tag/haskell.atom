@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - haskell</title>
-    <link href="http://blorg.ericb.me/tag/haskell.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/haskell.atom</id>
+    <link href="https://blorg.ericb.me/tag/haskell.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/haskell.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2016-05-29T00:00:00Z</updated>
     <entry>
     <title>Bye Bye, Jekyll!</title>
-    <link href="http://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html" />
-    <id>http://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html</id>
+    <link href="https://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html" />
+    <id>https://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html</id>
     <published>2016-05-29T00:00:00Z</published>
     <updated>2016-05-29T00:00:00Z</updated>
     <summary type="html"><![CDATA[

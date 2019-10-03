@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - error</title>
-    <link href="http://blorg.ericb.me/tag/error.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/error.atom</id>
+    <link href="https://blorg.ericb.me/tag/error.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/error.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2015-07-13T00:00:00Z</updated>
     <entry>
     <title>Unable to find dad</title>
-    <link href="http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
-    <id>http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
+    <link href="https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
+    <id>https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
     <published>2015-07-13T00:00:00Z</published>
     <updated>2015-07-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[

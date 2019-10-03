@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - compilers</title>
-    <link href="http://blorg.ericb.me/tag/compilers.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/compilers.atom</id>
+    <link href="https://blorg.ericb.me/tag/compilers.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/compilers.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2018-05-07T00:00:00Z</updated>
     <entry>
     <title>Undefined Behaviour</title>
-    <link href="http://blorg.ericb.me/2018/05/undefined-behaviour/index.html" />
-    <id>http://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
+    <link href="https://blorg.ericb.me/2018/05/undefined-behaviour/index.html" />
+    <id>https://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
     <published>2018-05-07T00:00:00Z</published>
     <updated>2018-05-07T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -42,8 +42,7 @@ following snippet.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-c" id="unsequenced">x = 10;
+<pre class="src src-c" id="orgf8e23a4">x = 10;
 y = ++x + --x;
 </pre>
 </div>
@@ -52,8 +51,7 @@ y = ++x + --x;
 For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-c" id="declarations"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
+<pre class="src src-c" id="orgd7960bd"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -61,8 +59,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-c" id="print-final-state">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
+<pre class="src src-c" id="org5bc9183">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 </pre>
 </div>
 
@@ -70,7 +67,6 @@ We can inspect the final state of <code>x</code> and <code>y</code> with a simpl
 Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c">our program</a>.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;stdio.h&gt;</span>
 
 
@@ -89,23 +85,6 @@ At first glance, I would expect the right-hand side of the
 initialization of <code>y</code> to evaluate to <code>11 + 10</code>, i.e. <code>21</code>.
 </p>
 
-<pre class="example">
-gcc (GCC) 7.3.0
-
-incdec.c: In function ‘main’:
-incdec.c:9:9: warning: operation on ‘x’ may be undefined [-Wsequence-point]
-     y = ++x + --x;
-         ^~~
-clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/5snssls8miq22r0pya9gkxcchndsfpp0-Libsystem-osx-10.11.6/include' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-idirafter /nix/store/drp99kzvq6c8r38kyd8prka9xjlw2ks9-gcc-7.3.0/lib/gcc/x86_64-apple-darwin/7.3.0/include-fixed' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-D _FORTIFY_SOURCE=2' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-fstack-protector-strong' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '--param ssp-buffer-size=4' [-Wunused-command-line-argument]
-clang-5.0: warning: argument unused during compilation: '-fno-strict-overflow' [-Wunused-command-line-argument]
-
-x = 10, y = 20
-</pre>
-
 <p>
 Unsurprisingly, GCC computes the final value of <code>x</code> to be <code>10</code>, the
 same as its initial value, after being incremented and
@@ -117,17 +96,6 @@ of <code>y</code> is <code>20</code>.
 Clang, on the other hand, agrees with me, i.e. computes the final
 value of <code>y</code> to be <code>21</code>.
 </p>
-
-<pre class="example">
-clang version 5.0.2 (tags/RELEASE_502/final)
-
-incdec.c:9:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
-    y = ++x + --x;
-        ^     ~~
-1 warning generated.
-
-x = 10, y = 21
-</pre>
 
 <p>
 Both compilers warn about unsequenced modifications and the resultant

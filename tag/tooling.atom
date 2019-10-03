@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - tooling</title>
-    <link href="http://blorg.ericb.me/tag/tooling.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/tooling.atom</id>
+    <link href="https://blorg.ericb.me/tag/tooling.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/tooling.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2016-02-11T00:00:00Z</updated>
     <entry>
     <title>lfe-rebar3/compile updates</title>
-    <link href="http://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html" />
-    <id>http://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
+    <link href="https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html" />
+    <id>https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
     <published>2016-02-11T00:00:00Z</published>
     <updated>2016-02-11T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -55,8 +55,7 @@ recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-
-<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Opts</span>, [], <span style="color: #cae682;">Files</span>, <span style="color: #cae682;">DoCompile</span>).
+<pre class="src src-erlang">rebar_base_compiler:run(Opts, [], Files, DoCompile).
 </pre>
 </div>
 
@@ -69,10 +68,9 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-
-<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Config</span>, <span style="color: #cae682;">FirstFiles</span>,
-                        <span style="color: #cae682;">SourceDir</span>, <span style="color: #95e454;">".lfe"</span>, <span style="color: #cae682;">TargetDir</span>, <span style="color: #95e454;">".beam"</span>,
-                        <span style="color: #8ac6f2; font-weight: bold;">fun</span> <span style="color: #92a65e; font-weight: bold;">compile/3</span>).
+<pre class="src src-erlang">rebar_base_compiler:run(Config, FirstFiles,
+                        SourceDir, ".lfe", TargetDir, ".beam",
+                        fun compile/3).
 </pre>
 </div>
 
@@ -90,7 +88,6 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 &#x2026; using <code>run/4</code> via <a href="https://github.com/lfe-rebar3/compile/releases/tag/0.2.1">0.2.1</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
@@ -109,7 +106,6 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 &#x2026; using <code>run/7</code> via <a href="https://github.com/quasiquoting/lfe-compile/releases/tag/0.3.0">0.3.0</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
@@ -121,11 +117,10 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 A little more :cow::poop: microbenchmarking on a proprietary work project:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-bash"># run/4
+<pre class="src src-bash"><span style="color: #99968b;"># </span><span style="color: #99968b;">run/4</span>
         3.58 real         3.02 user         0.58 sys
 
-# run/7
+<span style="color: #99968b;"># </span><span style="color: #99968b;">run/7</span>
         1.83 real         1.46 user         0.35 sys
 </pre>
 </div>

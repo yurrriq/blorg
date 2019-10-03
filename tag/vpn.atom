@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - vpn</title>
-    <link href="http://blorg.ericb.me/tag/vpn.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/vpn.atom</id>
+    <link href="https://blorg.ericb.me/tag/vpn.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/vpn.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2019-06-17T00:00:00Z</updated>
     <entry>
     <title>OpenConnect Launch Daemon</title>
-    <link href="http://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html" />
-    <id>http://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html</id>
+    <link href="https://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html" />
+    <id>https://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html</id>
     <published>2019-06-17T00:00:00Z</published>
     <updated>2019-06-17T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -42,9 +42,9 @@ blog post, <a href="https://ashgillman.github.io/2017/02/14/openconnect-launchd.
 which this is based.
 </p>
 
-<div id="outline-container-org7804262" class="outline-2">
-<h2 id="org7804262">OpenConnect Wrapper</h2>
-<div class="outline-text-2" id="text-org7804262">
+<div id="outline-container-org46222fd" class="outline-2">
+<h2 id="org46222fd">OpenConnect Wrapper</h2>
+<div class="outline-text-2" id="text-org46222fd">
 <p>
 Define a function <code>handler</code> to send an <code>INT</code> signal to <code>$PID</code>, then <code>trap</code>
 <code>TERM</code> signals and call <code>handler</code> instead, which will enable ending an
@@ -80,9 +80,9 @@ capturing its PID and <code>wait</code>-ing for it.
 </div>
 </div>
 
-<div id="outline-container-org8372b8c" class="outline-2">
-<h2 id="org8372b8c">Password File</h2>
-<div class="outline-text-2" id="text-org8372b8c">
+<div id="outline-container-org40f5789" class="outline-2">
+<h2 id="org40f5789">Password File</h2>
+<div class="outline-text-2" id="text-org40f5789">
 <p>
 Store the password (without a trailing newline) in a file,
 <code>/etc/openconnect/passwd</code>, owned by <code>root</code>.
@@ -98,9 +98,9 @@ Remove read/write access from all but <code>root</code>.
 </div>
 </div>
 
-<div id="outline-container-orge5907a8" class="outline-2">
-<h2 id="orge5907a8">Launch Daemon</h2>
-<div class="outline-text-2" id="text-orge5907a8">
+<div id="outline-container-orgf3e5a70" class="outline-2">
+<h2 id="orgf3e5a70">Launch Daemon</h2>
+<div class="outline-text-2" id="text-orgf3e5a70">
 <p>
 Set up a launch daemon by creating a property list file,
 <code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.

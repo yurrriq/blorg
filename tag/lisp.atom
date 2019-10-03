@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - lisp</title>
-    <link href="http://blorg.ericb.me/tag/lisp.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/lisp.atom</id>
+    <link href="https://blorg.ericb.me/tag/lisp.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/lisp.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2016-04-12T00:00:00Z</updated>
     <entry>
     <title>Tracing LFE Functions</title>
-    <link href="http://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html" />
-    <id>http://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html</id>
+    <link href="https://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html" />
+    <id>https://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html</id>
     <published>2016-04-12T00:00:00Z</published>
     <updated>2016-04-12T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -47,8 +47,7 @@ Tracing LFE functions for debugging purposes is quite simple.
 Let's say you have the following module and want to trace one of its functions.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="math">(defmodule maths
+<pre class="src src-lfe" id="org0146c20">(defmodule maths
   (export (sum 2) (diff 2)))
 
 (defun sum (a b) (+ a b))
@@ -61,14 +60,7 @@ Let's say you have the following module and want to trace one of its functions.
 Before we get started, make sure you compile the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="compile-maths">(c "/path/to/maths.lfe")
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-lfe">(#(module maths))
+<pre class="src src-lfe" id="org0c18fe2">(c "/path/to/maths.lfe")
 </pre>
 </div>
 
@@ -76,13 +68,11 @@ Before we get started, make sure you compile the <code>maths</code> module:
 Just start the tracer:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="start-the-tracer">(dbg:tracer)
+<pre class="src src-lfe" id="org8a06fd9">(dbg:tracer)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok &lt;0.46.0&gt;)
 </pre>
 </div>
@@ -91,13 +81,11 @@ Just start the tracer:
 Tell the tracer you are interested in all calls for all processes:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="all-calls-for-all-processes">(dbg:p 'all 'c)
+<pre class="src src-lfe" id="org83deebc">(dbg:p 'all 'c)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok (#(matched nonode@nohost 26)))
 </pre>
 </div>
@@ -106,13 +94,11 @@ Tell the tracer you are interested in all calls for all processes:
 Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="trace-maths:sum/2">(dbg:tpl 'maths 'sum [])
+<pre class="src src-lfe" id="org75eadc3">(dbg:tpl 'maths 'sum [])
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok (#(matched nonode@nohost 1)))
 </pre>
 </div>
@@ -121,13 +107,11 @@ Finally, tell it you want to trace the function, <code>sum</code>, from the <cod
 Now, try to call the function, as usual. The tracer is active!
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="call-maths:sum/2">(maths:sum 2 3)
+<pre class="src src-lfe" id="org7ac275e">(maths:sum 2 3)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">5
 (&lt;0.29.0&gt;) call maths:sum(2,3)
 </pre>
@@ -137,8 +121,7 @@ Now, try to call the function, as usual. The tracer is active!
 To trace all functions from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="trace-all-functions-from-the-maths-module">&gt; (dbg:tpl 'maths [])
+<pre class="src src-lfe" id="orgec039b9">&gt; (dbg:tpl 'maths [])
 </pre>
 </div>
 
@@ -146,25 +129,21 @@ To trace all functions from the <code>maths</code> module:
 To trace the return value for a given function:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="trace-return-values">(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
+<pre class="src src-lfe" id="orgb4eeab7">(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok (#(matched nonode@nohost 1) #(saved 1)))
 </pre>
 </div>
 
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="return_trace-example">(maths:sum 19 23)
+<pre class="src src-lfe" id="org73f07db">(maths:sum 19 23)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">42
 (&lt;0.56.0&gt;) call maths:sum(19,23)
 (&lt;0.56.0&gt;) returned from maths:sum/2 -&gt; 42
@@ -175,13 +154,11 @@ To trace the return value for a given function:
 To stop the trace:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="stop-the-trace">(dbg:stop)
+<pre class="src src-lfe" id="org0b4dabe">(dbg:stop)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">ok
 </pre>
 </div>
@@ -191,8 +168,8 @@ To stop the trace:
 </entry>
 <entry>
     <title>lfe-rebar3/compile updates</title>
-    <link href="http://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html" />
-    <id>http://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
+    <link href="https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html" />
+    <id>https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
     <published>2016-02-11T00:00:00Z</published>
     <updated>2016-02-11T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -235,8 +212,7 @@ recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-
-<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Opts</span>, [], <span style="color: #cae682;">Files</span>, <span style="color: #cae682;">DoCompile</span>).
+<pre class="src src-erlang">rebar_base_compiler:run(Opts, [], Files, DoCompile).
 </pre>
 </div>
 
@@ -249,10 +225,9 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-
-<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Config</span>, <span style="color: #cae682;">FirstFiles</span>,
-                        <span style="color: #cae682;">SourceDir</span>, <span style="color: #95e454;">".lfe"</span>, <span style="color: #cae682;">TargetDir</span>, <span style="color: #95e454;">".beam"</span>,
-                        <span style="color: #8ac6f2; font-weight: bold;">fun</span> <span style="color: #92a65e; font-weight: bold;">compile/3</span>).
+<pre class="src src-erlang">rebar_base_compiler:run(Config, FirstFiles,
+                        SourceDir, ".lfe", TargetDir, ".beam",
+                        fun compile/3).
 </pre>
 </div>
 
@@ -270,7 +245,6 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 &#x2026; using <code>run/4</code> via <a href="https://github.com/lfe-rebar3/compile/releases/tag/0.2.1">0.2.1</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
@@ -289,7 +263,6 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 &#x2026; using <code>run/7</code> via <a href="https://github.com/quasiquoting/lfe-compile/releases/tag/0.3.0">0.3.0</a>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
@@ -301,11 +274,10 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 A little more :cow::poop: microbenchmarking on a proprietary work project:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-bash"># run/4
+<pre class="src src-bash"><span style="color: #99968b;"># </span><span style="color: #99968b;">run/4</span>
         3.58 real         3.02 user         0.58 sys
 
-# run/7
+<span style="color: #99968b;"># </span><span style="color: #99968b;">run/7</span>
         1.83 real         1.46 user         0.35 sys
 </pre>
 </div>
@@ -315,8 +287,8 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 </entry>
 <entry>
     <title>So 2016. Much BEAM. Very polyglot.</title>
-    <link href="http://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html" />
-    <id>http://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html</id>
+    <link href="https://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html" />
+    <id>https://blorg.ericb.me/2016/01/so-2016-much-beam-very-polyglot/index.html</id>
     <published>2016-01-01T00:00:00Z</published>
     <updated>2016-01-01T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -347,7 +319,6 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 
 <a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">
 <div class="org-src-container">
-
 <pre class="src src-lfe">(progn
   (include-lib "clj/include/compose.lfe") ; Clojure threading macros
   (-&gt; (lodox-parse:docs #"lodox")         ; lodox docs map, generated by lodox
@@ -367,26 +338,18 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 Gott nytt år!
 </p>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">References</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-orgfa7bc2d" class="outline-2">
+<h2 id="orgfa7bc2d">References</h2>
+<div class="outline-text-2" id="text-orgfa7bc2d">
 <ul class="org-ul">
-<li><a href="https://github.com/lfex/clj#future-">clj: Clojure functions and macros for LFE</a>
-</li>
-<li><a href="https://github.com/quasiquoting/lodox">Lodox: Like Codox for LFE</a>
-</li>
-<li><a href="http://www.maclisp.info/pitmanual/index.html">The Revised Maclisp Manual</a>
-</li>
-<li><a href="http://quasiquoting.org/lodox/lodox-parse.html#func-docs.2F1">lodox-parse:docs/1</a>
-</li>
-<li><a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Learn You Some Erlang: Lists!</a>
-</li>
-<li><a href="https://github.com/devinus/markdown">Markdown: A simple Elixir Markdown to HTML conversion library</a>
-</li>
-<li><a href="https://github.com/hoedown/hoedown">Hoedown: Standard C99 Markdown parser</a>
-</li>
-<li><a href="https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks">GitHub Flavored Markdown: Fenced code blocks</a>
-</li>
+<li><a href="https://github.com/lfex/clj#future-">clj: Clojure functions and macros for LFE</a></li>
+<li><a href="https://github.com/quasiquoting/lodox">Lodox: Like Codox for LFE</a></li>
+<li><a href="http://www.maclisp.info/pitmanual/index.html">The Revised Maclisp Manual</a></li>
+<li><a href="http://quasiquoting.org/lodox/lodox-parse.html#func-docs.2F1">lodox-parse:docs/1</a></li>
+<li><a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Learn You Some Erlang: Lists!</a></li>
+<li><a href="https://github.com/devinus/markdown">Markdown: A simple Elixir Markdown to HTML conversion library</a></li>
+<li><a href="https://github.com/hoedown/hoedown">Hoedown: Standard C99 Markdown parser</a></li>
+<li><a href="https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks">GitHub Flavored Markdown: Fenced code blocks</a></li>
 </ul>
 </div>
 </div>
@@ -396,8 +359,8 @@ Gott nytt år!
 </entry>
 <entry>
     <title>Matching strings in LFE patterns</title>
-    <link href="http://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html" />
-    <id>http://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html</id>
+    <link href="https://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html" />
+    <id>https://blorg.ericb.me/2015/12/matching-strings-in-lfe-patterns/index.html</id>
     <published>2015-12-28T00:00:00Z</published>
     <updated>2015-12-28T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -425,18 +388,17 @@ While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
 <div class="org-src-container">
+<pre class="src src-erlang">parse_instruction("toggle " ++ Rest) -&gt; toggle(parse_coordinates(Rest));
+parse_instruction("turn on " ++ Rest) -&gt; turn_on(parse_coordinates(Rest));
+parse_instruction("turn off " ++ Rest) -&gt; turn_off(parse_coordinates(Rest)).
 
-<pre class="src src-erlang"><span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"toggle "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">toggle</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
-<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn on "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_on</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
-<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn off "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_off</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>)).
+parse_coordinates(String) -&gt;
+  {ok,[X0,Y0,X1,Y2],[]} = io_lib:fread("~d,~d through ~d,~d", String),
+  {{X0,Y0},{X1,Y1}}.
 
-<span style="color: #cae682;">parse_coordinates</span>(<span style="color: #cae682;">String</span>) -&gt;
-  {ok,[<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>,<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y2</span>],[]} = <span style="color: #92a65e; font-weight: bold;">io_lib</span>:<span style="color: #92a65e; font-weight: bold;">fread</span>(<span style="color: #95e454;">"~d,~d through ~d,~d"</span>, <span style="color: #cae682;">String</span>),
-  {{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}.
-
-<span style="color: #cae682;">toggle</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
-<span style="color: #cae682;">turn_on</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
-<span style="color: #cae682;">turn_off</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
+toggle({{X0,Y0},{X1,Y1}}) -&gt; undefined.
+turn_on({{X0,Y0},{X1,Y1}}) -&gt; undefined.
+turn_off({{X0,Y0},{X1,Y1}}) -&gt; undefined.
 </pre>
 </div>
 
@@ -444,7 +406,6 @@ wanting to write <code>parse_instruction/1</code> like this:
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">(defun parse-instruction
   ([(++ "turn off " rest)]
    ...))
@@ -455,7 +416,6 @@ But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/
 Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (defun f ([(++ "prefix" suffix)] suffix))
 f
 &gt; (f "prefixsuffix")
@@ -474,9 +434,8 @@ a solid approach.
 N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">Cases with lists of numbers (strings).</span>
-[[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>] <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
+<pre class="src src-erlang">%% Cases with lists of numbers (strings).
+[[N|Ns]|Es] when is_number(N) -&gt; [cons,N,['++',Ns|Es]];
 </pre>
 </div>
 
@@ -490,16 +449,15 @@ decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep 
 The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
 </p>
 <div class="org-src-container">
+<pre class="src src-erlang">%% exp_predef(...) -&gt; ...;
+exp_predef(['++*'|Abody], _, St) -&gt;
+  Exp = exp_prefix(Abody),
+  {yes,Exp,St};
+%% exp_predef(...) -&gt; ....
 
-<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ...;</span>
-<span style="color: #cae682;">exp_predef</span>([<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Abody</span>], <span style="color: #cae682;">_</span>, <span style="color: #cae682;">St</span>) -&gt;
-  <span style="color: #cae682;">Exp</span> = <span style="color: #92a65e; font-weight: bold;">exp_prefix</span>(<span style="color: #cae682;">Abody</span>),
-  {yes,<span style="color: #cae682;">Exp</span>,<span style="color: #cae682;">St</span>};
-<span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ....</span>
-
-<span style="color: #cae682;">exp_prefix</span>([[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>]) <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++*'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
-<span style="color: #cae682;">exp_prefix</span>([[]|<span style="color: #cae682;">Es</span>]) -&gt;<span style="color: #cae682;"> </span>[<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Es</span>];
-<span style="color: #cae682;">exp_prefix</span>(<span style="color: #cae682;">Args</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">exp_append</span>(<span style="color: #cae682;">Args</span>).
+exp_prefix([[N|Ns]|Es]) when is_number(N) -&gt; [cons,N,['++*',Ns|Es]];
+exp_prefix([[]|Es]) -&gt; ['++*'|Es];
+exp_prefix(Args) -&gt; exp_append(Args).
 </pre>
 </div>
 
@@ -507,7 +465,6 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (defun f ([(++* "prefix" suffix)] suffix))
 f
 &gt; (f "prefixsuffix")
@@ -519,7 +476,6 @@ f
 or even:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (defun f ([(++* "p" "r" "e" "f" "i" "x" suffix)] suffix))
 f
 &gt; (f "prefixsuffix")
@@ -532,8 +488,8 @@ f
 </entry>
 <entry>
     <title>Cons Cells in Lisp Flavoured Erlang</title>
-    <link href="http://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html" />
-    <id>http://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html</id>
+    <link href="https://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html" />
+    <id>https://blorg.ericb.me/2015/08/cons-cells-in-lfe/index.html</id>
     <published>2015-08-10T00:00:00Z</published>
     <updated>2015-08-10T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -563,7 +519,6 @@ singleton list, <code>head</code> holds the single element and <code>tail</code>
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (let ((`(,head . ,tail) '(a-single-element)))
     (lfe_io:format '"Head: ~w~nTail: ~w~n" `(,head ,tail)))
 </pre>
@@ -582,7 +537,6 @@ the same atom.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (=:= (cons 'a-single-element '()) '(a-single-element))
 </pre>
 </div>
@@ -596,8 +550,8 @@ true
 </entry>
 <entry>
     <title>Lisp Flavoured Erlang and Pynchon, oh my!</title>
-    <link href="http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html" />
-    <id>http://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html</id>
+    <link href="https://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html" />
+    <id>https://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html</id>
     <published>2015-08-06T00:00:00Z</published>
     <updated>2015-08-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -634,7 +588,6 @@ the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang"
 Without further ado, here's a contrived example:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">(-&lt;&gt; "testing"
      (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
             (lists:duplicate 3)
@@ -654,7 +607,6 @@ macros for LFE.
 The wild-looking form above expands to something more like:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">(-&lt;&gt;
  (progn
    (lfe_io:format
@@ -672,13 +624,11 @@ The wild-looking form above expands to something more like:
 After that, it becomes apparent the "return track" is rather simple:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">(++ "winn" (string:substr 5 "testing"))
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">&gt; (-&lt;&gt; "testing"
        (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
               (lists:duplicate 3)
@@ -696,8 +646,8 @@ non-updating: "testtesttest" ; printed
 </entry>
 <entry>
     <title>#'clojure.core/some-> and the Power of Macros</title>
-    <link href="http://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
-    <id>http://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
+    <link href="https://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
+    <id>https://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
     <published>2015-01-02T00:00:00Z</published>
     <updated>2015-01-02T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -729,55 +679,54 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 </p>
 
 <div class="org-src-container">
+<pre class="src src-clojure">(comment
+  ;; #'clojure.core/some-&gt; is one my favorite Clojure macros.
+  (some-&gt; (meta #'clojure.core/some-&gt;) :doc println)
+  ;; When expr is not nil, threads it into the first form (via -&gt;),
+  ;; and when that result is not nil, through the next etc
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>comment&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span>some-&gt; <span style="color: #b0b1a3;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #b0b1a3;">)</span> <span style="color: #e5786d;">:doc</span> println<span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">When expr is not nil, threads it into the first form (via -&gt;),</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">and when that result is not nil, through the next etc</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span>macroexpand '<span style="color: #b0b1a3;">(</span>some-&gt; <span style="color: #97b098;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #97b098;">)</span> <span style="color: #e5786d;">:doc</span> println<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let*</span> <span style="color: #b0b1a3;">[</span><span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span>meta <span style="color: #aebed8;">(</span><span style="color: #8ac6f2; font-weight: bold;">var</span> <span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-         <span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>nil? <span style="color: #e5786d;">G__2986</span><span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                   <span style="color: #e5786d;">nil</span>&#57344;&#57345;&#57345;
-                   <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> <span style="color: #e5786d;">G__2986</span> <span style="color: #e5786d;">:doc</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-         <span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>nil? <span style="color: #e5786d;">G__2986</span><span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                   <span style="color: #e5786d;">nil</span>&#57344;&#57345;&#57345;
-                   <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> <span style="color: #e5786d;">G__2986</span> println<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">]</span>&#57344;&#57345;&#57345;
-    <span style="color: #e5786d;">G__2986</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Rewritten more readably to illustrate the point:</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #b0b1a3;">[</span>example <span style="color: #97b098;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-        example <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">when-not</span> <span style="color: #aebed8;">(</span>nil? example<span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                  <span style="color: #aebed8;">(</span><span style="color: #e5786d;">:doc</span> example<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-        example <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">when-not</span> <span style="color: #aebed8;">(</span>nil? example<span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                  <span style="color: #aebed8;">(</span>println example<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">]</span>&#57344;&#57345;&#57345;
-    example<span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Which brings me to another of my scattered thoughts,</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Clojure has the #'clojure.core/when-not macro, but</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">for some reason, I find myself wanting to use 'unless,</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">as in Common Lisp:</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span> <span style="color: #b0b1a3;">(</span>condition &amp;rest body<span style="color: #b0b1a3;">)</span>&#57344;&#57345;&#57345;
-    `<span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #97b098;">(</span>not ,condition<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>progn ,@body<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">What better excuse to start writing my own macros?</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">fastidious.macros</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">[</span>condition &amp; body<span style="color: #b0b1a3;">]</span> `<span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #97b098;">(</span>not ~condition<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">do</span> ~@body<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Side bonus: I used my desire for 'unless to drive</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">my experiments in integrating macros in ClojureScript,</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">with underwhelming success. It just works.</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">client.core</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">(</span><span style="color: #e5786d;">:require-macros</span> <span style="color: #97b098;">[</span><span style="color: #92a65e; font-weight: bold;">fastidious.macros</span> <span style="color: #e5786d;">:refer</span> <span style="color: #aebed8;">[</span>unless<span style="color: #aebed8;">]</span><span style="color: #97b098;">]</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #b0b1a3;">[</span>lisp-is-lame? <span style="color: #e5786d;">false</span><span style="color: #b0b1a3;">]</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">(</span>unless lisp-is-lame?&#57344;&#57345;&#57345;
-      <span style="color: #97b098;">(</span>println <span style="color: #95e454;">"IFL Lisp."</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-      <span style="color: #97b098;">(</span>println <span style="color: #95e454;">"Next up: /c[ad]{1,5}r/"</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>&#57344;&#57345;&#57345;
+  (macroexpand '(some-&gt; (meta #'clojure.core/some-&gt;) :doc println))
+
+  (let* [G__2986 (meta (var clojure.core/some-&gt;))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 :doc))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 println))]
+    G__2986)
+
+  ;; Rewritten more readably to illustrate the point:
+  (let [example (meta #'clojure.core/some-&gt;)
+        example (when-not (nil? example)
+                  (:doc example))
+        example (when-not (nil? example)
+                  (println example))]
+    example)
+
+  ;; Which brings me to another of my scattered thoughts,
+  ;; Clojure has the #'clojure.core/when-not macro, but
+  ;; for some reason, I find myself wanting to use 'unless,
+  ;; as in Common Lisp:
+  (defmacro unless (condition &amp;rest body)
+    `(if (not ,condition) (progn ,@body)))
+
+  ;; What better excuse to start writing my own macros?
+  (ns fastidious.macros)
+
+  (defmacro unless
+    [condition &amp; body] `(if (not ~condition) (do ~@body)))
+
+  ;; Side bonus: I used my desire for 'unless to drive
+  ;; my experiments in integrating macros in ClojureScript,
+  ;; with underwhelming success. It just works.
+  (ns client.core
+    (:require-macros [fastidious.macros :refer [unless]]))
+
+  (let [lisp-is-lame? false]
+    (unless lisp-is-lame?
+      (println "IFL Lisp.")
+      (println "Next up: /c[ad]{1,5}r/"))))
 </pre>
 </div>
 

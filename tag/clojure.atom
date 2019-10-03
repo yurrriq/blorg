@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>blorg.ericb.me - clojure</title>
-    <link href="http://blorg.ericb.me/tag/clojure.atom" rel="self" />
-    <link href="http://blorg.ericb.me" />
-    <id>http://blorg.ericb.me/tag/clojure.atom</id>
+    <link href="https://blorg.ericb.me/tag/clojure.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/clojure.atom</id>
     <author>
         <name>Eric Bailey</name>
         <email>eric@ericb.me</email>
@@ -11,8 +11,8 @@
     <updated>2015-07-13T00:00:00Z</updated>
     <entry>
     <title>Unable to find dad</title>
-    <link href="http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
-    <id>http://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
+    <link href="https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
+    <id>https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
     <published>2015-07-13T00:00:00Z</published>
     <updated>2015-07-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -55,8 +55,8 @@ Whoa, that's heavy, man.
 </entry>
 <entry>
     <title>ip.ericb.me</title>
-    <link href="http://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
-    <id>http://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <link href="https://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>https://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
     <published>2015-07-13T00:00:00Z</published>
     <updated>2015-07-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -91,17 +91,16 @@ Its excruciatingly simple Clojure source looks something like this:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-clojure">(defroutes app
+  (GET "/" {{x-real-ip "x-real-ip"} :headers}
+    {:status  200
+     :headers {"Content-Type" "text/plain"}
+     :body    x-real-ip}))
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defroutes</span> <span style="color: #cae682;">app</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #e5786d;">GET</span> <span style="color: #95e454;">"/"</span> <span style="color: #b0b1a3;">{</span><span style="color: #97b098;">{</span>x-real-ip <span style="color: #95e454;">"x-real-ip"</span><span style="color: #97b098;">}</span> <span style="color: #e5786d;">:headers</span><span style="color: #b0b1a3;">}</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">{</span><span style="color: #e5786d;">:status</span>  200&#57344;&#57345;&#57345;
-     <span style="color: #e5786d;">:headers</span> <span style="color: #97b098;">{</span><span style="color: #95e454;">"Content-Type"</span> <span style="color: #95e454;">"text/plain"</span><span style="color: #97b098;">}</span>&#57344;&#57345;&#57345;
-     <span style="color: #e5786d;">:body</span>    x-real-ip<span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defn</span> <span style="color: #cae682;">-main</span> <span style="color: #93a8c6;">[</span>&amp; args<span style="color: #93a8c6;">]</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;&gt;</span> <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">or</span> <span style="color: #97b098;">(</span>some-&gt; <span style="color: #aebed8;">(</span>env <span style="color: #e5786d;">:port</span><span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">Integer</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #e5786d;">parseInt</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span> 5000<span style="color: #b0b1a3;">)</span>&#57344;&#57345;&#57345;
-       <span style="color: #b0b1a3;">(</span>hash-map <span style="color: #e5786d;">:port</span><span style="color: #b0b1a3;">)</span>&#57344;&#57345;&#57345;
-       <span style="color: #b0b1a3;">(</span>run-server app<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>&#57344;&#57345;&#57345;
+(defn -main [&amp; args]
+  (-&gt;&gt; (or (some-&gt; (env :port) (Integer/parseInt)) 5000)
+       (hash-map :port)
+       (run-server app)))
 </pre>
 </div>
 
@@ -110,8 +109,8 @@ Its excruciatingly simple Clojure source looks something like this:
 </entry>
 <entry>
     <title>GitHub Languages</title>
-    <link href="http://blorg.ericb.me/2015/05/github-languages/index.html" />
-    <id>http://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <link href="https://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>https://blorg.ericb.me/2015/05/github-languages/index.html</id>
     <published>2015-05-02T00:00:00Z</published>
     <updated>2015-05-02T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -152,7 +151,6 @@ to gather the language usage data from
 sort them in descending order of popularity.
 
 <div class="org-src-container">
-
 <pre class="src src-json">{
   "Ruby" : 4401525,
   "Java" : 1800870,
@@ -207,8 +205,8 @@ For the script and an example config, check out <a href="https://gist.github.com
 </entry>
 <entry>
     <title>exercism.io</title>
-    <link href="http://blorg.ericb.me/2015/01/exercism.io/index.html" />
-    <id>http://blorg.ericb.me/2015/01/exercism.io/index.html</id>
+    <link href="https://blorg.ericb.me/2015/01/exercism.io/index.html" />
+    <id>https://blorg.ericb.me/2015/01/exercism.io/index.html</id>
     <published>2015-01-03T00:00:00Z</published>
     <updated>2015-01-03T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -248,8 +246,8 @@ Maybe this will prove to be a fun way to explore <a href="https://github.com/yur
 </entry>
 <entry>
     <title>#'clojure.core/some-> and the Power of Macros</title>
-    <link href="http://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
-    <id>http://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
+    <link href="https://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
+    <id>https://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
     <published>2015-01-02T00:00:00Z</published>
     <updated>2015-01-02T00:00:00Z</updated>
     <summary type="html"><![CDATA[
@@ -281,55 +279,54 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 </p>
 
 <div class="org-src-container">
+<pre class="src src-clojure">(comment
+  ;; #'clojure.core/some-&gt; is one my favorite Clojure macros.
+  (some-&gt; (meta #'clojure.core/some-&gt;) :doc println)
+  ;; When expr is not nil, threads it into the first form (via -&gt;),
+  ;; and when that result is not nil, through the next etc
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>comment&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span>some-&gt; <span style="color: #b0b1a3;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #b0b1a3;">)</span> <span style="color: #e5786d;">:doc</span> println<span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">When expr is not nil, threads it into the first form (via -&gt;),</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">and when that result is not nil, through the next etc</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span>macroexpand '<span style="color: #b0b1a3;">(</span>some-&gt; <span style="color: #97b098;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #97b098;">)</span> <span style="color: #e5786d;">:doc</span> println<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let*</span> <span style="color: #b0b1a3;">[</span><span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span>meta <span style="color: #aebed8;">(</span><span style="color: #8ac6f2; font-weight: bold;">var</span> <span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-         <span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>nil? <span style="color: #e5786d;">G__2986</span><span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                   <span style="color: #e5786d;">nil</span>&#57344;&#57345;&#57345;
-                   <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> <span style="color: #e5786d;">G__2986</span> <span style="color: #e5786d;">:doc</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-         <span style="color: #e5786d;">G__2986</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>nil? <span style="color: #e5786d;">G__2986</span><span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                   <span style="color: #e5786d;">nil</span>&#57344;&#57345;&#57345;
-                   <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> <span style="color: #e5786d;">G__2986</span> println<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">]</span>&#57344;&#57345;&#57345;
-    <span style="color: #e5786d;">G__2986</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Rewritten more readably to illustrate the point:</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #b0b1a3;">[</span>example <span style="color: #97b098;">(</span>meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span><span style="color: #f6f3e8; background-color: #242424;">/</span>some-&gt;<span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-        example <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">when-not</span> <span style="color: #aebed8;">(</span>nil? example<span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                  <span style="color: #aebed8;">(</span><span style="color: #e5786d;">:doc</span> example<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-        example <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">when-not</span> <span style="color: #aebed8;">(</span>nil? example<span style="color: #aebed8;">)</span>&#57344;&#57345;&#57345;
-                  <span style="color: #aebed8;">(</span>println example<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">]</span>&#57344;&#57345;&#57345;
-    example<span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Which brings me to another of my scattered thoughts,</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Clojure has the #'clojure.core/when-not macro, but</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">for some reason, I find myself wanting to use 'unless,</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">as in Common Lisp:</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span> <span style="color: #b0b1a3;">(</span>condition &amp;rest body<span style="color: #b0b1a3;">)</span>&#57344;&#57345;&#57345;
-    `<span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #97b098;">(</span>not ,condition<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>progn ,@body<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">What better excuse to start writing my own macros?</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">fastidious.macros</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">[</span>condition &amp; body<span style="color: #b0b1a3;">]</span> `<span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #97b098;">(</span>not ~condition<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">do</span> ~@body<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Side bonus: I used my desire for 'unless to drive</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">my experiments in integrating macros in ClojureScript,</span>&#57344;&#57345;&#57345;
-  <span style="color: #99968b;">;; </span><span style="color: #99968b;">with underwhelming success. It just works.</span>&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">client.core</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">(</span><span style="color: #e5786d;">:require-macros</span> <span style="color: #97b098;">[</span><span style="color: #92a65e; font-weight: bold;">fastidious.macros</span> <span style="color: #e5786d;">:refer</span> <span style="color: #aebed8;">[</span>unless<span style="color: #aebed8;">]</span><span style="color: #97b098;">]</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>&#57344;&#57345;&#57345;
-&#57344;&#57345;&#57345;
-  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #b0b1a3;">[</span>lisp-is-lame? <span style="color: #e5786d;">false</span><span style="color: #b0b1a3;">]</span>&#57344;&#57345;&#57345;
-    <span style="color: #b0b1a3;">(</span>unless lisp-is-lame?&#57344;&#57345;&#57345;
-      <span style="color: #97b098;">(</span>println <span style="color: #95e454;">"IFL Lisp."</span><span style="color: #97b098;">)</span>&#57344;&#57345;&#57345;
-      <span style="color: #97b098;">(</span>println <span style="color: #95e454;">"Next up: /c[ad]{1,5}r/"</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>&#57344;&#57345;&#57345;
+  (macroexpand '(some-&gt; (meta #'clojure.core/some-&gt;) :doc println))
+
+  (let* [G__2986 (meta (var clojure.core/some-&gt;))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 :doc))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 println))]
+    G__2986)
+
+  ;; Rewritten more readably to illustrate the point:
+  (let [example (meta #'clojure.core/some-&gt;)
+        example (when-not (nil? example)
+                  (:doc example))
+        example (when-not (nil? example)
+                  (println example))]
+    example)
+
+  ;; Which brings me to another of my scattered thoughts,
+  ;; Clojure has the #'clojure.core/when-not macro, but
+  ;; for some reason, I find myself wanting to use 'unless,
+  ;; as in Common Lisp:
+  (defmacro unless (condition &amp;rest body)
+    `(if (not ,condition) (progn ,@body)))
+
+  ;; What better excuse to start writing my own macros?
+  (ns fastidious.macros)
+
+  (defmacro unless
+    [condition &amp; body] `(if (not ~condition) (do ~@body)))
+
+  ;; Side bonus: I used my desire for 'unless to drive
+  ;; my experiments in integrating macros in ClojureScript,
+  ;; with underwhelming success. It just works.
+  (ns client.core
+    (:require-macros [fastidious.macros :refer [unless]]))
+
+  (let [lisp-is-lame? false]
+    (unless lisp-is-lame?
+      (println "IFL Lisp.")
+      (println "Next up: /c[ad]{1,5}r/"))))
 </pre>
 </div>
 
