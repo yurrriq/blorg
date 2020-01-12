@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  2 October, 2019
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/nixos/index.html">nixos</a>, <a href="/tag/pass/index.html">pass</a>, <a href="/tag/browserpass/index.html">browserpass</a>, <a href="/tag/firefox/index.html">firefox</a>
       
@@ -64,14 +61,11 @@ application README</a>.
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 17 June, 2019
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/darwin/index.html">darwin</a>, <a href="/tag/vpn/index.html">vpn</a>, <a href="/tag/openconnect/index.html">openconnect</a>, <a href="/tag/launchd/index.html">launchd</a>, <a href="/tag/daemon/index.html">daemon</a>
       
@@ -256,14 +250,11 @@ Close the open XML tags.
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  7 September, 2018
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/darwin/index.html">darwin</a>, <a href="/tag/keyboard/index.html">keyboard</a>, <a href="/tag/security/index.html">security</a>, <a href="/tag/skhd/index.html">skhd</a>, <a href="/tag/chunkwm/index.html">chunkwm</a>
       
@@ -338,6 +329,12 @@ program to call it and try to end my troubles.
 </pre>
 </div>
 
+<pre class="example">
+Secure keyboard entry is enabled.
+Secure keyboard entry is still enabled.
+
+</pre>
+
 <p>
 No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literally dying</a>.
 </p>
@@ -356,14 +353,11 @@ No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literall
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  7 May, 2018
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/c/index.html">c</a>, <a href="/tag/compilers/index.html">compilers</a>, <a href="/tag/school/index.html">school</a>, <a href="/tag/facepalm/index.html">facepalm</a>
       
@@ -473,14 +467,11 @@ over the precise meaning of the sequence point rules in subtle cases.
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  7 September, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/idris/index.html">idris</a>, <a href="/tag/theorem-proving/index.html">theorem-proving</a>, <a href="/tag/books/index.html">books</a>
       
