@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>me.ericb.openconnect-example</string>
+    <key>StandardInPath</key>
+    <string>/etc/openconnect/passwd-example</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/etc/openconnect-wrapper</string>
+      <string>--passwd-on-stdin</string>
+      <string>--protocol=anyconnect</string>
+      <string>--reconnect-timeout=1800</string>
+      <string>--user=alice</string>
+      <string>vpn.example.com</string>
+    </array>
+    <key>StandardOutPath</key>
+    <string>/var/log/me.ericb.openconnectconsole.log</string>
+    <key>StandardErrorPath</key>
+    <string>/var/log/me.ericb.openconnect/error.log</string>
+  </dict>
+</plist>

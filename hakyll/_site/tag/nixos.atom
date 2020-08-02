@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - nixos</title>
+    <link href="https://blorg.ericb.me/tag/nixos.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/nixos.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2019-10-02T00:00:00Z</updated>
+    <entry>
+    <title>Fix Browserpass on NixOS</title>
+    <link href="https://blorg.ericb.me/2019/10/browserpass-on-nixos/index.html" />
+    <id>https://blorg.ericb.me/2019/10/browserpass-on-nixos/index.html</id>
+    <published>2019-10-02T00:00:00Z</published>
+    <updated>2019-10-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 October, 2019
+      <br />
+      
+      Tags: <a href="/tag/nixos/index.html">nixos</a>, <a href="/tag/pass/index.html">pass</a>, <a href="/tag/browserpass/index.html">browserpass</a>, <a href="/tag/firefox/index.html">firefox</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+After installing a custom version of Firefox, the <a href="https://github.com/browserpass/browserpass-extension">Browserpass extension</a> stopped
+working.
+</p>
+
+<p>
+To fix it, I ran the following, based on a suggestion in the <a href="https://github.com/browserpass/browserpass-native/tree/3.0.6#install-on-nix--nixos">Browerpass host
+application README</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">make -C /run/current-system/sw/lib/browserpass <span style="color: #cae682;">DESTDIR</span>=/run/current-system/sw hosts-firefox-user
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

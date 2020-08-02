@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - web-service</title>
+    <link href="https://blorg.ericb.me/tag/web-service.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/web-service.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <entry>
+    <title>ip.ericb.me</title>
+    <link href="https://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>https://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+      <br />
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/web-service/index.html">web-service</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+As a follow-up to <a href="http://blorg.ericb.me/2014/12/icanhazip.com">my previous post about icanhazip.com</a>, I figured it bears
+mentioning I've since set up <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a> and am running it at
+<a href="http://ip.ericb.me">ip.ericb.me</a>.
+</p>
+
+
+<p>
+Its excruciatingly simple Clojure source looks something like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure">(defroutes app
+  (GET "/" {{x-real-ip "x-real-ip"} :headers}
+    {:status  200
+     :headers {"Content-Type" "text/plain"}
+     :body    x-real-ip}))
+
+(defn -main [&amp; args]
+  (-&gt;&gt; (or (some-&gt; (env :port) (Integer/parseInt)) 5000)
+       (hash-map :port)
+       (run-server app)))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

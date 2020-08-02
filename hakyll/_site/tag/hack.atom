@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - hack</title>
+    <link href="https://blorg.ericb.me/tag/hack.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/hack.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-09-09T00:00:00Z</updated>
+    <entry>
+    <title>werase in iTerm2</title>
+    <link href="https://blorg.ericb.me/2015/09/werase-in-iterm2/index.html" />
+    <id>https://blorg.ericb.me/2015/09/werase-in-iterm2/index.html</id>
+    <published>2015-09-09T00:00:00Z</published>
+    <updated>2015-09-09T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  9 September, 2015
+      <br />
+      
+      Tags: <a href="/tag/osx/index.html">osx</a>, <a href="/tag/hack/index.html">hack</a>, <a href="/tag/terminal/index.html">terminal</a>, <a href="/tag/productivity/index.html">productivity</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Using a fresh install of <a href="https://www.iterm2.com">iTerm2</a>, I found that <code>⌥⌫</code> wasn't working as
+expected. Within minutes, I noticed a <b>significant</b> decrease in productivity,
+since (apparently) I use <code>werase</code> all the time.
+</p>
+
+<p>
+Without further ado, here's the time-saving fix I settled on.
+</p>
+
+<p>
+<img src="/images/werase.png" alt="nil" />
+</p>
+
+<p>
+Shout out to to <a href="https://manytricks.com/keycodes/">Key Codes</a> (and <a href="http://brew.sh">Homebrew</a>) for making it easy to find the
+appropriate hex code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">brew cask install key-codes
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>ip.ericb.me</title>
+    <link href="https://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>https://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+      <br />
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/web-service/index.html">web-service</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+As a follow-up to <a href="http://blorg.ericb.me/2014/12/icanhazip.com">my previous post about icanhazip.com</a>, I figured it bears
+mentioning I've since set up <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a> and am running it at
+<a href="http://ip.ericb.me">ip.ericb.me</a>.
+</p>
+
+
+<p>
+Its excruciatingly simple Clojure source looks something like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure">(defroutes app
+  (GET "/" {{x-real-ip "x-real-ip"} :headers}
+    {:status  200
+     :headers {"Content-Type" "text/plain"}
+     :body    x-real-ip}))
+
+(defn -main [&amp; args]
+  (-&gt;&gt; (or (some-&gt; (env :port) (Integer/parseInt)) 5000)
+       (hash-map :port)
+       (run-server app)))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>GitHub Languages</title>
+    <link href="https://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>https://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <published>2015-05-02T00:00:00Z</published>
+    <updated>2015-05-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 May, 2015
+      <br />
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/script/index.html">script</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+I wrote a little <a href="http://clojure.org">Clojure</a> script
+<label for="sn-clojurescript"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-clojurescript"
+       class="margin-toggle"/>
+<span class="marginnote">
+Not to be confused with
+<a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
+</span>
+to gather the language usage data from
+<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and
+sort them in descending order of popularity.
+
+<div class="org-src-container">
+<pre class="src src-json">{
+  "Ruby" : 4401525,
+  "Java" : 1800870,
+  "Clojure" : 1406457,
+  "LilyPond" : 226858,
+  "Scheme" : 224389,
+  "Common Lisp" : 127554,
+  "HTML" : 111217,
+  "Shell" : 47589,
+  "CSS" : 41034,
+  "Groff" : 25188,
+  "C++" : 16378,
+  "NewLisp" : 15399,
+  "JavaScript" : 12714,
+  "Erlang" : 8041,
+  "Objective-C" : 3825,
+  "Python" : 3285,
+  "Perl6" : 2976,
+  "PLSQL" : 2919,
+  "Scala" : 2814,
+  "Emacs Lisp" : 2420,
+  "OCaml" : 2055,
+  "Elixir" : 1788,
+  "CoffeeScript" : 1787,
+  "PHP" : 1704,
+  "CMake" : 1618,
+  "Lua" : 1160,
+  "Go" : 1025,
+  "Perl" : 844,
+  "Haskell" : 801,
+  "F#" : 799,
+  "C#" : 585,
+  "PostScript" : 485,
+  "Swift" : 467,
+  "Makefile" : 220,
+  "Frege" : 53
+}
+</pre>
+</div>
+
+<p>
+<b>Note</b>: I don't use Ruby, except when <a href="https://www.openhub.net/p/homebrew/contributors/2025442152889863">contributing</a> to <a href="http://brew.sh/">Homebrew</a>. I also have a
+repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exercises</a>, which, of course, skew the results.
+</p>
+
+<p>
+For the script and an example config, check out <a href="https://gist.github.com/yurrriq/3272c6b9ebfa699472b9">the gist</a>.
+</p>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>icanhazip.com</title>
+    <link href="https://blorg.ericb.me/2014/12/icanhazip.com/index.html" />
+    <id>https://blorg.ericb.me/2014/12/icanhazip.com/index.html</id>
+    <published>2014-12-06T00:00:00Z</published>
+    <updated>2014-12-06T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  6 December, 2014
+      <br />
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/bash/index.html">bash</a>, <a href="/tag/script/index.html">script</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Often, I find myself needing to know the public IP address of a box I'm
+hacking on. <a href="http://icanhazip.com">icanhazip.com</a> has become my favorite tool for the task.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">&#120524; curl icanhazip.com <span style="color: #99968b;"># </span><span style="color: #99968b;">yass, u can</span>
+</pre>
+</div>
+
+<p>
+In my experiments it was the fastest, and I've got a penchant for <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">KISS</a>ing.
+</p>
+
+<p>
+I made <a href="https://gist.github.com/yurrriq/7fc7634dd00494072f45">a gist</a> with a few backups, just in case.
+</p>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

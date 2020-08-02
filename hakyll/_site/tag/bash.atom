@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - bash</title>
+    <link href="https://blorg.ericb.me/tag/bash.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/bash.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2014-12-06T00:00:00Z</updated>
+    <entry>
+    <title>icanhazip.com</title>
+    <link href="https://blorg.ericb.me/2014/12/icanhazip.com/index.html" />
+    <id>https://blorg.ericb.me/2014/12/icanhazip.com/index.html</id>
+    <published>2014-12-06T00:00:00Z</published>
+    <updated>2014-12-06T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  6 December, 2014
+      <br />
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/bash/index.html">bash</a>, <a href="/tag/script/index.html">script</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Often, I find myself needing to know the public IP address of a box I'm
+hacking on. <a href="http://icanhazip.com">icanhazip.com</a> has become my favorite tool for the task.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">&#120524; curl icanhazip.com <span style="color: #99968b;"># </span><span style="color: #99968b;">yass, u can</span>
+</pre>
+</div>
+
+<p>
+In my experiments it was the fastest, and I've got a penchant for <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">KISS</a>ing.
+</p>
+
+<p>
+I made <a href="https://gist.github.com/yurrriq/7fc7634dd00494072f45">a gist</a> with a few backups, just in case.
+</p>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

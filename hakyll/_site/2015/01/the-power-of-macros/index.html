@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - #'clojure.core/some-> and the Power of Macros</title>
+  <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>#'clojure.core/some-> and the Power of Macros</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Posted on  2 January, 2015
+      <br />
+      
+      Tags: <a href="../../../tag/clojure/">clojure</a>, <a href="../../../tag/lisp/">lisp</a>, <a href="../../../tag/metaprogramming/">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
+</p>
+
+<p>
+In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> will undoubtedly <a href="https://twitter.com/yurrriq/status/525703812833890305">grow fonder</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure">(comment
+  ;; #'clojure.core/some-&gt; is one my favorite Clojure macros.
+  (some-&gt; (meta #'clojure.core/some-&gt;) :doc println)
+  ;; When expr is not nil, threads it into the first form (via -&gt;),
+  ;; and when that result is not nil, through the next etc
+
+  (macroexpand '(some-&gt; (meta #'clojure.core/some-&gt;) :doc println))
+
+  (let* [G__2986 (meta (var clojure.core/some-&gt;))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 :doc))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 println))]
+    G__2986)
+
+  ;; Rewritten more readably to illustrate the point:
+  (let [example (meta #'clojure.core/some-&gt;)
+        example (when-not (nil? example)
+                  (:doc example))
+        example (when-not (nil? example)
+                  (println example))]
+    example)
+
+  ;; Which brings me to another of my scattered thoughts,
+  ;; Clojure has the #'clojure.core/when-not macro, but
+  ;; for some reason, I find myself wanting to use 'unless,
+  ;; as in Common Lisp:
+  (defmacro unless (condition &amp;rest body)
+    `(if (not ,condition) (progn ,@body)))
+
+  ;; What better excuse to start writing my own macros?
+  (ns fastidious.macros)
+
+  (defmacro unless
+    [condition &amp; body] `(if (not ~condition) (do ~@body)))
+
+  ;; Side bonus: I used my desire for 'unless to drive
+  ;; my experiments in integrating macros in ClojureScript,
+  ;; with underwhelming success. It just works.
+  (ns client.core
+    (:require-macros [fastidious.macros :refer [unless]]))
+
+  (let [lisp-is-lame? false]
+    (unless lisp-is-lame?
+      (println "IFL Lisp.")
+      (println "Next up: /c[ad]{1,5}r/"))))
+</pre>
+</div>
+
+<p>
+See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub
+</p>
+
+</section>
+
+    </article>
+    <!-- <footer> -->
+<!--   <ul class="footer-links group"> -->
+<!--     <li> -->
+<!--       <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="/index.atom"><i class="fa fa-rss"></i></a> -->
+<!--     </li> -->
+<!--   </ul> -->
+<!--   <div class="credits"> -->
+<!--     <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample"> -->
+<!--       <img alt='Open Hub profile for Eric Bailey' -->
+<!--            border='0' -->
+<!--            height='35' -->
+<!--            src='https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample' width='230'> -->
+<!--     </a><br /> -->
+<!--     <\!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -\-> -->
+<!--     <\!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -\-> -->
+<!--     <\!--        width="208" -\-> -->
+<!--     <\!--        height="58" -\-> -->
+<!--     <\!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -\-> -->
+<!--     <\!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -\-> -->
+<!--     <\!--   </a><br /> -\-> -->
+<!--     <span> -->
+<!--       This site was created by Eric Bailey -->
+<!--       with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a> -->
+<!--       in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span> -->
+<!--   </div> -->
+<!-- </footer> -->
+
+  </body>
+</html>

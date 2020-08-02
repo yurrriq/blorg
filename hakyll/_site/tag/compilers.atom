@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - compilers</title>
+    <link href="https://blorg.ericb.me/tag/compilers.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/compilers.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2018-05-07T00:00:00Z</updated>
+    <entry>
+    <title>Undefined Behaviour</title>
+    <link href="https://blorg.ericb.me/2018/05/undefined-behaviour/index.html" />
+    <id>https://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
+    <published>2018-05-07T00:00:00Z</published>
+    <updated>2018-05-07T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  7 May, 2018
+      <br />
+      
+      Tags: <a href="/tag/c/index.html">c</a>, <a href="/tag/compilers/index.html">compilers</a>, <a href="/tag/school/index.html">school</a>, <a href="/tag/facepalm/index.html">facepalm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+A friend at work today was telling me about his wife's C++ class,
+wherein the students were asked to predict the behaviour of the
+following snippet.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c" id="org99ef093">x = 10;
+y = ++x + --x;
+</pre>
+</div>
+
+<p>
+For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="org48a0f8a"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
+</pre>
+</div>
+
+<p>
+We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="org6d60b89">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
+</pre>
+</div>
+
+<p>
+Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c">our program</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;stdio.h&gt;</span>
+
+
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span>(<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #92a65e; font-weight: bold;">char</span> **<span style="color: #cae682;">argv</span>)
+{
+    x = 10;
+    y = ++x + --x;
+
+    printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
+}
+</pre>
+</div>
+
+<p>
+At first glance, I would expect the right-hand side of the
+initialization of <code>y</code> to evaluate to <code>11 + 10</code>, i.e. <code>21</code>.
+</p>
+
+<p>
+Unsurprisingly, GCC computes the final value of <code>x</code> to be <code>10</code>, the
+same as its initial value, after being incremented and
+decremented. It's markedly <b>less</b> intuitive to me that the final value
+of <code>y</code> is <code>20</code>.
+</p>
+
+<p>
+Clang, on the other hand, agrees with me, i.e. computes the final
+value of <code>y</code> to be <code>21</code>.
+</p>
+
+<p>
+Both compilers warn about unsequenced modifications and the resultant
+undefined behaviour. Digging around a bit leads to some fascinating
+discussions. The GCC team maintains a <a href="https://gcc.gnu.org/readings.html">list of further reading</a>,
+including a few formal models and analyses of sequence points in
+C. Further exploration is left as an exercise for the reader.
+</p>
+
+<p>
+<b>tl;dr</b> (from <a href="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html">https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html</a>)
+</p>
+
+<blockquote>
+<p>
+It is not specified when between sequence points modifications to the
+values of objects take effect.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+The standard is worded confusingly, therefore there is some debate
+over the precise meaning of the sequence point rules in subtle cases.
+</p>
+</blockquote>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - Tracing LFE Functions</title>
+  <link rel="stylesheet" type="text/css" href="../../../css/tufte.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>Tracing LFE Functions</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Posted on 12 April, 2016
+      <br />
+      
+      Tags: <a href="../../../tag/lfe/">lfe</a>, <a href="../../../tag/lisp/">lisp</a>, <a href="../../../tag/beam/">beam</a>, <a href="../../../tag/tracing/">tracing</a>, <a href="../../../tag/debugging/">debugging</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+What follows is an LFE translation of Roberto Aloi's <a href="https://aloiroberto.wordpress.com/2009/02/23/tracing-erlang-functions/"><i>Tracing Erlang Functions</i></a>.
+</p>
+
+<p>
+Tracing LFE functions for debugging purposes is quite simple.
+</p>
+
+<p>
+Let's say you have the following module and want to trace one of its functions.
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org8d1e22e">(defmodule maths
+  (export (sum 2) (diff 2)))
+
+(defun sum (a b) (+ a b))
+
+(defun diff (a b) (- a b))
+</pre>
+</div>
+
+<p>
+Before we get started, make sure you compile the <code>maths</code> module:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org5a08bfb">(c "/path/to/maths.lfe")
+</pre>
+</div>
+
+<p>
+Just start the tracer:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org3f7e922">(dbg:tracer)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok &lt;0.46.0&gt;)
+</pre>
+</div>
+
+<p>
+Tell the tracer you are interested in all calls for all processes:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org89a7b2b">(dbg:p 'all 'c)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 26)))
+</pre>
+</div>
+
+<p>
+Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org56f348a">(dbg:tpl 'maths 'sum [])
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 1)))
+</pre>
+</div>
+
+<p>
+Now, try to call the function, as usual. The tracer is active!
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="orgdf31a15">(maths:sum 2 3)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">5
+(&lt;0.29.0&gt;) call maths:sum(2,3)
+</pre>
+</div>
+
+<p>
+To trace all functions from the <code>maths</code> module:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org6668d63">&gt; (dbg:tpl 'maths [])
+</pre>
+</div>
+
+<p>
+To trace the return value for a given function:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org7452745">(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 1) #(saved 1)))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe" id="org667190d">(maths:sum 19 23)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">42
+(&lt;0.56.0&gt;) call maths:sum(19,23)
+(&lt;0.56.0&gt;) returned from maths:sum/2 -&gt; 42
+</pre>
+</div>
+
+<p>
+To stop the trace:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org73dccf4">(dbg:stop)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">ok
+</pre>
+</div>
+
+</section>
+
+    </article>
+    <!-- <footer> -->
+<!--   <ul class="footer-links group"> -->
+<!--     <li> -->
+<!--       <a href="//twitter.com/yurrriq"><i class="fa fa-twitter"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="//github.com/yurrriq"><i class="fa fa-github"></i></a> -->
+<!--     </li> -->
+<!--     <li> -->
+<!--       <a href="/index.atom"><i class="fa fa-rss"></i></a> -->
+<!--     </li> -->
+<!--   </ul> -->
+<!--   <div class="credits"> -->
+<!--     <a target="_blank" href="https://www.openhub.net/accounts/yurrriq?ref=sample"> -->
+<!--       <img alt='Open Hub profile for Eric Bailey' -->
+<!--            border='0' -->
+<!--            height='35' -->
+<!--            src='https://www.openhub.net/accounts/yurrriq/widgets/account_detailed?format=gif&amp;ref=sample' width='230'> -->
+<!--     </a><br /> -->
+<!--     <\!-- <a href="http://stackoverflow.com/users/1793234/yurrriq"> -\-> -->
+<!--     <\!--   <img src="http://stackoverflow.com/users/flair/1793234.png" -\-> -->
+<!--     <\!--        width="208" -\-> -->
+<!--     <\!--        height="58" -\-> -->
+<!--     <\!--        alt="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers" -\-> -->
+<!--     <\!--        title="profile for yurrriq at Stack Overflow, Q&amp;A for professional and enthusiast programmers"> -\-> -->
+<!--     <\!--   </a><br /> -\-> -->
+<!--     <span> -->
+<!--       This site was created by Eric Bailey -->
+<!--       with the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a> -->
+<!--       in <a href="http://jaspervdj.be/hakyll">Hakyll</a>.</span> -->
+<!--   </div> -->
+<!-- </footer> -->
+
+  </body>
+</html>

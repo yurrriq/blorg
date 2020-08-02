@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - error</title>
+    <link href="https://blorg.ericb.me/tag/error.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/error.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <entry>
+    <title>Unable to find dad</title>
+    <link href="https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
+    <id>https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+      <br />
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre class="example">
+  Show: Clojure Java REPL Tooling Duplicates All  (65 frames hidden)
+
+2. Unhandled clojure.lang.Compiler$CompilerException
+
+1. Caused by java.lang.RuntimeException
+   Unable to resolve symbol: dad in this context
+
+                     Util.java:  221  clojure.lang.Util/runtimeException
+</pre>
+
+<p>
+Whoa, that's heavy, man.
+</p>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

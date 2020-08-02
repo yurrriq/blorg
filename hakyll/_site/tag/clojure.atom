@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - clojure</title>
+    <link href="https://blorg.ericb.me/tag/clojure.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/clojure.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <entry>
+    <title>Unable to find dad</title>
+    <link href="https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html" />
+    <id>https://blorg.ericb.me/2015/07/unable-to-find-dad/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+      <br />
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/error/index.html">error</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <pre class="example">
+  Show: Clojure Java REPL Tooling Duplicates All  (65 frames hidden)
+
+2. Unhandled clojure.lang.Compiler$CompilerException
+
+1. Caused by java.lang.RuntimeException
+   Unable to resolve symbol: dad in this context
+
+                     Util.java:  221  clojure.lang.Util/runtimeException
+</pre>
+
+<p>
+Whoa, that's heavy, man.
+</p>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>ip.ericb.me</title>
+    <link href="https://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>https://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>2015-07-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on 13 July, 2015
+      <br />
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/web-service/index.html">web-service</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+As a follow-up to <a href="http://blorg.ericb.me/2014/12/icanhazip.com">my previous post about icanhazip.com</a>, I figured it bears
+mentioning I've since set up <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a> and am running it at
+<a href="http://ip.ericb.me">ip.ericb.me</a>.
+</p>
+
+
+<p>
+Its excruciatingly simple Clojure source looks something like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure">(defroutes app
+  (GET "/" {{x-real-ip "x-real-ip"} :headers}
+    {:status  200
+     :headers {"Content-Type" "text/plain"}
+     :body    x-real-ip}))
+
+(defn -main [&amp; args]
+  (-&gt;&gt; (or (some-&gt; (env :port) (Integer/parseInt)) 5000)
+       (hash-map :port)
+       (run-server app)))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>GitHub Languages</title>
+    <link href="https://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>https://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <published>2015-05-02T00:00:00Z</published>
+    <updated>2015-05-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 May, 2015
+      <br />
+      
+      Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/script/index.html">script</a>, <a href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+I wrote a little <a href="http://clojure.org">Clojure</a> script
+<label for="sn-clojurescript"
+       class="margin-toggle">
+&#8853;
+</label>
+<input type="checkbox"
+       id="sn-clojurescript"
+       class="margin-toggle"/>
+<span class="marginnote">
+Not to be confused with
+<a href="https://github.com/clojure/clojurescript">ClojureScript</a>.
+</span>
+to gather the language usage data from
+<a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and
+sort them in descending order of popularity.
+
+<div class="org-src-container">
+<pre class="src src-json">{
+  "Ruby" : 4401525,
+  "Java" : 1800870,
+  "Clojure" : 1406457,
+  "LilyPond" : 226858,
+  "Scheme" : 224389,
+  "Common Lisp" : 127554,
+  "HTML" : 111217,
+  "Shell" : 47589,
+  "CSS" : 41034,
+  "Groff" : 25188,
+  "C++" : 16378,
+  "NewLisp" : 15399,
+  "JavaScript" : 12714,
+  "Erlang" : 8041,
+  "Objective-C" : 3825,
+  "Python" : 3285,
+  "Perl6" : 2976,
+  "PLSQL" : 2919,
+  "Scala" : 2814,
+  "Emacs Lisp" : 2420,
+  "OCaml" : 2055,
+  "Elixir" : 1788,
+  "CoffeeScript" : 1787,
+  "PHP" : 1704,
+  "CMake" : 1618,
+  "Lua" : 1160,
+  "Go" : 1025,
+  "Perl" : 844,
+  "Haskell" : 801,
+  "F#" : 799,
+  "C#" : 585,
+  "PostScript" : 485,
+  "Swift" : 467,
+  "Makefile" : 220,
+  "Frege" : 53
+}
+</pre>
+</div>
+
+<p>
+<b>Note</b>: I don't use Ruby, except when <a href="https://www.openhub.net/p/homebrew/contributors/2025442152889863">contributing</a> to <a href="http://brew.sh/">Homebrew</a>. I also have a
+repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exercises</a>, which, of course, skew the results.
+</p>
+
+<p>
+For the script and an example config, check out <a href="https://gist.github.com/yurrriq/3272c6b9ebfa699472b9">the gist</a>.
+</p>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>exercism.io</title>
+    <link href="https://blorg.ericb.me/2015/01/exercism.io/index.html" />
+    <id>https://blorg.ericb.me/2015/01/exercism.io/index.html</id>
+    <published>2015-01-03T00:00:00Z</published>
+    <updated>2015-01-03T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  3 January, 2015
+      <br />
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/learning/index.html">learning</a>, <a href="/tag/polyglot/index.html">polyglot</a>, <a href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="http://xkcd.com/353/">Hello, world!</a> I started working on the <a href="http://exercism.io/languages/clojure">Clojure exercises</a> from <a href="http://exercism.io/about">exercism.io</a>.
+</p>
+
+<p>
+Feel free to nitpick <a href="http://exercism.io/yurrriq">my solutions</a>, and browse the <a href="https://github.com/yurrriq/exercism/tree/clojure">source on GitHub</a>.
+</p>
+
+<p>
+Maybe this will prove to be a fun way to explore <a href="https://github.com/yurrriq/exercism/branches/all">different languages</a>.
+</p>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>#'clojure.core/some-> and the Power of Macros</title>
+    <link href="https://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
+    <id>https://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
+    <published>2015-01-02T00:00:00Z</published>
+    <updated>2015-01-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Posted on  2 January, 2015
+      <br />
+      
+      Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
+</p>
+
+<p>
+In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> will undoubtedly <a href="https://twitter.com/yurrriq/status/525703812833890305">grow fonder</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure">(comment
+  ;; #'clojure.core/some-&gt; is one my favorite Clojure macros.
+  (some-&gt; (meta #'clojure.core/some-&gt;) :doc println)
+  ;; When expr is not nil, threads it into the first form (via -&gt;),
+  ;; and when that result is not nil, through the next etc
+
+  (macroexpand '(some-&gt; (meta #'clojure.core/some-&gt;) :doc println))
+
+  (let* [G__2986 (meta (var clojure.core/some-&gt;))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 :doc))
+         G__2986 (if (clojure.core/nil? G__2986)
+                   nil
+                   (clojure.core/-&gt; G__2986 println))]
+    G__2986)
+
+  ;; Rewritten more readably to illustrate the point:
+  (let [example (meta #'clojure.core/some-&gt;)
+        example (when-not (nil? example)
+                  (:doc example))
+        example (when-not (nil? example)
+                  (println example))]
+    example)
+
+  ;; Which brings me to another of my scattered thoughts,
+  ;; Clojure has the #'clojure.core/when-not macro, but
+  ;; for some reason, I find myself wanting to use 'unless,
+  ;; as in Common Lisp:
+  (defmacro unless (condition &amp;rest body)
+    `(if (not ,condition) (progn ,@body)))
+
+  ;; What better excuse to start writing my own macros?
+  (ns fastidious.macros)
+
+  (defmacro unless
+    [condition &amp; body] `(if (not ~condition) (do ~@body)))
+
+  ;; Side bonus: I used my desire for 'unless to drive
+  ;; my experiments in integrating macros in ClojureScript,
+  ;; with underwhelming success. It just works.
+  (ns client.core
+    (:require-macros [fastidious.macros :refer [unless]]))
+
+  (let [lisp-is-lame? false]
+    (unless lisp-is-lame?
+      (println "IFL Lisp.")
+      (println "Next up: /c[ad]{1,5}r/"))))
+</pre>
+</div>
+
+<p>
+See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub
+</p>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>
