@@ -10,7 +10,7 @@ tags: mathematics, proof, comics
 #+END_EXPORT
 
 On the first page of [[https://www.dccomics.com/talent/tom-king][Tom King]]'s [[https://www.dccomics.com/comics/strange-adventures-2020/strange-adventures-2][Strange Adventures #2]]
-there is an example of [[https://reddit.com/r/badmath][bad mathematics]].
+there is an example of [[https://reddit.com/r/badmathematics][bad mathematics]].
 
 [[https://dc.fandom.com/wiki/T-Spheres][T-Sphere]]:
 #+BEGIN_QUOTE
