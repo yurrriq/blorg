@@ -1,0 +1,59 @@
+#+STARTUP: showall
+#+OPTIONS: toc:nil ^:{}
+#+BEGIN_EXPORT html
+---
+title: "Strange Mathematics"
+author: Eric Bailey
+tags: mathematics, proof, comics
+---
+#+END_EXPORT
+
+On the first page of [[https://www.dccomics.com/talent/tom-king][Tom King]]'s [[https://www.dccomics.com/comics/strange-adventures-2020/strange-adventures-2][Strange Adventures #2]]
++there is an example of [[https://reddit.com/r/badmath][bad mathematics]].+
+
+[[https://dc.fandom.com/wiki/T-Spheres][T-Sphere]]:
+#+BEGIN_QUOTE
+IN THE EQUATION
+X² + MX + N = 0,
+M AND N ARE INTEGERS.
+THE ONLY POSSIBLE VALUE
+OF X IS -3. WHAT IS THE
+VALUE OF M?
+#+END_QUOTE
+
+[[https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)][Mister Terrific]]:
+#+BEGIN_QUOTE
+SIX.
+#+END_QUOTE
+
+[[https://dc.fandom.com/wiki/T-Spheres][T-Sphere]]:
+#+BEGIN_QUOTE
+CORRECT.
+#+END_QUOTE
+
++But that's not quite right, or at least it's misleading.+
++While $\xcancel{6}$ is a possible value for $\xcancel{m}$, it's not the only one.+
+
++*Lemma*. Given $\xcancel{x^2 + mx + n = 0}$ and $\xcancel{x = -3}$,+
++there are [[https://brilliant.org/wiki/cardinality/][countably infinite]] possible values for $m$ such that+
++$\xcancel{m,n \in \mathbb{Z}}$.+
+
++/Proof./+
++Rewriting the original equation with $\xcancel{x = -3}$,+
++$\xcancel{9 - 3m + n = 0 \leadsto m = \frac{n}{3} + 3}$.+
++It follows that $\xcancel{\forall m \in \mathbb{Z}, \exists n \in 3\mathbb{Z}}$ such that+
++$\xcancel{m = \frac{n}{3} + 3}$.+
++Since $\xcancel{3\mathbb{Z} \subset \mathbb{Z}}$, and+
++there exists a bijection between $\xcancel{\mathbb{N}}$ and $\xcancel{3\mathbb{Z}}$, i.e.+
++$\xcancel{\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}}$,+
++there are $\xcancel{\aleph_{0}}$ possible values for $\xcancel{m}$.+
++$\xcancel{\blacksquare}$+
+
+--------------------------------------------------------------------------------
+
+*Edit*: It turns out /I'm/ the one [[https://www.reddit.com/r/badmathematics/comments/i28ukc/strange_mathematics/][bad mathematics]] (and sleep hygiene).
+
+Given $x^2 + mx + n = 0$ and the only possible value of $x$ is $-3$,
+$(x + 3)$ is a root of [[https://mathworld.wolfram.com/Multiplicity.html][multiplicity]] $2$.
+Thus the factorization is $(x + 3)(x + 3)$, which exapnds to $x^2 + 6x + 9$.
+Thus $m = 6$, just as [[https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)][Mister Terrific]] said. 🤦
