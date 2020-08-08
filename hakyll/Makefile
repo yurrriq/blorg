@@ -26,7 +26,7 @@ commit-site:
 	@ git checkout gh-pages
 	@ git add .
 	@ git commit -S -m 'Update site'
-	@ git push
+	@ echo git push
 	@ cd ..
 	@ git add .
 	@ git commit -S -m 'Update hakyll/_site'
