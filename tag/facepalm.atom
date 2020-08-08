@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  7 May, 2018
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/c/index.html">c</a>, <a href="/tag/compilers/index.html">compilers</a>, <a href="/tag/school/index.html">school</a>, <a href="/tag/facepalm/index.html">facepalm</a>
       
@@ -42,7 +39,7 @@ following snippet.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c" id="orgf8e23a4">x = 10;
+<pre class="src src-c" id="org99ef093">x = 10;
 y = ++x + --x;
 </pre>
 </div>
@@ -51,7 +48,7 @@ y = ++x + --x;
 For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="orgd7960bd"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
+<pre class="src src-c" id="org48a0f8a"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -59,7 +56,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org5bc9183">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
+<pre class="src src-c" id="org6d60b89">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 </pre>
 </div>
 

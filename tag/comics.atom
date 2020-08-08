@@ -34,7 +34,7 @@
 <section>
   <p>
 On the first page of <a href="https://www.dccomics.com/talent/tom-king">Tom King</a>'s <a href="https://www.dccomics.com/comics/strange-adventures-2020/strange-adventures-2">Strange Adventures #2</a>
-there is an example of <a href="https://reddit.com/r/badmathematics">bad mathematics</a>.
+<del>there is an example of <a href="https://reddit.com/r/badmath">bad mathematics</a>.</del>
 </p>
 
 <p>
@@ -69,28 +69,43 @@ CORRECT.
 </p>
 </blockquote>
 
+<hr>
+
 <p>
-But that's not quite right, or at least it's misleading.
-While \(6\) is a possible value for \(m\), it's not the only one.
+<b>Update (3 August, 2020)</b>: It turns out <i>I'm</i> the one <a href="https://www.reddit.com/r/badmathematics/comments/i28ukc/strange_mathematics/">bad mathematics</a> (and sleep hygiene).
 </p>
 
 <p>
-<b>Lemma</b>. Given \(x^2 + mx + n = 0\) and \(x = -3\),
-there are <a href="https://brilliant.org/wiki/cardinality/">countably infinite</a> possible values for \(m\) such that
-\(m,n \in \mathbb{Z}\).
+Given \(x^2 + mx + n = 0\) and the only possible value of \(x\) is \(-3\),
+\((x + 3)\) is a root of <a href="https://mathworld.wolfram.com/Multiplicity.html">multiplicity</a> \(2\).
+Thus the factorization is \((x + 3)(x + 3)\), which exapnds to \(x^2 + 6x + 9\).
+Thus \(m = 6\), just as <a href="https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)">Mister Terrific</a> said. 🤦
+</p>
+
+<hr>
+
+<p>
+<del>But that's not quite right, or at least it's misleading.</del>
+<del>While \(\xcancel{6}\) is a possible value for \(\xcancel{m}\), it's not the only one.</del>
 </p>
 
 <p>
-<i>Proof.</i>
-Rewriting the original equation with \(x = -3\),
-\(9 - 3m + n = 0 \leadsto m = \frac{n}{3} + 3\).
-It follows that \(\forall m \in \mathbb{Z}, \exists n \in 3\mathbb{Z}\) such that
-\(m = \frac{n}{3} + 3\).
-Since \(3\mathbb{Z} \subset \mathbb{Z}\), and
-there exists a bijection between \(\mathbb{N}\) and \(3\mathbb{Z}\), i.e.
-\(\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}\),
-there are \(\aleph_{0}\) possible values for \(m\).
-\(\blacksquare\)
+<del><b>Lemma</b>. Given \(\xcancel{x^2 + mx + n = 0}\) and \(\xcancel{x = -3}\),</del>
+<del>there are <a href="https://brilliant.org/wiki/cardinality/">countably infinite</a> possible values for \(m\) such that</del>
+<del>\(\xcancel{m,n \in \mathbb{Z}}\).</del>
+</p>
+
+<p>
+<del><i>Proof.</i></del>
+<del>Rewriting the original equation with \(\xcancel{x = -3}\),</del>
+<del>\(\xcancel{9 - 3m + n = 0 \leadsto m = \frac{n}{3} + 3}\).</del>
+<del>It follows that \(\xcancel{\forall m \in \mathbb{Z}, \exists n \in 3\mathbb{Z}}\) such that</del>
+<del>\(\xcancel{m = \frac{n}{3} + 3}\).</del>
+<del>Since \(\xcancel{3\mathbb{Z} \subset \mathbb{Z}}\), and</del>
+<del>there exists a bijection between \(\xcancel{\mathbb{N}}\) and \(\xcancel{3\mathbb{Z}}\), i.e.</del>
+<del>\(\xcancel{\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}}\),</del>
+<del>there are \(\xcancel{\aleph_{0}}\) possible values for \(\xcancel{m}\).</del>
+<del>\(\xcancel{\blacksquare}\)</del>
 </p>
 
 </section>

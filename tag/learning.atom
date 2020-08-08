@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  3 January, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/learning/index.html">learning</a>, <a href="/tag/polyglot/index.html">polyglot</a>, <a href="/tag/open-source/index.html">open-source</a>
       

@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-svg.js">
+  </script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -59,14 +60,13 @@ the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang"
 Without further ado, here's a contrived example:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe">(-&lt;&gt; "testing"
+<pre class="src src-lfe">(-&lt;&gt; <span style="color: #95e454;">"testing"</span>
      (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
             (lists:duplicate 3)
             (compose #'list/1 #'lists:flatten/1)
-            (lfe_io:format '"non-updating: ~p\n"))
+            (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
      (string:substr 5)
-     (++ "winn" &lt;&gt;))
+     (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -79,17 +79,16 @@ macros for LFE.
 The wild-looking form above expands to something more like:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-lfe">(-&lt;&gt;
- (progn
+ (<span style="color: #8ac6f2; font-weight: bold;">progn</span>
    (lfe_io:format
-    '"non-updating: ~p\n"
-    (list
+    '<span style="color: #95e454;">"non-updating: ~p\n"</span>
+    (<span style="color: #e5786d;">list</span>
      (lists:flatten
-      (lists:duplicate 3 (string:substr "testing" 1 4)))))
-   "testing")
+      (lists:duplicate 3 (string:substr <span style="color: #95e454;">"testing"</span> 1 4)))))
+   <span style="color: #95e454;">"testing"</span>)
  (string:substr 5)
- (++ "winn" &lt;&gt;))
+ (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -97,22 +96,20 @@ The wild-looking form above expands to something more like:
 After that, it becomes apparent the "return track" is rather simple:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe">(++ "winn" (string:substr 5 "testing"))
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> (string:substr 5 <span style="color: #95e454;">"testing"</span>))
 </pre>
 </div>
 
 <div class="org-src-container">
-
-<pre class="src src-lfe">&gt; (-&lt;&gt; "testing"
+<pre class="src src-lfe">&gt; (-&lt;&gt; <span style="color: #95e454;">"testing"</span>
        (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
               (lists:duplicate 3)
               (compose #'list/1 #'lists:flatten/1)
-              (lfe_io:format '"non-updating: ~p\n"))
+              (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
        (string:substr 5)
-       (++ "winn" &lt;&gt;))
-non-updating: "testtesttest" ; printed
-"winning"                    ; returned
+       (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
+non-updating: <span style="color: #95e454;">"testtesttest"</span> <span style="color: #99968b;">; printed</span>
+<span style="color: #95e454;">"winning"</span>                    <span style="color: #99968b;">; returned</span>
 </pre>
 </div>
 

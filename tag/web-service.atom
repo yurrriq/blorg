@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 13 July, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/hack/index.html">hack</a>, <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/web-service/index.html">web-service</a>, <a href="/tag/open-source/index.html">open-source</a>
       
@@ -47,15 +44,15 @@ Its excruciatingly simple Clojure source looks something like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-clojure">(defroutes app
-  (GET "/" {{x-real-ip "x-real-ip"} :headers}
-    {:status  200
-     :headers {"Content-Type" "text/plain"}
-     :body    x-real-ip}))
+<pre class="src src-clojure">(<span style="color: #8ac6f2; font-weight: bold;">defroutes</span> <span style="color: #cae682;">app</span>
+  (GET <span style="color: #95e454;">"/"</span> {{x-real-ip <span style="color: #95e454;">"x-real-ip"</span>} <span style="color: #e5786d;">:headers</span>}
+    {<span style="color: #e5786d;">:status</span>  200
+     <span style="color: #e5786d;">:headers</span> {<span style="color: #95e454;">"Content-Type"</span> <span style="color: #95e454;">"text/plain"</span>}
+     <span style="color: #e5786d;">:body</span>    x-real-ip}))
 
-(defn -main [&amp; args]
-  (-&gt;&gt; (or (some-&gt; (env :port) (Integer/parseInt)) 5000)
-       (hash-map :port)
+(<span style="color: #8ac6f2; font-weight: bold;">defn</span> <span style="color: #cae682;">-main</span> [&amp; args]
+  (<span style="color: #8ac6f2; font-weight: bold;">-&gt;&gt;</span> (<span style="color: #8ac6f2; font-weight: bold;">or</span> (some-&gt; (env <span style="color: #e5786d;">:port</span>) (<span style="color: #92a65e; font-weight: bold;">Integer</span>/parseInt)) 5000)
+       (hash-map <span style="color: #e5786d;">:port</span>)
        (run-server app)))
 </pre>
 </div>

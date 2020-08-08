@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  7 September, 2018
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/darwin/index.html">darwin</a>, <a href="/tag/keyboard/index.html">keyboard</a>, <a href="/tag/security/index.html">security</a>, <a href="/tag/skhd/index.html">skhd</a>, <a href="/tag/chunkwm/index.html">chunkwm</a>
       
@@ -101,6 +98,12 @@ program to call it and try to end my troubles.
 }
 </pre>
 </div>
+
+<pre class="example">
+Secure keyboard entry is enabled.
+Secure keyboard entry is still enabled.
+
+</pre>
 
 <p>
 No such luck. I'm <a href="https://www.youtube.com/watch?v=qjGjuiFKE04">literally dying</a>.

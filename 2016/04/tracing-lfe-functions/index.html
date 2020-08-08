@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-svg.js">
+  </script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -57,13 +58,12 @@ Tracing LFE functions for debugging purposes is quite simple.
 Let's say you have the following module and want to trace one of its functions.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="math">(defmodule maths
+<pre class="src src-lfe" id="org8d1e22e">(<span style="color: #8ac6f2; font-weight: bold;">defmodule</span> <span style="color: #92a65e; font-weight: bold;">maths</span>
   (export (sum 2) (diff 2)))
 
-(defun sum (a b) (+ a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">sum</span> (a b) (<span style="color: #e5786d;">+</span> a b))
 
-(defun diff (a b) (- a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">diff</span> (a b) (<span style="color: #e5786d;">-</span> a b))
 </pre>
 </div>
 
@@ -71,14 +71,7 @@ Let's say you have the following module and want to trace one of its functions.
 Before we get started, make sure you compile the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="compile-maths">(c "/path/to/maths.lfe")
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-lfe">(#(module maths))
+<pre class="src src-lfe" id="org5a08bfb">(c <span style="color: #95e454;">"/path/to/maths.lfe"</span>)
 </pre>
 </div>
 
@@ -86,13 +79,11 @@ Before we get started, make sure you compile the <code>maths</code> module:
 Just start the tracer:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="start-the-tracer">(dbg:tracer)
+<pre class="src src-lfe" id="org3f7e922">(dbg:tracer)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok &lt;0.46.0&gt;)
 </pre>
 </div>
@@ -101,13 +92,11 @@ Just start the tracer:
 Tell the tracer you are interested in all calls for all processes:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="all-calls-for-all-processes">(dbg:p 'all 'c)
+<pre class="src src-lfe" id="org89a7b2b">(dbg:p 'all 'c)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok (#(matched nonode@nohost 26)))
 </pre>
 </div>
@@ -116,13 +105,11 @@ Tell the tracer you are interested in all calls for all processes:
 Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="trace-maths:sum/2">(dbg:tpl 'maths 'sum [])
+<pre class="src src-lfe" id="org56f348a">(dbg:tpl 'maths 'sum [])
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok (#(matched nonode@nohost 1)))
 </pre>
 </div>
@@ -131,13 +118,11 @@ Finally, tell it you want to trace the function, <code>sum</code>, from the <cod
 Now, try to call the function, as usual. The tracer is active!
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="call-maths:sum/2">(maths:sum 2 3)
+<pre class="src src-lfe" id="orgdf31a15">(maths:sum 2 3)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">5
 (&lt;0.29.0&gt;) call maths:sum(2,3)
 </pre>
@@ -147,8 +132,7 @@ Now, try to call the function, as usual. The tracer is active!
 To trace all functions from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="trace-all-functions-from-the-maths-module">&gt; (dbg:tpl 'maths [])
+<pre class="src src-lfe" id="org6668d63">&gt; (dbg:tpl 'maths [])
 </pre>
 </div>
 
@@ -156,25 +140,21 @@ To trace all functions from the <code>maths</code> module:
 To trace the return value for a given function:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="trace-return-values">(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
+<pre class="src src-lfe" id="org7452745">(dbg:tpl 'maths 'sum (<span style="color: #8ac6f2; font-weight: bold;">match-spec</span> ([_] (return_trace))))
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">#(ok (#(matched nonode@nohost 1) #(saved 1)))
 </pre>
 </div>
 
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="return_trace-example">(maths:sum 19 23)
+<pre class="src src-lfe" id="org667190d">(maths:sum 19 23)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">42
 (&lt;0.56.0&gt;) call maths:sum(19,23)
 (&lt;0.56.0&gt;) returned from maths:sum/2 -&gt; 42
@@ -185,13 +165,11 @@ To trace the return value for a given function:
 To stop the trace:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-lfe" id="stop-the-trace">(dbg:stop)
+<pre class="src src-lfe" id="org73dccf4">(dbg:stop)
 </pre>
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-lfe">ok
 </pre>
 </div>

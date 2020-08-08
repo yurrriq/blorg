@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  9 September, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/osx/index.html">osx</a>, <a href="/tag/hack/index.html">hack</a>, <a href="/tag/terminal/index.html">terminal</a>, <a href="/tag/productivity/index.html">productivity</a>
       
@@ -55,7 +52,7 @@ appropriate hex code.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">brew cask install key-codes
+<pre class="src src-fish"><span style="color: #e5786d;">brew</span> cask install key-codes
 </pre>
 </div>
 

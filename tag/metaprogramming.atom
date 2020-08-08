@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  6 August, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
       
@@ -49,13 +46,13 @@ the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang"
 Without further ado, here's a contrived example:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(-&lt;&gt; "testing"
+<pre class="src src-lfe">(-&lt;&gt; <span style="color: #95e454;">"testing"</span>
      (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
             (lists:duplicate 3)
             (compose #'list/1 #'lists:flatten/1)
-            (lfe_io:format '"non-updating: ~p\n"))
+            (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
      (string:substr 5)
-     (++ "winn" &lt;&gt;))
+     (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -69,15 +66,15 @@ The wild-looking form above expands to something more like:
 </p>
 <div class="org-src-container">
 <pre class="src src-lfe">(-&lt;&gt;
- (progn
+ (<span style="color: #8ac6f2; font-weight: bold;">progn</span>
    (lfe_io:format
-    '"non-updating: ~p\n"
-    (list
+    '<span style="color: #95e454;">"non-updating: ~p\n"</span>
+    (<span style="color: #e5786d;">list</span>
      (lists:flatten
-      (lists:duplicate 3 (string:substr "testing" 1 4)))))
-   "testing")
+      (lists:duplicate 3 (string:substr <span style="color: #95e454;">"testing"</span> 1 4)))))
+   <span style="color: #95e454;">"testing"</span>)
  (string:substr 5)
- (++ "winn" &lt;&gt;))
+ (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -85,20 +82,20 @@ The wild-looking form above expands to something more like:
 After that, it becomes apparent the "return track" is rather simple:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(++ "winn" (string:substr 5 "testing"))
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> (string:substr 5 <span style="color: #95e454;">"testing"</span>))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (-&lt;&gt; "testing"
+<pre class="src src-lfe">&gt; (-&lt;&gt; <span style="color: #95e454;">"testing"</span>
        (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
               (lists:duplicate 3)
               (compose #'list/1 #'lists:flatten/1)
-              (lfe_io:format '"non-updating: ~p\n"))
+              (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
        (string:substr 5)
-       (++ "winn" &lt;&gt;))
-non-updating: "testtesttest" ; printed
-"winning"                    ; returned
+       (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
+non-updating: <span style="color: #95e454;">"testtesttest"</span> <span style="color: #99968b;">; printed</span>
+<span style="color: #95e454;">"winning"</span>                    <span style="color: #99968b;">; returned</span>
 </pre>
 </div>
 
@@ -116,14 +113,11 @@ non-updating: "testtesttest" ; printed
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  2 January, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/clojure/index.html">clojure</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>
       
@@ -141,53 +135,53 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 
 <div class="org-src-container">
 <pre class="src src-clojure">(comment
-  ;; #'clojure.core/some-&gt; is one my favorite Clojure macros.
-  (some-&gt; (meta #'clojure.core/some-&gt;) :doc println)
-  ;; When expr is not nil, threads it into the first form (via -&gt;),
-  ;; and when that result is not nil, through the next etc
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>
+  (some-&gt; (meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span>/some-&gt;) <span style="color: #e5786d;">:doc</span> println)
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">When expr is not nil, threads it into the first form (via -&gt;),</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">and when that result is not nil, through the next etc</span>
 
-  (macroexpand '(some-&gt; (meta #'clojure.core/some-&gt;) :doc println))
+  (macroexpand '(some-&gt; (meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span>/some-&gt;) <span style="color: #e5786d;">:doc</span> println))
 
-  (let* [G__2986 (meta (var clojure.core/some-&gt;))
-         G__2986 (if (clojure.core/nil? G__2986)
-                   nil
-                   (clojure.core/-&gt; G__2986 :doc))
-         G__2986 (if (clojure.core/nil? G__2986)
-                   nil
-                   (clojure.core/-&gt; G__2986 println))]
+  (<span style="color: #8ac6f2; font-weight: bold;">let*</span> [G__2986 (meta (<span style="color: #8ac6f2; font-weight: bold;">var</span> <span style="color: #92a65e; font-weight: bold;">clojure.core</span>/some-&gt;))
+         G__2986 (<span style="color: #8ac6f2; font-weight: bold;">if</span> (<span style="color: #92a65e; font-weight: bold;">clojure.core</span>/nil? G__2986)
+                   <span style="color: #e5786d;">nil</span>
+                   (<span style="color: #92a65e; font-weight: bold;">clojure.core</span>/<span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> G__2986 <span style="color: #e5786d;">:doc</span>))
+         G__2986 (<span style="color: #8ac6f2; font-weight: bold;">if</span> (<span style="color: #92a65e; font-weight: bold;">clojure.core</span>/nil? G__2986)
+                   <span style="color: #e5786d;">nil</span>
+                   (<span style="color: #92a65e; font-weight: bold;">clojure.core</span>/<span style="color: #8ac6f2; font-weight: bold;">-&gt;</span> G__2986 println))]
     G__2986)
 
-  ;; Rewritten more readably to illustrate the point:
-  (let [example (meta #'clojure.core/some-&gt;)
-        example (when-not (nil? example)
-                  (:doc example))
-        example (when-not (nil? example)
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Rewritten more readably to illustrate the point:</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">let</span> [example (meta #'<span style="color: #92a65e; font-weight: bold;">clojure.core</span>/some-&gt;)
+        example (<span style="color: #8ac6f2; font-weight: bold;">when-not</span> (nil? example)
+                  (<span style="color: #e5786d;">:doc</span> example))
+        example (<span style="color: #8ac6f2; font-weight: bold;">when-not</span> (nil? example)
                   (println example))]
     example)
 
-  ;; Which brings me to another of my scattered thoughts,
-  ;; Clojure has the #'clojure.core/when-not macro, but
-  ;; for some reason, I find myself wanting to use 'unless,
-  ;; as in Common Lisp:
-  (defmacro unless (condition &amp;rest body)
-    `(if (not ,condition) (progn ,@body)))
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Which brings me to another of my scattered thoughts,</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Clojure has the #'clojure.core/when-not macro, but</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">for some reason, I find myself wanting to use 'unless,</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">as in Common Lisp:</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span> (condition &amp;rest body)
+    `(<span style="color: #8ac6f2; font-weight: bold;">if</span> (not ,condition) (progn ,@body)))
 
-  ;; What better excuse to start writing my own macros?
-  (ns fastidious.macros)
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">What better excuse to start writing my own macros?</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">fastidious.macros</span>)
 
-  (defmacro unless
-    [condition &amp; body] `(if (not ~condition) (do ~@body)))
+  (<span style="color: #8ac6f2; font-weight: bold;">defmacro</span> <span style="color: #cae682;">unless</span>
+    [condition &amp; body] `(<span style="color: #8ac6f2; font-weight: bold;">if</span> (not ~condition) (<span style="color: #8ac6f2; font-weight: bold;">do</span> ~@body)))
 
-  ;; Side bonus: I used my desire for 'unless to drive
-  ;; my experiments in integrating macros in ClojureScript,
-  ;; with underwhelming success. It just works.
-  (ns client.core
-    (:require-macros [fastidious.macros :refer [unless]]))
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Side bonus: I used my desire for 'unless to drive</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">my experiments in integrating macros in ClojureScript,</span>
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">with underwhelming success. It just works.</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">ns</span> <span style="color: #92a65e; font-weight: bold;">client.core</span>
+    (<span style="color: #e5786d;">:require-macros</span> [fastidious.macros <span style="color: #e5786d;">:refer</span> [unless]]))
 
-  (let [lisp-is-lame? false]
+  (<span style="color: #8ac6f2; font-weight: bold;">let</span> [lisp-is-lame? <span style="color: #e5786d;">false</span>]
     (unless lisp-is-lame?
-      (println "IFL Lisp.")
-      (println "Next up: /c[ad]{1,5}r/"))))
+      (println <span style="color: #95e454;">"IFL Lisp."</span>)
+      (println <span style="color: #95e454;">"Next up: /c[ad]{1,5}r/"</span>))))
 </pre>
 </div>
 

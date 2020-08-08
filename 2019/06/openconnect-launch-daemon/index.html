@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-svg.js">
+  </script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -52,9 +53,9 @@ blog post, <a href="https://ashgillman.github.io/2017/02/14/openconnect-launchd.
 which this is based.
 </p>
 
-<div id="outline-container-org7804262" class="outline-2">
-<h2 id="org7804262">OpenConnect Wrapper</h2>
-<div class="outline-text-2" id="text-org7804262">
+<div id="outline-container-org7f77712" class="outline-2">
+<h2 id="org7f77712">OpenConnect Wrapper</h2>
+<div class="outline-text-2" id="text-org7f77712">
 <p>
 Define a function <code>handler</code> to send an <code>INT</code> signal to <code>$PID</code>, then <code>trap</code>
 <code>TERM</code> signals and call <code>handler</code> instead, which will enable ending an
@@ -90,9 +91,9 @@ capturing its PID and <code>wait</code>-ing for it.
 </div>
 </div>
 
-<div id="outline-container-org8372b8c" class="outline-2">
-<h2 id="org8372b8c">Password File</h2>
-<div class="outline-text-2" id="text-org8372b8c">
+<div id="outline-container-orge179f71" class="outline-2">
+<h2 id="orge179f71">Password File</h2>
+<div class="outline-text-2" id="text-orge179f71">
 <p>
 Store the password (without a trailing newline) in a file,
 <code>/etc/openconnect/passwd</code>, owned by <code>root</code>.
@@ -108,9 +109,9 @@ Remove read/write access from all but <code>root</code>.
 </div>
 </div>
 
-<div id="outline-container-orge5907a8" class="outline-2">
-<h2 id="orge5907a8">Launch Daemon</h2>
-<div class="outline-text-2" id="text-orge5907a8">
+<div id="outline-container-orgc77fd06" class="outline-2">
+<h2 id="orgc77fd06">Launch Daemon</h2>
+<div class="outline-text-2" id="text-orgc77fd06">
 <p>
 Set up a launch daemon by creating a property list file,
 <code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.

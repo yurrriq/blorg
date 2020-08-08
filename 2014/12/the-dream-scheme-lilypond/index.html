@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-svg.js">
+  </script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -65,11 +66,10 @@ music as trees</a>.
 <b>Note to self</b>: Dive deeper into <a href="http://lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/">these</a> <a href="http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/">pertinent</a> <a href="http://lilypondblog.org/2014/04/music-functions-3-reusing-code/">blog</a> <a href="http://lilypondblog.org/2014/04/music-functions-4-recursion/">posts</a> ASAP.
 </p>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><a href="https://github.com/yurrriq/blorg/tree/master/code/the_dream.scm"><code>the_dream.scm</code></a></h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org7524e2b" class="outline-2">
+<h2 id="org7524e2b"><a href="https://github.com/yurrriq/blorg/tree/master/code/the_dream.scm"><code>the_dream.scm</code></a></h2>
+<div class="outline-text-2" id="text-org7524e2b">
 <div class="org-src-container">
-
 <pre class="src src-scheme">(<span style="color: #8ac6f2; font-weight: bold;">define</span> <span style="color: #cae682;">riffs</span>
   (make-hash-table 4))
 
@@ -112,30 +112,29 @@ music as trees</a>.
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><a href="https://github.com/yurrriq/blorg/tree/master/code/the_dream.ly"><code>the_dream.ly</code></a></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org08ea2d8" class="outline-2">
+<h2 id="org08ea2d8"><a href="https://github.com/yurrriq/blorg/tree/master/code/the_dream.ly"><code>the_dream.ly</code></a></h2>
+<div class="outline-text-2" id="text-org08ea2d8">
 <div class="org-src-container">
+<pre class="src src-LilyPond"><span style="color: #8ac6f2; font-weight: bold;">\version</span> <span style="color: #95e454;">"2.18.2"</span>
+<span style="color: #8ac6f2; font-weight: bold;">\include</span> <span style="color: #95e454;">"lilypond-book-preamble.ly"</span>
+<span style="color: #8ac6f2; font-weight: bold;">\paper</span> <span style="color: #e5786d;">{</span> <span style="color: #cae682;">oddFooterMarkup</span> = <span style="color: #95e454;">##f</span> <span style="color: #e5786d;">}</span>
 
-<pre class="src src-lilypond">\version "nil"
-\include "lilypond-book-preamble.ly"
-\paper { oddFooterMarkup = ##f }
+<span style="color: #95e454;">#(load "the_dream.scm")</span>
 
-#(load "the_dream.scm")
-
-\score {
-  \relative c' {
-    #(hashq-ref riffs 'I)
-    \break
-    #(hashq-ref riffs 'IV)
-    #(hashq-ref riffs 'I')
-    \break
-    #(hashq-ref riffs 'V)
-    #(hashq-ref riffs 'turnaround)
-    \bar "|."
-  }
-  \layout { indent = 0 }
-}
+<span style="color: #8ac6f2; font-weight: bold;">\score</span> <span style="color: #e5786d;">{</span>
+  <span style="color: #8ac6f2; font-weight: bold;">\relative</span> <span style="color: #92a65e; font-weight: bold;">c'</span> <span style="color: #e5786d;">{</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'I)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">\break</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'IV)</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'I')</span>
+    <span style="color: #8ac6f2; font-weight: bold;">\break</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'V)</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'turnaround)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">\bar</span> <span style="color: #95e454;">"|."</span>
+  <span style="color: #e5786d;">}</span>
+  <span style="color: #8ac6f2; font-weight: bold;">\layout</span> <span style="color: #e5786d;">{</span> <span style="color: #cae682;">indent</span> = <span style="color: #cae682;">0</span> <span style="color: #e5786d;">}</span>
+<span style="color: #e5786d;">}</span>
 </pre>
 </div>
 
@@ -146,12 +145,28 @@ it to <code>2.18.x</code> if you're not <a href="http://lilypond.org/development
 </div>
 </div>
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Generate the PNG</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org20db58a" class="outline-2">
+<h2 id="org20db58a">Generate the PNG</h2>
+<div class="outline-text-2" id="text-org20db58a">
 <div class="org-src-container">
+<pre class="src src-sh" id="org7b1de86">lilypond --png -dresolution=200 -o output the_dream
+</pre>
+</div>
 
-<pre class="src src-sh" id="generate-png">lilypond --png -dresolution=200 -o output the_dream
+<div class="org-src-container">
+<pre class="src src-sh" id="org98816a7">mv output.png ../img/the-dream-scheme-lilypond.png
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org882e9d2">rm output*.{eps,count,tex*}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="orgae16abd">lilypond --png -dresolution=200 -o output the_dream
+mv output.png ../img/the-dream-scheme-lilypond.png
+rm output*.{eps,count,tex*}
 </pre>
 </div>
 </div>

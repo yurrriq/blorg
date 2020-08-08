@@ -20,14 +20,11 @@
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 12 April, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
       
@@ -47,12 +44,12 @@ Tracing LFE functions for debugging purposes is quite simple.
 Let's say you have the following module and want to trace one of its functions.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org0146c20">(defmodule maths
+<pre class="src src-lfe" id="org8d1e22e">(<span style="color: #8ac6f2; font-weight: bold;">defmodule</span> <span style="color: #92a65e; font-weight: bold;">maths</span>
   (export (sum 2) (diff 2)))
 
-(defun sum (a b) (+ a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">sum</span> (a b) (<span style="color: #e5786d;">+</span> a b))
 
-(defun diff (a b) (- a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">diff</span> (a b) (<span style="color: #e5786d;">-</span> a b))
 </pre>
 </div>
 
@@ -60,7 +57,7 @@ Let's say you have the following module and want to trace one of its functions.
 Before we get started, make sure you compile the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org0c18fe2">(c "/path/to/maths.lfe")
+<pre class="src src-lfe" id="org5a08bfb">(c <span style="color: #95e454;">"/path/to/maths.lfe"</span>)
 </pre>
 </div>
 
@@ -68,7 +65,7 @@ Before we get started, make sure you compile the <code>maths</code> module:
 Just start the tracer:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org8a06fd9">(dbg:tracer)
+<pre class="src src-lfe" id="org3f7e922">(dbg:tracer)
 </pre>
 </div>
 
@@ -81,7 +78,7 @@ Just start the tracer:
 Tell the tracer you are interested in all calls for all processes:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org83deebc">(dbg:p 'all 'c)
+<pre class="src src-lfe" id="org89a7b2b">(dbg:p 'all 'c)
 </pre>
 </div>
 
@@ -94,7 +91,7 @@ Tell the tracer you are interested in all calls for all processes:
 Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org75eadc3">(dbg:tpl 'maths 'sum [])
+<pre class="src src-lfe" id="org56f348a">(dbg:tpl 'maths 'sum [])
 </pre>
 </div>
 
@@ -107,7 +104,7 @@ Finally, tell it you want to trace the function, <code>sum</code>, from the <cod
 Now, try to call the function, as usual. The tracer is active!
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org7ac275e">(maths:sum 2 3)
+<pre class="src src-lfe" id="orgdf31a15">(maths:sum 2 3)
 </pre>
 </div>
 
@@ -121,7 +118,7 @@ Now, try to call the function, as usual. The tracer is active!
 To trace all functions from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgec039b9">&gt; (dbg:tpl 'maths [])
+<pre class="src src-lfe" id="org6668d63">&gt; (dbg:tpl 'maths [])
 </pre>
 </div>
 
@@ -129,7 +126,7 @@ To trace all functions from the <code>maths</code> module:
 To trace the return value for a given function:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgb4eeab7">(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
+<pre class="src src-lfe" id="org7452745">(dbg:tpl 'maths 'sum (<span style="color: #8ac6f2; font-weight: bold;">match-spec</span> ([_] (return_trace))))
 </pre>
 </div>
 
@@ -139,7 +136,7 @@ To trace the return value for a given function:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe" id="org73f07db">(maths:sum 19 23)
+<pre class="src src-lfe" id="org667190d">(maths:sum 19 23)
 </pre>
 </div>
 
@@ -154,7 +151,7 @@ To trace the return value for a given function:
 To stop the trace:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org0b4dabe">(dbg:stop)
+<pre class="src src-lfe" id="org73dccf4">(dbg:stop)
 </pre>
 </div>
 
@@ -177,14 +174,11 @@ To stop the trace:
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 11 February, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
       
@@ -212,7 +206,7 @@ recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang">rebar_base_compiler:run(Opts, [], Files, DoCompile).
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Opts</span>, [], <span style="color: #cae682;">Files</span>, <span style="color: #cae682;">DoCompile</span>).
 </pre>
 </div>
 
@@ -225,9 +219,9 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang">rebar_base_compiler:run(Config, FirstFiles,
-                        SourceDir, ".lfe", TargetDir, ".beam",
-                        fun compile/3).
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Config</span>, <span style="color: #cae682;">FirstFiles</span>,
+                        <span style="color: #cae682;">SourceDir</span>, <span style="color: #95e454;">".lfe"</span>, <span style="color: #cae682;">TargetDir</span>, <span style="color: #95e454;">".beam"</span>,
+                        <span style="color: #8ac6f2; font-weight: bold;">fun</span> <span style="color: #92a65e; font-weight: bold;">compile/3</span>).
 </pre>
 </div>
 
@@ -296,14 +290,11 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  1 January, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
       
@@ -317,30 +308,33 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 </p>
 </pre>
 
-<a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">
 <div class="org-src-container">
-<pre class="src src-lfe">(progn
-  (include-lib "clj/include/compose.lfe") ; Clojure threading macros
-  (-&gt; (lodox-parse:docs #"lodox")         ; lodox docs map, generated by lodox
-      (mref 'modules)                     ; lodox modules (Maclisp)
-      (cadddr)                            ; 4th module =:= lodox-parse (CL)
-      (mref 'exports)                     ; lodox-parse exports (Maclisp)
-      (hd)                                ; first function =:= docs/1 (Erlang)
-      (mref 'doc)                         ; docstring of docs/1
-      (list_to_binary)                    ; string-&gt;binary
-      (Elixir.Markdown:to_html            ; Elixir app wrapping C lib
-       '[#(fenced_code true)])))          ; as in GitHub Flavored Markdown
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">progn</span>
+  (include-lib <span style="color: #95e454;">"clj/include/compose.lfe"</span>) <span style="color: #99968b;">; Clojure threading macros</span>
+  (-&gt; (lodox-parse:docs #<span style="color: #95e454;">"lodox"</span>)         <span style="color: #99968b;">; lodox docs map, generated by lodox</span>
+      (<span style="color: #e5786d;">mref</span> 'modules)                     <span style="color: #99968b;">; lodox modules (Maclisp)</span>
+      (cadddr)                            <span style="color: #99968b;">; 4th module =:= lodox-parse (CL)</span>
+      (<span style="color: #e5786d;">mref</span> 'exports)                     <span style="color: #99968b;">; lodox-parse exports (Maclisp)</span>
+      (<span style="color: #e5786d;">hd</span>)                                <span style="color: #99968b;">; first function =:= docs/1 (Erlang)</span>
+      (<span style="color: #e5786d;">mref</span> 'doc)                         <span style="color: #99968b;">; docstring of docs/1</span>
+      (list_to_binary)                    <span style="color: #99968b;">; string-&gt;binary</span>
+      (Elixir.Markdown:to_html            <span style="color: #99968b;">; Elixir app wrapping C lib</span>
+       '[#(fenced_code true)])))          <span style="color: #99968b;">; as in GitHub Flavored Markdown</span>
 </pre>
 </div>
-</a>
+
+<p>
+<a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">Source</a>
+</p>
+
 
 <p>
 Gott nytt år!
 </p>
 
-<div id="outline-container-orgfa7bc2d" class="outline-2">
-<h2 id="orgfa7bc2d">References</h2>
-<div class="outline-text-2" id="text-orgfa7bc2d">
+<div id="outline-container-org2896b02" class="outline-2">
+<h2 id="org2896b02">References</h2>
+<div class="outline-text-2" id="text-org2896b02">
 <ul class="org-ul">
 <li><a href="https://github.com/lfex/clj#future-">clj: Clojure functions and macros for LFE</a></li>
 <li><a href="https://github.com/quasiquoting/lodox">Lodox: Like Codox for LFE</a></li>
@@ -368,14 +362,11 @@ Gott nytt år!
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 28 December, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/pattern-matching/index.html">pattern-matching</a>, <a href="/tag/open-source/index.html">open-source</a>
       
@@ -388,17 +379,17 @@ While writing an LFE solution for <a href="http://adventofcode.com/day/6">Day 6 
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang">parse_instruction("toggle " ++ Rest) -&gt; toggle(parse_coordinates(Rest));
-parse_instruction("turn on " ++ Rest) -&gt; turn_on(parse_coordinates(Rest));
-parse_instruction("turn off " ++ Rest) -&gt; turn_off(parse_coordinates(Rest)).
+<pre class="src src-erlang"><span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"toggle "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">toggle</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
+<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn on "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_on</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>));
+<span style="color: #cae682;">parse_instruction</span>(<span style="color: #95e454;">"turn off "</span> ++ <span style="color: #cae682;">Rest</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_off</span>(<span style="color: #92a65e; font-weight: bold;">parse_coordinates</span>(<span style="color: #cae682;">Rest</span>)).
 
-parse_coordinates(String) -&gt;
-  {ok,[X0,Y0,X1,Y2],[]} = io_lib:fread("~d,~d through ~d,~d", String),
-  {{X0,Y0},{X1,Y1}}.
+<span style="color: #cae682;">parse_coordinates</span>(<span style="color: #cae682;">String</span>) -&gt;
+  {ok,[<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>,<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y2</span>],[]} = <span style="color: #92a65e; font-weight: bold;">io_lib</span>:<span style="color: #92a65e; font-weight: bold;">fread</span>(<span style="color: #95e454;">"~d,~d through ~d,~d"</span>, <span style="color: #cae682;">String</span>),
+  {{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}.
 
-toggle({{X0,Y0},{X1,Y1}}) -&gt; undefined.
-turn_on({{X0,Y0},{X1,Y1}}) -&gt; undefined.
-turn_off({{X0,Y0},{X1,Y1}}) -&gt; undefined.
+<span style="color: #cae682;">toggle</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_on</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_off</span>({{<span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>},{<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span>}}) -&gt;<span style="color: #cae682;"> </span>undefined.
 </pre>
 </div>
 
@@ -406,8 +397,8 @@ turn_off({{X0,Y0},{X1,Y1}}) -&gt; undefined.
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(defun parse-instruction
-  ([(++ "turn off " rest)]
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">parse-instruction</span>
+  ([(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"turn off "</span> rest)]
    ...))
 </pre>
 </div>
@@ -416,9 +407,9 @@ But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/
 Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (defun f ([(++ "prefix" suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"prefix"</span> suffix)] suffix))
 f
-&gt; (f "prefixsuffix")
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
 exception error: function_clause
 </pre>
 </div>
@@ -434,8 +425,8 @@ a solid approach.
 N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang">%% Cases with lists of numbers (strings).
-[[N|Ns]|Es] when is_number(N) -&gt; [cons,N,['++',Ns|Es]];
+<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">Cases with lists of numbers (strings).</span>
+[[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>] <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
 </pre>
 </div>
 
@@ -449,15 +440,15 @@ decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep 
 The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang">%% exp_predef(...) -&gt; ...;
-exp_predef(['++*'|Abody], _, St) -&gt;
-  Exp = exp_prefix(Abody),
-  {yes,Exp,St};
-%% exp_predef(...) -&gt; ....
+<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ...;</span>
+<span style="color: #cae682;">exp_predef</span>([<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Abody</span>], <span style="color: #cae682;">_</span>, <span style="color: #cae682;">St</span>) -&gt;
+  <span style="color: #cae682;">Exp</span> = <span style="color: #92a65e; font-weight: bold;">exp_prefix</span>(<span style="color: #cae682;">Abody</span>),
+  {yes,<span style="color: #cae682;">Exp</span>,<span style="color: #cae682;">St</span>};
+<span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ....</span>
 
-exp_prefix([[N|Ns]|Es]) when is_number(N) -&gt; [cons,N,['++*',Ns|Es]];
-exp_prefix([[]|Es]) -&gt; ['++*'|Es];
-exp_prefix(Args) -&gt; exp_append(Args).
+<span style="color: #cae682;">exp_prefix</span>([[<span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span>]|<span style="color: #cae682;">Es</span>]) <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span>(<span style="color: #cae682;">N</span>) -&gt;<span style="color: #cae682;"> </span>[cons,<span style="color: #cae682;">N</span>,[<span style="color: #95e454;">'++*'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span>]];
+<span style="color: #cae682;">exp_prefix</span>([[]|<span style="color: #cae682;">Es</span>]) -&gt;<span style="color: #cae682;"> </span>[<span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Es</span>];
+<span style="color: #cae682;">exp_prefix</span>(<span style="color: #cae682;">Args</span>) -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">exp_append</span>(<span style="color: #cae682;">Args</span>).
 </pre>
 </div>
 
@@ -465,10 +456,10 @@ exp_prefix(Args) -&gt; exp_append(Args).
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (defun f ([(++* "prefix" suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++*</span> <span style="color: #95e454;">"prefix"</span> suffix)] suffix))
 f
-&gt; (f "prefixsuffix")
-"suffix"
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
+<span style="color: #95e454;">"suffix"</span>
 </pre>
 </div>
 
@@ -476,10 +467,10 @@ f
 or even:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (defun f ([(++* "p" "r" "e" "f" "i" "x" suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++*</span> <span style="color: #95e454;">"p"</span> <span style="color: #95e454;">"r"</span> <span style="color: #95e454;">"e"</span> <span style="color: #95e454;">"f"</span> <span style="color: #95e454;">"i"</span> <span style="color: #95e454;">"x"</span> suffix)] suffix))
 f
-&gt; (f "prefixsuffix")
-"suffix"
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
+<span style="color: #95e454;">"suffix"</span>
 </pre>
 </div>
 
@@ -497,14 +488,11 @@ f
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 10 August, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>
       
@@ -519,8 +507,8 @@ singleton list, <code>head</code> holds the single element and <code>tail</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (let ((`(,head . ,tail) '(a-single-element)))
-    (lfe_io:format '"Head: ~w~nTail: ~w~n" `(,head ,tail)))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((`(,head . ,tail) '(a-single-element)))
+    (lfe_io:format '<span style="color: #95e454;">"Head: ~w~nTail: ~w~n"</span> `(,head ,tail)))
 </pre>
 </div>
 
@@ -537,7 +525,7 @@ the same atom.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (=:= (cons 'a-single-element '()) '(a-single-element))
+<pre class="src src-lfe">&gt; (<span style="color: #e5786d;">=:=</span> (<span style="color: #e5786d;">cons</span> 'a-single-element '()) '(a-single-element))
 </pre>
 </div>
 
@@ -559,14 +547,11 @@ true
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  6 August, 2015
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/metaprogramming/index.html">metaprogramming</a>, <a href="/tag/open-source/index.html">open-source</a>
       
@@ -588,13 +573,13 @@ the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang"
 Without further ado, here's a contrived example:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(-&lt;&gt; "testing"
+<pre class="src src-lfe">(-&lt;&gt; <span style="color: #95e454;">"testing"</span>
      (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
             (lists:duplicate 3)
             (compose #'list/1 #'lists:flatten/1)
-            (lfe_io:format '"non-updating: ~p\n"))
+            (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
      (string:substr 5)
-     (++ "winn" &lt;&gt;))
+     (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -608,15 +593,15 @@ The wild-looking form above expands to something more like:
 </p>
 <div class="org-src-container">
 <pre class="src src-lfe">(-&lt;&gt;
- (progn
+ (<span style="color: #8ac6f2; font-weight: bold;">progn</span>
    (lfe_io:format
-    '"non-updating: ~p\n"
-    (list
+    '<span style="color: #95e454;">"non-updating: ~p\n"</span>
+    (<span style="color: #e5786d;">list</span>
      (lists:flatten
-      (lists:duplicate 3 (string:substr "testing" 1 4)))))
-   "testing")
+      (lists:duplicate 3 (string:substr <span style="color: #95e454;">"testing"</span> 1 4)))))
+   <span style="color: #95e454;">"testing"</span>)
  (string:substr 5)
- (++ "winn" &lt;&gt;))
+ (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -624,20 +609,20 @@ The wild-looking form above expands to something more like:
 After that, it becomes apparent the "return track" is rather simple:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(++ "winn" (string:substr 5 "testing"))
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> (string:substr 5 <span style="color: #95e454;">"testing"</span>))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (-&lt;&gt; "testing"
+<pre class="src src-lfe">&gt; (-&lt;&gt; <span style="color: #95e454;">"testing"</span>
        (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
               (lists:duplicate 3)
               (compose #'list/1 #'lists:flatten/1)
-              (lfe_io:format '"non-updating: ~p\n"))
+              (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
        (string:substr 5)
-       (++ "winn" &lt;&gt;))
-non-updating: "testtesttest" ; printed
-"winning"                    ; returned
+       (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
+non-updating: <span style="color: #95e454;">"testtesttest"</span> <span style="color: #99968b;">; printed</span>
+<span style="color: #95e454;">"winning"</span>                    <span style="color: #99968b;">; returned</span>
 </pre>
 </div>
 

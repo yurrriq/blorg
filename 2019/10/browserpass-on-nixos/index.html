@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-svg.js">
+  </script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -59,6 +60,13 @@ application README</a>.
 <pre class="src src-bash">make -C /run/current-system/sw/lib/browserpass <span style="color: #cae682;">DESTDIR</span>=/run/current-system/sw hosts-firefox-user
 </pre>
 </div>
+
+<pre class="example">
+make: Entering directory '/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'
+'/home/yurrriq/.mozilla/native-messaging-hosts/com.github.browserpass.native.json' -&gt; '/run/current-system/sw/lib/browserpass/hosts/firefox/com.github.browserpass.native.json'
+make: Leaving directory '/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'
+
+</pre>
 
 </section>
 

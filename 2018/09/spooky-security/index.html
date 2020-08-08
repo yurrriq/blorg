@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-svg.js">
+  </script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -53,7 +54,6 @@ modified slightly here.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">ioreg -lw 0 <span style="color: #95e454;">\</span>
     | perl -nle <span style="color: #95e454;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="color: #95e454;">\</span>
     | uniq <span style="color: #95e454;">\</span>
@@ -94,7 +94,6 @@ program to call it and try to end my troubles.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #95e454;">&lt;Carbon/Carbon.h&gt;</span>
 
 
@@ -117,6 +116,7 @@ program to call it and try to end my troubles.
 <pre class="example">
 Secure keyboard entry is enabled.
 Secure keyboard entry is still enabled.
+
 </pre>
 
 <p>

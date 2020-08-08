@@ -34,7 +34,7 @@
 <section>
   <p>
 On the first page of <a href="https://www.dccomics.com/talent/tom-king">Tom King</a>'s <a href="https://www.dccomics.com/comics/strange-adventures-2020/strange-adventures-2">Strange Adventures #2</a>
-there is an example of <a href="https://reddit.com/r/badmathematics">bad mathematics</a>.
+<del>there is an example of <a href="https://reddit.com/r/badmath">bad mathematics</a>.</del>
 </p>
 
 <p>
@@ -69,28 +69,43 @@ CORRECT.
 </p>
 </blockquote>
 
+<hr>
+
 <p>
-But that's not quite right, or at least it's misleading.
-While \(6\) is a possible value for \(m\), it's not the only one.
+<b>Update (3 August, 2020)</b>: It turns out <i>I'm</i> the one <a href="https://www.reddit.com/r/badmathematics/comments/i28ukc/strange_mathematics/">bad mathematics</a> (and sleep hygiene).
 </p>
 
 <p>
-<b>Lemma</b>. Given \(x^2 + mx + n = 0\) and \(x = -3\),
-there are <a href="https://brilliant.org/wiki/cardinality/">countably infinite</a> possible values for \(m\) such that
-\(m,n \in \mathbb{Z}\).
+Given \(x^2 + mx + n = 0\) and the only possible value of \(x\) is \(-3\),
+\((x + 3)\) is a root of <a href="https://mathworld.wolfram.com/Multiplicity.html">multiplicity</a> \(2\).
+Thus the factorization is \((x + 3)(x + 3)\), which exapnds to \(x^2 + 6x + 9\).
+Thus \(m = 6\), just as <a href="https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)">Mister Terrific</a> said. 🤦
+</p>
+
+<hr>
+
+<p>
+<del>But that's not quite right, or at least it's misleading.</del>
+<del>While \(\xcancel{6}\) is a possible value for \(\xcancel{m}\), it's not the only one.</del>
 </p>
 
 <p>
-<i>Proof.</i>
-Rewriting the original equation with \(x = -3\),
-\(9 - 3m + n = 0 \leadsto m = \frac{n}{3} + 3\).
-It follows that \(\forall m \in \mathbb{Z}, \exists n \in 3\mathbb{Z}\) such that
-\(m = \frac{n}{3} + 3\).
-Since \(3\mathbb{Z} \subset \mathbb{Z}\), and
-there exists a bijection between \(\mathbb{N}\) and \(3\mathbb{Z}\), i.e.
-\(\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}\),
-there are \(\aleph_{0}\) possible values for \(m\).
-\(\blacksquare\)
+<del><b>Lemma</b>. Given \(\xcancel{x^2 + mx + n = 0}\) and \(\xcancel{x = -3}\),</del>
+<del>there are <a href="https://brilliant.org/wiki/cardinality/">countably infinite</a> possible values for \(m\) such that</del>
+<del>\(\xcancel{m,n \in \mathbb{Z}}\).</del>
+</p>
+
+<p>
+<del><i>Proof.</i></del>
+<del>Rewriting the original equation with \(\xcancel{x = -3}\),</del>
+<del>\(\xcancel{9 - 3m + n = 0 \leadsto m = \frac{n}{3} + 3}\).</del>
+<del>It follows that \(\xcancel{\forall m \in \mathbb{Z}, \exists n \in 3\mathbb{Z}}\) such that</del>
+<del>\(\xcancel{m = \frac{n}{3} + 3}\).</del>
+<del>Since \(\xcancel{3\mathbb{Z} \subset \mathbb{Z}}\), and</del>
+<del>there exists a bijection between \(\xcancel{\mathbb{N}}\) and \(\xcancel{3\mathbb{Z}}\), i.e.</del>
+<del>\(\xcancel{\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}}\),</del>
+<del>there are \(\xcancel{\aleph_{0}}\) possible values for \(\xcancel{m}\).</del>
+<del>\(\xcancel{\blacksquare}\)</del>
 </p>
 
 </section>
@@ -134,6 +149,13 @@ application README</a>.
 </pre>
 </div>
 
+<pre class="example">
+make: Entering directory '/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'
+'/home/yurrriq/.mozilla/native-messaging-hosts/com.github.browserpass.native.json' -&gt; '/run/current-system/sw/lib/browserpass/hosts/firefox/com.github.browserpass.native.json'
+make: Leaving directory '/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'
+
+</pre>
+
 </section>
 ]]></summary>
 </entry>
@@ -167,9 +189,9 @@ blog post, <a href="https://ashgillman.github.io/2017/02/14/openconnect-launchd.
 which this is based.
 </p>
 
-<div id="outline-container-org46222fd" class="outline-2">
-<h2 id="org46222fd">OpenConnect Wrapper</h2>
-<div class="outline-text-2" id="text-org46222fd">
+<div id="outline-container-org7f77712" class="outline-2">
+<h2 id="org7f77712">OpenConnect Wrapper</h2>
+<div class="outline-text-2" id="text-org7f77712">
 <p>
 Define a function <code>handler</code> to send an <code>INT</code> signal to <code>$PID</code>, then <code>trap</code>
 <code>TERM</code> signals and call <code>handler</code> instead, which will enable ending an
@@ -205,9 +227,9 @@ capturing its PID and <code>wait</code>-ing for it.
 </div>
 </div>
 
-<div id="outline-container-org40f5789" class="outline-2">
-<h2 id="org40f5789">Password File</h2>
-<div class="outline-text-2" id="text-org40f5789">
+<div id="outline-container-orge179f71" class="outline-2">
+<h2 id="orge179f71">Password File</h2>
+<div class="outline-text-2" id="text-orge179f71">
 <p>
 Store the password (without a trailing newline) in a file,
 <code>/etc/openconnect/passwd</code>, owned by <code>root</code>.
@@ -223,9 +245,9 @@ Remove read/write access from all but <code>root</code>.
 </div>
 </div>
 
-<div id="outline-container-orgf3e5a70" class="outline-2">
-<h2 id="orgf3e5a70">Launch Daemon</h2>
-<div class="outline-text-2" id="text-orgf3e5a70">
+<div id="outline-container-orgc77fd06" class="outline-2">
+<h2 id="orgc77fd06">Launch Daemon</h2>
+<div class="outline-text-2" id="text-orgc77fd06">
 <p>
 Set up a launch daemon by creating a property list file,
 <code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.
@@ -459,7 +481,7 @@ following snippet.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c" id="orgf8e23a4">x = 10;
+<pre class="src src-c" id="org99ef093">x = 10;
 y = ++x + --x;
 </pre>
 </div>
@@ -468,7 +490,7 @@ y = ++x + --x;
 For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="orgd7960bd"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
+<pre class="src src-c" id="org48a0f8a"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -476,7 +498,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org5bc9183">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
+<pre class="src src-c" id="org6d60b89">printf(<span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y);
 </pre>
 </div>
 
@@ -783,14 +805,11 @@ Tidying up a bit for my taste, we arrive at the complete (and total) definition:
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 29 May, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/blogging/index.html">blogging</a>, <a href="/tag/haskell/index.html">haskell</a>, <a href="/tag/open-source/index.html">open-source</a>
       
@@ -873,14 +892,11 @@ Good riddance.
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 12 April, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/tracing/index.html">tracing</a>, <a href="/tag/debugging/index.html">debugging</a>
       
@@ -900,12 +916,12 @@ Tracing LFE functions for debugging purposes is quite simple.
 Let's say you have the following module and want to trace one of its functions.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org0146c20">(defmodule maths
+<pre class="src src-lfe" id="org8d1e22e">(<span style="color: #8ac6f2; font-weight: bold;">defmodule</span> <span style="color: #92a65e; font-weight: bold;">maths</span>
   (export (sum 2) (diff 2)))
 
-(defun sum (a b) (+ a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">sum</span> (a b) (<span style="color: #e5786d;">+</span> a b))
 
-(defun diff (a b) (- a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">diff</span> (a b) (<span style="color: #e5786d;">-</span> a b))
 </pre>
 </div>
 
@@ -913,7 +929,7 @@ Let's say you have the following module and want to trace one of its functions.
 Before we get started, make sure you compile the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org0c18fe2">(c "/path/to/maths.lfe")
+<pre class="src src-lfe" id="org5a08bfb">(c <span style="color: #95e454;">"/path/to/maths.lfe"</span>)
 </pre>
 </div>
 
@@ -921,7 +937,7 @@ Before we get started, make sure you compile the <code>maths</code> module:
 Just start the tracer:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org8a06fd9">(dbg:tracer)
+<pre class="src src-lfe" id="org3f7e922">(dbg:tracer)
 </pre>
 </div>
 
@@ -934,7 +950,7 @@ Just start the tracer:
 Tell the tracer you are interested in all calls for all processes:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org83deebc">(dbg:p 'all 'c)
+<pre class="src src-lfe" id="org89a7b2b">(dbg:p 'all 'c)
 </pre>
 </div>
 
@@ -947,7 +963,7 @@ Tell the tracer you are interested in all calls for all processes:
 Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org75eadc3">(dbg:tpl 'maths 'sum [])
+<pre class="src src-lfe" id="org56f348a">(dbg:tpl 'maths 'sum [])
 </pre>
 </div>
 
@@ -960,7 +976,7 @@ Finally, tell it you want to trace the function, <code>sum</code>, from the <cod
 Now, try to call the function, as usual. The tracer is active!
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org7ac275e">(maths:sum 2 3)
+<pre class="src src-lfe" id="orgdf31a15">(maths:sum 2 3)
 </pre>
 </div>
 
@@ -974,7 +990,7 @@ Now, try to call the function, as usual. The tracer is active!
 To trace all functions from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgec039b9">&gt; (dbg:tpl 'maths [])
+<pre class="src src-lfe" id="org6668d63">&gt; (dbg:tpl 'maths [])
 </pre>
 </div>
 
@@ -982,7 +998,7 @@ To trace all functions from the <code>maths</code> module:
 To trace the return value for a given function:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgb4eeab7">(dbg:tpl 'maths 'sum (match-spec ([_] (return_trace))))
+<pre class="src src-lfe" id="org7452745">(dbg:tpl 'maths 'sum (<span style="color: #8ac6f2; font-weight: bold;">match-spec</span> ([_] (return_trace))))
 </pre>
 </div>
 
@@ -992,7 +1008,7 @@ To trace the return value for a given function:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe" id="org73f07db">(maths:sum 19 23)
+<pre class="src src-lfe" id="org667190d">(maths:sum 19 23)
 </pre>
 </div>
 
@@ -1007,7 +1023,7 @@ To trace the return value for a given function:
 To stop the trace:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org0b4dabe">(dbg:stop)
+<pre class="src src-lfe" id="org73dccf4">(dbg:stop)
 </pre>
 </div>
 
@@ -1030,14 +1046,11 @@ To stop the trace:
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on 11 February, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/erlang/index.html">erlang</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/rebar3/index.html">rebar3</a>, <a href="/tag/tooling/index.html">tooling</a>, <a href="/tag/open-source/index.html">open-source</a>
       
@@ -1065,7 +1078,7 @@ recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang">rebar_base_compiler:run(Opts, [], Files, DoCompile).
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Opts</span>, [], <span style="color: #cae682;">Files</span>, <span style="color: #cae682;">DoCompile</span>).
 </pre>
 </div>
 
@@ -1078,9 +1091,9 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang">rebar_base_compiler:run(Config, FirstFiles,
-                        SourceDir, ".lfe", TargetDir, ".beam",
-                        fun compile/3).
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span>(<span style="color: #cae682;">Config</span>, <span style="color: #cae682;">FirstFiles</span>,
+                        <span style="color: #cae682;">SourceDir</span>, <span style="color: #95e454;">".lfe"</span>, <span style="color: #cae682;">TargetDir</span>, <span style="color: #95e454;">".beam"</span>,
+                        <span style="color: #8ac6f2; font-weight: bold;">fun</span> <span style="color: #92a65e; font-weight: bold;">compile/3</span>).
 </pre>
 </div>
 
@@ -1149,14 +1162,11 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 
 <section>
   <p>
-    <label for="mn-posted-on-date" class="margin-toggle">&#8853;</label>
-    <input type="checkbox" id="mn-posted-on-date" class="margin-toggle"/>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Posted on  1 January, 2016
-    </span>
-  </p>
-  <p>
-    <span class="marginnote">
+      <br />
       
       Tags: <a href="/tag/lfe/index.html">lfe</a>, <a href="/tag/lisp/index.html">lisp</a>, <a href="/tag/elixir/index.html">elixir</a>, <a href="/tag/beam/index.html">beam</a>, <a href="/tag/polyglot/index.html">polyglot</a>
       
@@ -1170,30 +1180,33 @@ A little more :cow::poop: microbenchmarking on a proprietary work project:
 </p>
 </pre>
 
-<a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">
 <div class="org-src-container">
-<pre class="src src-lfe">(progn
-  (include-lib "clj/include/compose.lfe") ; Clojure threading macros
-  (-&gt; (lodox-parse:docs #"lodox")         ; lodox docs map, generated by lodox
-      (mref 'modules)                     ; lodox modules (Maclisp)
-      (cadddr)                            ; 4th module =:= lodox-parse (CL)
-      (mref 'exports)                     ; lodox-parse exports (Maclisp)
-      (hd)                                ; first function =:= docs/1 (Erlang)
-      (mref 'doc)                         ; docstring of docs/1
-      (list_to_binary)                    ; string-&gt;binary
-      (Elixir.Markdown:to_html            ; Elixir app wrapping C lib
-       '[#(fenced_code true)])))          ; as in GitHub Flavored Markdown
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">progn</span>
+  (include-lib <span style="color: #95e454;">"clj/include/compose.lfe"</span>) <span style="color: #99968b;">; Clojure threading macros</span>
+  (-&gt; (lodox-parse:docs #<span style="color: #95e454;">"lodox"</span>)         <span style="color: #99968b;">; lodox docs map, generated by lodox</span>
+      (<span style="color: #e5786d;">mref</span> 'modules)                     <span style="color: #99968b;">; lodox modules (Maclisp)</span>
+      (cadddr)                            <span style="color: #99968b;">; 4th module =:= lodox-parse (CL)</span>
+      (<span style="color: #e5786d;">mref</span> 'exports)                     <span style="color: #99968b;">; lodox-parse exports (Maclisp)</span>
+      (<span style="color: #e5786d;">hd</span>)                                <span style="color: #99968b;">; first function =:= docs/1 (Erlang)</span>
+      (<span style="color: #e5786d;">mref</span> 'doc)                         <span style="color: #99968b;">; docstring of docs/1</span>
+      (list_to_binary)                    <span style="color: #99968b;">; string-&gt;binary</span>
+      (Elixir.Markdown:to_html            <span style="color: #99968b;">; Elixir app wrapping C lib</span>
+       '[#(fenced_code true)])))          <span style="color: #99968b;">; as in GitHub Flavored Markdown</span>
 </pre>
 </div>
-</a>
+
+<p>
+<a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">Source</a>
+</p>
+
 
 <p>
 Gott nytt år!
 </p>
 
-<div id="outline-container-orgfa7bc2d" class="outline-2">
-<h2 id="orgfa7bc2d">References</h2>
-<div class="outline-text-2" id="text-orgfa7bc2d">
+<div id="outline-container-org2896b02" class="outline-2">
+<h2 id="org2896b02">References</h2>
+<div class="outline-text-2" id="text-org2896b02">
 <ul class="org-ul">
 <li><a href="https://github.com/lfex/clj#future-">clj: Clojure functions and macros for LFE</a></li>
 <li><a href="https://github.com/quasiquoting/lodox">Lodox: Like Codox for LFE</a></li>

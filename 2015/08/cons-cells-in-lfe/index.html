@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="../../../css/org-src.css" />
   <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
   <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-svg.js">
+  </script>
   <script src="https://use.fontawesome.com/668158b00e.js"></script>
 </head>
 
@@ -52,9 +53,8 @@ singleton list, <code>head</code> holds the single element and <code>tail</code>
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-lfe">&gt; (let ((`(,head . ,tail) '(a-single-element)))
-    (lfe_io:format '"Head: ~w~nTail: ~w~n" `(,head ,tail)))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((`(,head . ,tail) '(a-single-element)))
+    (lfe_io:format '<span style="color: #95e454;">"Head: ~w~nTail: ~w~n"</span> `(,head ,tail)))
 </pre>
 </div>
 
@@ -71,8 +71,7 @@ the same atom.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-lfe">&gt; (=:= (cons 'a-single-element '()) '(a-single-element))
+<pre class="src src-lfe">&gt; (<span style="color: #e5786d;">=:=</span> (<span style="color: #e5786d;">cons</span> 'a-single-element '()) '(a-single-element))
 </pre>
 </div>
 

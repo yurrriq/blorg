@@ -1,4 +1,4 @@
-\version "2.19.24"
+\version "2.18.2"
 \include "lilypond-book-preamble.ly"
 \paper { oddFooterMarkup = ##f }
 
