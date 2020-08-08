@@ -18,6 +18,6 @@ Without further ado, here's the time-saving fix I settled on.
 Shout out to to [[https://manytricks.com/keycodes/][Key Codes]] (and [[http://brew.sh][Homebrew]]) for making it easy to find the
 appropriate hex code.
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC fish
 brew cask install key-codes
 #+END_SRC

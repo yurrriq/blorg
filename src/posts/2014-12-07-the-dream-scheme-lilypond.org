@@ -21,7 +21,7 @@ music as trees]].
 
 * [[https://github.com/yurrriq/blorg/tree/master/code/the_dream.scm][~the_dream.scm~]]
   :PROPERTIES:
-  :tangle:   ../../hakyll/code/the_dream.scm
+  :header-args: :tangle ../../hakyll/code/the_dream.scm
   :END:
 #+BEGIN_SRC scheme
 (define riffs
@@ -65,16 +65,15 @@ music as trees]].
 
 * [[https://github.com/yurrriq/blorg/tree/master/code/the_dream.ly][~the_dream.ly~]]
   :PROPERTIES:
-  :tangle:   ../../hakyll/code/the_dream.ly
-  :noweb:    yes
+  :header-args: :tangle ../../hakyll/code/the_dream.ly
   :END:
 #+NAME: lilypond-version
-#+BEGIN_SRC sh :exports none
+#+BEGIN_SRC sh :results output :exports none
 # This is hilariously inefficient :)
 lilypond -v | head -n 1 | awk '{printf $3}'
 #+END_SRC
 
-#+BEGIN_SRC lilypond
+#+BEGIN_SRC LilyPond :noweb yes
 \version "<<lilypond-version()>>"
 \include "lilypond-book-preamble.ly"
 \paper { oddFooterMarkup = ##f }
@@ -101,10 +100,10 @@ it to =2.18.x= if you're not [[http://lilypond.org/development.html][living on t
 
 * Generate the PNG
   :PROPERTIES:
-  :noweb:    yes
-  :dir:      ../../hakyll/code
-  :results:  none
-  :exports:  none
+  :header-args: :noweb   yes
+  :header-args: :dir     ../../hakyll/code
+  :header-args: :results none
+  :header-args: :exports none
   :END:
 #+NAME: generate-png
 #+BEGIN_SRC sh :exports code

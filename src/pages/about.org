@@ -1,8 +1,8 @@
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 ---
 title: About
 ---
-#+END_HTML
+#+END_EXPORT
 
 # [[http://orgmode.org/][Org]] + [[https://jaspervdj.be/hakyll/][Hakyll]] + [[https://github.com/clayh53/tufte-jekyll][Tufte]] = :heart_eyes:
 [[http://orgmode.org/][Org]] + [[https://jaspervdj.be/hakyll/][Hakyll]] + [[https://github.com/clayh53/tufte-jekyll][Tufte]] = <3

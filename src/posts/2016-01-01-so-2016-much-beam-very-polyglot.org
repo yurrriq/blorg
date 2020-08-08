@@ -15,9 +15,6 @@ tags: lfe, lisp, elixir, beam, polyglot
 </pre>
 #+END_EXPORT
 
-#+BEGIN_EXPORT html
-<a href="https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe">
-#+END_EXPORT
 #+BEGIN_SRC lfe :tangle ../../hakyll/code/so-2016.lfe
 (progn
   (include-lib "clj/include/compose.lfe") ; Clojure threading macros
@@ -31,9 +28,9 @@ tags: lfe, lisp, elixir, beam, polyglot
       (Elixir.Markdown:to_html            ; Elixir app wrapping C lib
        '[#(fenced_code true)])))          ; as in GitHub Flavored Markdown
 #+END_SRC
-#+BEGIN_EXPORT html
-</a>
-#+END_EXPORT
+
+[[https://github.com/yurrriq/blorg/blob/master/code/so-2016.lfe][Source]]
+
 
 Gott nytt år!
 

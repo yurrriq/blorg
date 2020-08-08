@@ -27,7 +27,7 @@ to gather the language usage data from
 sort them in descending order of popularity.
 #+END_EXPORT
 
-#+BEGIN_SRC json
+#+BEGIN_SRC js
 {
   "Ruby" : 4401525,
   "Java" : 1800870,

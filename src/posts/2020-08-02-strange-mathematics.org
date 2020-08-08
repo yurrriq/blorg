@@ -31,6 +31,17 @@ SIX.
 CORRECT.
 #+END_QUOTE
 
+--------------------------------------------------------------------------------
+
+*Update (3 August, 2020)*: It turns out /I'm/ the one [[https://www.reddit.com/r/badmathematics/comments/i28ukc/strange_mathematics/][bad mathematics]] (and sleep hygiene).
+
+Given $x^2 + mx + n = 0$ and the only possible value of $x$ is $-3$,
+$(x + 3)$ is a root of [[https://mathworld.wolfram.com/Multiplicity.html][multiplicity]] $2$.
+Thus the factorization is $(x + 3)(x + 3)$, which exapnds to $x^2 + 6x + 9$.
+Thus $m = 6$, just as [[https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)][Mister Terrific]] said. 🤦
+
+--------------------------------------------------------------------------------
+
 +But that's not quite right, or at least it's misleading.+
 +While $\xcancel{6}$ is a possible value for $\xcancel{m}$, it's not the only one.+
 
@@ -48,12 +59,3 @@ CORRECT.
 +$\xcancel{\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}}$,+
 +there are $\xcancel{\aleph_{0}}$ possible values for $\xcancel{m}$.+
 +$\xcancel{\blacksquare}$+
-
---------------------------------------------------------------------------------
-
-*Edit*: It turns out /I'm/ the one [[https://www.reddit.com/r/badmathematics/comments/i28ukc/strange_mathematics/][bad mathematics]] (and sleep hygiene).
-
-Given $x^2 + mx + n = 0$ and the only possible value of $x$ is $-3$,
-$(x + 3)$ is a root of [[https://mathworld.wolfram.com/Multiplicity.html][multiplicity]] $2$.
-Thus the factorization is $(x + 3)(x + 3)$, which exapnds to $x^2 + 6x + 9$.
-Thus $m = 6$, just as [[https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)][Mister Terrific]] said. 🤦

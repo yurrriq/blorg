@@ -1,7 +1,7 @@
 #+STARTUP: showall
 * blorg.el
   :PROPERTIES:
-  :tangle:   blorg.el
+  :header-args: :tangle blorg.el
   :END:
 Front matter:
 #+BEGIN_SRC elisp
