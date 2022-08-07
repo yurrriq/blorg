@@ -1,0 +1,32 @@
+variables:
+  BIN_NAME: hello-go
+  GOOS: linux
+  GOARCH: amd64
+
+Build Go binary:
+  stage: build
+  image: nixpkgs/cachix-flakes
+  before_script:
+  - echo "sandbox = false" >>/etc/nix/nix.conf
+  script:
+  - nix build --impure .#"${BIN_NAME}"
+  - |-
+    nix run nixpkgs#curl -- \
+        --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+        --upload-file result/bin/"${BIN_NAME}" \
+        "${PACKAGE_REGISTRY_URL}/${BIN_NAME}-${GOOS}-${GOARCH}"
+
+
+Publish Go release:
+  stage: publish
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+  - Build Go binary
+  script:
+  - |-
+    release-cli create \
+        --name "$CI_COMMIT_TAG" \
+        --tag-name "$CI_COMMIT_TAG" \
+        --assets-link "{\"name\":\"${BIN_NAME}-${GOOS}-${GOARCH}\",\"url\":\"${PACKAGE_REGISTRY_URL}/${BIN_NAME}-${GOOS}-${GOARCH}\"}"
+  rules:
+  - if: '$CI_COMMIT_TAG'
