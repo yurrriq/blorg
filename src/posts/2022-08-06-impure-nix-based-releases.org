@@ -1,0 +1,116 @@
+#+STARTUP: showall
+#+OPTIONS: toc:nil ^:{}
+#+BEGIN_EXPORT html
+---
+title: "(Impure) Nix-based Releases"
+author: Eric Bailey
+tags: nix, devops, sdlc, gitlab, ci
+---
+#+END_EXPORT
+
+
+#+begin_src nix :tangle ../../hakyll/code/hello-go/flake.nix
+{
+  description = "Impure GitLab release example";
+
+  inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/release-22.05";
+  };
+
+  outputs = { self, flake-utils, nixpkgs }: {
+    overlay = final: prev: {
+      inherit (self.packages.${prev.system}) hello-go;
+    };
+  } // flake-utils.lib.eachDefaultSystem
+    (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+
+        inherit (pkgs) lib;
+      in
+      {
+        devShells.default = with pkgs; mkShell {
+          buildInputs = [
+            go
+          ];
+        };
+
+        packages = {
+          default = self.packages.${system}.hello-go;
+
+          hello-go =
+            let
+              sourceInfo =
+                if self.sourceInfo ? rev
+                then self.sourceInfo // {
+                  tag = builtins.getEnv "CI_COMMIT_TAG";
+                }
+                else throw "Refusing to build from a dirty Git tree!";
+
+              version =
+                if sourceInfo.tag != ""
+                then sourceInfo.tag
+                else sourceInfo.lastModifiedDate;
+            in
+            pkgs.buildGoModule {
+              pname = "hello-go";
+              inherit version;
+
+              src = lib.cleanSourceWith {
+                filter = name: type:
+                  let baseName = baseNameOf (toString name); in
+                  (
+                    baseName == "main.go" ||
+                      baseName == "go.mod"
+                  );
+                src = ./.;
+              };
+
+              vendorSha256 = null;
+
+              ldflags = [
+                "-X main.Version=${version}"
+                "-X main.CommitHash=${sourceInfo.rev}"
+              ];
+            };
+        };
+      });
+}
+#+end_src
+
+
+#+begin_src yaml :tangle ../../hakyll/code/hello-go/.gitlab-ci.yml
+variables:
+  BIN_NAME: hello-go
+  GOOS: linux
+  GOARCH: amd64
+
+Build Go binary:
+  stage: build
+  image: nixpkgs/cachix-flakes
+  before_script:
+  - echo "sandbox = false" >>/etc/nix/nix.conf
+  script:
+  - nix build --impure .#"${BIN_NAME}"
+  - |-
+    nix run nixpkgs#curl -- \
+        --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+        --upload-file result/bin/"${BIN_NAME}" \
+        "${PACKAGE_REGISTRY_URL}/${BIN_NAME}-${GOOS}-${GOARCH}"
+
+
+Publish Go release:
+  stage: publish
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+  - Build Go binary
+  script:
+  - |-
+    release-cli create \
+        --name "$CI_COMMIT_TAG" \
+        --tag-name "$CI_COMMIT_TAG" \
+        --assets-link "{\"name\":\"${BIN_NAME}-${GOOS}-${GOARCH}\",\"url\":\"${PACKAGE_REGISTRY_URL}/${BIN_NAME}-${GOOS}-${GOARCH}\"}"
+  rules:
+  - if: '$CI_COMMIT_TAG'
+#+end_src
