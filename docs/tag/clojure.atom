@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - clojure</title>
+    <link href="https://blorg.ericb.me/tag/clojure.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/clojure.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>18 December, 2023</updated>
+    <entry>
+    <title>ip.ericb.me</title>
+    <link href="https://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>https://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 13 July, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html">hack</a>, <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;web-service&#39;." href="/tag/web-service/index.html">web-service</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+As an exercise, I've written <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a>
+<del>and am running it at <a href="http://ip.ericb.me">ip.ericb.me</a></del>.
+</p>
+
+<p>
+Its <a href="https://github.com/yurrriq/what-is-my-ip/blob/master/src/me/ericb/what_is_my_ip/core.clj">excruciatingly simple Clojure source</a> looks something like the following.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure">(defroutes app
+  (GET <span style="font-style: italic;">"/"</span> {{x-real-ip <span style="font-style: italic;">"x-real-ip"</span>} <span style="font-weight: bold; text-decoration: underline;">:headers</span>}
+    {<span style="font-weight: bold; text-decoration: underline;">:status</span>  200
+     <span style="font-weight: bold; text-decoration: underline;">:headers</span> {<span style="font-style: italic;">"Content-Type"</span> <span style="font-style: italic;">"text/plain"</span>}
+     <span style="font-weight: bold; text-decoration: underline;">:body</span>    x-real-ip}))
+
+(<span style="font-weight: bold;">defn</span> <span style="font-weight: bold;">-main</span> [&amp; args]
+  (<span style="font-weight: bold;">-&gt;&gt;</span> (<span style="font-weight: bold;">or</span> (<span style="font-weight: bold;">some-&gt;</span> (env <span style="font-weight: bold; text-decoration: underline;">:port</span>) (<span style="font-weight: bold; text-decoration: underline;">Integer</span>/parseInt)) 5000)
+       (hash-map <span style="font-weight: bold; text-decoration: underline;">:port</span>)
+       (run-server app)))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>GitHub Languages</title>
+    <link href="https://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>https://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <published>2015-05-02T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  2 May, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html">hack</a>, <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;script&#39;." href="/tag/script/index.html">script</a>, <a title="All pages tagged &#39;polyglot&#39;." href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+I wrote a little <a href="https://clojure.org">Clojure</a> script
+<label for='mn-auto.645708' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.645708' class='margin-toggle'><span class='marginnote'> Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>. </span>
+to gather the language usage data from <a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and sort them in
+descending order of popularity.
+</p>
+
+<section id="outline-container-org5d87d7e" class="outline-2">
+<h2 id="org5d87d7e">The results</h2>
+<div class="outline-text-2" id="text-org5d87d7e">
+<p>
+<label for='mn-auto.6933968' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6933968' class='margin-toggle'><span class='marginnote'> I don't use Ruby, except when <a href="https://www.openhub.net/p/homebrew/contributors/2025442152889863">contributing</a> to <a href="https://brew.sh/">Homebrew</a>. I also have a repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exercises</a>, which, of course<br> skew the results. </span>
+</p>
+<div class="org-src-container">
+<pre class="src src-js">{
+  <span style="font-style: italic;">"Ruby"</span> : 4401525,
+  <span style="font-style: italic;">"Java"</span> : 1800870,
+  <span style="font-style: italic;">"Clojure"</span> : 1406457,
+  <span style="font-style: italic;">"LilyPond"</span> : 226858,
+  <span style="font-style: italic;">"Scheme"</span> : 224389,
+  <span style="font-style: italic;">"Common Lisp"</span> : 127554,
+  <span style="font-style: italic;">"HTML"</span> : 111217,
+  <span style="font-style: italic;">"Shell"</span> : 47589,
+  <span style="font-style: italic;">"CSS"</span> : 41034,
+  <span style="font-style: italic;">"Groff"</span> : 25188,
+  <span style="font-style: italic;">"C++"</span> : 16378,
+  <span style="font-style: italic;">"NewLisp"</span> : 15399,
+  <span style="font-style: italic;">"JavaScript"</span> : 12714,
+  <span style="font-style: italic;">"Erlang"</span> : 8041,
+  <span style="font-style: italic;">"Objective-C"</span> : 3825,
+  <span style="font-style: italic;">"Python"</span> : 3285,
+  <span style="font-style: italic;">"Perl6"</span> : 2976,
+  <span style="font-style: italic;">"PLSQL"</span> : 2919,
+  <span style="font-style: italic;">"Scala"</span> : 2814,
+  <span style="font-style: italic;">"Emacs Lisp"</span> : 2420,
+  <span style="font-style: italic;">"OCaml"</span> : 2055,
+  <span style="font-style: italic;">"Elixir"</span> : 1788,
+  <span style="font-style: italic;">"CoffeeScript"</span> : 1787,
+  <span style="font-style: italic;">"PHP"</span> : 1704,
+  <span style="font-style: italic;">"CMake"</span> : 1618,
+  <span style="font-style: italic;">"Lua"</span> : 1160,
+  <span style="font-style: italic;">"Go"</span> : 1025,
+  <span style="font-style: italic;">"Perl"</span> : 844,
+  <span style="font-style: italic;">"Haskell"</span> : 801,
+  <span style="font-style: italic;">"F#"</span> : 799,
+  <span style="font-style: italic;">"C#"</span> : 585,
+  <span style="font-style: italic;">"PostScript"</span> : 485,
+  <span style="font-style: italic;">"Swift"</span> : 467,
+  <span style="font-style: italic;">"Makefile"</span> : 220,
+  <span style="font-style: italic;">"Frege"</span> : 53
+}
+</pre>
+</div>
+
+<p>
+For the script and an example config, check out <a href="https://gist.github.com/yurrriq/3272c6b9ebfa699472b9">the gist</a>.
+</p>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>#'clojure.core/some-> and the Power of Macros</title>
+    <link href="https://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
+    <id>https://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
+    <published>2015-01-02T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  2 January, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;metaprogramming&#39;." href="/tag/metaprogramming/index.html">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
+</p>
+
+<p>
+In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> will undoubtedly <a href="https://twitter.com/yurrriq/status/525703812833890305">grow fonder</a>.
+</p>
+
+<p>
+<label for='mn-auto.3960597' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3960597' class='margin-toggle'><span class='marginnote'> See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub </span>
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure">(<span style="font-weight: bold;">comment</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>
+  (<span style="font-weight: bold;">some-&gt;</span> (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;) <span style="font-weight: bold; text-decoration: underline;">:doc</span> println)
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">When expr is not nil, threads it into the first form (via -&gt;),</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">and when that result is not nil, through the next etc</span>
+
+  (macroexpand '(<span style="font-weight: bold;">some-&gt;</span> (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;) <span style="font-weight: bold; text-decoration: underline;">:doc</span> println))
+
+  (<span style="font-weight: bold;">let*</span> [G__2986 (meta (<span style="font-weight: bold;">var</span> <span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/some-&gt;))
+         G__2986 (<span style="font-weight: bold;">if</span> (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/nil? G__2986)
+                   <span style="font-weight: bold; text-decoration: underline;">nil</span>
+                   (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/<span style="font-weight: bold;">-&gt;</span> G__2986 <span style="font-weight: bold; text-decoration: underline;">:doc</span>))
+         G__2986 (<span style="font-weight: bold;">if</span> (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/nil? G__2986)
+                   <span style="font-weight: bold; text-decoration: underline;">nil</span>
+                   (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/<span style="font-weight: bold;">-&gt;</span> G__2986 println))]
+    G__2986)
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Rewritten more readably to illustrate the point:</span>
+  (<span style="font-weight: bold;">let</span> [example (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;)
+        example (<span style="font-weight: bold;">when-not</span> (nil? example)
+                  (<span style="font-weight: bold; text-decoration: underline;">:doc</span> example))
+        example (<span style="font-weight: bold;">when-not</span> (nil? example)
+                  (println example))]
+    example)
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Which brings me to another of my scattered thoughts,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Clojure has the #'clojure.core/when-not macro, but</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">for some reason, I find myself wanting to use 'unless,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">as in Common Lisp:</span>
+  (<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">unless</span> (condition &amp;rest body)
+    `(<span style="font-weight: bold;">if</span> (not ,condition) (progn ,@body)))
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">What better excuse to start writing my own macros?</span>
+  (<span style="font-weight: bold;">ns</span> <span style="font-weight: bold; text-decoration: underline;">fastidious.macros</span>)
+
+  (<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">unless</span>
+    [condition &amp; body] `(<span style="font-weight: bold;">if</span> (not ~condition) (<span style="font-weight: bold;">do</span> ~@body)))
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Side bonus: I used my desire for 'unless to drive</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">my experiments in integrating macros in ClojureScript,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">with underwhelming success. It just works.</span>
+  (<span style="font-weight: bold;">ns</span> <span style="font-weight: bold; text-decoration: underline;">client.core</span>
+    (<span style="font-weight: bold; text-decoration: underline;">:require-macros</span> [fastidious.macros <span style="font-weight: bold; text-decoration: underline;">:refer</span> [unless]]))
+
+  (<span style="font-weight: bold;">let</span> [lisp-is-lame? <span style="font-weight: bold; text-decoration: underline;">false</span>]
+    (unless lisp-is-lame?
+      (println <span style="font-style: italic;">"IFL Lisp."</span>)
+      (println <span style="font-style: italic;">"Next up: /c[ad]{1,5}r/"</span>))))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

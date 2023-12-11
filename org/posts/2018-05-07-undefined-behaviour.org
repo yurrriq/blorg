@@ -1,0 +1,96 @@
+#+startup: showall
+#+options: toc:nil ^:{}
+#+begin_export html
+---
+title:  "Undefined Behaviour"
+author: Eric Bailey
+tags: c, compilers, school, facepalm
+updated: 18 December, 2023
+---
+#+end_export
+
+A friend at work today was telling me about his wife's C​~++~ class, wherein the
+students were asked to predict the behaviour of the following snippet.
+
+#+NAME: unsequenced
+#+begin_src c
+x = 10;
+y = ++x + --x;
+#+end_src
+
+* Example
+For simplicity, let's assume the type of both ~x~ and ~y~ is ~int~.
+#+NAME: declarations
+#+begin_src c
+int x, y;
+#+end_src
+
+We can inspect the final state of ~x~ and ~y~ with a simple ~printf~ call.
+#+NAME: print-final-state
+#+begin_src c
+printf("x = %d, y = %d\n", x, y);
+#+end_src
+
+Now, let's see how different compilers handle [[https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c][our program]].
+#+begin_src c :noweb yes :tangle ../../hakyll/code/incdec.c
+#include <stdio.h>
+
+
+int main(int argc, char **argv)
+{
+    <<unsequenced>>
+
+    <<print-final-state>>
+}
+#+end_src
+
+At first glance, I would expect the right-hand side of the initialization of ~y~
+to evaluate to =11 + 10=, i.e. =21=.
+
+#+NAME: with-compiler
+#+begin_src sh :exports none :results code :eval no-export
+cat <<EOS
+$compiler --version | head -n1
+echo
+$compiler -Wall -o incdec-$compiler incdec.c 2>&1
+echo
+./incdec-$compiler
+EOS
+#+end_src
+
+#+begin_src sh :dir ../../hakyll/code :noweb yes :exports results :results output :eval no-export
+<<with-compiler(compiler="gcc")>>
+#+end_src
+
+* Curiouser and curiouser!
+Unsurprisingly, GCC computes the final value of ~x~ to be ~10~, the same as its
+initial value, after being incremented and decremented. It's markedly *less*
+intuitive to me that the final value of ~y~ is ~20~.
+
+Clang, on the other hand, agrees with me, i.e. computes the final value of ~y~
+to be ~21~.
+
+#+begin_src sh :dir ../../hakyll/code :noweb yes :exports results :results output :eval no-export
+<<with-compiler(compiler="clang")>>
+#+end_src
+
+* The more you know
+Both compilers warn about unsequenced modifications and the resultant undefined
+behaviour. Digging around a bit leads to some fascinating discussions. The GCC
+team maintains a [[https://gcc.gnu.org/readings.html][list of further reading]], including a few formal models and
+analyses of sequence points in C. Further exploration is left as an exercise for
+the reader.
+
+** tl;dr
+#+name: GCC Warning Options
+#+attr_html: :cite https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html
+#+caption: [[https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html][Free Software Foundation, Inc., GCC online documentation, 3.8 Options to Request or Suppress Warnings]]
+#+begin_quote
+It is not specified when between sequence points modifications to the values of
+objects take effect.
+
+⋯
+
+The standard is worded confusingly, therefore there is some debate over the
+precise meaning of the sequence point rules in subtle cases.
+#+end_quote

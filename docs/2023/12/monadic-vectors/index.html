@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - Monadic Vectors</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>Monadic Vectors</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on  2 December, 2023
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged 'haskell'." href="../../../tag/haskell/">haskell</a>, <a title="All pages tagged 'monads'." href="../../../tag/monads/">monads</a>, <a title="All pages tagged 'mathematics'." href="../../../tag/mathematics/">mathematics</a>, <a title="All pages tagged 'algebra'." href="../../../tag/algebra/">algebra</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-106">The <code>Functor</code> instance</a> for <a href="https://hackage.haskell.org/package/linear-1.22/docs/Linear-V3.html">3-dimensional vectors</a> applies a function <code>f</code> to each
+basis vector, preserving the structure of the 3-D vector.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org922d0bf"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Functor</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
+  fmap f (<span style="font-weight: bold; text-decoration: underline;">V3</span> a b c) <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (f a) (f b) (f c)
+  a <span style="font-weight: bold; font-style: italic;">&lt;$</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a a a
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org45282a4">λ<span style="font-weight: bold;">&gt;</span> fmap (<span style="font-weight: bold; font-style: italic;">+</span>1) (<span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3)
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 2 3 4
+</pre>
+</div>
+
+<p>
+<a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-148">The <code>Applicative</code> instance</a> provides operations to embed pure expressions
+(<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:pure"><code>pure</code></a>), and sequence computations and combine their results (<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:-60--42--62-"><code>&lt;*&gt;</code></a> and
+<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:liftA2"><code>liftA2</code></a>).
+<label for="mn-auto.9576419" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.9576419" class="margin-toggle"><span class="marginnote"> N.B. The default definition is:<br> </span>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="orgf94cc07"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Applicative</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
+  pure a <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a a a
+  <span style="font-weight: bold; text-decoration: underline;">V3</span> a b c <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> d e f <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (a d) (b e) (c f)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="orgabd2f39">λ<span style="font-weight: bold;">&gt;</span> pure 0 <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Int</span>
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 0 0 0
+λ<span style="font-weight: bold;">&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (<span style="font-weight: bold; font-style: italic;">+</span>5) (<span style="font-weight: bold; font-style: italic;">+</span>3) (<span style="font-weight: bold; font-style: italic;">+</span>1) <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 6 5 4
+</pre>
+</div>
+
+<p>
+Together they enable applying a binary function as follows.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org794a1ed">λ<span style="font-weight: bold;">&gt;</span> (<span style="font-weight: bold; font-style: italic;">+</span>) <span style="font-weight: bold; font-style: italic;">&lt;$&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3 <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 4 5 6
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 5 7 9
+</pre>
+</div>
+
+<p>
+There's also a <a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-169"><code>Monad</code> instance</a>, which enables concise and elegant code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org1408954"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Monad</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
+  <span style="font-weight: bold; text-decoration: underline;">V3</span> a b c <span style="font-weight: bold; font-style: italic;">&gt;&gt;=</span> f <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a' b' c' <span style="font-weight: bold;">where</span>
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> a' <span style="font-weight: bold;">_</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> f a
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">_</span> b' <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> f b
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold;">_</span> c' <span style="font-weight: bold; font-style: italic;">=</span> f c
+</pre>
+</div>
+
+<p>
+For example, as part of <a href="https://adventofcode.com/2023/day/2">the Advent of Code puzzle for Day 2 of 2023</a>, one must
+parse revelations of the form <code>N COLOR</code> where <code>N</code> is a <a href="https://hackage.haskell.org/package/parsers-0.12.11/docs/Text-Parser-Token.html#v:natural"><code>natural</code> number</a> and
+<code>COLOR</code> is one of <code>red</code>, <code>green</code>, and <code>blue</code>. The tricolor nature of the
+revelations (and the subsequent computations therewith) lends itself nicely to
+<a href="https://hackage.haskell.org/package/linear-1.22/docs/Linear-V3.html#t:V3">3-dimensional vectors</a>.
+</p>
+
+<p>
+A naive <a href="https://hackage.haskell.org/package/trifecta-2.1.3/docs/Text-Trifecta-Parser.html#t:Parser"><code>Parser</code></a> might look as follows.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org434824d"><span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">Parser</span> (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>)
+<span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">do</span>
+    n <span style="font-weight: bold; font-style: italic;">&lt;-</span> natural
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> n 0 0 <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"red"</span>
+      <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 0 n 0 <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"green"</span>
+      <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 0 0 n <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"blue"</span>
+</pre>
+</div>
+
+<p>
+The <code>Monad</code> instance, however, enables the following.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org426ea09"><span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">Parser</span> (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>)
+<span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">=</span>
+  natural <span style="font-weight: bold; font-style: italic;">&gt;&gt;=</span> <span style="font-weight: bold; font-style: italic;">\</span>n <span style="font-weight: bold; font-style: italic;">-&gt;</span>
+    for (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-style: italic;">"red"</span> <span style="font-style: italic;">"green"</span> <span style="font-style: italic;">"blue"</span>) <span style="font-weight: bold; font-style: italic;">$</span> <span style="font-weight: bold; font-style: italic;">\</span>color <span style="font-weight: bold; font-style: italic;">-&gt;</span>
+      n <span style="font-weight: bold; font-style: italic;">&lt;$</span> string color <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> pure 0
+</pre>
+</div>
+
+<p>
+Also delightfully concise is this way of determining which games are possible.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org248a5e6"><span style="font-weight: bold;">isPossible</span> <span style="font-weight: bold; font-style: italic;">::</span> [<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>] <span style="font-weight: bold; font-style: italic;">-&gt;</span> <span style="font-weight: bold; text-decoration: underline;">Bool</span>
+<span style="font-weight: bold;">isPossible</span> <span style="font-weight: bold; font-style: italic;">=</span> all (and <span style="font-weight: bold; font-style: italic;">.</span> liftA2 (<span style="font-weight: bold; font-style: italic;">&gt;=</span>) (<span style="font-weight: bold; text-decoration: underline;">V3</span> 12 13 14))
+</pre>
+</div>
+
+</section>
+
+    </article>
+  </body>
+</html>

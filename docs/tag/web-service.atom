@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - web-service</title>
+    <link href="https://blorg.ericb.me/tag/web-service.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/web-service.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>18 December, 2023</updated>
+    <entry>
+    <title>ip.ericb.me</title>
+    <link href="https://blorg.ericb.me/2015/07/ip.ericb.me/index.html" />
+    <id>https://blorg.ericb.me/2015/07/ip.ericb.me/index.html</id>
+    <published>2015-07-13T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 13 July, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html">hack</a>, <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;web-service&#39;." href="/tag/web-service/index.html">web-service</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+As an exercise, I've written <a href="https://github.com/yurrriq/what-is-my-ip">my own IP echo service</a>
+<del>and am running it at <a href="http://ip.ericb.me">ip.ericb.me</a></del>.
+</p>
+
+<p>
+Its <a href="https://github.com/yurrriq/what-is-my-ip/blob/master/src/me/ericb/what_is_my_ip/core.clj">excruciatingly simple Clojure source</a> looks something like the following.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure">(defroutes app
+  (GET <span style="font-style: italic;">"/"</span> {{x-real-ip <span style="font-style: italic;">"x-real-ip"</span>} <span style="font-weight: bold; text-decoration: underline;">:headers</span>}
+    {<span style="font-weight: bold; text-decoration: underline;">:status</span>  200
+     <span style="font-weight: bold; text-decoration: underline;">:headers</span> {<span style="font-style: italic;">"Content-Type"</span> <span style="font-style: italic;">"text/plain"</span>}
+     <span style="font-weight: bold; text-decoration: underline;">:body</span>    x-real-ip}))
+
+(<span style="font-weight: bold;">defn</span> <span style="font-weight: bold;">-main</span> [&amp; args]
+  (<span style="font-weight: bold;">-&gt;&gt;</span> (<span style="font-weight: bold;">or</span> (<span style="font-weight: bold;">some-&gt;</span> (env <span style="font-weight: bold; text-decoration: underline;">:port</span>) (<span style="font-weight: bold; text-decoration: underline;">Integer</span>/parseInt)) 5000)
+       (hash-map <span style="font-weight: bold; text-decoration: underline;">:port</span>)
+       (run-server app)))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

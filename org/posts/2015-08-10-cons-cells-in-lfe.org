@@ -1,0 +1,35 @@
+#+options: toc:nil
+#+begin_export html
+---
+title:  "Cons Cells in Lisp Flavoured Erlang"
+author: Eric Bailey
+tags: lfe, lisp, beam
+---
+#+end_export
+
+Just as you'd expect from [[http://learnyousomeerlang.com/starting-out-for-real#lists][Erlang]] or [[http://clojure.org/lisps][another Lisp]], in [[http://lfe.gitbooks.io/tutorial/content/sequential/lists.html][LFE]], lists are composed of
+[[http://cs.gmu.edu/~sean/lisp/cons/][/cons cells/]] and when you use pattern matching to bind the head and tail of a
+singleton list, ~head~ holds the single element and ~tail~ is the empty list.
+
+#+begin_src lfe
+> (let ((`(,head . ,tail) '(a-single-element)))
+    (lfe_io:format '"Head: ~w~nTail: ~w~n" `(,head ,tail)))
+#+end_src
+
+#+begin_example
+Head: a-single-element
+Tail: ()
+ok
+#+end_example
+
+We can confirm this by checking that a /cons cell/ of the atom
+~a-single-element~ and the empty list is [[http://erlang.org/doc/reference_manual/expressions.html#id80197][exactly equal to]] a singleton list of
+the same atom.
+
+#+begin_src lfe
+> (=:= (cons 'a-single-element '()) '(a-single-element))
+#+end_src
+
+#+begin_example
+true
+#+end_example

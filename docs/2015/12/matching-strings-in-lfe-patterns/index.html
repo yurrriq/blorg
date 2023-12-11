@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - Matching strings in LFE patterns</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>Matching strings in LFE patterns</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on 28 December, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged 'lfe'." href="../../../tag/lfe/">lfe</a>, <a title="All pages tagged 'lisp'." href="../../../tag/lisp/">lisp</a>, <a title="All pages tagged 'beam'." href="../../../tag/beam/">beam</a>, <a title="All pages tagged 'pattern-matching'." href="../../../tag/pattern-matching/">pattern-matching</a>, <a title="All pages tagged 'open-source'." href="../../../tag/open-source/">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+While writing an LFE solution for <a href="https://adventofcode.com/2015/day/6">Day 6 of Advent of Code</a>, I found myself
+wanting to write <code>parse_instruction/1</code> like this:
+</p>
+<div class="org-src-container">
+<pre class="src src-erlang"><span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"toggle "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">toggle</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>));
+<span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"turn on "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">turn_on</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>));
+<span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"turn off "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">turn_off</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>)).
+
+<span style="font-weight: bold;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">String</span>) -&gt;
+  {ok,[<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>,<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y2</span>],[]} = <span style="font-weight: bold; text-decoration: underline;">io_lib</span>:<span style="font-weight: bold; text-decoration: underline;">fread</span>(<span style="font-style: italic;">"~d,~d through ~d,~d"</span>, <span style="font-weight: bold; font-style: italic;">String</span>),
+  {{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}.
+
+<span style="font-weight: bold;">toggle</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
+<span style="font-weight: bold;">turn_on</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
+<span style="font-weight: bold;">turn_off</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
+</pre>
+</div>
+
+<section id="outline-container-org5794d3a" class="outline-2">
+<h2 id="org5794d3a">Trying it out</h2>
+<div class="outline-text-2" id="text-org5794d3a">
+<p>
+But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">parse-instruction</span>
+  ([(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"turn off "</span> rest)]
+   ...))
+</pre>
+</div>
+
+<p>
+<label for="mn-exp_append-before" class="margin-toggle">⊕</label>
+<input type="checkbox" id="mn-exp_append-before" class="margin-toggle" />
+<span class="marginnote">
+N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.<br />
+<code class="src src-erlang"><span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">Cases with lists of numbers (strings).</span></code><br />
+<code class="src src-erlang">[[<span style="font-weight: bold; font-style: italic;">N</span>|<span style="font-weight: bold; font-style: italic;">Ns</span>]|<span style="font-weight: bold; font-style: italic;">Es</span>] <span style="font-weight: bold;">when</span> <span style="font-weight: bold;">is_number</span>(<span style="font-weight: bold; font-style: italic;">N</span>) -&gt;<span style="font-weight: bold;"> </span>[cons,<span style="font-weight: bold; font-style: italic;">N</span>,[<span style="font-style: italic;">'++'</span>,<span style="font-weight: bold; font-style: italic;">Ns</span>|<span style="font-weight: bold; font-style: italic;">Es</span>]];</code>
+</span>
+</p>
+
+<p>
+Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"prefix"</span> suffix)] suffix))
+f
+&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
+exception error: function_clause
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org9f95e8e" class="outline-2">
+<h2 id="org9f95e8e">Adding <code>++*</code> patterns to LFE</h2>
+<div class="outline-text-2" id="text-org9f95e8e">
+<p>
+After this discovery, I took to <a href="http://webchat.freenode.net/?channels=erlang-lisp">#erlang-lisp</a> and tried to figure out why.
+Discussing the issue with <code>@rvirding</code> for a few minutes, we decided adding <code>++*</code>
+and having patterns like <code>(++* "prefix" suffix)</code> expand to nested <code>cons</code>-es was
+a solid approach.
+</p>
+
+<p>
+Rather than take the overly complicated approach of counting and limiting the
+number of expanded <code>cons</code>-es and bottoming out to a call to <code>erlang:++</code>, we
+decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep it simple</a> and just let <code>++*</code> patterns do their own thing.
+</p>
+
+<p>
+The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
+</p>
+<div class="org-src-container">
+<pre class="src src-erlang"><span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">exp_predef(...) -&gt; ...;</span>
+<span style="font-weight: bold;">exp_predef</span>([<span style="font-style: italic;">'++*'</span>|<span style="font-weight: bold; font-style: italic;">Abody</span>], <span style="font-weight: bold; font-style: italic;">_</span>, <span style="font-weight: bold; font-style: italic;">St</span>) -&gt;
+  <span style="font-weight: bold; font-style: italic;">Exp</span> = <span style="font-weight: bold; text-decoration: underline;">exp_prefix</span>(<span style="font-weight: bold; font-style: italic;">Abody</span>),
+  {yes,<span style="font-weight: bold; font-style: italic;">Exp</span>,<span style="font-weight: bold; font-style: italic;">St</span>};
+<span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">exp_predef(...) -&gt; ....</span>
+
+<span style="font-weight: bold;">exp_prefix</span>([[<span style="font-weight: bold; font-style: italic;">N</span>|<span style="font-weight: bold; font-style: italic;">Ns</span>]|<span style="font-weight: bold; font-style: italic;">Es</span>]) <span style="font-weight: bold;">when</span> <span style="font-weight: bold;">is_number</span>(<span style="font-weight: bold; font-style: italic;">N</span>) -&gt;<span style="font-weight: bold;"> </span>[cons,<span style="font-weight: bold; font-style: italic;">N</span>,[<span style="font-style: italic;">'++*'</span>,<span style="font-weight: bold; font-style: italic;">Ns</span>|<span style="font-weight: bold; font-style: italic;">Es</span>]];
+<span style="font-weight: bold;">exp_prefix</span>([[]|<span style="font-weight: bold; font-style: italic;">Es</span>]) -&gt;<span style="font-weight: bold;"> </span>[<span style="font-style: italic;">'++*'</span>|<span style="font-weight: bold; font-style: italic;">Es</span>];
+<span style="font-weight: bold;">exp_prefix</span>(<span style="font-weight: bold; font-style: italic;">Args</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">exp_append</span>(<span style="font-weight: bold; font-style: italic;">Args</span>).
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgb192477" class="outline-2">
+<h2 id="orgb192477">Usage</h2>
+<div class="outline-text-2" id="text-orgb192477">
+<p>
+Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++*</span> <span style="font-style: italic;">"prefix"</span> suffix)] suffix))
+f
+&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
+<span style="font-style: italic;">"suffix"</span>
+</pre>
+</div>
+
+<p>
+or even:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++*</span> <span style="font-style: italic;">"p"</span> <span style="font-style: italic;">"r"</span> <span style="font-style: italic;">"e"</span> <span style="font-style: italic;">"f"</span> <span style="font-style: italic;">"i"</span> <span style="font-style: italic;">"x"</span> suffix)] suffix))
+f
+&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
+<span style="font-style: italic;">"suffix"</span>
+</pre>
+</div>
+</div>
+</section>
+
+</section>
+
+    </article>
+  </body>
+</html>

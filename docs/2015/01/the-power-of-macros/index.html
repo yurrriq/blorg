@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - #'clojure.core/some-> and the Power of Macros</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>#'clojure.core/some-> and the Power of Macros</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on  2 January, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged 'clojure'." href="../../../tag/clojure/">clojure</a>, <a title="All pages tagged 'lisp'." href="../../../tag/lisp/">lisp</a>, <a title="All pages tagged 'metaprogramming'." href="../../../tag/metaprogramming/">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
+</p>
+
+<p>
+In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> will undoubtedly <a href="https://twitter.com/yurrriq/status/525703812833890305">grow fonder</a>.
+</p>
+
+<p>
+<label for="mn-auto.3960597" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.3960597" class="margin-toggle"><span class="marginnote"> See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub </span>
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure">(<span style="font-weight: bold;">comment</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>
+  (<span style="font-weight: bold;">some-&gt;</span> (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;) <span style="font-weight: bold; text-decoration: underline;">:doc</span> println)
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">When expr is not nil, threads it into the first form (via -&gt;),</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">and when that result is not nil, through the next etc</span>
+
+  (macroexpand '(<span style="font-weight: bold;">some-&gt;</span> (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;) <span style="font-weight: bold; text-decoration: underline;">:doc</span> println))
+
+  (<span style="font-weight: bold;">let*</span> [G__2986 (meta (<span style="font-weight: bold;">var</span> <span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/some-&gt;))
+         G__2986 (<span style="font-weight: bold;">if</span> (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/nil? G__2986)
+                   <span style="font-weight: bold; text-decoration: underline;">nil</span>
+                   (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/<span style="font-weight: bold;">-&gt;</span> G__2986 <span style="font-weight: bold; text-decoration: underline;">:doc</span>))
+         G__2986 (<span style="font-weight: bold;">if</span> (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/nil? G__2986)
+                   <span style="font-weight: bold; text-decoration: underline;">nil</span>
+                   (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/<span style="font-weight: bold;">-&gt;</span> G__2986 println))]
+    G__2986)
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Rewritten more readably to illustrate the point:</span>
+  (<span style="font-weight: bold;">let</span> [example (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;)
+        example (<span style="font-weight: bold;">when-not</span> (nil? example)
+                  (<span style="font-weight: bold; text-decoration: underline;">:doc</span> example))
+        example (<span style="font-weight: bold;">when-not</span> (nil? example)
+                  (println example))]
+    example)
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Which brings me to another of my scattered thoughts,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Clojure has the #'clojure.core/when-not macro, but</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">for some reason, I find myself wanting to use 'unless,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">as in Common Lisp:</span>
+  (<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">unless</span> (condition &amp;rest body)
+    `(<span style="font-weight: bold;">if</span> (not ,condition) (progn ,@body)))
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">What better excuse to start writing my own macros?</span>
+  (<span style="font-weight: bold;">ns</span> <span style="font-weight: bold; text-decoration: underline;">fastidious.macros</span>)
+
+  (<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">unless</span>
+    [condition &amp; body] `(<span style="font-weight: bold;">if</span> (not ~condition) (<span style="font-weight: bold;">do</span> ~@body)))
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Side bonus: I used my desire for 'unless to drive</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">my experiments in integrating macros in ClojureScript,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">with underwhelming success. It just works.</span>
+  (<span style="font-weight: bold;">ns</span> <span style="font-weight: bold; text-decoration: underline;">client.core</span>
+    (<span style="font-weight: bold; text-decoration: underline;">:require-macros</span> [fastidious.macros <span style="font-weight: bold; text-decoration: underline;">:refer</span> [unless]]))
+
+  (<span style="font-weight: bold;">let</span> [lisp-is-lame? <span style="font-weight: bold; text-decoration: underline;">false</span>]
+    (unless lisp-is-lame?
+      (println <span style="font-style: italic;">"IFL Lisp."</span>)
+      (println <span style="font-style: italic;">"Next up: /c[ad]{1,5}r/"</span>))))
+</pre>
+</div>
+
+</section>
+
+    </article>
+  </body>
+</html>

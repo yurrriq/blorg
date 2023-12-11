@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - books</title>
+    <link href="https://blorg.ericb.me/tag/books.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/books.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>18 December, 2023</updated>
+    <entry>
+    <title>Proving Addition is Commutative in Idris</title>
+    <link href="https://blorg.ericb.me/2016/09/proving-addition-is-commutative-in-idris/index.html" />
+    <id>https://blorg.ericb.me/2016/09/proving-addition-is-commutative-in-idris/index.html</id>
+    <published>2016-09-07T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  7 September, 2016
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;idris&#39;." href="/tag/idris/index.html">idris</a>, <a title="All pages tagged &#39;theorem-proving&#39;." href="/tag/theorem-proving/index.html">theorem-proving</a>, <a title="All pages tagged &#39;books&#39;." href="/tag/books/index.html">books</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+First off, I think <a href="http://www.idris-lang.org">Idris</a> is pretty great. Over the past several months, I've
+been thoroughly enjoying reading and working through <a href="https://www.manning.com/books/type-driven-development-with-idris"><i>Type-Driven Development
+with Idris</i></a>, as well as chatting with the community on IRC.
+<label for='mn-auto.8079674' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.8079674' class='margin-toggle'><span class='marginnote'> <code>#idris</code> on freenode </span>
+</p>
+
+<section id="outline-container-org1cd360a" class="outline-2">
+<h2 id="org1cd360a">Posting to the MEAP forum</h2>
+<div class="outline-text-2" id="text-org1cd360a">
+<p>
+For every <a href="https://www.manning.com/meap-program">MEAP</a> book, Manning provides a forum. To be honest, though I've
+partaken in quite a few MEAPs, I've never really participated in the fora. In
+<a href="https://forums.manning.com/forums/type-driven-development-with-idris">the <i>Type-Driven Development with Idris</i> forum</a>, however, I've made a whopping
+<b>two</b> posts so far. One was a clarifying question about a possible error in the
+text and the other was an answer to a fellow reader's question. My answer seemed
+like a good example of how Idris works, so I thought I'd turn it into a blog
+post. Here goes.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgd1bb8e1" class="outline-2">
+<h2 id="orgd1bb8e1">Proving it with Idris</h2>
+<div class="outline-text-2" id="text-orgd1bb8e1">
+<p>
+In this example, we're trying to prove that addition of natural numbers is
+<a href="https://en.wikipedia.org/wiki/Commutative_property">commutative</a>, i.e.
+\[\forall n,m \in \mathbb{N}\ (n + m \equiv m + n)\]
+&#x2026; which we can express in Idris as follows:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+</pre>
+</div>
+
+<p>
+The type signature for <code class="src src-idris">myPlusCommutative</code> can be read as something
+like, "For all natural numbers <code>n</code> and <code>m</code>, <code>n</code> plus <code>m</code> is exactly equivalent
+to <code>m</code> plus <code>n</code>."
+</p>
+
+<p>
+Over-simplifying the <a href="https://en.wikipedia.org/wiki/Curry%25E2%2580%2593Howard_correspondence">Curry-Howard correspondence</a>, if we can write a <a href="https://en.wikipedia.org/wiki/Total_functional_programming">total
+function</a> that satisfies the type signature, then we've effectively written a
+proof for the corresponding <a href="https://en.wikipedia.org/wiki/Universal_quantification">universal quantification</a>.
+</p>
+
+<p>
+Idris has some great interactive editing tools, so I'll try to show those off a
+bit here too. For a start, we can call <code>idris-add-clause</code> (<code>M-RET d</code> in
+<a href="http://spacemacs.org/layers/+lang/idris/README.html">Spacemacs</a>) to get:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+myPlusCommutative n m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs
+</pre>
+</div>
+
+<p>
+The prefix <code>?</code> signifies a hole and in this case, the type of that hole is:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">  n <span style="font-weight: bold; font-style: italic;">:</span> Nat
+  m <span style="font-weight: bold; font-style: italic;">:</span> Nat
+<span style="font-weight: bold; font-style: italic;">--------------------------------------</span>
+myPlusCommutative_rhs <span style="font-weight: bold; font-style: italic;">:</span> plus n m <span style="font-weight: bold; font-style: italic;">=</span> plus m n
+</pre>
+</div>
+
+<p>
+Next, we can case split (<code>idris-case-split</code>, <code>M-RET c</code>) on <code>n</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs_1
+myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs_2
+</pre>
+</div>
+
+<p>
+For <code>?myPlusCommutative_rhs_1</code> we need to prove that \(m = m + 0\).
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative_rhs_1 <span style="font-weight: bold; font-style: italic;">:</span> m <span style="font-weight: bold; font-style: italic;">=</span> plus m 0
+</pre>
+</div>
+
+<p>
+Fortunately, the <code>Prelude</code> has a proof that's almost exactly what we want:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">plusZeroRightNeutral <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> left <span style="font-weight: bold; font-style: italic;">+</span> 0 <span style="font-weight: bold; font-style: italic;">=</span> left
+</pre>
+</div>
+
+<p>
+Since we need to swap the left- and right-hand sides, we can use <code>sym</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">sym <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">=</span> right) <span style="font-weight: bold; font-style: italic;">-&gt;</span> right <span style="font-weight: bold; font-style: italic;">=</span> left
+</pre>
+</div>
+
+<p>
+So the complete definition for the <a href="https://en.wikipedia.org/wiki/Mathematical_induction"><i>base case</i></a> of <code>myPlusCommutative</code> is:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> sym (plusZeroRightNeutral m)
+</pre>
+</div>
+
+<p>
+Next, we've got to tackle the <i>inductive step</i>. Since we know we'll need to
+reduce to the <i>base case</i>, let's define a local variable <code>inductiveHypothesis</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
+    ?myPlusCommutative_rhs_2
+</pre>
+</div>
+
+<p>
+Examining the type of <code>?myPlusCommutative_rhs_2</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">  k <span style="font-weight: bold; font-style: italic;">:</span> Nat
+  m <span style="font-weight: bold; font-style: italic;">:</span> Nat
+  inductiveHypothesis <span style="font-weight: bold; font-style: italic;">:</span> plus k m <span style="font-weight: bold; font-style: italic;">=</span> plus m k
+  _<span style="font-weight: bold;">rewrite</span>_rule <span style="font-weight: bold; font-style: italic;">:</span> plus k m <span style="font-weight: bold; font-style: italic;">=</span> plus m k
+<span style="font-weight: bold; font-style: italic;">--------------------------------------</span>
+myPlusCommutative_rhs_2 <span style="font-weight: bold; font-style: italic;">:</span> S (plus m k) <span style="font-weight: bold; font-style: italic;">=</span> plus m (S k)
+</pre>
+</div>
+
+<p>
+&#x2026; we see we need to prove the successor of \(k\) plus \(m\) is exactly equivalent
+to \(m\) plus the successor of \(k\), i.e.
+\[\forall m \in \mathbb{N}\ (S(k + m) \equiv m + S(k))\]
+</p>
+
+<p>
+Prelude to the rescue, yet again:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">plusSuccRightSucc <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span>
+                    (right <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> S (left <span style="font-weight: bold; font-style: italic;">+</span> right) <span style="font-weight: bold; font-style: italic;">=</span> left <span style="font-weight: bold; font-style: italic;">+</span> S right
+</pre>
+</div>
+
+<p>
+Now we can <code>rewrite</code> the hole using <code>plusSuccRightSucc</code> with <code>m</code> as <code>left</code> and
+<code>k</code> as <code>right</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> plusSuccRightSucc m k <span style="font-weight: bold;">in</span>
+            ?myPlusCommutative_rhs_2
+</pre>
+</div>
+
+<p>
+Eliding the repetitive bits, we get:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative_rhs_2 <span style="font-weight: bold; font-style: italic;">:</span> plus m (S k) <span style="font-weight: bold; font-style: italic;">=</span> plus m (S k)
+</pre>
+</div>
+
+<p>
+&#x2026; which looks like our old friend, <code>Refl</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">Refl <span style="font-weight: bold; font-style: italic;">:</span> x <span style="font-weight: bold; font-style: italic;">=</span> x
+</pre>
+</div>
+
+<p>
+At this point, Idris can fill in the hole for us, via <code>idris-proof-search</code>
+(<code>M-RET p</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> plusSuccRightSucc m k <span style="font-weight: bold;">in</span>
+            Refl
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgeb6cbed" class="outline-2">
+<h2 id="orgeb6cbed">The final product</h2>
+<div class="outline-text-2" id="text-orgeb6cbed">
+<p>
+Tidying up a bit for my taste, we arrive at the complete (and total) definition:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris"><span style="font-weight: bold; font-style: italic;">|||</span><span style="font-style: italic;"> Addition of natural numbers is commutative.</span>
+<span style="font-weight: bold;">total</span>
+myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> sym (plusZeroRightNeutral m)
+myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold;">rewrite</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+                                    plusSuccRightSucc m k
+</pre>
+</div>
+<p>
+\(\square\)
+</p>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

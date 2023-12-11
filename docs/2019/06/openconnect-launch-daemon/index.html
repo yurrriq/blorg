@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - OpenConnect Launch Daemon</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>OpenConnect Launch Daemon</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on 17 June, 2019
+      
+      
+      <br />
+      Tags: <a title="All pages tagged 'darwin'." href="../../../tag/darwin/">darwin</a>, <a title="All pages tagged 'vpn'." href="../../../tag/vpn/">vpn</a>, <a title="All pages tagged 'openconnect'." href="../../../tag/openconnect/">openconnect</a>, <a title="All pages tagged 'launchd'." href="../../../tag/launchd/">launchd</a>, <a title="All pages tagged 'daemon'." href="../../../tag/daemon/">daemon</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+What follows is a sparsely documented literate program to manage an OpenConnect
+VPN connection with <code>launchd</code> on macOS. Many thanks to <a href="https://github.com/ashgillman">Ashley Gilman</a> for their
+blog post, <a href="https://ashgillman.github.io/2017/02/14/openconnect-launchd.html">Managing an Openconnect VPN Connection with launchd on OSX</a>, upon
+which this is based.
+</p>
+
+<section id="outline-container-org787f1a6" class="outline-2">
+<h2 id="org787f1a6">OpenConnect Wrapper</h2>
+<div class="outline-text-2" id="text-org787f1a6">
+<p>
+Define a function <code>handler</code> to send an <code>INT</code> signal to <code>$PID</code>, then <code>trap</code>
+<code>TERM</code> signals and call <code>handler</code> instead, which will enable ending an
+<code>openconnect</code> process gracefully with <code>launchd</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold;">handler</span>() {
+    kill -INT <span style="font-style: italic;">"$PID"</span> 2&gt;/dev/null
+}
+
+<span style="font-weight: bold;">trap</span> handler SIGTERM
+</pre>
+</div>
+
+<p>
+Pipe <code>STDIN</code> and pass any given arguments to <code>/usr/local/bin/openconnect</code>, and
+send to the background.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">cat | /usr/local/bin/openconnect <span style="font-style: italic;">"$@"</span> &amp;
+</pre>
+</div>
+
+<p>
+Keep the wrapper process alive as long as the <code>openconnect</code> process is, by
+capturing its PID and <code>wait</code>-ing for it.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;">PID</span>=$<span style="font-weight: bold; font-style: italic;">!</span>
+<span style="font-weight: bold;">wait</span> <span style="font-style: italic;">"$PID"</span>
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgc328e80" class="outline-2">
+<h2 id="orgc328e80">Password File</h2>
+<div class="outline-text-2" id="text-orgc328e80">
+<p>
+Store the password (without a trailing newline) in a file,
+<code>/etc/openconnect/passwd</code>, owned by <code>root</code>.
+</p>
+
+<p>
+Remove read/write access from all but <code>root</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo chmod og-rw /etc/openconnect/passwd
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org5995973" class="outline-2">
+<h2 id="org5995973">Launch Daemon</h2>
+<div class="outline-text-2" id="text-org5995973">
+<p>
+Set up a launch daemon by creating a property list file,
+<code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;?<span style="font-weight: bold;">xml</span> <span style="font-style: italic;">version="1.0" encoding="UTF-8"</span>?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;<span style="font-weight: bold;">plist</span> <span style="font-weight: bold; font-style: italic;">version</span>=<span style="font-style: italic;">"1.0"</span>&gt;
+  &lt;<span style="font-weight: bold;">dict</span>&gt;
+    &lt;<span style="font-weight: bold;">key</span>&gt;Label&lt;/<span style="font-weight: bold;">key</span>&gt;
+    &lt;<span style="font-weight: bold;">string</span>&gt;me.ericb.openconnect-example&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Specify that the password, stored in <code>/etc/openconnect/passwd-example</code>, will be
+supplied via stdin.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;StandardInPath&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">string</span>&gt;/etc/openconnect/passwd-example&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Use the wrapper defined above.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;ProgramArguments&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">array</span>&gt;
+  &lt;<span style="font-weight: bold;">string</span>&gt;/etc/openconnect-wrapper&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Tell <code>openconnect</code> we're supplying the password via stdin.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--passwd-on-stdin&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the OpenConnect protocol to AnyConnect.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--protocol=anyconnect&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the reconnect timeout to <code>1800</code> seconds.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--reconnect-timeout=1800&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the username.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--user=alice&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Finally, specify the VPN server hostname.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">  &lt;<span style="font-weight: bold;">string</span>&gt;vpn.example.com&lt;/<span style="font-weight: bold;">string</span>&gt;
+&lt;/<span style="font-weight: bold;">array</span>&gt;
+</pre>
+</div>
+
+<p>
+Configure log files for debugging.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;StandardOutPath&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">string</span>&gt;/var/log/me.ericb.openconnectconsole.log&lt;/<span style="font-weight: bold;">string</span>&gt;
+&lt;<span style="font-weight: bold;">key</span>&gt;StandardErrorPath&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">string</span>&gt;/var/log/me.ericb.openconnect/error.log&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Close the open XML tags.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">  &lt;/<span style="font-weight: bold;">dict</span>&gt;
+&lt;/<span style="font-weight: bold;">plist</span>&gt;
+</pre>
+</div>
+</div>
+</section>
+
+</section>
+
+    </article>
+  </body>
+</html>

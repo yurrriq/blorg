@@ -1,0 +1,163 @@
+#+startup: showall
+#+options: toc:nil ^:{}
+#+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
+#+begin_export html
+---
+title:  "Proving Addition is Commutative in Idris"
+author: Eric Bailey
+tags: idris, theorem-proving, books
+updated: 18 December, 2023
+---
+#+end_export
+
+First off, I think [[http://www.idris-lang.org][Idris]] is pretty great. Over the past several months, I've
+been thoroughly enjoying reading and working through [[https://www.manning.com/books/type-driven-development-with-idris][/Type-Driven Development
+with Idris/]], as well as chatting with the community on IRC.
+{{{marginnote(=#idris= on freenode)}}}
+
+* Posting to the MEAP forum
+
+For every [[https://www.manning.com/meap-program][MEAP]] book, Manning provides a forum. To be honest, though I've
+partaken in quite a few MEAPs, I've never really participated in the fora. In
+[[https://forums.manning.com/forums/type-driven-development-with-idris][the /Type-Driven Development with Idris/ forum]], however, I've made a whopping
+*two* posts so far. One was a clarifying question about a possible error in the
+text and the other was an answer to a fellow reader's question. My answer seemed
+like a good example of how Idris works, so I thought I'd turn it into a blog
+post. Here goes.
+
+* Proving it with Idris
+:PROPERTIES:
+:header-args: :exports code
+:END:
+
+In this example, we're trying to prove that addition of natural numbers is
+[[https://en.wikipedia.org/wiki/Commutative_property][commutative]], i.e.
+$$\forall n,m \in \mathbb{N}\ (n + m \equiv m + n)$$
+... which we can express in Idris as follows:
+#+begin_src idris
+myPlusCommutative : (n, m : Nat) -> n + m = m + n
+#+end_src
+
+The type signature for src_idris{myPlusCommutative} can be read as something
+like, "For all natural numbers =n= and =m=, =n= plus =m= is exactly equivalent
+to =m= plus =n=."
+
+Over-simplifying the [[https://en.wikipedia.org/wiki/Curry%25E2%2580%2593Howard_correspondence][Curry-Howard correspondence]], if we can write a [[https://en.wikipedia.org/wiki/Total_functional_programming][total
+function]] that satisfies the type signature, then we've effectively written a
+proof for the corresponding [[https://en.wikipedia.org/wiki/Universal_quantification][universal quantification]].
+
+Idris has some great interactive editing tools, so I'll try to show those off a
+bit here too. For a start, we can call ~idris-add-clause~ (=M-RET d= in
+[[http://spacemacs.org/layers/+lang/idris/README.html][Spacemacs]]) to get:
+#+begin_src idris
+myPlusCommutative : (n, m : Nat) -> n + m = m + n
+myPlusCommutative n m = ?myPlusCommutative_rhs
+#+end_src
+
+The prefix =?= signifies a hole and in this case, the type of that hole is:
+#+begin_src idris
+  n : Nat
+  m : Nat
+--------------------------------------
+myPlusCommutative_rhs : plus n m = plus m n
+#+end_src
+
+Next, we can case split (~idris-case-split~, =M-RET c=) on ~n~:
+#+begin_src idris
+myPlusCommutative : (n, m : Nat) -> n + m = m + n
+myPlusCommutative  Z    m = ?myPlusCommutative_rhs_1
+myPlusCommutative (S k) m = ?myPlusCommutative_rhs_2
+#+end_src
+
+For ~?myPlusCommutative_rhs_1~ we need to prove that $m = m + 0$.
+#+begin_src idris
+myPlusCommutative_rhs_1 : m = plus m 0
+#+end_src
+
+Fortunately, the =Prelude= has a proof that's almost exactly what we want:
+#+begin_src idris
+plusZeroRightNeutral : (left : Nat) -> left + 0 = left
+#+end_src
+
+Since we need to swap the left- and right-hand sides, we can use ~sym~:
+#+begin_src idris
+sym : (left = right) -> right = left
+#+end_src
+
+So the complete definition for the [[https://en.wikipedia.org/wiki/Mathematical_induction][/base case/]] of ~myPlusCommutative~ is:
+#+begin_src idris
+myPlusCommutative  Z    m = sym (plusZeroRightNeutral m)
+#+end_src
+
+Next, we've got to tackle the /inductive step/. Since we know we'll need to
+reduce to the /base case/, let's define a local variable ~inductiveHypothesis~:
+#+begin_src idris
+myPlusCommutative (S k) m =
+  let inductiveHypothesis = myPlusCommutative k m in
+    rewrite inductiveHypothesis in
+    ?myPlusCommutative_rhs_2
+#+end_src
+
+Examining the type of ~?myPlusCommutative_rhs_2~:
+#+begin_src idris
+  k : Nat
+  m : Nat
+  inductiveHypothesis : plus k m = plus m k
+  _rewrite_rule : plus k m = plus m k
+--------------------------------------
+myPlusCommutative_rhs_2 : S (plus m k) = plus m (S k)
+#+end_src
+
+... we see we need to prove the successor of $k$ plus $m$ is exactly equivalent
+to $m$ plus the successor of $k$, i.e.
+$$\forall m \in \mathbb{N}\ (S(k + m) \equiv m + S(k))$$
+
+Prelude to the rescue, yet again:
+#+begin_src idris
+plusSuccRightSucc : (left : Nat) ->
+                    (right : Nat) -> S (left + right) = left + S right
+#+end_src
+
+Now we can ~rewrite~ the hole using ~plusSuccRightSucc~ with ~m~ as ~left~ and
+~k~ as ~right~:
+#+begin_src idris
+myPlusCommutative (S k) m =
+  let inductiveHypothesis = myPlusCommutative k m in
+    rewrite inductiveHypothesis in
+    rewrite plusSuccRightSucc m k in
+            ?myPlusCommutative_rhs_2
+#+end_src
+
+Eliding the repetitive bits, we get:
+#+begin_src idris
+myPlusCommutative_rhs_2 : plus m (S k) = plus m (S k)
+#+end_src
+
+... which looks like our old friend, ~Refl~:
+#+begin_src idris
+Refl : x = x
+#+end_src
+
+At this point, Idris can fill in the hole for us, via ~idris-proof-search~
+(=M-RET p=):
+
+#+begin_src idris
+myPlusCommutative (S k) m =
+  let inductiveHypothesis = myPlusCommutative k m in
+    rewrite inductiveHypothesis in
+    rewrite plusSuccRightSucc m k in
+            Refl
+#+end_src
+
+* The final product
+
+Tidying up a bit for my taste, we arrive at the complete (and total) definition:
+#+begin_src idris
+||| Addition of natural numbers is commutative.
+total
+myPlusCommutative : (n, m : Nat) -> n + m = m + n
+myPlusCommutative  Z    m = sym (plusZeroRightNeutral m)
+myPlusCommutative (S k) m = rewrite myPlusCommutative k m in
+                                    plusSuccRightSucc m k
+#+end_src
+$\square$

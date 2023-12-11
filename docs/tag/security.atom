@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - security</title>
+    <link href="https://blorg.ericb.me/tag/security.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/security.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>2018-09-07T00:00:00Z</updated>
+    <entry>
+    <title>Spooky Security</title>
+    <link href="https://blorg.ericb.me/2018/09/spooky-security/index.html" />
+    <id>https://blorg.ericb.me/2018/09/spooky-security/index.html</id>
+    <published>2018-09-07T00:00:00Z</published>
+    <updated>2018-09-07T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  7 September, 2018
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;darwin&#39;." href="/tag/darwin/index.html">darwin</a>, <a title="All pages tagged &#39;keyboard&#39;." href="/tag/keyboard/index.html">keyboard</a>, <a title="All pages tagged &#39;security&#39;." href="/tag/security/index.html">security</a>, <a title="All pages tagged &#39;skhd&#39;." href="/tag/skhd/index.html">skhd</a>, <a title="All pages tagged &#39;chunkwm&#39;." href="/tag/chunkwm/index.html">chunkwm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<b>Update (21 September, 2018)</b>: It turns out <a href="https://github.com/keybase/client">Keybase.app</a> was to blame. I've since
+quit it and removed it from my login items, and all is well again.  This
+<a href="https://github.com/koekeishiya/skhd/issues/48">skhd issue thread</a> details some excellent debugging strategies, which I've
+modified slightly here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">ioreg -lw 0 <span style="font-style: italic;">\</span>
+    | perl -nle <span style="font-style: italic;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="font-style: italic;">\</span>
+    | uniq <span style="font-style: italic;">\</span>
+    | xargs ps -o <span style="font-weight: bold; font-style: italic;">comm</span>= -p
+</pre>
+</div>
+
+<p>
+For example, when I enable secure keyboard entry in <code>Terminal.app</code>, I see the
+following output.
+</p>
+
+<pre class="example" id="org2f3eb89">
+/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+</pre>
+
+<hr>
+
+<p>
+I've been using <a href="https://koekeishiya.github.io/chunkwm/">chunkwm</a> and <a href="https://github.com/koekeishiya/skhd">skhd</a> to help make Darwin more palatable, but <code>skhd</code>
+suddenly stopped working. When I try to start it manually, I get the following
+error.
+</p>
+
+<pre class="example" id="org50a4ba5">
+skhd: secure keyboard entry is enabled! abort..
+</pre>
+
+<p>
+<a href="https://github.com/koekeishiya/skhd/issues/48">The internet suggested</a> I disable <a href="https://iterm2.com/">iTerm 2</a>'s <i>Secure Keyboard Entry</i>, but I've
+switched to <a href="https://sw.kovidgoyal.net/kitty/">kitty</a>.
+</p>
+
+<p>
+After some further frantic <a href="https://duckduckgo.com/">DuckDuckGo</a>-ing, I came across a function,
+<code>DisableSecureEventInput</code>, which seemed like the answer, so I wrote a quick
+program to call it and try to end my troubles.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;</span><span style="font-style: italic;">Carbon/Carbon.h</span><span style="font-style: italic;">&gt;</span>
+
+
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
+{
+    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
+        printf(<span style="font-style: italic;">"Secure keyboard entry is enabled.\n"</span>);
+
+    DisableSecureEventInput();
+
+    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
+        printf(<span style="font-style: italic;">"Secure keyboard entry is still enabled.\n"</span>);
+
+
+    <span style="font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<pre class="example">
+Secure keyboard entry is enabled.
+Secure keyboard entry is still enabled.
+</pre>
+
+
+<p>
+No such luck. I'm <a href="https://www.youtube.com/watch?v%3DqjGjuiFKE04">literally dying</a>.
+</p>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

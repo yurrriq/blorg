@@ -1,0 +1,23 @@
+#+options: toc:nil
+#+begin_export html
+---
+title:  "werase in iTerm2"
+author: Eric Bailey
+tags: osx, hack, terminal, productivity
+---
+#+end_export
+
+Using a fresh install of [[https://www.iterm2.com][iTerm2]], I found that =⌥⌫= wasn't working as
+expected. Within minutes, I noticed a *significant* decrease in productivity,
+since (apparently) I use ~werase~ all the time.
+
+Without further ado, here's the time-saving fix I settled on.
+
+[[img:werase.png]]
+
+Shout out to to [[https://manytricks.com/keycodes/][Key Codes]] (and [[https://brew.sh][Homebrew]]) for making it easy to find the
+appropriate hex code.
+
+#+begin_src fish
+brew cask install key-codes
+#+end_src

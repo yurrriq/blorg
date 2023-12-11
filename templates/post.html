@@ -1,0 +1,23 @@
+$if(author)$
+<p class="subtitle">$author$</p>
+$endif$
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on $date$
+      $if(updated)$
+      <br />
+      Updated on $updated$
+      $endif$
+      $if(tags)$
+      <br />
+      Tags: $tags$
+      $endif$
+    </span>
+  </p>
+</section>
+<section>
+  $body$
+</section>

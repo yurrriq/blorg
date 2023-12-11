@@ -1,0 +1,95 @@
+#+options: toc:nil
+#+begin_export html
+---
+title:  "Matching strings in LFE patterns"
+author: Eric Bailey
+tags: lfe, lisp, beam, pattern-matching, open-source
+updated: 18 December, 2023
+---
+#+end_export
+
+While writing an LFE solution for [[https://adventofcode.com/2015/day/6][Day 6 of Advent of Code]], I found myself
+wanting to write ~parse_instruction/1~ like this:
+#+begin_src erlang
+parse_instruction("toggle " ++ Rest) -> toggle(parse_coordinates(Rest));
+parse_instruction("turn on " ++ Rest) -> turn_on(parse_coordinates(Rest));
+parse_instruction("turn off " ++ Rest) -> turn_off(parse_coordinates(Rest)).
+
+parse_coordinates(String) ->
+  {ok,[X0,Y0,X1,Y2],[]} = io_lib:fread("~d,~d through ~d,~d", String),
+  {{X0,Y0},{X1,Y1}}.
+
+toggle({{X0,Y0},{X1,Y1}}) -> undefined.
+turn_on({{X0,Y0},{X1,Y1}}) -> undefined.
+turn_off({{X0,Y0},{X1,Y1}}) -> undefined.
+#+end_src
+
+* Trying it out
+:PROPERTIES:
+:header-args: :exports code
+:END:
+
+But the literal LFE translation [[https://github.com/rvirding/lfe/issues/176][doesn't work as desired]].
+#+begin_src lfe
+(defun parse-instruction
+  ([(++ "turn off " rest)]
+   ...))
+#+end_src
+
+@@html:<label for="mn-exp_append-before" class="margin-toggle">&#8853;</label>@@
+@@html:<input type="checkbox" id="mn-exp_append-before" class="margin-toggle"/>@@
+@@html:<span class="marginnote">@@
+N.B. In [[https://github.com/rvirding/lfe/releases/tag/v0.10.1][v0.10.1]], ~exp_append/1~ had the following [[https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912][clause]], commented out.@@html:<br/>@@
+src_erlang{%% Cases with lists of numbers (strings).}@@html:<br/>@@
+src_erlang{[[N|Ns]|Es] when is_number(N) -> [cons,N,['++',Ns|Es]];}
+@@html:</span>@@
+
+Instead, invocation of a ~defun~ of that form throws a =function_clause= error.
+#+begin_src lfe :exports code
+> (defun f ([(++ "prefix" suffix)] suffix))
+f
+> (f "prefixsuffix")
+exception error: function_clause
+#+end_src
+
+* Adding ~++*~ patterns to LFE
+
+After this discovery, I took to [[http://webchat.freenode.net/?channels=erlang-lisp][#erlang-lisp]] and tried to figure out why.
+Discussing the issue with =@rvirding= for a few minutes, we decided adding ~++*~
+and having patterns like ~(++* "prefix" suffix)~ expand to nested ~cons~-es was
+a solid approach.
+
+Rather than take the overly complicated approach of counting and limiting the
+number of expanded ~cons~-es and bottoming out to a call to ~erlang:++~, we
+decided to [[http://www.catb.org/jargon/html/K/KISS-Principle.html][keep it simple]] and just let ~++*~ patterns do their own thing.
+
+The [[https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe][solution]] we came up with is as follows:
+#+begin_src erlang
+%% exp_predef(...) -> ...;
+exp_predef(['++*'|Abody], _, St) ->
+  Exp = exp_prefix(Abody),
+  {yes,Exp,St};
+%% exp_predef(...) -> ....
+
+exp_prefix([[N|Ns]|Es]) when is_number(N) -> [cons,N,['++*',Ns|Es]];
+exp_prefix([[]|Es]) -> ['++*'|Es];
+exp_prefix(Args) -> exp_append(Args).
+#+end_src
+
+* Usage
+
+Now in the [[https://github.com/rvirding/lfe/tree/develop][develop]] branch, you can do the following:
+#+begin_src lfe
+> (defun f ([(++* "prefix" suffix)] suffix))
+f
+> (f "prefixsuffix")
+"suffix"
+#+end_src
+
+or even:
+#+begin_src lfe
+> (defun f ([(++* "p" "r" "e" "f" "i" "x" suffix)] suffix))
+f
+> (f "prefixsuffix")
+"suffix"
+#+end_src

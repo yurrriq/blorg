@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - Cons Cells in Lisp Flavoured Erlang</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>Cons Cells in Lisp Flavoured Erlang</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on 10 August, 2015
+      
+      
+      <br />
+      Tags: <a title="All pages tagged 'lfe'." href="../../../tag/lfe/">lfe</a>, <a title="All pages tagged 'lisp'." href="../../../tag/lisp/">lisp</a>, <a title="All pages tagged 'beam'." href="../../../tag/beam/">beam</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Just as you'd expect from <a href="http://learnyousomeerlang.com/starting-out-for-real#lists">Erlang</a> or <a href="http://clojure.org/lisps">another Lisp</a>, in <a href="http://lfe.gitbooks.io/tutorial/content/sequential/lists.html">LFE</a>, lists are composed of
+<a href="http://cs.gmu.edu/~sean/lisp/cons/"><i>cons cells</i></a> and when you use pattern matching to bind the head and tail of a
+singleton list, <code>head</code> holds the single element and <code>tail</code> is the empty list.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">let</span> ((`(,head . ,tail) '(a-single-element)))
+    (lfe_io:format '<span style="font-style: italic;">"Head: ~w~nTail: ~w~n"</span> `(,head ,tail)))
+</pre>
+</div>
+
+<pre class="example" id="org95d09bf">
+Head: a-single-element
+Tail: ()
+ok
+</pre>
+
+<p>
+We can confirm this by checking that a <i>cons cell</i> of the atom
+<code>a-single-element</code> and the empty list is <a href="http://erlang.org/doc/reference_manual/expressions.html#id80197">exactly equal to</a> a singleton list of
+the same atom.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">=:=</span> (<span style="font-weight: bold;">cons</span> 'a-single-element '()) '(a-single-element))
+</pre>
+</div>
+
+<pre class="example" id="org2b08394">
+true
+</pre>
+
+</section>
+
+    </article>
+  </body>
+</html>

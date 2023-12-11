@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - werase in iTerm2</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>werase in iTerm2</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on  9 September, 2015
+      
+      
+      <br />
+      Tags: <a title="All pages tagged 'osx'." href="../../../tag/osx/">osx</a>, <a title="All pages tagged 'hack'." href="../../../tag/hack/">hack</a>, <a title="All pages tagged 'terminal'." href="../../../tag/terminal/">terminal</a>, <a title="All pages tagged 'productivity'." href="../../../tag/productivity/">productivity</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Using a fresh install of <a href="https://www.iterm2.com">iTerm2</a>, I found that <code>⌥⌫</code> wasn't working as
+expected. Within minutes, I noticed a <b>significant</b> decrease in productivity,
+since (apparently) I use <code>werase</code> all the time.
+</p>
+
+<p>
+Without further ado, here's the time-saving fix I settled on.
+</p>
+
+<p>
+<img src="../../../images/werase.png" alt="nil" />
+</p>
+
+<p>
+Shout out to to <a href="https://manytricks.com/keycodes/">Key Codes</a> (and <a href="https://brew.sh">Homebrew</a>) for making it easy to find the
+appropriate hex code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-fish">brew cask install key-codes
+</pre>
+</div>
+
+</section>
+
+    </article>
+  </body>
+</html>
