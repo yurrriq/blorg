@@ -1,1 +1,11 @@
 *.beam
+.direnv/
+.pre-commit-config.yaml
+/404.html
+/_cache/
+/blorg.cabal
+/dist-newstyle/
+/dist/
+/pages/
+/posts/
+result*

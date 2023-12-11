@@ -1,0 +1,24 @@
+name: blorg
+version: 1.0.0.0
+synopsis: My blog, built with Org mode and Hakyll
+github: yurrriq/blorg
+
+language: Haskell2010
+ghc-options:
+  - -Wall
+  - -Werror
+  - -fwarn-incomplete-patterns
+default-extensions:
+  - OverloadedStrings
+
+executable:
+  source-dirs: src
+  main: Main
+  ghc-options:
+    - -threaded
+  dependencies:
+    - base
+    - hakyll
+    - filepath
+    - split
+    - text

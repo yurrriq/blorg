@@ -1,0 +1,131 @@
+#+options: toc:nil
+#+begin_export html
+---
+title: "(define the-dream (+ 'scheme 'lilypond))"
+author: Eric Bailey
+tags: lilypond, scheme, music
+updated: 17 December, 2023
+---
+#+end_export
+
+[[img:the-dream-scheme-lilypond.png]]
+
+Lately I've gotten increasingly obsessed with [[http://www.paulgraham.com/lisphistory.html][Lisp family of programming
+languages]] and am determined to write as little non-Lisp code as possible.
+
+As such, I've started experimenting with writing more [[https://www.lilypond.org/doc/v2.19/Documentation/extending/scheme-in-lilypond][Scheme in Lilypond]].
+{{{marginnote(*Note to self*: Dive deeper into [[https://web.archive.org/web/20141204001318/https://www.lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/][these]] [[https://web.archive.org/web/20200224054432/http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/][pertinent]] [[https://web.archive.org/web/20200221224150/http://lilypondblog.org/2014/04/music-functions-3-reusing-code/][blog]] [[https://web.archive.org/web/20150131053751/https://www.lilypondblog.org/2014/04/music-functions-4-recursion/][posts]]
+ASAP.)}}}  This is an entirely impractical example, but it gives a glimpse of
+what's possible. I can't wait to start [[https://www.gnu.org/software/guile/manual/guile.html#List-Mapping][~map~-ping]] lists of musical expressions
+and [[https://web.archive.org/web/20150130095849/http://lilypondblog.org/2014/07/trees-music-and-lilypond/][representing music as trees]].
+
+* Scheme
+:PROPERTIES:
+:header-args: :tangle ../../code/the_dream.scm
+:END:
+
+{{{marginnote([[https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-make_002dhash_002dtable][Create a new hash table]] with minimum vector size ~5~.)}}}
+#+begin_src scheme
+(define riffs
+  (make-hash-table 5))
+#+end_src
+
+{{{marginnote(Associate a LilyPond snippet with the key ='I= in the =riffs= hash
+table.)}}}
+#+begin_src scheme
+(hashq-set! riffs 'I
+  #{
+    \mark \markup { I }
+    f4 a c d | f d c a |
+    f4 a c d | ees d c b |
+  #})
+#+end_src
+
+{{{marginnote(Do the same for the ~'IV~\, ~'I'~\, ~'V~\, and ~'turnaround~
+snippets.)}}}
+#+begin_src scheme
+(hashq-set! riffs 'IV
+  #{
+    \mark \markup { IV }
+    bes4 d f g | bes g f d |
+  #})
+
+(hashq-set! riffs 'I'
+  #{
+    \mark \markup { "I'" }
+    f,4 a c d | f d c a |
+  #})
+
+(hashq-set! riffs 'V
+  #{
+    \mark \markup { V }
+    g a bes b | c bes a g |
+  #})
+
+(hashq-set! riffs 'turnaround
+  #{
+    f4 f aes aes | g g ges c |
+  #})
+#+end_src
+
+* LilyPond
+:PROPERTIES:
+:header-args: :tangle ../../code/the_dream.ly
+:END:
+
+#+begin_src LilyPond
+\version "2.24.1"
+\paper { oddFooterMarkup = ##f }
+#+end_src
+
+{{{marginnote(Load the Scheme code from above.)}}}
+#+begin_src LilyPond
+#(load "the_dream.scm")
+#+end_src
+
+{{{marginnote([[https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-hashq_002dref][Lookup]] the riffs from the hash table and add them to the
+score.)}}}
+#+begin_src LilyPond
+\score {
+  \relative c, {
+    \clef bass
+    #(hashq-ref riffs 'I)
+    \break
+    #(hashq-ref riffs 'IV)
+    #(hashq-ref riffs 'I')
+    \break
+    #(hashq-ref riffs 'V)
+    #(hashq-ref riffs 'turnaround)
+    \bar "|."
+  }
+  \layout { indent = 0 }
+}
+#+end_src
+
+* Generate the PNG
+:PROPERTIES:
+:header-args: :dir ../../code/ :exports none :eval no-export :results silent
+:END:
+
+{{{marginnote(N.B. The order of the flags matters.)}}}
+#+name: generate-png
+#+begin_src sh :exports code
+lilypond --include $PWD -dcrop -dresolution=200 --png the_dream.ly
+#+end_src
+
+#+name: move-output
+#+begin_src sh
+mv the_dream.cropped.png ../images/the-dream-scheme-lilypond.png
+#+end_src
+
+#+name: cleanup
+#+begin_src sh
+rm the_dream.png
+#+end_src
+
+#+name: just-do-it
+#+begin_src sh :noweb yes
+<<generate-png>>
+<<move-output>>
+<<cleanup>>
+#+end_src

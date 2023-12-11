@@ -1,0 +1,44 @@
+#+startup: showall
+#+options: toc:nil ^:{}
+#+begin_export html
+---
+title:  "Bye Bye, Jekyll!"
+author: Eric Bailey
+tags: blogging, haskell, open-source
+updated: 18 December, 2023
+---
+#+end_export
+
+Back in December of 2014, I set up a blog using [[https://ghost.org][Ghost]] and [[https://github.com/axitkhurana/buster/][Buster]]. That was all
+fine and good, but left quite a bit to be desired. I'm not a Python user and the
+whole workflow was a bit too clunky for my taste.
+
+* Migrating to Jekyll
+
+In July of 2015, I decided to migrate to [[https://jekyllrb.com][Jekyll]]. It's pretty widely used and the
+integration with [[https://pages.github.com][GitHub Pages]] promised to be smooth and easy.  In practice, I
+found its workflow to be similarly annoying. Worst of all, it made me install,
+write and use Ruby.{{{marginnote(I'm a long-time Ruby hater. [[https://twitter.com/search?q=%2523sorrynotsorry][#sorrynotsorry]])}}}
+
+What's more, GitHub seems to have a predilection for breaking things so often
+and dramatically, that [[https://github.com/lfex/dragon][dragon]] was born.
+
+* Migrating to Hakyll
+
+[[http://haskellbook.com][Learning Haskell]] has been a [[https://www.youtube.com/watch?v=-1YjmXSyHa8][fantastic voyage]]. Although I've not yet used it for
+any "real" projects, I'm sold on its expressivity and general
+mind-expanding-ness. I had seen [[https://jaspervdj.be/hakyll/][Hakyll]] pop up on my radar a few times and
+considered migrating to it for quite a while. Last night, I finally made the
+leap. The experience was so great, I can't believe I didn't do it sooner.
+
+From now on, my blog will be powered by [[https://jaspervdj.be/hakyll/][Hakyll]].
+@@html:<label for="mn-dragon" class="margin-toggle"></label>@@
+@@html:<input type="checkbox" id="mn-dragon" class="margin-toggle"/>@@
+@@html:<span class="marginnote">@@
+... at least until [[https://github.com/lfex/dragon][dragon]] matures, or I find an even better alternative.
+@@html:</span>@@
+
+You can find my [[https://github.com/yurrriq/blorg/blob/master/hakyll/site.hs][=site.hs=]], which will undoubtedly grow and change over time, on
+[[https://github.com/yurrriq/blorg][GitHub]].
+
+Good riddance.

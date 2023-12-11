@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - metaprogramming</title>
+    <link href="https://blorg.ericb.me/tag/metaprogramming.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/metaprogramming.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>16 December, 2023</updated>
+    <entry>
+    <title>Lisp Flavoured Erlang and Pynchon, oh my!</title>
+    <link href="https://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html" />
+    <id>https://blorg.ericb.me/2015/08/lfe-and-pynchon/index.html</id>
+    <published>2015-08-06T00:00:00Z</published>
+    <updated>16 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  6 August, 2015
+      
+      <br />
+      Updated on 16 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;metaprogramming&#39;." href="/tag/metaprogramming/index.html">metaprogramming</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+So, lately I've been getting increasingly into <a href="https://lfe.io">Lisp Flavoured Erlang (LFE)</a>.  If
+you haven't tried it yet, or even if you have, check out the <a href="https://exercism.org/docs/tracks/lfe/">Exercism LFE track</a>
+I helped organize.  My latest endeavour is porting Robert Levy's <a href="https://github.com/rplevy/swiss-arrows">swiss-arrows</a>
+from Clojure to LFE.  It's been going well so far, despite having to rename it
+to <a href="https://github.com/quasiquoting/pynchon">pynchon</a>, since Erlang wasn't down with the hyphenated name and a few people
+on the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang">LFE Google group</a> suggested it.
+</p>
+
+<section id="outline-container-org252f65a" class="outline-2">
+<h2 id="org252f65a">Example</h2>
+<div class="outline-text-2" id="text-org252f65a">
+<p>
+Without further ado, here's a contrived example.
+<label for='mn-auto.4626400' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.4626400' class='margin-toggle'><span class='marginnote'> <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and macros for LFE, which has since been <a href="https://github.com/lfe/lfe/pull/267">merged into LFE</a>. </span>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lfe">(-&lt;&gt; <span style="font-style: italic;">"testing"</span>
+     (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
+            (lists:duplicate 3)
+            (compose #'list/1 #'lists:flatten/1)
+            (lfe_io:format '<span style="font-style: italic;">"non-updating: ~p\n"</span>))
+     (string:substr 5)
+     (<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> &lt;&gt;))
+</pre>
+</div>
+
+<p>
+The wild-looking form above expands to something more like the following.
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe">(-&lt;&gt;
+ (<span style="font-weight: bold;">progn</span>
+   (lfe_io:format
+    '<span style="font-style: italic;">"non-updating: ~p\n"</span>
+    (<span style="font-weight: bold;">list</span>
+     (lists:flatten
+      (lists:duplicate 3 (string:substr <span style="font-style: italic;">"testing"</span> 1 4)))))
+   <span style="font-style: italic;">"testing"</span>)
+ (string:substr 5)
+ (<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> &lt;&gt;))
+</pre>
+</div>
+
+<p>
+After that, it becomes apparent the "return track" is rather simple.
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe">(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> (string:substr 5 <span style="font-style: italic;">"testing"</span>))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">&gt; (-&lt;&gt; <span style="font-style: italic;">"testing"</span>
+       (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
+              (lists:duplicate 3)
+              (compose #'list/1 #'lists:flatten/1)
+              (lfe_io:format '<span style="font-style: italic;">"non-updating: ~p\n"</span>))
+       (string:substr 5)
+       (<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> &lt;&gt;))
+non-updating: <span style="font-style: italic;">"testtesttest"</span> <span style="font-weight: bold; font-style: italic;">; printed</span>
+<span style="font-style: italic;">"winning"</span>                    <span style="font-weight: bold; font-style: italic;">; returned</span>
+</pre>
+</div>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>#'clojure.core/some-> and the Power of Macros</title>
+    <link href="https://blorg.ericb.me/2015/01/the-power-of-macros/index.html" />
+    <id>https://blorg.ericb.me/2015/01/the-power-of-macros/index.html</id>
+    <published>2015-01-02T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  2 January, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;metaprogramming&#39;." href="/tag/metaprogramming/index.html">metaprogramming</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="http://calculist.org/blog/2012/04/17/homoiconicity-isnt-the-point/">Homoiconicity</a>, and <a href="https://twitter.com/yurrriq/status/536036269222936576">metaprogramming</a>, and <a href="http://learnxinyminutes.com/docs/clojure-macros/">macros</a>! Oh my!
+</p>
+
+<p>
+In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> will undoubtedly <a href="https://twitter.com/yurrriq/status/525703812833890305">grow fonder</a>.
+</p>
+
+<p>
+<label for='mn-auto.3960597' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3960597' class='margin-toggle'><span class='marginnote'> See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub </span>
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure">(<span style="font-weight: bold;">comment</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">#'clojure.core/some-&gt; is one my favorite Clojure macros.</span>
+  (<span style="font-weight: bold;">some-&gt;</span> (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;) <span style="font-weight: bold; text-decoration: underline;">:doc</span> println)
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">When expr is not nil, threads it into the first form (via -&gt;),</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">and when that result is not nil, through the next etc</span>
+
+  (macroexpand '(<span style="font-weight: bold;">some-&gt;</span> (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;) <span style="font-weight: bold; text-decoration: underline;">:doc</span> println))
+
+  (<span style="font-weight: bold;">let*</span> [G__2986 (meta (<span style="font-weight: bold;">var</span> <span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/some-&gt;))
+         G__2986 (<span style="font-weight: bold;">if</span> (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/nil? G__2986)
+                   <span style="font-weight: bold; text-decoration: underline;">nil</span>
+                   (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/<span style="font-weight: bold;">-&gt;</span> G__2986 <span style="font-weight: bold; text-decoration: underline;">:doc</span>))
+         G__2986 (<span style="font-weight: bold;">if</span> (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/nil? G__2986)
+                   <span style="font-weight: bold; text-decoration: underline;">nil</span>
+                   (<span style="font-weight: bold; text-decoration: underline;">clojure.core</span>/<span style="font-weight: bold;">-&gt;</span> G__2986 println))]
+    G__2986)
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Rewritten more readably to illustrate the point:</span>
+  (<span style="font-weight: bold;">let</span> [example (meta <span style="font-weight: bold; text-decoration: underline;">#'clojure.core</span>/some-&gt;)
+        example (<span style="font-weight: bold;">when-not</span> (nil? example)
+                  (<span style="font-weight: bold; text-decoration: underline;">:doc</span> example))
+        example (<span style="font-weight: bold;">when-not</span> (nil? example)
+                  (println example))]
+    example)
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Which brings me to another of my scattered thoughts,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Clojure has the #'clojure.core/when-not macro, but</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">for some reason, I find myself wanting to use 'unless,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">as in Common Lisp:</span>
+  (<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">unless</span> (condition &amp;rest body)
+    `(<span style="font-weight: bold;">if</span> (not ,condition) (progn ,@body)))
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">What better excuse to start writing my own macros?</span>
+  (<span style="font-weight: bold;">ns</span> <span style="font-weight: bold; text-decoration: underline;">fastidious.macros</span>)
+
+  (<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">unless</span>
+    [condition &amp; body] `(<span style="font-weight: bold;">if</span> (not ~condition) (<span style="font-weight: bold;">do</span> ~@body)))
+
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Side bonus: I used my desire for 'unless to drive</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">my experiments in integrating macros in ClojureScript,</span>
+  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">with underwhelming success. It just works.</span>
+  (<span style="font-weight: bold;">ns</span> <span style="font-weight: bold; text-decoration: underline;">client.core</span>
+    (<span style="font-weight: bold; text-decoration: underline;">:require-macros</span> [fastidious.macros <span style="font-weight: bold; text-decoration: underline;">:refer</span> [unless]]))
+
+  (<span style="font-weight: bold;">let</span> [lisp-is-lame? <span style="font-weight: bold; text-decoration: underline;">false</span>]
+    (unless lisp-is-lame?
+      (println <span style="font-style: italic;">"IFL Lisp."</span>)
+      (println <span style="font-style: italic;">"Next up: /c[ad]{1,5}r/"</span>))))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

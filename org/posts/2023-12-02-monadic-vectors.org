@@ -1,0 +1,104 @@
+#+startup: showall
+#+options: toc:nil ^:{}
+#+property: header-args :exports code
+#+begin_export html
+---
+title: Monadic Vectors
+author: Eric Bailey
+tags: haskell, monads, mathematics, algebra
+updated: 18 December, 2023
+---
+#+end_export
+
+[[https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-106][The ~Functor~ instance]] for [[https://hackage.haskell.org/package/linear-1.22/docs/Linear-V3.html][3-dimensional vectors]] applies a function ~f~ to each
+basis vector, preserving the structure of the 3-D vector.
+
+#+name: The Functor instance for V3
+#+begin_src haskell
+instance Functor V3 where
+  fmap f (V3 a b c) = V3 (f a) (f b) (f c)
+  a <$ _ = V3 a a a
+#+end_src
+
+#+name: Using the Functor instance for V3
+#+begin_src haskell
+λ> fmap (+1) (V3 1 2 3)
+V3 2 3 4
+#+end_src
+
+[[https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-148][The ~Applicative~ instance]] provides operations to embed pure expressions
+([[https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:pure][~pure~]]), and sequence computations and combine their results ([[https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:-60--42--62-][~<*>~]] and
+[[https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:liftA2][~liftA2~]]).
+{{{marginnote(N.B. The default definition is:, src_haskell{liftA2 f x y = f <$> x <*> y})}}}
+
+#+name: The Applicative instance for V3
+#+begin_src haskell
+instance Applicative V3 where
+  pure a = V3 a a a
+  V3 a b c <*> V3 d e f = V3 (a d) (b e) (c f)
+#+end_src
+
+#+name: Using the Applicative instance for V3
+#+begin_src haskell
+λ> pure 0 :: V3 Int
+V3 0 0 0
+λ> V3 (+5) (+3) (+1) <*> V3 1 2 3
+V3 6 5 4
+#+end_src
+
+Together they enable applying a binary function as follows.
+
+#+name: Using the Functor and Applicative instances for V3
+#+begin_src haskell
+λ> (+) <$> V3 1 2 3 <*> V3 4 5 6
+V3 5 7 9
+#+end_src
+
+There's also a [[https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-169][~Monad~ instance]], which enables concise and elegant code.
+
+#+name: The Monad instance for V3
+#+begin_src haskell
+instance Monad V3 where
+  V3 a b c >>= f = V3 a' b' c' where
+    V3 a' _ _ = f a
+    V3 _ b' _ = f b
+    V3 _ _ c' = f c
+#+end_src
+
+For example, as part of [[https://adventofcode.com/2023/day/2][the Advent of Code puzzle for Day 2 of 2023]], one must
+parse revelations of the form =N COLOR= where =N= is a [[https://hackage.haskell.org/package/parsers-0.12.11/docs/Text-Parser-Token.html#v:natural][~natural~ number]] and
+=COLOR= is one of =red=, =green=, and =blue=. The tricolor nature of the
+revelations (and the subsequent computations therewith) lends itself nicely to
+[[https://hackage.haskell.org/package/linear-1.22/docs/Linear-V3.html#t:V3][3-dimensional vectors]].
+
+A naive [[https://hackage.haskell.org/package/trifecta-2.1.3/docs/Text-Trifecta-Parser.html#t:Parser][~Parser~]] might look as follows.
+
+#+name: A naive Parser
+#+begin_src haskell
+revelation :: Parser (V3 Integer)
+revelation =
+  do
+    n <- natural
+    V3 n 0 0 <$ string "red"
+      <|> V3 0 n 0 <$ string "green"
+      <|> V3 0 0 n <$ string "blue"
+#+end_src
+
+The ~Monad~ instance, however, enables the following.
+
+#+name: A Parser using the Monad instance for V3
+#+begin_src haskell
+revelation :: Parser (V3 Integer)
+revelation =
+  natural >>= \n ->
+    for (V3 "red" "green" "blue") $ \color ->
+      n <$ string color <|> pure 0
+#+end_src
+
+Also delightfully concise is this way of determining which games are possible.
+
+#+name: A predicate using the Applicative instance for V3
+#+begin_src haskell
+isPossible :: [V3 Integer] -> Bool
+isPossible = all (and . liftA2 (>=) (V3 12 13 14))
+#+end_src

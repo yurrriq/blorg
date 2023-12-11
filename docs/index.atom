@@ -1,0 +1,1353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me</title>
+    <link href="https://blorg.ericb.me/index.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/index.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>18 December, 2023</updated>
+    <entry>
+    <title>Monadic Vectors</title>
+    <link href="https://blorg.ericb.me/2023/12/monadic-vectors/index.html" />
+    <id>https://blorg.ericb.me/2023/12/monadic-vectors/index.html</id>
+    <published>2023-12-02T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  2 December, 2023
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;haskell&#39;." href="/tag/haskell/index.html">haskell</a>, <a title="All pages tagged &#39;monads&#39;." href="/tag/monads/index.html">monads</a>, <a title="All pages tagged &#39;mathematics&#39;." href="/tag/mathematics/index.html">mathematics</a>, <a title="All pages tagged &#39;algebra&#39;." href="/tag/algebra/index.html">algebra</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-106">The <code>Functor</code> instance</a> for <a href="https://hackage.haskell.org/package/linear-1.22/docs/Linear-V3.html">3-dimensional vectors</a> applies a function <code>f</code> to each
+basis vector, preserving the structure of the 3-D vector.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org922d0bf"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Functor</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
+  fmap f (<span style="font-weight: bold; text-decoration: underline;">V3</span> a b c) <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (f a) (f b) (f c)
+  a <span style="font-weight: bold; font-style: italic;">&lt;$</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a a a
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org45282a4">&#955;<span style="font-weight: bold;">&gt;</span> fmap (<span style="font-weight: bold; font-style: italic;">+</span>1) (<span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3)
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 2 3 4
+</pre>
+</div>
+
+<p>
+<a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-148">The <code>Applicative</code> instance</a> provides operations to embed pure expressions
+(<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:pure"><code>pure</code></a>), and sequence computations and combine their results (<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:-60--42--62-"><code>&lt;*&gt;</code></a> and
+<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:liftA2"><code>liftA2</code></a>).
+<label for='mn-auto.9576419' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9576419' class='margin-toggle'><span class='marginnote'> N.B. The default definition is:<br> </span>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="orgf94cc07"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Applicative</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
+  pure a <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a a a
+  <span style="font-weight: bold; text-decoration: underline;">V3</span> a b c <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> d e f <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (a d) (b e) (c f)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="orgabd2f39">&#955;<span style="font-weight: bold;">&gt;</span> pure 0 <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Int</span>
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 0 0 0
+&#955;<span style="font-weight: bold;">&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (<span style="font-weight: bold; font-style: italic;">+</span>5) (<span style="font-weight: bold; font-style: italic;">+</span>3) (<span style="font-weight: bold; font-style: italic;">+</span>1) <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 6 5 4
+</pre>
+</div>
+
+<p>
+Together they enable applying a binary function as follows.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org794a1ed">&#955;<span style="font-weight: bold;">&gt;</span> (<span style="font-weight: bold; font-style: italic;">+</span>) <span style="font-weight: bold; font-style: italic;">&lt;$&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3 <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 4 5 6
+<span style="font-weight: bold; text-decoration: underline;">V3</span> 5 7 9
+</pre>
+</div>
+
+<p>
+There's also a <a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-169"><code>Monad</code> instance</a>, which enables concise and elegant code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org1408954"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Monad</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
+  <span style="font-weight: bold; text-decoration: underline;">V3</span> a b c <span style="font-weight: bold; font-style: italic;">&gt;&gt;=</span> f <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a' b' c' <span style="font-weight: bold;">where</span>
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> a' <span style="font-weight: bold;">_</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> f a
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">_</span> b' <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> f b
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold;">_</span> c' <span style="font-weight: bold; font-style: italic;">=</span> f c
+</pre>
+</div>
+
+<p>
+For example, as part of <a href="https://adventofcode.com/2023/day/2">the Advent of Code puzzle for Day 2 of 2023</a>, one must
+parse revelations of the form <code>N COLOR</code> where <code>N</code> is a <a href="https://hackage.haskell.org/package/parsers-0.12.11/docs/Text-Parser-Token.html#v:natural"><code>natural</code> number</a> and
+<code>COLOR</code> is one of <code>red</code>, <code>green</code>, and <code>blue</code>. The tricolor nature of the
+revelations (and the subsequent computations therewith) lends itself nicely to
+<a href="https://hackage.haskell.org/package/linear-1.22/docs/Linear-V3.html#t:V3">3-dimensional vectors</a>.
+</p>
+
+<p>
+A naive <a href="https://hackage.haskell.org/package/trifecta-2.1.3/docs/Text-Trifecta-Parser.html#t:Parser"><code>Parser</code></a> might look as follows.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org434824d"><span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">Parser</span> (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>)
+<span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">do</span>
+    n <span style="font-weight: bold; font-style: italic;">&lt;-</span> natural
+    <span style="font-weight: bold; text-decoration: underline;">V3</span> n 0 0 <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"red"</span>
+      <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 0 n 0 <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"green"</span>
+      <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 0 0 n <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"blue"</span>
+</pre>
+</div>
+
+<p>
+The <code>Monad</code> instance, however, enables the following.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org426ea09"><span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">Parser</span> (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>)
+<span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">=</span>
+  natural <span style="font-weight: bold; font-style: italic;">&gt;&gt;=</span> <span style="font-weight: bold; font-style: italic;">\</span>n <span style="font-weight: bold; font-style: italic;">-&gt;</span>
+    for (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-style: italic;">"red"</span> <span style="font-style: italic;">"green"</span> <span style="font-style: italic;">"blue"</span>) <span style="font-weight: bold; font-style: italic;">$</span> <span style="font-weight: bold; font-style: italic;">\</span>color <span style="font-weight: bold; font-style: italic;">-&gt;</span>
+      n <span style="font-weight: bold; font-style: italic;">&lt;$</span> string color <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> pure 0
+</pre>
+</div>
+
+<p>
+Also delightfully concise is this way of determining which games are possible.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org248a5e6"><span style="font-weight: bold;">isPossible</span> <span style="font-weight: bold; font-style: italic;">::</span> [<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>] <span style="font-weight: bold; font-style: italic;">-&gt;</span> <span style="font-weight: bold; text-decoration: underline;">Bool</span>
+<span style="font-weight: bold;">isPossible</span> <span style="font-weight: bold; font-style: italic;">=</span> all (and <span style="font-weight: bold; font-style: italic;">.</span> liftA2 (<span style="font-weight: bold; font-style: italic;">&gt;=</span>) (<span style="font-weight: bold; text-decoration: underline;">V3</span> 12 13 14))
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>Strange Mathematics</title>
+    <link href="https://blorg.ericb.me/2020/08/strange-mathematics/index.html" />
+    <id>https://blorg.ericb.me/2020/08/strange-mathematics/index.html</id>
+    <published>2020-08-02T00:00:00Z</published>
+    <updated>2020-08-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  2 August, 2020
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;mathematics&#39;." href="/tag/mathematics/index.html">mathematics</a>, <a title="All pages tagged &#39;proof&#39;." href="/tag/proof/index.html">proof</a>, <a title="All pages tagged &#39;comics&#39;." href="/tag/comics/index.html">comics</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+On the first page of <a href="https://www.dccomics.com/talent/tom-king">Tom King</a>'s <a href="https://www.dccomics.com/comics/strange-adventures-2020/strange-adventures-2">Strange Adventures #2</a>
+<del>there is an example of <a href="https://reddit.com/r/badmath">bad mathematics</a>.</del>
+</p>
+
+<p>
+<a href="https://dc.fandom.com/wiki/T-Spheres">T-Sphere</a>:
+</p>
+<blockquote>
+<p>
+IN THE EQUATION<br/>
+X² + MX + N = 0,<br/>
+M AND N ARE INTEGERS.<br/>
+THE ONLY POSSIBLE VALUE<br/>
+OF X IS -3. WHAT IS THE<br/>
+VALUE OF M?
+</p>
+</blockquote>
+
+<p>
+<a href="https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)">Mister Terrific</a>:
+</p>
+<blockquote>
+<p>
+SIX.
+</p>
+</blockquote>
+
+<p>
+<a href="https://dc.fandom.com/wiki/T-Spheres">T-Sphere</a>:
+</p>
+<blockquote>
+<p>
+CORRECT.
+</p>
+</blockquote>
+
+<hr>
+
+<p>
+<b>Update (3 August, 2020)</b>: It turns out <i>I'm</i> the one <a href="https://www.reddit.com/r/badmathematics/comments/i28ukc/strange_mathematics/">bad mathematics</a> (and sleep hygiene).
+</p>
+
+<p>
+Given \(x^2 + mx + n = 0\) and the only possible value of \(x\) is \(-3\),
+\((x + 3)\) is a root of <a href="https://mathworld.wolfram.com/Multiplicity.html">multiplicity</a> \(2\).
+Thus the factorization is \((x + 3)(x + 3)\), which expands to \(x^2 + 6x + 9\).
+Thus \(m = 6\), just as <a href="https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)">Mister Terrific</a> said. 🤦
+</p>
+
+<hr>
+
+<p>
+<del>But that's not quite right, or at least it's misleading.</del>
+<del>While \(\xcancel{6}\) is a possible value for \(\xcancel{m}\), it's not the only one.</del>
+</p>
+
+<p>
+<del><b>Lemma</b>. Given \(\xcancel{x^2 + mx + n = 0}\) and \(\xcancel{x = -3}\),</del>
+<del>there are <a href="https://brilliant.org/wiki/cardinality/">countably infinite</a> possible values for \(m\) such that</del>
+<del>\(\xcancel{m,n \in \mathbb{Z}}\).</del>
+</p>
+
+<p>
+<del><i>Proof.</i></del>
+<del>Rewriting the original equation with \(\xcancel{x = -3}\),</del>
+<del>\(\xcancel{9 - 3m + n = 0 \leadsto m = \frac{n}{3} + 3}\).</del>
+<del>It follows that \(\xcancel{\forall m \in \mathbb{Z}, \exists n \in 3\mathbb{Z}}\) such that</del>
+<del>\(\xcancel{m = \frac{n}{3} + 3}\).</del>
+<del>Since \(\xcancel{3\mathbb{Z} \subset \mathbb{Z}}\), and</del>
+<del>there exists a bijection between \(\xcancel{\mathbb{N}}\) and \(\xcancel{3\mathbb{Z}}\), i.e.</del>
+<del>\(\xcancel{\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}}\),</del>
+<del>there are \(\xcancel{\aleph_{0}}\) possible values for \(\xcancel{m}\).</del>
+<del>\(\xcancel{\blacksquare}\)</del>
+</p>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>Fix Browserpass on NixOS</title>
+    <link href="https://blorg.ericb.me/2019/10/browserpass-on-nixos/index.html" />
+    <id>https://blorg.ericb.me/2019/10/browserpass-on-nixos/index.html</id>
+    <published>2019-10-02T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  2 October, 2019
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;nixos&#39;." href="/tag/nixos/index.html">nixos</a>, <a title="All pages tagged &#39;pass&#39;." href="/tag/pass/index.html">pass</a>, <a title="All pages tagged &#39;browserpass&#39;." href="/tag/browserpass/index.html">browserpass</a>, <a title="All pages tagged &#39;firefox&#39;." href="/tag/firefox/index.html">firefox</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+After installing a custom version of Firefox, the <a href="https://github.com/browserpass/browserpass-extension">Browserpass extension</a> stopped
+working.
+</p>
+
+<p>
+To fix it, I ran the following, based on a suggestion in the <a href="https://github.com/browserpass/browserpass-native/tree/3.0.6#install-on-nix--nixos">Browerpass host
+application README</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="orge7d8e90">$ make -C /run/current-system/sw/lib/browserpass <span style="font-weight: bold; font-style: italic;">DESTDIR</span>=/run/current-system/sw hosts-firefox-user
+make: Entering directory <span style="font-style: italic;">'/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'</span>
+<span style="font-style: italic;">'/home/yurrriq/.mozilla/native-messaging-hosts/com.github.browserpass.native.json'</span> -&gt; <span style="font-style: italic;">'/run/current-system/sw/lib/browserpass/hosts/firefox/com.github.browserpass.native.json'</span>
+make: Leaving directory <span style="font-style: italic;">'/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'</span>
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>OpenConnect Launch Daemon</title>
+    <link href="https://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html" />
+    <id>https://blorg.ericb.me/2019/06/openconnect-launch-daemon/index.html</id>
+    <published>2019-06-17T00:00:00Z</published>
+    <updated>2019-06-17T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 17 June, 2019
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;darwin&#39;." href="/tag/darwin/index.html">darwin</a>, <a title="All pages tagged &#39;vpn&#39;." href="/tag/vpn/index.html">vpn</a>, <a title="All pages tagged &#39;openconnect&#39;." href="/tag/openconnect/index.html">openconnect</a>, <a title="All pages tagged &#39;launchd&#39;." href="/tag/launchd/index.html">launchd</a>, <a title="All pages tagged &#39;daemon&#39;." href="/tag/daemon/index.html">daemon</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+What follows is a sparsely documented literate program to manage an OpenConnect
+VPN connection with <code>launchd</code> on macOS. Many thanks to <a href="https://github.com/ashgillman">Ashley Gilman</a> for their
+blog post, <a href="https://ashgillman.github.io/2017/02/14/openconnect-launchd.html">Managing an Openconnect VPN Connection with launchd on OSX</a>, upon
+which this is based.
+</p>
+
+<section id="outline-container-org787f1a6" class="outline-2">
+<h2 id="org787f1a6">OpenConnect Wrapper</h2>
+<div class="outline-text-2" id="text-org787f1a6">
+<p>
+Define a function <code>handler</code> to send an <code>INT</code> signal to <code>$PID</code>, then <code>trap</code>
+<code>TERM</code> signals and call <code>handler</code> instead, which will enable ending an
+<code>openconnect</code> process gracefully with <code>launchd</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold;">handler</span>() {
+    kill -INT <span style="font-style: italic;">"$PID"</span> 2&gt;/dev/null
+}
+
+<span style="font-weight: bold;">trap</span> handler SIGTERM
+</pre>
+</div>
+
+<p>
+Pipe <code>STDIN</code> and pass any given arguments to <code>/usr/local/bin/openconnect</code>, and
+send to the background.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">cat | /usr/local/bin/openconnect <span style="font-style: italic;">"$@"</span> &amp;
+</pre>
+</div>
+
+<p>
+Keep the wrapper process alive as long as the <code>openconnect</code> process is, by
+capturing its PID and <code>wait</code>-ing for it.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;">PID</span>=$<span style="font-weight: bold; font-style: italic;">!</span>
+<span style="font-weight: bold;">wait</span> <span style="font-style: italic;">"$PID"</span>
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgc328e80" class="outline-2">
+<h2 id="orgc328e80">Password File</h2>
+<div class="outline-text-2" id="text-orgc328e80">
+<p>
+Store the password (without a trailing newline) in a file,
+<code>/etc/openconnect/passwd</code>, owned by <code>root</code>.
+</p>
+
+<p>
+Remove read/write access from all but <code>root</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo chmod og-rw /etc/openconnect/passwd
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org5995973" class="outline-2">
+<h2 id="org5995973">Launch Daemon</h2>
+<div class="outline-text-2" id="text-org5995973">
+<p>
+Set up a launch daemon by creating a property list file,
+<code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;?<span style="font-weight: bold;">xml</span> <span style="font-style: italic;">version="1.0" encoding="UTF-8"</span>?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;<span style="font-weight: bold;">plist</span> <span style="font-weight: bold; font-style: italic;">version</span>=<span style="font-style: italic;">"1.0"</span>&gt;
+  &lt;<span style="font-weight: bold;">dict</span>&gt;
+    &lt;<span style="font-weight: bold;">key</span>&gt;Label&lt;/<span style="font-weight: bold;">key</span>&gt;
+    &lt;<span style="font-weight: bold;">string</span>&gt;me.ericb.openconnect-example&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Specify that the password, stored in <code>/etc/openconnect/passwd-example</code>, will be
+supplied via stdin.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;StandardInPath&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">string</span>&gt;/etc/openconnect/passwd-example&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Use the wrapper defined above.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;ProgramArguments&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">array</span>&gt;
+  &lt;<span style="font-weight: bold;">string</span>&gt;/etc/openconnect-wrapper&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Tell <code>openconnect</code> we're supplying the password via stdin.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--passwd-on-stdin&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the OpenConnect protocol to AnyConnect.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--protocol=anyconnect&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the reconnect timeout to <code>1800</code> seconds.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--reconnect-timeout=1800&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Set the username.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--user=alice&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Finally, specify the VPN server hostname.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">  &lt;<span style="font-weight: bold;">string</span>&gt;vpn.example.com&lt;/<span style="font-weight: bold;">string</span>&gt;
+&lt;/<span style="font-weight: bold;">array</span>&gt;
+</pre>
+</div>
+
+<p>
+Configure log files for debugging.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;StandardOutPath&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">string</span>&gt;/var/log/me.ericb.openconnectconsole.log&lt;/<span style="font-weight: bold;">string</span>&gt;
+&lt;<span style="font-weight: bold;">key</span>&gt;StandardErrorPath&lt;/<span style="font-weight: bold;">key</span>&gt;
+&lt;<span style="font-weight: bold;">string</span>&gt;/var/log/me.ericb.openconnect/error.log&lt;/<span style="font-weight: bold;">string</span>&gt;
+</pre>
+</div>
+
+<p>
+Close the open XML tags.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">  &lt;/<span style="font-weight: bold;">dict</span>&gt;
+&lt;/<span style="font-weight: bold;">plist</span>&gt;
+</pre>
+</div>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>Spooky Security</title>
+    <link href="https://blorg.ericb.me/2018/09/spooky-security/index.html" />
+    <id>https://blorg.ericb.me/2018/09/spooky-security/index.html</id>
+    <published>2018-09-07T00:00:00Z</published>
+    <updated>2018-09-07T00:00:00Z</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  7 September, 2018
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;darwin&#39;." href="/tag/darwin/index.html">darwin</a>, <a title="All pages tagged &#39;keyboard&#39;." href="/tag/keyboard/index.html">keyboard</a>, <a title="All pages tagged &#39;security&#39;." href="/tag/security/index.html">security</a>, <a title="All pages tagged &#39;skhd&#39;." href="/tag/skhd/index.html">skhd</a>, <a title="All pages tagged &#39;chunkwm&#39;." href="/tag/chunkwm/index.html">chunkwm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<b>Update (21 September, 2018)</b>: It turns out <a href="https://github.com/keybase/client">Keybase.app</a> was to blame. I've since
+quit it and removed it from my login items, and all is well again.  This
+<a href="https://github.com/koekeishiya/skhd/issues/48">skhd issue thread</a> details some excellent debugging strategies, which I've
+modified slightly here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">ioreg -lw 0 <span style="font-style: italic;">\</span>
+    | perl -nle <span style="font-style: italic;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="font-style: italic;">\</span>
+    | uniq <span style="font-style: italic;">\</span>
+    | xargs ps -o <span style="font-weight: bold; font-style: italic;">comm</span>= -p
+</pre>
+</div>
+
+<p>
+For example, when I enable secure keyboard entry in <code>Terminal.app</code>, I see the
+following output.
+</p>
+
+<pre class="example" id="org2f3eb89">
+/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+</pre>
+
+<hr>
+
+<p>
+I've been using <a href="https://koekeishiya.github.io/chunkwm/">chunkwm</a> and <a href="https://github.com/koekeishiya/skhd">skhd</a> to help make Darwin more palatable, but <code>skhd</code>
+suddenly stopped working. When I try to start it manually, I get the following
+error.
+</p>
+
+<pre class="example" id="org50a4ba5">
+skhd: secure keyboard entry is enabled! abort..
+</pre>
+
+<p>
+<a href="https://github.com/koekeishiya/skhd/issues/48">The internet suggested</a> I disable <a href="https://iterm2.com/">iTerm 2</a>'s <i>Secure Keyboard Entry</i>, but I've
+switched to <a href="https://sw.kovidgoyal.net/kitty/">kitty</a>.
+</p>
+
+<p>
+After some further frantic <a href="https://duckduckgo.com/">DuckDuckGo</a>-ing, I came across a function,
+<code>DisableSecureEventInput</code>, which seemed like the answer, so I wrote a quick
+program to call it and try to end my troubles.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;</span><span style="font-style: italic;">Carbon/Carbon.h</span><span style="font-style: italic;">&gt;</span>
+
+
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
+{
+    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
+        printf(<span style="font-style: italic;">"Secure keyboard entry is enabled.\n"</span>);
+
+    DisableSecureEventInput();
+
+    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
+        printf(<span style="font-style: italic;">"Secure keyboard entry is still enabled.\n"</span>);
+
+
+    <span style="font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<pre class="example">
+Secure keyboard entry is enabled.
+Secure keyboard entry is still enabled.
+</pre>
+
+
+<p>
+No such luck. I'm <a href="https://www.youtube.com/watch?v%3DqjGjuiFKE04">literally dying</a>.
+</p>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>Undefined Behaviour</title>
+    <link href="https://blorg.ericb.me/2018/05/undefined-behaviour/index.html" />
+    <id>https://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
+    <published>2018-05-07T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  7 May, 2018
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;c&#39;." href="/tag/c/index.html">c</a>, <a title="All pages tagged &#39;compilers&#39;." href="/tag/compilers/index.html">compilers</a>, <a title="All pages tagged &#39;school&#39;." href="/tag/school/index.html">school</a>, <a title="All pages tagged &#39;facepalm&#39;." href="/tag/facepalm/index.html">facepalm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+A friend at work today was telling me about his wife's C​<code>++</code> class, wherein the
+students were asked to predict the behaviour of the following snippet.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c" id="org17f2376">x = 10;
+y = ++x + --x;
+</pre>
+</div>
+
+<section id="outline-container-orgbbfa1ef" class="outline-2">
+<h2 id="orgbbfa1ef">Example</h2>
+<div class="outline-text-2" id="text-orgbbfa1ef">
+<p>
+For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="org9ccb301"><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">x</span>, <span style="font-weight: bold; font-style: italic;">y</span>;
+</pre>
+</div>
+
+<p>
+We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="org711702a">printf(<span style="font-style: italic;">"x = %d, y = %d\n"</span>, x, y);
+</pre>
+</div>
+
+<p>
+Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c">our program</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;</span><span style="font-style: italic;">stdio.h</span><span style="font-style: italic;">&gt;</span>
+
+
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> **<span style="font-weight: bold; font-style: italic;">argv</span>)
+{
+    x = 10;
+    y = ++x + --x;
+
+    printf(<span style="font-style: italic;">"x = %d, y = %d\n"</span>, x, y);
+}
+</pre>
+</div>
+
+<p>
+At first glance, I would expect the right-hand side of the initialization of <code>y</code>
+to evaluate to <code>11 + 10</code>, i.e. <code>21</code>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org408adff" class="outline-2">
+<h2 id="org408adff">Curiouser and curiouser!</h2>
+<div class="outline-text-2" id="text-org408adff">
+<p>
+Unsurprisingly, GCC computes the final value of <code>x</code> to be <code>10</code>, the same as its
+initial value, after being incremented and decremented. It's markedly <b>less</b>
+intuitive to me that the final value of <code>y</code> is <code>20</code>.
+</p>
+
+<p>
+Clang, on the other hand, agrees with me, i.e. computes the final value of <code>y</code>
+to be <code>21</code>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgfca565a" class="outline-2">
+<h2 id="orgfca565a">The more you know</h2>
+<div class="outline-text-2" id="text-orgfca565a">
+<p>
+Both compilers warn about unsequenced modifications and the resultant undefined
+behaviour. Digging around a bit leads to some fascinating discussions. The GCC
+team maintains a <a href="https://gcc.gnu.org/readings.html">list of further reading</a>, including a few formal models and
+analyses of sequence points in C. Further exploration is left as an exercise for
+the reader.
+</p>
+</div>
+
+<div id="outline-container-org36a9faf" class="outline-3">
+<h3 id="org36a9faf">tl;dr</h3>
+<div class="outline-text-3" id="text-org36a9faf">
+<blockquote cite="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html" id="org3af2428">
+<p>
+It is not specified when between sequence points modifications to the values of
+objects take effect.
+</p>
+
+<p>
+⋯
+</p>
+
+<p>
+The standard is worded confusingly, therefore there is some debate over the
+precise meaning of the sequence point rules in subtle cases.
+</p>
+<footer><a href="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html">Free Software Foundation, Inc., GCC online documentation, 3.8 Options to Request or Suppress Warnings</a></footer></blockquote>
+</div>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>Proving Addition is Commutative in Idris</title>
+    <link href="https://blorg.ericb.me/2016/09/proving-addition-is-commutative-in-idris/index.html" />
+    <id>https://blorg.ericb.me/2016/09/proving-addition-is-commutative-in-idris/index.html</id>
+    <published>2016-09-07T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  7 September, 2016
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;idris&#39;." href="/tag/idris/index.html">idris</a>, <a title="All pages tagged &#39;theorem-proving&#39;." href="/tag/theorem-proving/index.html">theorem-proving</a>, <a title="All pages tagged &#39;books&#39;." href="/tag/books/index.html">books</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+First off, I think <a href="http://www.idris-lang.org">Idris</a> is pretty great. Over the past several months, I've
+been thoroughly enjoying reading and working through <a href="https://www.manning.com/books/type-driven-development-with-idris"><i>Type-Driven Development
+with Idris</i></a>, as well as chatting with the community on IRC.
+<label for='mn-auto.8079674' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.8079674' class='margin-toggle'><span class='marginnote'> <code>#idris</code> on freenode </span>
+</p>
+
+<section id="outline-container-org1cd360a" class="outline-2">
+<h2 id="org1cd360a">Posting to the MEAP forum</h2>
+<div class="outline-text-2" id="text-org1cd360a">
+<p>
+For every <a href="https://www.manning.com/meap-program">MEAP</a> book, Manning provides a forum. To be honest, though I've
+partaken in quite a few MEAPs, I've never really participated in the fora. In
+<a href="https://forums.manning.com/forums/type-driven-development-with-idris">the <i>Type-Driven Development with Idris</i> forum</a>, however, I've made a whopping
+<b>two</b> posts so far. One was a clarifying question about a possible error in the
+text and the other was an answer to a fellow reader's question. My answer seemed
+like a good example of how Idris works, so I thought I'd turn it into a blog
+post. Here goes.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgd1bb8e1" class="outline-2">
+<h2 id="orgd1bb8e1">Proving it with Idris</h2>
+<div class="outline-text-2" id="text-orgd1bb8e1">
+<p>
+In this example, we're trying to prove that addition of natural numbers is
+<a href="https://en.wikipedia.org/wiki/Commutative_property">commutative</a>, i.e.
+\[\forall n,m \in \mathbb{N}\ (n + m \equiv m + n)\]
+&#x2026; which we can express in Idris as follows:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+</pre>
+</div>
+
+<p>
+The type signature for <code class="src src-idris">myPlusCommutative</code> can be read as something
+like, "For all natural numbers <code>n</code> and <code>m</code>, <code>n</code> plus <code>m</code> is exactly equivalent
+to <code>m</code> plus <code>n</code>."
+</p>
+
+<p>
+Over-simplifying the <a href="https://en.wikipedia.org/wiki/Curry%25E2%2580%2593Howard_correspondence">Curry-Howard correspondence</a>, if we can write a <a href="https://en.wikipedia.org/wiki/Total_functional_programming">total
+function</a> that satisfies the type signature, then we've effectively written a
+proof for the corresponding <a href="https://en.wikipedia.org/wiki/Universal_quantification">universal quantification</a>.
+</p>
+
+<p>
+Idris has some great interactive editing tools, so I'll try to show those off a
+bit here too. For a start, we can call <code>idris-add-clause</code> (<code>M-RET d</code> in
+<a href="http://spacemacs.org/layers/+lang/idris/README.html">Spacemacs</a>) to get:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+myPlusCommutative n m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs
+</pre>
+</div>
+
+<p>
+The prefix <code>?</code> signifies a hole and in this case, the type of that hole is:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">  n <span style="font-weight: bold; font-style: italic;">:</span> Nat
+  m <span style="font-weight: bold; font-style: italic;">:</span> Nat
+<span style="font-weight: bold; font-style: italic;">--------------------------------------</span>
+myPlusCommutative_rhs <span style="font-weight: bold; font-style: italic;">:</span> plus n m <span style="font-weight: bold; font-style: italic;">=</span> plus m n
+</pre>
+</div>
+
+<p>
+Next, we can case split (<code>idris-case-split</code>, <code>M-RET c</code>) on <code>n</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs_1
+myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs_2
+</pre>
+</div>
+
+<p>
+For <code>?myPlusCommutative_rhs_1</code> we need to prove that \(m = m + 0\).
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative_rhs_1 <span style="font-weight: bold; font-style: italic;">:</span> m <span style="font-weight: bold; font-style: italic;">=</span> plus m 0
+</pre>
+</div>
+
+<p>
+Fortunately, the <code>Prelude</code> has a proof that's almost exactly what we want:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">plusZeroRightNeutral <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> left <span style="font-weight: bold; font-style: italic;">+</span> 0 <span style="font-weight: bold; font-style: italic;">=</span> left
+</pre>
+</div>
+
+<p>
+Since we need to swap the left- and right-hand sides, we can use <code>sym</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">sym <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">=</span> right) <span style="font-weight: bold; font-style: italic;">-&gt;</span> right <span style="font-weight: bold; font-style: italic;">=</span> left
+</pre>
+</div>
+
+<p>
+So the complete definition for the <a href="https://en.wikipedia.org/wiki/Mathematical_induction"><i>base case</i></a> of <code>myPlusCommutative</code> is:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> sym (plusZeroRightNeutral m)
+</pre>
+</div>
+
+<p>
+Next, we've got to tackle the <i>inductive step</i>. Since we know we'll need to
+reduce to the <i>base case</i>, let's define a local variable <code>inductiveHypothesis</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
+    ?myPlusCommutative_rhs_2
+</pre>
+</div>
+
+<p>
+Examining the type of <code>?myPlusCommutative_rhs_2</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">  k <span style="font-weight: bold; font-style: italic;">:</span> Nat
+  m <span style="font-weight: bold; font-style: italic;">:</span> Nat
+  inductiveHypothesis <span style="font-weight: bold; font-style: italic;">:</span> plus k m <span style="font-weight: bold; font-style: italic;">=</span> plus m k
+  _<span style="font-weight: bold;">rewrite</span>_rule <span style="font-weight: bold; font-style: italic;">:</span> plus k m <span style="font-weight: bold; font-style: italic;">=</span> plus m k
+<span style="font-weight: bold; font-style: italic;">--------------------------------------</span>
+myPlusCommutative_rhs_2 <span style="font-weight: bold; font-style: italic;">:</span> S (plus m k) <span style="font-weight: bold; font-style: italic;">=</span> plus m (S k)
+</pre>
+</div>
+
+<p>
+&#x2026; we see we need to prove the successor of \(k\) plus \(m\) is exactly equivalent
+to \(m\) plus the successor of \(k\), i.e.
+\[\forall m \in \mathbb{N}\ (S(k + m) \equiv m + S(k))\]
+</p>
+
+<p>
+Prelude to the rescue, yet again:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">plusSuccRightSucc <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span>
+                    (right <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> S (left <span style="font-weight: bold; font-style: italic;">+</span> right) <span style="font-weight: bold; font-style: italic;">=</span> left <span style="font-weight: bold; font-style: italic;">+</span> S right
+</pre>
+</div>
+
+<p>
+Now we can <code>rewrite</code> the hole using <code>plusSuccRightSucc</code> with <code>m</code> as <code>left</code> and
+<code>k</code> as <code>right</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> plusSuccRightSucc m k <span style="font-weight: bold;">in</span>
+            ?myPlusCommutative_rhs_2
+</pre>
+</div>
+
+<p>
+Eliding the repetitive bits, we get:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative_rhs_2 <span style="font-weight: bold; font-style: italic;">:</span> plus m (S k) <span style="font-weight: bold; font-style: italic;">=</span> plus m (S k)
+</pre>
+</div>
+
+<p>
+&#x2026; which looks like our old friend, <code>Refl</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris">Refl <span style="font-weight: bold; font-style: italic;">:</span> x <span style="font-weight: bold; font-style: italic;">=</span> x
+</pre>
+</div>
+
+<p>
+At this point, Idris can fill in the hole for us, via <code>idris-proof-search</code>
+(<code>M-RET p</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
+  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
+    <span style="font-weight: bold;">rewrite</span> plusSuccRightSucc m k <span style="font-weight: bold;">in</span>
+            Refl
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgeb6cbed" class="outline-2">
+<h2 id="orgeb6cbed">The final product</h2>
+<div class="outline-text-2" id="text-orgeb6cbed">
+<p>
+Tidying up a bit for my taste, we arrive at the complete (and total) definition:
+</p>
+<div class="org-src-container">
+<pre class="src src-idris"><span style="font-weight: bold; font-style: italic;">|||</span><span style="font-style: italic;"> Addition of natural numbers is commutative.</span>
+<span style="font-weight: bold;">total</span>
+myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> sym (plusZeroRightNeutral m)
+myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold;">rewrite</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
+                                    plusSuccRightSucc m k
+</pre>
+</div>
+<p>
+\(\square\)
+</p>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>Bye Bye, Jekyll!</title>
+    <link href="https://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html" />
+    <id>https://blorg.ericb.me/2016/05/bye-bye-jekyll/index.html</id>
+    <published>2016-05-29T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 29 May, 2016
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;blogging&#39;." href="/tag/blogging/index.html">blogging</a>, <a title="All pages tagged &#39;haskell&#39;." href="/tag/haskell/index.html">haskell</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Back in December of 2014, I set up a blog using <a href="https://ghost.org">Ghost</a> and <a href="https://github.com/axitkhurana/buster/">Buster</a>. That was all
+fine and good, but left quite a bit to be desired. I'm not a Python user and the
+whole workflow was a bit too clunky for my taste.
+</p>
+
+<section id="outline-container-orge0eb0f3" class="outline-2">
+<h2 id="orge0eb0f3">Migrating to Jekyll</h2>
+<div class="outline-text-2" id="text-orge0eb0f3">
+<p>
+In July of 2015, I decided to migrate to <a href="https://jekyllrb.com">Jekyll</a>. It's pretty widely used and the
+integration with <a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and easy.  In practice, I
+found its workflow to be similarly annoying. Worst of all, it made me install,
+write and use Ruby.<label for='mn-auto.3854819' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3854819' class='margin-toggle'><span class='marginnote'> I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a> </span>
+</p>
+
+<p>
+What's more, GitHub seems to have a predilection for breaking things so often
+and dramatically, that <a href="https://github.com/lfex/dragon">dragon</a> was born.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgf8e57d4" class="outline-2">
+<h2 id="orgf8e57d4">Migrating to Hakyll</h2>
+<div class="outline-text-2" id="text-orgf8e57d4">
+<p>
+<a href="http://haskellbook.com">Learning Haskell</a> has been a <a href="https://www.youtube.com/watch?v=-1YjmXSyHa8">fantastic voyage</a>. Although I've not yet used it for
+any "real" projects, I'm sold on its expressivity and general
+mind-expanding-ness. I had seen <a href="https://jaspervdj.be/hakyll/">Hakyll</a> pop up on my radar a few times and
+considered migrating to it for quite a while. Last night, I finally made the
+leap. The experience was so great, I can't believe I didn't do it sooner.
+</p>
+
+<p>
+From now on, my blog will be powered by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>.
+<label for="mn-dragon" class="margin-toggle"></label>
+<input type="checkbox" id="mn-dragon" class="margin-toggle"/>
+<span class="marginnote">
+&#x2026; at least until <a href="https://github.com/lfex/dragon">dragon</a> matures, or I find an even better alternative.
+</span>
+</p>
+
+<p>
+You can find my <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/site.hs"><code>site.hs</code></a>, which will undoubtedly grow and change over time, on
+<a href="https://github.com/yurrriq/blorg">GitHub</a>.
+</p>
+
+<p>
+Good riddance.
+</p>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>Tracing LFE Functions</title>
+    <link href="https://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html" />
+    <id>https://blorg.ericb.me/2016/04/tracing-lfe-functions/index.html</id>
+    <published>2016-04-12T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 12 April, 2016
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;tracing&#39;." href="/tag/tracing/index.html">tracing</a>, <a title="All pages tagged &#39;debugging&#39;." href="/tag/debugging/index.html">debugging</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+What follows is an LFE translation of Roberto Aloi's <a href="https://web.archive.org/web/20150906072604/https://aloiroberto.wordpress.com/2009/02/23/tracing-erlang-functions/"><i>Tracing Erlang Functions</i></a>.
+</p>
+
+<p>
+Tracing LFE functions for debugging purposes is quite simple.
+</p>
+
+<p>
+Let's say you have the following module and want to trace one of its functions.
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org616e3f0">(<span style="font-weight: bold;">defmodule</span> <span style="font-weight: bold; text-decoration: underline;">maths</span>
+  (export (sum 2) (diff 2)))
+
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">sum</span> (a b) (<span style="font-weight: bold;">+</span> a b))
+
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">diff</span> (a b) (<span style="font-weight: bold;">-</span> a b))
+</pre>
+</div>
+
+<p>
+Before we get started, make sure you compile the <code>maths</code> module:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org4b1dc3d">(c <span style="font-style: italic;">"/path/to/maths.lfe"</span>)
+</pre>
+</div>
+
+<p>
+Just start the tracer:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org3499bbc">(dbg:tracer)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok &lt;0.46.0&gt;)
+</pre>
+</div>
+
+<p>
+Tell the tracer you are interested in all calls for all processes:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="orgeadd3be">(dbg:p 'all 'c)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 26)))
+</pre>
+</div>
+
+<p>
+Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="orgdaabc0f">(dbg:tpl 'maths 'sum [])
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 1)))
+</pre>
+</div>
+
+<p>
+Now, try to call the function, as usual. The tracer is active!
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="orgcbc9cb7">(maths:sum 2 3)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">5
+(&lt;0.29.0&gt;) call maths:sum(2,3)
+</pre>
+</div>
+
+<p>
+To trace all functions from the <code>maths</code> module:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="orga71ca6a">&gt; (dbg:tpl 'maths [])
+</pre>
+</div>
+
+<p>
+To trace the return value for a given function:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org75a5bf7">(dbg:tpl 'maths 'sum (<span style="font-weight: bold;">match-spec</span> ([_] (return_trace))))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">#(ok (#(matched nonode@nohost 1) #(saved 1)))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe" id="org11fa093">(maths:sum 19 23)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">42
+(&lt;0.56.0&gt;) call maths:sum(19,23)
+(&lt;0.56.0&gt;) returned from maths:sum/2 -&gt; 42
+</pre>
+</div>
+
+<p>
+To stop the trace:
+</p>
+<div class="org-src-container">
+<pre class="src src-lfe" id="org998327e">(dbg:stop)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lfe">ok
+</pre>
+</div>
+
+</section>
+]]></summary>
+</entry>
+<entry>
+    <title>lfe-rebar3/compile updates</title>
+    <link href="https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html" />
+    <id>https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
+    <published>2016-02-11T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 11 February, 2016
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;erlang&#39;." href="/tag/erlang/index.html">erlang</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;rebar3&#39;." href="/tag/rebar3/index.html">rebar3</a>, <a title="All pages tagged &#39;tooling&#39;." href="/tag/tooling/index.html">tooling</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Since much of my time these days is spent <code class="src src-lfe">(or 'writing 'developing 'evangelizing)</code> <a href="http://lfe.io">LFE</a>, it should come as no surprise that I use the <a href="https://github.com/lfe-rebar3/compile">rebar3
+compiler plugin</a> extensively. In doing so, I noticed it always recompiles every
+<code>.lfe</code> file it finds, irrespective of the staleness of the corresponding <code>.beam</code>
+file. Having <a href="https://www.rebar3.org/docs/basic-usage#building">compiled</a> a fair amount of vanilla Erlang via <code>rebar3</code>, I knew it
+didn't have to be that way.
+</p>
+
+<section id="outline-container-org0c861a3" class="outline-2">
+<h2 id="org0c861a3">Replacing <code>run/4</code> with <code>run/7</code></h2>
+<div class="outline-text-2" id="text-org0c861a3">
+<p>
+To further my quest, <a href="https://github.com/tsloughter">Tristan</a> pointed me to <a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L45-L48">run/7</a>, specifically its use of
+<code class="src src-erlang">[check_last_mod]</code>. Before I <a href="https://github.com/quasiquoting/lfe-compile">forked</a> <a href="https://github.com/lfe-rebar3/compile">lfe-rebar3/compile</a>, it was using
+<a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L41-L43">run/4</a>, which does <b>NOT</b> make use of <code class="src src-erlang">[check_last_mod]</code>, hence the
+unnecessary recompilation.
+</p>
+
+<p>
+<a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
+</p>
+<div class="org-src-container">
+<pre class="src src-erlang"><span style="font-weight: bold; text-decoration: underline;">rebar_base_compiler</span>:<span style="font-weight: bold; text-decoration: underline;">run</span>(<span style="font-weight: bold; font-style: italic;">Opts</span>, [], <span style="font-weight: bold; font-style: italic;">Files</span>, <span style="font-weight: bold; font-style: italic;">DoCompile</span>).
+</pre>
+</div>
+
+<p>
+After some experimentation, and <a href="https://www.rebar3.org/docs/dependencies#checkout-dependencies">_checkouts</a> symlinking tricks, I came up with an
+appropriate <code>run/7</code> incantation and made <a href="https://github.com/lfe-rebar3/compile/pull/5">a pull request</a>.
+</p>
+
+<p>
+<a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
+</p>
+<div class="org-src-container">
+<pre class="src src-erlang"><span style="font-weight: bold; text-decoration: underline;">rebar_base_compiler</span>:<span style="font-weight: bold; text-decoration: underline;">run</span>(<span style="font-weight: bold; font-style: italic;">Config</span>, <span style="font-weight: bold; font-style: italic;">FirstFiles</span>,
+                        <span style="font-weight: bold; font-style: italic;">SourceDir</span>, <span style="font-style: italic;">".lfe"</span>, <span style="font-weight: bold; font-style: italic;">TargetDir</span>, <span style="font-style: italic;">".beam"</span>,
+                        <span style="font-weight: bold;">fun</span> <span style="font-weight: bold; text-decoration: underline;">compile/3</span>).
+</pre>
+</div>
+
+<p>
+With those changes, <code>rebar3 lfe compile</code> will now skip unmodified <code>.lfe</code>
+files. Not only is this The Right Thing™ to do, but it should be <a href="https://xkcd.com/1205/">time saver</a> in
+the long run.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orged159db" class="outline-2">
+<h2 id="orged159db">Examples of time saving</h2>
+<div class="outline-text-2" id="text-orged159db">
+<p>
+Here's an example of the difference when compiling <a href="https://github.com/quasiquoting/lodox">Lodox</a>&#x2026;
+</p>
+
+<p>
+&#x2026; using <code>run/4</code> via <a href="https://github.com/lfe-rebar3/compile/releases/tag/0.2.1">0.2.1</a>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ time rebar3 lfe compile
+</pre>
+</div>
+<pre class="example" id="org46544c6">
+~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
+~~&gt;    Compiling ./src/lodox-p.lfe ...
+~~&gt;    Compiling ./src/lodox-parse.lfe ...
+~~&gt;    Compiling ./src/lodox-util.lfe ...
+~~&gt;    Compiling ./src/lodox.lfe ...
+~~&gt;    Compiling ./src/pandoc.lfe ...
+~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
+       1.39 real         1.14 user         0.24 sys
+</pre>
+
+<p>
+&#x2026; using <code>run/7</code> via <a href="https://github.com/quasiquoting/lfe-compile/releases/tag/0.3.0">0.3.0</a>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ time rebar3 lfe compile
+</pre>
+</div>
+<pre class="example" id="orgc4e6197">
+0.94 real         0.73 user         0.20 sys
+</pre>
+
+<p>
+A little more 🐄💩 microbenchmarking on a proprietary work project:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">run/4</span>
+        3.58 real         3.02 user         0.58 sys
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">run/7</span>
+        1.83 real         1.46 user         0.35 sys
+</pre>
+</div>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

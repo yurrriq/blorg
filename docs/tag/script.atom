@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - script</title>
+    <link href="https://blorg.ericb.me/tag/script.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/script.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>18 December, 2023</updated>
+    <entry>
+    <title>GitHub Languages</title>
+    <link href="https://blorg.ericb.me/2015/05/github-languages/index.html" />
+    <id>https://blorg.ericb.me/2015/05/github-languages/index.html</id>
+    <published>2015-05-02T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  2 May, 2015
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html">hack</a>, <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;script&#39;." href="/tag/script/index.html">script</a>, <a title="All pages tagged &#39;polyglot&#39;." href="/tag/polyglot/index.html">polyglot</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+I wrote a little <a href="https://clojure.org">Clojure</a> script
+<label for='mn-auto.645708' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.645708' class='margin-toggle'><span class='marginnote'> Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>. </span>
+to gather the language usage data from <a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and sort them in
+descending order of popularity.
+</p>
+
+<section id="outline-container-org5d87d7e" class="outline-2">
+<h2 id="org5d87d7e">The results</h2>
+<div class="outline-text-2" id="text-org5d87d7e">
+<p>
+<label for='mn-auto.6933968' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6933968' class='margin-toggle'><span class='marginnote'> I don't use Ruby, except when <a href="https://www.openhub.net/p/homebrew/contributors/2025442152889863">contributing</a> to <a href="https://brew.sh/">Homebrew</a>. I also have a repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exercises</a>, which, of course<br> skew the results. </span>
+</p>
+<div class="org-src-container">
+<pre class="src src-js">{
+  <span style="font-style: italic;">"Ruby"</span> : 4401525,
+  <span style="font-style: italic;">"Java"</span> : 1800870,
+  <span style="font-style: italic;">"Clojure"</span> : 1406457,
+  <span style="font-style: italic;">"LilyPond"</span> : 226858,
+  <span style="font-style: italic;">"Scheme"</span> : 224389,
+  <span style="font-style: italic;">"Common Lisp"</span> : 127554,
+  <span style="font-style: italic;">"HTML"</span> : 111217,
+  <span style="font-style: italic;">"Shell"</span> : 47589,
+  <span style="font-style: italic;">"CSS"</span> : 41034,
+  <span style="font-style: italic;">"Groff"</span> : 25188,
+  <span style="font-style: italic;">"C++"</span> : 16378,
+  <span style="font-style: italic;">"NewLisp"</span> : 15399,
+  <span style="font-style: italic;">"JavaScript"</span> : 12714,
+  <span style="font-style: italic;">"Erlang"</span> : 8041,
+  <span style="font-style: italic;">"Objective-C"</span> : 3825,
+  <span style="font-style: italic;">"Python"</span> : 3285,
+  <span style="font-style: italic;">"Perl6"</span> : 2976,
+  <span style="font-style: italic;">"PLSQL"</span> : 2919,
+  <span style="font-style: italic;">"Scala"</span> : 2814,
+  <span style="font-style: italic;">"Emacs Lisp"</span> : 2420,
+  <span style="font-style: italic;">"OCaml"</span> : 2055,
+  <span style="font-style: italic;">"Elixir"</span> : 1788,
+  <span style="font-style: italic;">"CoffeeScript"</span> : 1787,
+  <span style="font-style: italic;">"PHP"</span> : 1704,
+  <span style="font-style: italic;">"CMake"</span> : 1618,
+  <span style="font-style: italic;">"Lua"</span> : 1160,
+  <span style="font-style: italic;">"Go"</span> : 1025,
+  <span style="font-style: italic;">"Perl"</span> : 844,
+  <span style="font-style: italic;">"Haskell"</span> : 801,
+  <span style="font-style: italic;">"F#"</span> : 799,
+  <span style="font-style: italic;">"C#"</span> : 585,
+  <span style="font-style: italic;">"PostScript"</span> : 485,
+  <span style="font-style: italic;">"Swift"</span> : 467,
+  <span style="font-style: italic;">"Makefile"</span> : 220,
+  <span style="font-style: italic;">"Frege"</span> : 53
+}
+</pre>
+</div>
+
+<p>
+For the script and an example config, check out <a href="https://gist.github.com/yurrriq/3272c6b9ebfa699472b9">the gist</a>.
+</p>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

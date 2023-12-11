@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - erlang</title>
+    <link href="https://blorg.ericb.me/tag/erlang.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/erlang.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>18 December, 2023</updated>
+    <entry>
+    <title>lfe-rebar3/compile updates</title>
+    <link href="https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html" />
+    <id>https://blorg.ericb.me/2016/02/lfe-rebar3-compile-updates/index.html</id>
+    <published>2016-02-11T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 11 February, 2016
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;erlang&#39;." href="/tag/erlang/index.html">erlang</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;rebar3&#39;." href="/tag/rebar3/index.html">rebar3</a>, <a title="All pages tagged &#39;tooling&#39;." href="/tag/tooling/index.html">tooling</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+Since much of my time these days is spent <code class="src src-lfe">(or 'writing 'developing 'evangelizing)</code> <a href="http://lfe.io">LFE</a>, it should come as no surprise that I use the <a href="https://github.com/lfe-rebar3/compile">rebar3
+compiler plugin</a> extensively. In doing so, I noticed it always recompiles every
+<code>.lfe</code> file it finds, irrespective of the staleness of the corresponding <code>.beam</code>
+file. Having <a href="https://www.rebar3.org/docs/basic-usage#building">compiled</a> a fair amount of vanilla Erlang via <code>rebar3</code>, I knew it
+didn't have to be that way.
+</p>
+
+<section id="outline-container-org0c861a3" class="outline-2">
+<h2 id="org0c861a3">Replacing <code>run/4</code> with <code>run/7</code></h2>
+<div class="outline-text-2" id="text-org0c861a3">
+<p>
+To further my quest, <a href="https://github.com/tsloughter">Tristan</a> pointed me to <a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L45-L48">run/7</a>, specifically its use of
+<code class="src src-erlang">[check_last_mod]</code>. Before I <a href="https://github.com/quasiquoting/lfe-compile">forked</a> <a href="https://github.com/lfe-rebar3/compile">lfe-rebar3/compile</a>, it was using
+<a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L41-L43">run/4</a>, which does <b>NOT</b> make use of <code class="src src-erlang">[check_last_mod]</code>, hence the
+unnecessary recompilation.
+</p>
+
+<p>
+<a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
+</p>
+<div class="org-src-container">
+<pre class="src src-erlang"><span style="font-weight: bold; text-decoration: underline;">rebar_base_compiler</span>:<span style="font-weight: bold; text-decoration: underline;">run</span>(<span style="font-weight: bold; font-style: italic;">Opts</span>, [], <span style="font-weight: bold; font-style: italic;">Files</span>, <span style="font-weight: bold; font-style: italic;">DoCompile</span>).
+</pre>
+</div>
+
+<p>
+After some experimentation, and <a href="https://www.rebar3.org/docs/dependencies#checkout-dependencies">_checkouts</a> symlinking tricks, I came up with an
+appropriate <code>run/7</code> incantation and made <a href="https://github.com/lfe-rebar3/compile/pull/5">a pull request</a>.
+</p>
+
+<p>
+<a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
+</p>
+<div class="org-src-container">
+<pre class="src src-erlang"><span style="font-weight: bold; text-decoration: underline;">rebar_base_compiler</span>:<span style="font-weight: bold; text-decoration: underline;">run</span>(<span style="font-weight: bold; font-style: italic;">Config</span>, <span style="font-weight: bold; font-style: italic;">FirstFiles</span>,
+                        <span style="font-weight: bold; font-style: italic;">SourceDir</span>, <span style="font-style: italic;">".lfe"</span>, <span style="font-weight: bold; font-style: italic;">TargetDir</span>, <span style="font-style: italic;">".beam"</span>,
+                        <span style="font-weight: bold;">fun</span> <span style="font-weight: bold; text-decoration: underline;">compile/3</span>).
+</pre>
+</div>
+
+<p>
+With those changes, <code>rebar3 lfe compile</code> will now skip unmodified <code>.lfe</code>
+files. Not only is this The Right Thing™ to do, but it should be <a href="https://xkcd.com/1205/">time saver</a> in
+the long run.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orged159db" class="outline-2">
+<h2 id="orged159db">Examples of time saving</h2>
+<div class="outline-text-2" id="text-orged159db">
+<p>
+Here's an example of the difference when compiling <a href="https://github.com/quasiquoting/lodox">Lodox</a>&#x2026;
+</p>
+
+<p>
+&#x2026; using <code>run/4</code> via <a href="https://github.com/lfe-rebar3/compile/releases/tag/0.2.1">0.2.1</a>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ time rebar3 lfe compile
+</pre>
+</div>
+<pre class="example" id="org46544c6">
+~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
+~~&gt;    Compiling ./src/lodox-p.lfe ...
+~~&gt;    Compiling ./src/lodox-parse.lfe ...
+~~&gt;    Compiling ./src/lodox-util.lfe ...
+~~&gt;    Compiling ./src/lodox.lfe ...
+~~&gt;    Compiling ./src/pandoc.lfe ...
+~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
+       1.39 real         1.14 user         0.24 sys
+</pre>
+
+<p>
+&#x2026; using <code>run/7</code> via <a href="https://github.com/quasiquoting/lfe-compile/releases/tag/0.3.0">0.3.0</a>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ time rebar3 lfe compile
+</pre>
+</div>
+<pre class="example" id="orgc4e6197">
+0.94 real         0.73 user         0.20 sys
+</pre>
+
+<p>
+A little more 🐄💩 microbenchmarking on a proprietary work project:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">run/4</span>
+        3.58 real         3.02 user         0.58 sys
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">run/7</span>
+        1.83 real         1.46 user         0.35 sys
+</pre>
+</div>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

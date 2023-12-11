@@ -1,0 +1,27 @@
+#+options: toc:nil
+#+begin_export html
+---
+title:  "ip.ericb.me"
+author: Eric Bailey
+tags: hack, clojure, web-service, open-source
+updated: 18 December, 2023
+---
+#+end_export
+
+As an exercise, I've written [[https://github.com/yurrriq/what-is-my-ip][my own IP echo service]]
++and am running it at [[http://ip.ericb.me][ip.ericb.me]]+.
+
+Its [[https://github.com/yurrriq/what-is-my-ip/blob/master/src/me/ericb/what_is_my_ip/core.clj][excruciatingly simple Clojure source]] looks something like the following.
+
+#+begin_src clojure
+(defroutes app
+  (GET "/" {{x-real-ip "x-real-ip"} :headers}
+    {:status  200
+     :headers {"Content-Type" "text/plain"}
+     :body    x-real-ip}))
+
+(defn -main [& args]
+  (->> (or (some-> (env :port) (Integer/parseInt)) 5000)
+       (hash-map :port)
+       (run-server app)))
+#+end_src

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - Strange Mathematics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>Strange Mathematics</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on  2 August, 2020
+      
+      
+      <br />
+      Tags: <a title="All pages tagged 'mathematics'." href="../../../tag/mathematics/">mathematics</a>, <a title="All pages tagged 'proof'." href="../../../tag/proof/">proof</a>, <a title="All pages tagged 'comics'." href="../../../tag/comics/">comics</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+On the first page of <a href="https://www.dccomics.com/talent/tom-king">Tom King</a>'s <a href="https://www.dccomics.com/comics/strange-adventures-2020/strange-adventures-2">Strange Adventures #2</a>
+<del>there is an example of <a href="https://reddit.com/r/badmath">bad mathematics</a>.</del>
+</p>
+
+<p>
+<a href="https://dc.fandom.com/wiki/T-Spheres">T-Sphere</a>:
+</p>
+<blockquote>
+<p>
+IN THE EQUATION<br />
+X² + MX + N = 0,<br />
+M AND N ARE INTEGERS.<br />
+THE ONLY POSSIBLE VALUE<br />
+OF X IS -3. WHAT IS THE<br />
+VALUE OF M?
+</p>
+</blockquote>
+
+<p>
+<a href="https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)">Mister Terrific</a>:
+</p>
+<blockquote>
+<p>
+SIX.
+</p>
+</blockquote>
+
+<p>
+<a href="https://dc.fandom.com/wiki/T-Spheres">T-Sphere</a>:
+</p>
+<blockquote>
+<p>
+CORRECT.
+</p>
+</blockquote>
+
+<hr>
+
+<p>
+<b>Update (3 August, 2020)</b>: It turns out <i>I'm</i> the one <a href="https://www.reddit.com/r/badmathematics/comments/i28ukc/strange_mathematics/">bad mathematics</a> (and sleep hygiene).
+</p>
+
+<p>
+Given \(x^2 + mx + n = 0\) and the only possible value of \(x\) is \(-3\),
+\((x + 3)\) is a root of <a href="https://mathworld.wolfram.com/Multiplicity.html">multiplicity</a> \(2\).
+Thus the factorization is \((x + 3)(x + 3)\), which expands to \(x^2 + 6x + 9\).
+Thus \(m = 6\), just as <a href="https://dc.fandom.com/wiki/Michael_Holt_(New_Earth)">Mister Terrific</a> said. 🤦
+</p>
+
+<hr>
+
+<p>
+<del>But that's not quite right, or at least it's misleading.</del>
+<del>While \(\xcancel{6}\) is a possible value for \(\xcancel{m}\), it's not the only one.</del>
+</p>
+
+<p>
+<del><b>Lemma</b>. Given \(\xcancel{x^2 + mx + n = 0}\) and \(\xcancel{x = -3}\),</del>
+<del>there are <a href="https://brilliant.org/wiki/cardinality/">countably infinite</a> possible values for \(m\) such that</del>
+<del>\(\xcancel{m,n \in \mathbb{Z}}\).</del>
+</p>
+
+<p>
+<del><i>Proof.</i></del>
+<del>Rewriting the original equation with \(\xcancel{x = -3}\),</del>
+<del>\(\xcancel{9 - 3m + n = 0 \leadsto m = \frac{n}{3} + 3}\).</del>
+<del>It follows that \(\xcancel{\forall m \in \mathbb{Z}, \exists n \in 3\mathbb{Z}}\) such that</del>
+<del>\(\xcancel{m = \frac{n}{3} + 3}\).</del>
+<del>Since \(\xcancel{3\mathbb{Z} \subset \mathbb{Z}}\), and</del>
+<del>there exists a bijection between \(\xcancel{\mathbb{N}}\) and \(\xcancel{3\mathbb{Z}}\), i.e.</del>
+<del>\(\xcancel{\{1,2,3,4,5,6,...\} \longleftrightarrow \{0,3,-3,6,-6,9,...\}}\),</del>
+<del>there are \(\xcancel{\aleph_{0}}\) possible values for \(\xcancel{m}\).</del>
+<del>\(\xcancel{\blacksquare}\)</del>
+</p>
+
+</section>
+
+    </article>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - facepalm</title>
+    <link href="https://blorg.ericb.me/tag/facepalm.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/facepalm.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        <email>eric@ericb.me</email>
+    </author>
+    <updated>18 December, 2023</updated>
+    <entry>
+    <title>Undefined Behaviour</title>
+    <link href="https://blorg.ericb.me/2018/05/undefined-behaviour/index.html" />
+    <id>https://blorg.ericb.me/2018/05/undefined-behaviour/index.html</id>
+    <published>2018-05-07T00:00:00Z</published>
+    <updated>18 December, 2023</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on  7 May, 2018
+      
+      <br />
+      Updated on 18 December, 2023
+      
+      
+      <br />
+      Tags: <a title="All pages tagged &#39;c&#39;." href="/tag/c/index.html">c</a>, <a title="All pages tagged &#39;compilers&#39;." href="/tag/compilers/index.html">compilers</a>, <a title="All pages tagged &#39;school&#39;." href="/tag/school/index.html">school</a>, <a title="All pages tagged &#39;facepalm&#39;." href="/tag/facepalm/index.html">facepalm</a>
+      
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+A friend at work today was telling me about his wife's C​<code>++</code> class, wherein the
+students were asked to predict the behaviour of the following snippet.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c" id="org17f2376">x = 10;
+y = ++x + --x;
+</pre>
+</div>
+
+<section id="outline-container-orgbbfa1ef" class="outline-2">
+<h2 id="orgbbfa1ef">Example</h2>
+<div class="outline-text-2" id="text-orgbbfa1ef">
+<p>
+For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="org9ccb301"><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">x</span>, <span style="font-weight: bold; font-style: italic;">y</span>;
+</pre>
+</div>
+
+<p>
+We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="org711702a">printf(<span style="font-style: italic;">"x = %d, y = %d\n"</span>, x, y);
+</pre>
+</div>
+
+<p>
+Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c">our program</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;</span><span style="font-style: italic;">stdio.h</span><span style="font-style: italic;">&gt;</span>
+
+
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> **<span style="font-weight: bold; font-style: italic;">argv</span>)
+{
+    x = 10;
+    y = ++x + --x;
+
+    printf(<span style="font-style: italic;">"x = %d, y = %d\n"</span>, x, y);
+}
+</pre>
+</div>
+
+<p>
+At first glance, I would expect the right-hand side of the initialization of <code>y</code>
+to evaluate to <code>11 + 10</code>, i.e. <code>21</code>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org408adff" class="outline-2">
+<h2 id="org408adff">Curiouser and curiouser!</h2>
+<div class="outline-text-2" id="text-org408adff">
+<p>
+Unsurprisingly, GCC computes the final value of <code>x</code> to be <code>10</code>, the same as its
+initial value, after being incremented and decremented. It's markedly <b>less</b>
+intuitive to me that the final value of <code>y</code> is <code>20</code>.
+</p>
+
+<p>
+Clang, on the other hand, agrees with me, i.e. computes the final value of <code>y</code>
+to be <code>21</code>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgfca565a" class="outline-2">
+<h2 id="orgfca565a">The more you know</h2>
+<div class="outline-text-2" id="text-orgfca565a">
+<p>
+Both compilers warn about unsequenced modifications and the resultant undefined
+behaviour. Digging around a bit leads to some fascinating discussions. The GCC
+team maintains a <a href="https://gcc.gnu.org/readings.html">list of further reading</a>, including a few formal models and
+analyses of sequence points in C. Further exploration is left as an exercise for
+the reader.
+</p>
+</div>
+
+<div id="outline-container-org36a9faf" class="outline-3">
+<h3 id="org36a9faf">tl;dr</h3>
+<div class="outline-text-3" id="text-org36a9faf">
+<blockquote cite="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html" id="org3af2428">
+<p>
+It is not specified when between sequence points modifications to the values of
+objects take effect.
+</p>
+
+<p>
+⋯
+</p>
+
+<p>
+The standard is worded confusingly, therefore there is some debate over the
+precise meaning of the sequence point rules in subtle cases.
+</p>
+<footer><a href="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html">Free Software Foundation, Inc., GCC online documentation, 3.8 Options to Request or Suppress Warnings</a></footer></blockquote>
+</div>
+</div>
+</section>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>

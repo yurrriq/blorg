@@ -1,0 +1,26 @@
+/* override inline syntax highlighting in light mode */
+@media (prefers-color-scheme: light) {
+  .src span, .example span {
+    background: #fffff8 !important;
+    color: #111111 !important;
+  }
+}
+
+/* copied from section > p in tufte.css */
+section div > p {
+  width: 55%;
+}
+
+/* copied from pre > code in tufte.css */
+.org-src-container > pre {
+  font-size: 0.9rem;
+  width: 52.5%;
+  margin-left: 2.5%;
+  overflow-x: auto;
+  display: block;
+}
+
+/* fix weird-looking Idris code */
+.src-idris > span {
+  background-color: unset !important;
+}

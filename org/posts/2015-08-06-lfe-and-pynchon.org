@@ -1,0 +1,62 @@
+#+options: toc:nil
+#+begin_export html
+---
+title:  "Lisp Flavoured Erlang and Pynchon, oh my!"
+author: Eric Bailey
+tags: lfe, lisp, beam, metaprogramming, open-source
+updated: 16 December, 2023
+---
+#+end_export
+
+So, lately I've been getting increasingly into [[https://lfe.io][Lisp Flavoured Erlang (LFE)]].  If
+you haven't tried it yet, or even if you have, check out the [[https://exercism.org/docs/tracks/lfe/][Exercism LFE track]]
+I helped organize.  My latest endeavour is porting Robert Levy's [[https://github.com/rplevy/swiss-arrows][swiss-arrows]]
+from Clojure to LFE.  It's been going well so far, despite having to rename it
+to [[https://github.com/quasiquoting/pynchon][pynchon]], since Erlang wasn't down with the hyphenated name and a few people
+on the [[https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang][LFE Google group]] suggested it.
+
+* Example
+Without further ado, here's a contrived example.
+{{{marginnote(~#'compose/2~ comes from Duncan McGreggor's [[https://github.com/lfex/clj][clj]]\, Clojure
+functions and macros for LFE\, which has since been [[https://github.com/lfe/lfe/pull/267][merged into LFE]].)}}}
+
+#+begin_src lfe
+(-<> "testing"
+     (-!<>> (string:substr <> 1 4)
+            (lists:duplicate 3)
+            (compose #'list/1 #'lists:flatten/1)
+            (lfe_io:format '"non-updating: ~p\n"))
+     (string:substr 5)
+     (++ "winn" <>))
+#+end_src
+
+The wild-looking form above expands to something more like the following.
+#+begin_src lfe
+(-<>
+ (progn
+   (lfe_io:format
+    '"non-updating: ~p\n"
+    (list
+     (lists:flatten
+      (lists:duplicate 3 (string:substr "testing" 1 4)))))
+   "testing")
+ (string:substr 5)
+ (++ "winn" <>))
+#+end_src
+
+After that, it becomes apparent the "return track" is rather simple.
+#+begin_src lfe
+(++ "winn" (string:substr 5 "testing"))
+#+end_src
+
+#+begin_src lfe
+> (-<> "testing"
+       (-!<>> (string:substr <> 1 4)
+              (lists:duplicate 3)
+              (compose #'list/1 #'lists:flatten/1)
+              (lfe_io:format '"non-updating: ~p\n"))
+       (string:substr 5)
+       (++ "winn" <>))
+non-updating: "testtesttest" ; printed
+"winning"                    ; returned
+#+end_src

@@ -1,0 +1,118 @@
+#+startup: showall
+#+options: toc:nil ^:{}
+#+begin_export html
+---
+title:  "OpenConnect Launch Daemon"
+author: Eric Bailey
+tags: darwin, vpn, openconnect, launchd, daemon
+---
+#+end_export
+
+What follows is a sparsely documented literate program to manage an OpenConnect
+VPN connection with =launchd= on macOS. Many thanks to [[https://github.com/ashgillman][Ashley Gilman]] for their
+blog post, [[https://ashgillman.github.io/2017/02/14/openconnect-launchd.html][Managing an Openconnect VPN Connection with launchd on OSX]], upon
+which this is based.
+
+* OpenConnect Wrapper
+Define a function ~handler~ to send an =INT= signal to =$PID=, then ~trap~
+=TERM= signals and call ~handler~ instead, which will enable ending an
+=openconnect= process gracefully with =launchd=.
+#+begin_src bash :shebang "#! /usr/bin/env bash" :tangle ../../hakyll/code/openconnect-wrapper
+handler() {
+    kill -INT "$PID" 2>/dev/null
+}
+
+trap handler SIGTERM
+#+end_src
+
+Pipe =STDIN= and pass any given arguments to =/usr/local/bin/openconnect=, and
+send to the background.
+#+begin_src bash :shebang "#! /usr/bin/env bash" :tangle ../../hakyll/code/openconnect-wrapper
+cat | /usr/local/bin/openconnect "$@" &
+#+end_src
+
+Keep the wrapper process alive as long as the =openconnect= process is, by
+capturing its PID and ~wait~-ing for it.
+#+begin_src bash :shebang "#! /usr/bin/env bash" :tangle ../../hakyll/code/openconnect-wrapper
+PID=$!
+wait "$PID"
+#+end_src
+
+* Password File
+Store the password (without a trailing newline) in a file,
+=/etc/openconnect/passwd=, owned by =root=.
+
+Remove read/write access from all but =root=.
+#+begin_src bash
+sudo chmod og-rw /etc/openconnect/passwd
+#+end_src
+
+* Launch Daemon
+  :PROPERTIES:
+  :header-args: :padline no
+  :END:
+
+Set up a launch daemon by creating a property list file,
+=/Library/LaunchDaemons/me.ericb.openconnect.plist=.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>me.ericb.openconnect-example</string>
+#+end_src
+
+Specify that the password, stored in =/etc/openconnect/passwd-example=, will be
+supplied via stdin.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+    <key>StandardInPath</key>
+    <string>/etc/openconnect/passwd-example</string>
+#+end_src
+
+Use the wrapper defined above.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+    <key>ProgramArguments</key>
+    <array>
+      <string>/etc/openconnect-wrapper</string>
+#+end_src
+
+Tell =openconnect= we're supplying the password via stdin.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+      <string>--passwd-on-stdin</string>
+#+end_src
+
+Set the OpenConnect protocol to AnyConnect.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+      <string>--protocol=anyconnect</string>
+#+end_src
+
+Set the reconnect timeout to =1800= seconds.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+      <string>--reconnect-timeout=1800</string>
+#+end_src
+
+Set the username.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+      <string>--user=alice</string>
+#+end_src
+
+Finally, specify the VPN server hostname.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+      <string>vpn.example.com</string>
+    </array>
+#+end_src
+
+Configure log files for debugging.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+    <key>StandardOutPath</key>
+    <string>/var/log/me.ericb.openconnectconsole.log</string>
+    <key>StandardErrorPath</key>
+    <string>/var/log/me.ericb.openconnect/error.log</string>
+#+end_src
+
+Close the open XML tags.
+#+begin_src xml :tangle ../../hakyll/code/me.ericb.openconnect.plist
+  </dict>
+</plist>
+#+end_src
