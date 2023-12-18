@@ -68,7 +68,7 @@ y = ++x + --x;
 For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org9ccb301"><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">x</span>, <span style="font-weight: bold; font-style: italic;">y</span>;
+<pre class="src src-c" id="org9ccb301"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -76,7 +76,7 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org711702a">printf(<span style="font-style: italic;">"x = %d, y = %d\n"</span>, x, y);
+<pre class="src src-c" id="org711702a">printf<span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y<span style="color: #8c8c8c;">)</span>;
 </pre>
 </div>
 
@@ -84,16 +84,16 @@ We can inspect the final state of <code>x</code> and <code>y</code> with a simpl
 Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c">our program</a>.
 </p>
 <div class="org-src-container">
-<pre class="src src-c"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;</span><span style="font-style: italic;">stdio.h</span><span style="font-style: italic;">&gt;</span>
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #8c8c8c;">&lt;</span><span style="color: #95e454;">stdio.h</span><span style="color: #8c8c8c;">&gt;</span>
 
 
-<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> **<span style="font-weight: bold; font-style: italic;">argv</span>)
-{
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #92a65e; font-weight: bold;">char</span> **<span style="color: #cae682;">argv</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">{</span>
     x = 10;
     y = ++x + --x;
 
-    printf(<span style="font-style: italic;">"x = %d, y = %d\n"</span>, x, y);
-}
+    printf<span style="color: #93a8c6;">(</span><span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y<span style="color: #93a8c6;">)</span>;
+<span style="color: #8c8c8c;">}</span>
 </pre>
 </div>
 

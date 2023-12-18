@@ -62,12 +62,12 @@ Tracing LFE functions for debugging purposes is quite simple.
 Let's say you have the following module and want to trace one of its functions.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org616e3f0">(<span style="font-weight: bold;">defmodule</span> <span style="font-weight: bold; text-decoration: underline;">maths</span>
+<pre class="src src-lfe" id="org616e3f0">(<span style="color: #8ac6f2; font-weight: bold;">defmodule</span> <span style="color: #92a65e; font-weight: bold;">maths</span>
   (export (sum 2) (diff 2)))
 
-(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">sum</span> (a b) (<span style="font-weight: bold;">+</span> a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">sum</span> (a b) (<span style="color: #e5786d;">+</span> a b))
 
-(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">diff</span> (a b) (<span style="font-weight: bold;">-</span> a b))
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">diff</span> (a b) (<span style="color: #e5786d;">-</span> a b))
 </pre>
 </div>
 
@@ -75,7 +75,7 @@ Let's say you have the following module and want to trace one of its functions.
 Before we get started, make sure you compile the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org4b1dc3d">(c <span style="font-style: italic;">"/path/to/maths.lfe"</span>)
+<pre class="src src-lfe" id="org4b1dc3d">(c <span style="color: #95e454;">"/path/to/maths.lfe"</span>)
 </pre>
 </div>
 
@@ -144,7 +144,7 @@ To trace all functions from the <code>maths</code> module:
 To trace the return value for a given function:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org75a5bf7">(dbg:tpl 'maths 'sum (<span style="font-weight: bold;">match-spec</span> ([_] (return_trace))))
+<pre class="src src-lfe" id="org75a5bf7">(dbg:tpl 'maths 'sum (<span style="color: #8ac6f2; font-weight: bold;">match-spec</span> ([_] (return_trace))))
 </pre>
 </div>
 

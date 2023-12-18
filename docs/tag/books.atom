@@ -40,7 +40,7 @@
 First off, I think <a href="http://www.idris-lang.org">Idris</a> is pretty great. Over the past several months, I've
 been thoroughly enjoying reading and working through <a href="https://www.manning.com/books/type-driven-development-with-idris"><i>Type-Driven Development
 with Idris</i></a>, as well as chatting with the community on IRC.
-<label for='mn-auto.8079674' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.8079674' class='margin-toggle'><span class='marginnote'> <code>#idris</code> on freenode </span>
+<label for='mn-auto.2493388' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.2493388' class='margin-toggle'><span class='marginnote'> <code>#idris</code> on freenode </span>
 </p>
 
 <section id="outline-container-org1cd360a" class="outline-2">
@@ -68,12 +68,12 @@ In this example, we're trying to prove that addition of natural numbers is
 &#x2026; which we can express in Idris as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
 </pre>
 </div>
 
 <p>
-The type signature for <code class="src src-idris">myPlusCommutative</code> can be read as something
+The type signature for <code class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span></code> can be read as something
 like, "For all natural numbers <code>n</code> and <code>m</code>, <code>n</code> plus <code>m</code> is exactly equivalent
 to <code>m</code> plus <code>n</code>."
 </p>
@@ -90,8 +90,8 @@ bit here too. For a start, we can call <code>idris-add-clause</code> (<code>M-RE
 <a href="http://spacemacs.org/layers/+lang/idris/README.html">Spacemacs</a>) to get:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
-myPlusCommutative n m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs</span>
 </pre>
 </div>
 
@@ -99,10 +99,10 @@ myPlusCommutative n m <span style="font-weight: bold; font-style: italic;">=</sp
 The prefix <code>?</code> signifies a hole and in this case, the type of that hole is:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">  n <span style="font-weight: bold; font-style: italic;">:</span> Nat
-  m <span style="font-weight: bold; font-style: italic;">:</span> Nat
-<span style="font-weight: bold; font-style: italic;">--------------------------------------</span>
-myPlusCommutative_rhs <span style="font-weight: bold; font-style: italic;">:</span> plus n m <span style="font-weight: bold; font-style: italic;">=</span> plus m n
+<pre class="src src-idris">  <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+  <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+<span style="color: #99968b;">--------------------------------------</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
 </pre>
 </div>
 
@@ -110,9 +110,9 @@ myPlusCommutative_rhs <span style="font-weight: bold; font-style: italic;">:</sp
 Next, we can case split (<code>idris-case-split</code>, <code>M-RET c</code>) on <code>n</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
-myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs_1
-myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span> ?myPlusCommutative_rhs_2
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span>  <span style="color: #f6f3e8; background-color: #242424;">Z</span>    <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_1</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_2</span>
 </pre>
 </div>
 
@@ -120,7 +120,7 @@ myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=
 For <code>?myPlusCommutative_rhs_1</code> we need to prove that \(m = m + 0\).
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative_rhs_1 <span style="font-weight: bold; font-style: italic;">:</span> m <span style="font-weight: bold; font-style: italic;">=</span> plus m 0
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs_1</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> 0
 </pre>
 </div>
 
@@ -128,7 +128,7 @@ For <code>?myPlusCommutative_rhs_1</code> we need to prove that \(m = m + 0\).
 Fortunately, the <code>Prelude</code> has a proof that's almost exactly what we want:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">plusZeroRightNeutral <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> left <span style="font-weight: bold; font-style: italic;">+</span> 0 <span style="font-weight: bold; font-style: italic;">=</span> left
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">plusZeroRightNeutral</span> <span style="color: #cae682;">:</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">+</span> 0 <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">left</span>
 </pre>
 </div>
 
@@ -136,7 +136,7 @@ Fortunately, the <code>Prelude</code> has a proof that's almost exactly what we 
 Since we need to swap the left- and right-hand sides, we can use <code>sym</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">sym <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">=</span> right) <span style="font-weight: bold; font-style: italic;">-&gt;</span> right <span style="font-weight: bold; font-style: italic;">=</span> left
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">sym</span> <span style="color: #cae682;">:</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">right</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">right</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">left</span>
 </pre>
 </div>
 
@@ -144,7 +144,7 @@ Since we need to swap the left- and right-hand sides, we can use <code>sym</code
 So the complete definition for the <a href="https://en.wikipedia.org/wiki/Mathematical_induction"><i>base case</i></a> of <code>myPlusCommutative</code> is:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> sym (plusZeroRightNeutral m)
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span>  <span style="color: #f6f3e8; background-color: #242424;">Z</span>    <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">sym</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">plusZeroRightNeutral</span> <span style="color: #f6f3e8; background-color: #242424;">m</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -153,10 +153,10 @@ Next, we've got to tackle the <i>inductive step</i>. Since we know we'll need to
 reduce to the <i>base case</i>, let's define a local variable <code>inductiveHypothesis</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
-  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
-    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
-    ?myPlusCommutative_rhs_2
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span>
+  <span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_2</span>
 </pre>
 </div>
 
@@ -164,12 +164,12 @@ reduce to the <i>base case</i>, let's define a local variable <code>inductiveHyp
 Examining the type of <code>?myPlusCommutative_rhs_2</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">  k <span style="font-weight: bold; font-style: italic;">:</span> Nat
-  m <span style="font-weight: bold; font-style: italic;">:</span> Nat
-  inductiveHypothesis <span style="font-weight: bold; font-style: italic;">:</span> plus k m <span style="font-weight: bold; font-style: italic;">=</span> plus m k
-  _<span style="font-weight: bold;">rewrite</span>_rule <span style="font-weight: bold; font-style: italic;">:</span> plus k m <span style="font-weight: bold; font-style: italic;">=</span> plus m k
-<span style="font-weight: bold; font-style: italic;">--------------------------------------</span>
-myPlusCommutative_rhs_2 <span style="font-weight: bold; font-style: italic;">:</span> S (plus m k) <span style="font-weight: bold; font-style: italic;">=</span> plus m (S k)
+<pre class="src src-idris">  <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+  <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span>
+  <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>
+  _<span style="color: #8ac6f2; font-weight: bold;">rewrite</span><span style="color: #f6f3e8; background-color: #242424;">_rule</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>
+<span style="color: #99968b;">--------------------------------------</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs_2</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -183,8 +183,8 @@ to \(m\) plus the successor of \(k\), i.e.
 Prelude to the rescue, yet again:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">plusSuccRightSucc <span style="font-weight: bold; font-style: italic;">:</span> (left <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span>
-                    (right <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> S (left <span style="font-weight: bold; font-style: italic;">+</span> right) <span style="font-weight: bold; font-style: italic;">=</span> left <span style="font-weight: bold; font-style: italic;">+</span> S right
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #cae682;">:</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span>
+                    <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">right</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">right</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">left</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">right</span>
 </pre>
 </div>
 
@@ -193,11 +193,11 @@ Now we can <code>rewrite</code> the hole using <code>plusSuccRightSucc</code> wi
 <code>k</code> as <code>right</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
-  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
-    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
-    <span style="font-weight: bold;">rewrite</span> plusSuccRightSucc m k <span style="font-weight: bold;">in</span>
-            ?myPlusCommutative_rhs_2
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span>
+  <span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+            <span style="color: #f6f3e8; background-color: #242424;">?myPlusCommutative</span><span style="color: #f6f3e8; background-color: #242424;">_rhs_2</span>
 </pre>
 </div>
 
@@ -205,7 +205,7 @@ Now we can <code>rewrite</code> the hole using <code>plusSuccRightSucc</code> wi
 Eliding the repetitive bits, we get:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative_rhs_2 <span style="font-weight: bold; font-style: italic;">:</span> plus m (S k) <span style="font-weight: bold; font-style: italic;">=</span> plus m (S k)
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative_rhs_2</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">plus</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -213,7 +213,7 @@ Eliding the repetitive bits, we get:
 &#x2026; which looks like our old friend, <code>Refl</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris">Refl <span style="font-weight: bold; font-style: italic;">:</span> x <span style="font-weight: bold; font-style: italic;">=</span> x
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">Refl</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">x</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">x</span>
 </pre>
 </div>
 
@@ -223,11 +223,11 @@ At this point, Idris can fill in the hole for us, via <code>idris-proof-search</
 </p>
 
 <div class="org-src-container">
-<pre class="src src-idris">myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span>
-  <span style="font-weight: bold;">let</span> inductiveHypothesis <span style="font-weight: bold; font-style: italic;">=</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
-    <span style="font-weight: bold;">rewrite</span> inductiveHypothesis <span style="font-weight: bold;">in</span>
-    <span style="font-weight: bold;">rewrite</span> plusSuccRightSucc m k <span style="font-weight: bold;">in</span>
-            Refl
+<pre class="src src-idris"><span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span>
+  <span style="color: #8ac6f2; font-weight: bold;">let</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">inductiveHypothesis</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+    <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+            <span style="color: #f6f3e8; background-color: #242424;">Refl</span>
 </pre>
 </div>
 </div>
@@ -240,12 +240,12 @@ At this point, Idris can fill in the hole for us, via <code>idris-proof-search</
 Tidying up a bit for my taste, we arrive at the complete (and total) definition:
 </p>
 <div class="org-src-container">
-<pre class="src src-idris"><span style="font-weight: bold; font-style: italic;">|||</span><span style="font-style: italic;"> Addition of natural numbers is commutative.</span>
-<span style="font-weight: bold;">total</span>
-myPlusCommutative <span style="font-weight: bold; font-style: italic;">:</span> (n, m <span style="font-weight: bold; font-style: italic;">:</span> Nat) <span style="font-weight: bold; font-style: italic;">-&gt;</span> n <span style="font-weight: bold; font-style: italic;">+</span> m <span style="font-weight: bold; font-style: italic;">=</span> m <span style="font-weight: bold; font-style: italic;">+</span> n
-myPlusCommutative  Z    m <span style="font-weight: bold; font-style: italic;">=</span> sym (plusZeroRightNeutral m)
-myPlusCommutative (S k) m <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold;">rewrite</span> myPlusCommutative k m <span style="font-weight: bold;">in</span>
-                                    plusSuccRightSucc m k
+<pre class="src src-idris"><span style="color: #99968b;">|||</span><span style="color: #95e454;"> Addition of natural numbers is commutative.</span>
+<span style="color: #8ac6f2; font-weight: bold;">total</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #cae682;">:</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">n</span>, <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">:</span> <span style="color: #f6f3e8; background-color: #242424;">Nat</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #f6f3e8; background-color: #242424;">n</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">+</span> <span style="color: #f6f3e8; background-color: #242424;">n</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span>  <span style="color: #f6f3e8; background-color: #242424;">Z</span>    <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #f6f3e8; background-color: #242424;">sym</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">plusZeroRightNeutral</span> <span style="color: #f6f3e8; background-color: #242424;">m</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #8c8c8c;">(</span><span style="color: #f6f3e8; background-color: #242424;">S</span> <span style="color: #f6f3e8; background-color: #242424;">k</span><span style="color: #8c8c8c;">)</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #cae682;">=</span> <span style="color: #8ac6f2; font-weight: bold;">rewrite</span> <span style="color: #f6f3e8; background-color: #242424;">myPlusCommutative</span> <span style="color: #f6f3e8; background-color: #242424;">k</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #8ac6f2; font-weight: bold;">in</span>
+                                    <span style="color: #f6f3e8; background-color: #242424;">plusSuccRightSucc</span> <span style="color: #f6f3e8; background-color: #242424;">m</span> <span style="color: #f6f3e8; background-color: #242424;">k</span>
 </pre>
 </div>
 <p>

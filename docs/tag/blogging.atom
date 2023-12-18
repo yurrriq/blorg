@@ -49,7 +49,7 @@ whole workflow was a bit too clunky for my taste.
 In July of 2015, I decided to migrate to <a href="https://jekyllrb.com">Jekyll</a>. It's pretty widely used and the
 integration with <a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and easy.  In practice, I
 found its workflow to be similarly annoying. Worst of all, it made me install,
-write and use Ruby.<label for='mn-auto.3854819' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3854819' class='margin-toggle'><span class='marginnote'> I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a> </span>
+write and use Ruby.<label for='mn-auto.888550' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.888550' class='margin-toggle'><span class='marginnote'> I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a> </span>
 </p>
 
 <p>

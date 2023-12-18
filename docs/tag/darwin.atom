@@ -49,11 +49,11 @@ Define a function <code>handler</code> to send an <code>INT</code> signal to <co
 <code>openconnect</code> process gracefully with <code>launchd</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash"><span style="font-weight: bold;">handler</span>() {
-    kill -INT <span style="font-style: italic;">"$PID"</span> 2&gt;/dev/null
-}
+<pre class="src src-bash"><span style="color: #cae682;">handler</span><span style="color: #8c8c8c;">()</span> <span style="color: #8c8c8c;">{</span>
+    kill -INT <span style="color: #95e454;">"$PID"</span> 2&gt;/dev/null
+<span style="color: #8c8c8c;">}</span>
 
-<span style="font-weight: bold;">trap</span> handler SIGTERM
+<span style="color: #8ac6f2; font-weight: bold;">trap</span> handler SIGTERM
 </pre>
 </div>
 
@@ -62,7 +62,7 @@ Pipe <code>STDIN</code> and pass any given arguments to <code>/usr/local/bin/ope
 send to the background.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">cat | /usr/local/bin/openconnect <span style="font-style: italic;">"$@"</span> &amp;
+<pre class="src src-bash">cat | /usr/local/bin/openconnect <span style="color: #95e454;">"$@"</span> &amp;
 </pre>
 </div>
 
@@ -71,8 +71,8 @@ Keep the wrapper process alive as long as the <code>openconnect</code> process i
 capturing its PID and <code>wait</code>-ing for it.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;">PID</span>=$<span style="font-weight: bold; font-style: italic;">!</span>
-<span style="font-weight: bold;">wait</span> <span style="font-style: italic;">"$PID"</span>
+<pre class="src src-bash"><span style="color: #cae682;">PID</span>=$<span style="color: #cae682;">!</span>
+<span style="color: #e5786d;">wait</span> <span style="color: #95e454;">"$PID"</span>
 </pre>
 </div>
 </div>
@@ -104,12 +104,12 @@ Set up a launch daemon by creating a property list file,
 <code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;?<span style="font-weight: bold;">xml</span> <span style="font-style: italic;">version="1.0" encoding="UTF-8"</span>?&gt;
+<pre class="src src-xml">&lt;?<span style="color: #8ac6f2; font-weight: bold;">xml</span> <span style="color: #95e454;">version="1.0" encoding="UTF-8"</span>?&gt;
 &lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
-&lt;<span style="font-weight: bold;">plist</span> <span style="font-weight: bold; font-style: italic;">version</span>=<span style="font-style: italic;">"1.0"</span>&gt;
-  &lt;<span style="font-weight: bold;">dict</span>&gt;
-    &lt;<span style="font-weight: bold;">key</span>&gt;Label&lt;/<span style="font-weight: bold;">key</span>&gt;
-    &lt;<span style="font-weight: bold;">string</span>&gt;me.ericb.openconnect-example&lt;/<span style="font-weight: bold;">string</span>&gt;
+&lt;<span style="color: #cae682;">plist</span> <span style="color: #cae682;">version</span>=<span style="color: #95e454;">"1.0"</span>&gt;
+  &lt;<span style="color: #cae682;">dict</span>&gt;
+    &lt;<span style="color: #cae682;">key</span>&gt;Label&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;me.ericb.openconnect-example&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -118,8 +118,8 @@ Specify that the password, stored in <code>/etc/openconnect/passwd-example</code
 supplied via stdin.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;StandardInPath&lt;/<span style="font-weight: bold;">key</span>&gt;
-&lt;<span style="font-weight: bold;">string</span>&gt;/etc/openconnect/passwd-example&lt;/<span style="font-weight: bold;">string</span>&gt;
+<pre class="src src-xml">    &lt;<span style="color: #cae682;">key</span>&gt;StandardInPath&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;/etc/openconnect/passwd-example&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -127,9 +127,9 @@ supplied via stdin.
 Use the wrapper defined above.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;ProgramArguments&lt;/<span style="font-weight: bold;">key</span>&gt;
-&lt;<span style="font-weight: bold;">array</span>&gt;
-  &lt;<span style="font-weight: bold;">string</span>&gt;/etc/openconnect-wrapper&lt;/<span style="font-weight: bold;">string</span>&gt;
+<pre class="src src-xml">    &lt;<span style="color: #cae682;">key</span>&gt;ProgramArguments&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">array</span>&gt;
+      &lt;<span style="color: #cae682;">string</span>&gt;/etc/openconnect-wrapper&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -137,7 +137,7 @@ Use the wrapper defined above.
 Tell <code>openconnect</code> we're supplying the password via stdin.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--passwd-on-stdin&lt;/<span style="font-weight: bold;">string</span>&gt;
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--passwd-on-stdin&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -145,7 +145,7 @@ Tell <code>openconnect</code> we're supplying the password via stdin.
 Set the OpenConnect protocol to AnyConnect.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--protocol=anyconnect&lt;/<span style="font-weight: bold;">string</span>&gt;
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--protocol=anyconnect&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -153,7 +153,7 @@ Set the OpenConnect protocol to AnyConnect.
 Set the reconnect timeout to <code>1800</code> seconds.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--reconnect-timeout=1800&lt;/<span style="font-weight: bold;">string</span>&gt;
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--reconnect-timeout=1800&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -161,7 +161,7 @@ Set the reconnect timeout to <code>1800</code> seconds.
 Set the username.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">string</span>&gt;--user=alice&lt;/<span style="font-weight: bold;">string</span>&gt;
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;--user=alice&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -169,8 +169,8 @@ Set the username.
 Finally, specify the VPN server hostname.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">  &lt;<span style="font-weight: bold;">string</span>&gt;vpn.example.com&lt;/<span style="font-weight: bold;">string</span>&gt;
-&lt;/<span style="font-weight: bold;">array</span>&gt;
+<pre class="src src-xml">      &lt;<span style="color: #cae682;">string</span>&gt;vpn.example.com&lt;/<span style="color: #cae682;">string</span>&gt;
+    &lt;/<span style="color: #cae682;">array</span>&gt;
 </pre>
 </div>
 
@@ -178,10 +178,10 @@ Finally, specify the VPN server hostname.
 Configure log files for debugging.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">key</span>&gt;StandardOutPath&lt;/<span style="font-weight: bold;">key</span>&gt;
-&lt;<span style="font-weight: bold;">string</span>&gt;/var/log/me.ericb.openconnectconsole.log&lt;/<span style="font-weight: bold;">string</span>&gt;
-&lt;<span style="font-weight: bold;">key</span>&gt;StandardErrorPath&lt;/<span style="font-weight: bold;">key</span>&gt;
-&lt;<span style="font-weight: bold;">string</span>&gt;/var/log/me.ericb.openconnect/error.log&lt;/<span style="font-weight: bold;">string</span>&gt;
+<pre class="src src-xml">    &lt;<span style="color: #cae682;">key</span>&gt;StandardOutPath&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;/var/log/me.ericb.openconnectconsole.log&lt;/<span style="color: #cae682;">string</span>&gt;
+    &lt;<span style="color: #cae682;">key</span>&gt;StandardErrorPath&lt;/<span style="color: #cae682;">key</span>&gt;
+    &lt;<span style="color: #cae682;">string</span>&gt;/var/log/me.ericb.openconnect/error.log&lt;/<span style="color: #cae682;">string</span>&gt;
 </pre>
 </div>
 
@@ -189,8 +189,8 @@ Configure log files for debugging.
 Close the open XML tags.
 </p>
 <div class="org-src-container">
-<pre class="src src-xml">  &lt;/<span style="font-weight: bold;">dict</span>&gt;
-&lt;/<span style="font-weight: bold;">plist</span>&gt;
+<pre class="src src-xml">  &lt;/<span style="color: #cae682;">dict</span>&gt;
+&lt;/<span style="color: #cae682;">plist</span>&gt;
 </pre>
 </div>
 </div>
@@ -231,10 +231,10 @@ modified slightly here.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">ioreg -lw 0 <span style="font-style: italic;">\</span>
-    | perl -nle <span style="font-style: italic;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="font-style: italic;">\</span>
-    | uniq <span style="font-style: italic;">\</span>
-    | xargs ps -o <span style="font-weight: bold; font-style: italic;">comm</span>= -p
+<pre class="src src-sh">ioreg -lw 0 <span style="color: #95e454;">\</span>
+    | perl -nle <span style="color: #95e454;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="color: #95e454;">\</span>
+    | uniq <span style="color: #95e454;">\</span>
+    | xargs ps -o <span style="color: #cae682;">comm</span>= -p
 </pre>
 </div>
 
@@ -243,7 +243,7 @@ For example, when I enable secure keyboard entry in <code>Terminal.app</code>, I
 following output.
 </p>
 
-<pre class="example" id="org2f3eb89">
+<pre class="example" id="org8215e8c">
 /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
 </pre>
 
@@ -255,7 +255,7 @@ suddenly stopped working. When I try to start it manually, I get the following
 error.
 </p>
 
-<pre class="example" id="org50a4ba5">
+<pre class="example" id="org8f88adf">
 skhd: secure keyboard entry is enabled! abort..
 </pre>
 
@@ -271,22 +271,22 @@ program to call it and try to end my troubles.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;</span><span style="font-style: italic;">Carbon/Carbon.h</span><span style="font-style: italic;">&gt;</span>
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #8c8c8c;">&lt;</span><span style="color: #95e454;">Carbon/Carbon.h</span><span style="color: #8c8c8c;">&gt;</span>
 
 
-<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
-{
-    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
-        printf(<span style="font-style: italic;">"Secure keyboard entry is enabled.\n"</span>);
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #8ac6f2; font-weight: bold;">const</span> <span style="color: #92a65e; font-weight: bold;">char</span> *<span style="color: #cae682;">argv</span><span style="color: #93a8c6;">[]</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">{</span>
+    <span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #93a8c6;">(</span>IsSecureEventInputEnabled<span style="color: #b0b1a3;">()</span><span style="color: #93a8c6;">)</span>
+        printf<span style="color: #93a8c6;">(</span><span style="color: #95e454;">"Secure keyboard entry is enabled.\n"</span><span style="color: #93a8c6;">)</span>;
 
-    DisableSecureEventInput();
+    DisableSecureEventInput<span style="color: #93a8c6;">()</span>;
 
-    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
-        printf(<span style="font-style: italic;">"Secure keyboard entry is still enabled.\n"</span>);
+    <span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #93a8c6;">(</span>IsSecureEventInputEnabled<span style="color: #b0b1a3;">()</span><span style="color: #93a8c6;">)</span>
+        printf<span style="color: #93a8c6;">(</span><span style="color: #95e454;">"Secure keyboard entry is still enabled.\n"</span><span style="color: #93a8c6;">)</span>;
 
 
-    <span style="font-weight: bold;">return</span> 0;
-}
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> 0;
+<span style="color: #8c8c8c;">}</span>
 </pre>
 </div>
 

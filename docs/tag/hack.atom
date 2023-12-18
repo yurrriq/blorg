@@ -97,16 +97,16 @@ Its <a href="https://github.com/yurrriq/what-is-my-ip/blob/master/src/me/ericb/w
 </p>
 
 <div class="org-src-container">
-<pre class="src src-clojure">(defroutes app
-  (GET <span style="font-style: italic;">"/"</span> {{x-real-ip <span style="font-style: italic;">"x-real-ip"</span>} <span style="font-weight: bold; text-decoration: underline;">:headers</span>}
-    {<span style="font-weight: bold; text-decoration: underline;">:status</span>  200
-     <span style="font-weight: bold; text-decoration: underline;">:headers</span> {<span style="font-style: italic;">"Content-Type"</span> <span style="font-style: italic;">"text/plain"</span>}
-     <span style="font-weight: bold; text-decoration: underline;">:body</span>    x-real-ip}))
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>defroutes app
+  <span style="color: #93a8c6;">(</span>GET <span style="color: #95e454;">"/"</span> <span style="color: #b0b1a3;">{</span><span style="color: #97b098;">{</span>x-real-ip <span style="color: #95e454;">"x-real-ip"</span><span style="color: #97b098;">}</span> <span style="color: #e5786d;">:headers</span><span style="color: #b0b1a3;">}</span>
+    <span style="color: #b0b1a3;">{</span><span style="color: #e5786d;">:status</span>  200
+     <span style="color: #e5786d;">:headers</span> <span style="color: #97b098;">{</span><span style="color: #95e454;">"Content-Type"</span> <span style="color: #95e454;">"text/plain"</span><span style="color: #97b098;">}</span>
+     <span style="color: #e5786d;">:body</span>    x-real-ip<span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 
-(<span style="font-weight: bold;">defn</span> <span style="font-weight: bold;">-main</span> [&amp; args]
-  (<span style="font-weight: bold;">-&gt;&gt;</span> (<span style="font-weight: bold;">or</span> (<span style="font-weight: bold;">some-&gt;</span> (env <span style="font-weight: bold; text-decoration: underline;">:port</span>) (<span style="font-weight: bold; text-decoration: underline;">Integer</span>/parseInt)) 5000)
-       (hash-map <span style="font-weight: bold; text-decoration: underline;">:port</span>)
-       (run-server app)))
+<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defn</span> <span style="color: #cae682;">-main</span> <span style="color: #93a8c6;">[</span>&amp; args<span style="color: #93a8c6;">]</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;&gt;</span> <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">or</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">some-&gt;</span> <span style="color: #aebed8;">(</span>env <span style="color: #e5786d;">:port</span><span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">Integer</span>/parseInt<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span> 5000<span style="color: #b0b1a3;">)</span>
+       <span style="color: #b0b1a3;">(</span>hash-map <span style="color: #e5786d;">:port</span><span style="color: #b0b1a3;">)</span>
+       <span style="color: #b0b1a3;">(</span>run-server app<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -142,7 +142,7 @@ Its <a href="https://github.com/yurrriq/what-is-my-ip/blob/master/src/me/ericb/w
 <section>
   <p>
 I wrote a little <a href="https://clojure.org">Clojure</a> script
-<label for='mn-auto.645708' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.645708' class='margin-toggle'><span class='marginnote'> Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>. </span>
+<label for='mn-auto.2863067' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.2863067' class='margin-toggle'><span class='marginnote'> Not to be confused with <a href="https://github.com/clojure/clojurescript">ClojureScript</a>. </span>
 to gather the language usage data from <a href="https://github.com/yurrriq?tab=repositories">my GitHub repos</a> and sort them in
 descending order of popularity.
 </p>
@@ -151,46 +151,46 @@ descending order of popularity.
 <h2 id="org5d87d7e">The results</h2>
 <div class="outline-text-2" id="text-org5d87d7e">
 <p>
-<label for='mn-auto.6933968' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6933968' class='margin-toggle'><span class='marginnote'> I don't use Ruby, except when <a href="https://www.openhub.net/p/homebrew/contributors/2025442152889863">contributing</a> to <a href="https://brew.sh/">Homebrew</a>. I also have a repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exercises</a>, which, of course<br> skew the results. </span>
+<label for='mn-auto.3189812' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3189812' class='margin-toggle'><span class='marginnote'> I don't use Ruby, except when <a href="https://www.openhub.net/p/homebrew/contributors/2025442152889863">contributing</a> to <a href="https://brew.sh/">Homebrew</a>. I also have a repo or two of <a href="https://github.com/yurrriq/exercism">polyglot coding exercises</a>, which, of course<br> skew the results. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-js">{
-  <span style="font-style: italic;">"Ruby"</span> : 4401525,
-  <span style="font-style: italic;">"Java"</span> : 1800870,
-  <span style="font-style: italic;">"Clojure"</span> : 1406457,
-  <span style="font-style: italic;">"LilyPond"</span> : 226858,
-  <span style="font-style: italic;">"Scheme"</span> : 224389,
-  <span style="font-style: italic;">"Common Lisp"</span> : 127554,
-  <span style="font-style: italic;">"HTML"</span> : 111217,
-  <span style="font-style: italic;">"Shell"</span> : 47589,
-  <span style="font-style: italic;">"CSS"</span> : 41034,
-  <span style="font-style: italic;">"Groff"</span> : 25188,
-  <span style="font-style: italic;">"C++"</span> : 16378,
-  <span style="font-style: italic;">"NewLisp"</span> : 15399,
-  <span style="font-style: italic;">"JavaScript"</span> : 12714,
-  <span style="font-style: italic;">"Erlang"</span> : 8041,
-  <span style="font-style: italic;">"Objective-C"</span> : 3825,
-  <span style="font-style: italic;">"Python"</span> : 3285,
-  <span style="font-style: italic;">"Perl6"</span> : 2976,
-  <span style="font-style: italic;">"PLSQL"</span> : 2919,
-  <span style="font-style: italic;">"Scala"</span> : 2814,
-  <span style="font-style: italic;">"Emacs Lisp"</span> : 2420,
-  <span style="font-style: italic;">"OCaml"</span> : 2055,
-  <span style="font-style: italic;">"Elixir"</span> : 1788,
-  <span style="font-style: italic;">"CoffeeScript"</span> : 1787,
-  <span style="font-style: italic;">"PHP"</span> : 1704,
-  <span style="font-style: italic;">"CMake"</span> : 1618,
-  <span style="font-style: italic;">"Lua"</span> : 1160,
-  <span style="font-style: italic;">"Go"</span> : 1025,
-  <span style="font-style: italic;">"Perl"</span> : 844,
-  <span style="font-style: italic;">"Haskell"</span> : 801,
-  <span style="font-style: italic;">"F#"</span> : 799,
-  <span style="font-style: italic;">"C#"</span> : 585,
-  <span style="font-style: italic;">"PostScript"</span> : 485,
-  <span style="font-style: italic;">"Swift"</span> : 467,
-  <span style="font-style: italic;">"Makefile"</span> : 220,
-  <span style="font-style: italic;">"Frege"</span> : 53
-}
+<pre class="src src-js"><span style="color: #8c8c8c;">{</span>
+  <span style="color: #95e454;">"Ruby"</span> : 4401525,
+  <span style="color: #95e454;">"Java"</span> : 1800870,
+  <span style="color: #95e454;">"Clojure"</span> : 1406457,
+  <span style="color: #95e454;">"LilyPond"</span> : 226858,
+  <span style="color: #95e454;">"Scheme"</span> : 224389,
+  <span style="color: #95e454;">"Common Lisp"</span> : 127554,
+  <span style="color: #95e454;">"HTML"</span> : 111217,
+  <span style="color: #95e454;">"Shell"</span> : 47589,
+  <span style="color: #95e454;">"CSS"</span> : 41034,
+  <span style="color: #95e454;">"Groff"</span> : 25188,
+  <span style="color: #95e454;">"C++"</span> : 16378,
+  <span style="color: #95e454;">"NewLisp"</span> : 15399,
+  <span style="color: #95e454;">"JavaScript"</span> : 12714,
+  <span style="color: #95e454;">"Erlang"</span> : 8041,
+  <span style="color: #95e454;">"Objective-C"</span> : 3825,
+  <span style="color: #95e454;">"Python"</span> : 3285,
+  <span style="color: #95e454;">"Perl6"</span> : 2976,
+  <span style="color: #95e454;">"PLSQL"</span> : 2919,
+  <span style="color: #95e454;">"Scala"</span> : 2814,
+  <span style="color: #95e454;">"Emacs Lisp"</span> : 2420,
+  <span style="color: #95e454;">"OCaml"</span> : 2055,
+  <span style="color: #95e454;">"Elixir"</span> : 1788,
+  <span style="color: #95e454;">"CoffeeScript"</span> : 1787,
+  <span style="color: #95e454;">"PHP"</span> : 1704,
+  <span style="color: #95e454;">"CMake"</span> : 1618,
+  <span style="color: #95e454;">"Lua"</span> : 1160,
+  <span style="color: #95e454;">"Go"</span> : 1025,
+  <span style="color: #95e454;">"Perl"</span> : 844,
+  <span style="color: #95e454;">"Haskell"</span> : 801,
+  <span style="color: #95e454;">"F#"</span> : 799,
+  <span style="color: #95e454;">"C#"</span> : 585,
+  <span style="color: #95e454;">"PostScript"</span> : 485,
+  <span style="color: #95e454;">"Swift"</span> : 467,
+  <span style="color: #95e454;">"Makefile"</span> : 220,
+  <span style="color: #95e454;">"Frege"</span> : 53
+<span style="color: #8c8c8c;">}</span>
 </pre>
 </div>
 

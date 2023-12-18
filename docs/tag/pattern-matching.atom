@@ -41,17 +41,17 @@ While writing an LFE solution for <a href="https://adventofcode.com/2015/day/6">
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"toggle "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">toggle</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>));
-<span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"turn on "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">turn_on</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>));
-<span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"turn off "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">turn_off</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>)).
+<pre class="src src-erlang"><span style="color: #cae682;">parse_instruction</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"toggle "</span> ++ <span style="color: #cae682;">Rest</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">toggle</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">parse_coordinates</span><span style="color: #93a8c6;">(</span><span style="color: #cae682;">Rest</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>;
+<span style="color: #cae682;">parse_instruction</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"turn on "</span> ++ <span style="color: #cae682;">Rest</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_on</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">parse_coordinates</span><span style="color: #93a8c6;">(</span><span style="color: #cae682;">Rest</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>;
+<span style="color: #cae682;">parse_instruction</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"turn off "</span> ++ <span style="color: #cae682;">Rest</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_off</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">parse_coordinates</span><span style="color: #93a8c6;">(</span><span style="color: #cae682;">Rest</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>.
 
-<span style="font-weight: bold;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">String</span>) -&gt;
-  {ok,[<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>,<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y2</span>],[]} = <span style="font-weight: bold; text-decoration: underline;">io_lib</span>:<span style="font-weight: bold; text-decoration: underline;">fread</span>(<span style="font-style: italic;">"~d,~d through ~d,~d"</span>, <span style="font-weight: bold; font-style: italic;">String</span>),
-  {{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}.
+<span style="color: #cae682;">parse_coordinates</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">String</span><span style="color: #8c8c8c;">)</span> -&gt;
+  <span style="color: #8c8c8c;">{</span>ok,<span style="color: #93a8c6;">[</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>,<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y2</span><span style="color: #93a8c6;">]</span>,<span style="color: #93a8c6;">[]</span><span style="color: #8c8c8c;">}</span> = <span style="color: #92a65e; font-weight: bold;">io_lib</span>:<span style="color: #92a65e; font-weight: bold;">fread</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"~d,~d through ~d,~d"</span>, <span style="color: #cae682;">String</span><span style="color: #8c8c8c;">)</span>,
+  <span style="color: #8c8c8c;">{</span><span style="color: #93a8c6;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #93a8c6;">}</span>,<span style="color: #93a8c6;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">}</span>.
 
-<span style="font-weight: bold;">toggle</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
-<span style="font-weight: bold;">turn_on</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
-<span style="font-weight: bold;">turn_off</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
+<span style="color: #cae682;">toggle</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_on</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_off</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
 </pre>
 </div>
 
@@ -62,8 +62,8 @@ wanting to write <code>parse_instruction/1</code> like this:
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">parse-instruction</span>
-  ([(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"turn off "</span> rest)]
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">parse-instruction</span>
+  ([(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"turn off "</span> rest)]
    ...))
 </pre>
 </div>
@@ -73,8 +73,8 @@ But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/
 <input type="checkbox" id="mn-exp_append-before" class="margin-toggle"/>
 <span class="marginnote">
 N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.<br/>
-<code class="src src-erlang"><span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">Cases with lists of numbers (strings).</span></code><br/>
-<code class="src src-erlang">[[<span style="font-weight: bold; font-style: italic;">N</span>|<span style="font-weight: bold; font-style: italic;">Ns</span>]|<span style="font-weight: bold; font-style: italic;">Es</span>] <span style="font-weight: bold;">when</span> <span style="font-weight: bold;">is_number</span>(<span style="font-weight: bold; font-style: italic;">N</span>) -&gt;<span style="font-weight: bold;"> </span>[cons,<span style="font-weight: bold; font-style: italic;">N</span>,[<span style="font-style: italic;">'++'</span>,<span style="font-weight: bold; font-style: italic;">Ns</span>|<span style="font-weight: bold; font-style: italic;">Es</span>]];</code>
+<code class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">Cases with lists of numbers (strings).</span></code><br/>
+<code class="src src-erlang"><span style="color: #8c8c8c;">[</span><span style="color: #93a8c6;">[</span><span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span><span style="color: #93a8c6;">]</span>|<span style="color: #cae682;">Es</span><span style="color: #8c8c8c;">]</span> <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">N</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #8c8c8c;">[</span>cons,<span style="color: #cae682;">N</span>,<span style="color: #93a8c6;">[</span><span style="color: #95e454;">'++'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">]</span>;</code>
 </span>
 </p>
 
@@ -82,9 +82,9 @@ N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</
 Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"prefix"</span> suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"prefix"</span> suffix)] suffix))
 f
-&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
 exception error: function_clause
 </pre>
 </div>
@@ -111,15 +111,15 @@ decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep 
 The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">exp_predef(...) -&gt; ...;</span>
-<span style="font-weight: bold;">exp_predef</span>([<span style="font-style: italic;">'++*'</span>|<span style="font-weight: bold; font-style: italic;">Abody</span>], <span style="font-weight: bold; font-style: italic;">_</span>, <span style="font-weight: bold; font-style: italic;">St</span>) -&gt;
-  <span style="font-weight: bold; font-style: italic;">Exp</span> = <span style="font-weight: bold; text-decoration: underline;">exp_prefix</span>(<span style="font-weight: bold; font-style: italic;">Abody</span>),
-  {yes,<span style="font-weight: bold; font-style: italic;">Exp</span>,<span style="font-weight: bold; font-style: italic;">St</span>};
-<span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">exp_predef(...) -&gt; ....</span>
+<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ...;</span>
+<span style="color: #cae682;">exp_predef</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">[</span><span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Abody</span><span style="color: #93a8c6;">]</span>, <span style="color: #cae682;">_</span>, <span style="color: #cae682;">St</span><span style="color: #8c8c8c;">)</span> -&gt;
+  <span style="color: #cae682;">Exp</span> = <span style="color: #92a65e; font-weight: bold;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Abody</span><span style="color: #8c8c8c;">)</span>,
+  <span style="color: #8c8c8c;">{</span>yes,<span style="color: #cae682;">Exp</span>,<span style="color: #cae682;">St</span><span style="color: #8c8c8c;">}</span>;
+<span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ....</span>
 
-<span style="font-weight: bold;">exp_prefix</span>([[<span style="font-weight: bold; font-style: italic;">N</span>|<span style="font-weight: bold; font-style: italic;">Ns</span>]|<span style="font-weight: bold; font-style: italic;">Es</span>]) <span style="font-weight: bold;">when</span> <span style="font-weight: bold;">is_number</span>(<span style="font-weight: bold; font-style: italic;">N</span>) -&gt;<span style="font-weight: bold;"> </span>[cons,<span style="font-weight: bold; font-style: italic;">N</span>,[<span style="font-style: italic;">'++*'</span>,<span style="font-weight: bold; font-style: italic;">Ns</span>|<span style="font-weight: bold; font-style: italic;">Es</span>]];
-<span style="font-weight: bold;">exp_prefix</span>([[]|<span style="font-weight: bold; font-style: italic;">Es</span>]) -&gt;<span style="font-weight: bold;"> </span>[<span style="font-style: italic;">'++*'</span>|<span style="font-weight: bold; font-style: italic;">Es</span>];
-<span style="font-weight: bold;">exp_prefix</span>(<span style="font-weight: bold; font-style: italic;">Args</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">exp_append</span>(<span style="font-weight: bold; font-style: italic;">Args</span>).
+<span style="color: #cae682;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">[</span><span style="color: #b0b1a3;">[</span><span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span><span style="color: #b0b1a3;">]</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">)</span> <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">N</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #8c8c8c;">[</span>cons,<span style="color: #cae682;">N</span>,<span style="color: #93a8c6;">[</span><span style="color: #95e454;">'++*'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">]</span>;
+<span style="color: #cae682;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">[</span><span style="color: #b0b1a3;">[]</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #8c8c8c;">[</span><span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Es</span><span style="color: #8c8c8c;">]</span>;
+<span style="color: #cae682;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Args</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">exp_append</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Args</span><span style="color: #8c8c8c;">)</span>.
 </pre>
 </div>
 </div>
@@ -132,10 +132,10 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++*</span> <span style="font-style: italic;">"prefix"</span> suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++*</span> <span style="color: #95e454;">"prefix"</span> suffix)] suffix))
 f
-&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
-<span style="font-style: italic;">"suffix"</span>
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
+<span style="color: #95e454;">"suffix"</span>
 </pre>
 </div>
 
@@ -143,10 +143,10 @@ f
 or even:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++*</span> <span style="font-style: italic;">"p"</span> <span style="font-style: italic;">"r"</span> <span style="font-style: italic;">"e"</span> <span style="font-style: italic;">"f"</span> <span style="font-style: italic;">"i"</span> <span style="font-style: italic;">"x"</span> suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++*</span> <span style="color: #95e454;">"p"</span> <span style="color: #95e454;">"r"</span> <span style="color: #95e454;">"e"</span> <span style="color: #95e454;">"f"</span> <span style="color: #95e454;">"i"</span> <span style="color: #95e454;">"x"</span> suffix)] suffix))
 f
-&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
-<span style="font-style: italic;">"suffix"</span>
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
+<span style="color: #95e454;">"suffix"</span>
 </pre>
 </div>
 </div>

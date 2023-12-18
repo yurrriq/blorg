@@ -56,15 +56,15 @@ basis vector, preserving the structure of the 3-D vector.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="org922d0bf"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Functor</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
-  fmap f (<span style="font-weight: bold; text-decoration: underline;">V3</span> a b c) <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (f a) (f b) (f c)
-  a <span style="font-weight: bold; font-style: italic;">&lt;$</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a a a
+<pre class="src src-haskell" id="org922d0bf"><span style="color: #8ac6f2; font-weight: bold;">instance</span> <span style="color: #92a65e; font-weight: bold;">Functor</span> <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8ac6f2; font-weight: bold;">where</span>
+  fmap f <span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">V3</span> a b c<span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">=</span> <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8c8c8c;">(</span>f a<span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span>f b<span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span>f c<span style="color: #8c8c8c;">)</span>
+  a <span style="color: #cae682;">&lt;$</span> <span style="color: #8ac6f2; font-weight: bold;">_</span> <span style="color: #cae682;">=</span> <span style="color: #92a65e; font-weight: bold;">V3</span> a a a
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="org45282a4">λ<span style="font-weight: bold;">&gt;</span> fmap (<span style="font-weight: bold; font-style: italic;">+</span>1) (<span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3)
-<span style="font-weight: bold; text-decoration: underline;">V3</span> 2 3 4
+<pre class="src src-haskell" id="org45282a4">λ<span style="color: #cae682;">&gt;</span> fmap <span style="color: #8c8c8c;">(</span><span style="color: #cae682;">+</span>1<span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">V3</span> 1 2 3<span style="color: #8c8c8c;">)</span>
+<span style="color: #92a65e; font-weight: bold;">V3</span> 2 3 4
 </pre>
 </div>
 
@@ -72,21 +72,21 @@ basis vector, preserving the structure of the 3-D vector.
 <a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-148">The <code>Applicative</code> instance</a> provides operations to embed pure expressions
 (<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:pure"><code>pure</code></a>), and sequence computations and combine their results (<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:-60--42--62-"><code>&lt;*&gt;</code></a> and
 <a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:liftA2"><code>liftA2</code></a>).
-<label for="mn-auto.9576419" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.9576419" class="margin-toggle"><span class="marginnote"> N.B. The default definition is:<br> </span>
+<label for="mn-auto.5248061" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.5248061" class="margin-toggle"><span class="marginnote"> N.B. The default definition is:<br> </span>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="orgf94cc07"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Applicative</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
-  pure a <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a a a
-  <span style="font-weight: bold; text-decoration: underline;">V3</span> a b c <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> d e f <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (a d) (b e) (c f)
+<pre class="src src-haskell" id="orgf94cc07"><span style="color: #8ac6f2; font-weight: bold;">instance</span> <span style="color: #92a65e; font-weight: bold;">Applicative</span> <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8ac6f2; font-weight: bold;">where</span>
+  pure a <span style="color: #cae682;">=</span> <span style="color: #92a65e; font-weight: bold;">V3</span> a a a
+  <span style="color: #92a65e; font-weight: bold;">V3</span> a b c <span style="color: #cae682;">&lt;*&gt;</span> <span style="color: #92a65e; font-weight: bold;">V3</span> d e f <span style="color: #cae682;">=</span> <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8c8c8c;">(</span>a d<span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span>b e<span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span>c f<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="orgabd2f39">λ<span style="font-weight: bold;">&gt;</span> pure 0 <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Int</span>
-<span style="font-weight: bold; text-decoration: underline;">V3</span> 0 0 0
-λ<span style="font-weight: bold;">&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> (<span style="font-weight: bold; font-style: italic;">+</span>5) (<span style="font-weight: bold; font-style: italic;">+</span>3) (<span style="font-weight: bold; font-style: italic;">+</span>1) <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3
-<span style="font-weight: bold; text-decoration: underline;">V3</span> 6 5 4
+<pre class="src src-haskell" id="orgabd2f39">λ<span style="color: #cae682;">&gt;</span> pure 0 <span style="color: #cae682;">::</span> <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #92a65e; font-weight: bold;">Int</span>
+<span style="color: #92a65e; font-weight: bold;">V3</span> 0 0 0
+λ<span style="color: #cae682;">&gt;</span> <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8c8c8c;">(</span><span style="color: #cae682;">+</span>5<span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span><span style="color: #cae682;">+</span>3<span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span><span style="color: #cae682;">+</span>1<span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">&lt;*&gt;</span> <span style="color: #92a65e; font-weight: bold;">V3</span> 1 2 3
+<span style="color: #92a65e; font-weight: bold;">V3</span> 6 5 4
 </pre>
 </div>
 
@@ -95,8 +95,8 @@ Together they enable applying a binary function as follows.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="org794a1ed">λ<span style="font-weight: bold;">&gt;</span> (<span style="font-weight: bold; font-style: italic;">+</span>) <span style="font-weight: bold; font-style: italic;">&lt;$&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 1 2 3 <span style="font-weight: bold; font-style: italic;">&lt;*&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 4 5 6
-<span style="font-weight: bold; text-decoration: underline;">V3</span> 5 7 9
+<pre class="src src-haskell" id="org794a1ed">λ<span style="color: #cae682;">&gt;</span> <span style="color: #8c8c8c;">(</span><span style="color: #cae682;">+</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">&lt;$&gt;</span> <span style="color: #92a65e; font-weight: bold;">V3</span> 1 2 3 <span style="color: #cae682;">&lt;*&gt;</span> <span style="color: #92a65e; font-weight: bold;">V3</span> 4 5 6
+<span style="color: #92a65e; font-weight: bold;">V3</span> 5 7 9
 </pre>
 </div>
 
@@ -105,11 +105,11 @@ There's also a <a href="https://hackage.haskell.org/package/linear-1.22/docs/src
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="org1408954"><span style="font-weight: bold;">instance</span> <span style="font-weight: bold; text-decoration: underline;">Monad</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">where</span>
-  <span style="font-weight: bold; text-decoration: underline;">V3</span> a b c <span style="font-weight: bold; font-style: italic;">&gt;&gt;=</span> f <span style="font-weight: bold; font-style: italic;">=</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> a' b' c' <span style="font-weight: bold;">where</span>
-    <span style="font-weight: bold; text-decoration: underline;">V3</span> a' <span style="font-weight: bold;">_</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> f a
-    <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">_</span> b' <span style="font-weight: bold;">_</span> <span style="font-weight: bold; font-style: italic;">=</span> f b
-    <span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold;">_</span> <span style="font-weight: bold;">_</span> c' <span style="font-weight: bold; font-style: italic;">=</span> f c
+<pre class="src src-haskell" id="org1408954"><span style="color: #8ac6f2; font-weight: bold;">instance</span> <span style="color: #92a65e; font-weight: bold;">Monad</span> <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8ac6f2; font-weight: bold;">where</span>
+  <span style="color: #92a65e; font-weight: bold;">V3</span> a b c <span style="color: #cae682;">&gt;&gt;=</span> f <span style="color: #cae682;">=</span> <span style="color: #92a65e; font-weight: bold;">V3</span> a' b' c' <span style="color: #8ac6f2; font-weight: bold;">where</span>
+    <span style="color: #92a65e; font-weight: bold;">V3</span> a' <span style="color: #8ac6f2; font-weight: bold;">_</span> <span style="color: #8ac6f2; font-weight: bold;">_</span> <span style="color: #cae682;">=</span> f a
+    <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8ac6f2; font-weight: bold;">_</span> b' <span style="color: #8ac6f2; font-weight: bold;">_</span> <span style="color: #cae682;">=</span> f b
+    <span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #8ac6f2; font-weight: bold;">_</span> <span style="color: #8ac6f2; font-weight: bold;">_</span> c' <span style="color: #cae682;">=</span> f c
 </pre>
 </div>
 
@@ -126,13 +126,13 @@ A naive <a href="https://hackage.haskell.org/package/trifecta-2.1.3/docs/Text-Tr
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="org434824d"><span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">Parser</span> (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>)
-<span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">=</span>
-  <span style="font-weight: bold;">do</span>
-    n <span style="font-weight: bold; font-style: italic;">&lt;-</span> natural
-    <span style="font-weight: bold; text-decoration: underline;">V3</span> n 0 0 <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"red"</span>
-      <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 0 n 0 <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"green"</span>
-      <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> <span style="font-weight: bold; text-decoration: underline;">V3</span> 0 0 n <span style="font-weight: bold; font-style: italic;">&lt;$</span> string <span style="font-style: italic;">"blue"</span>
+<pre class="src src-haskell" id="org434824d"><span style="color: #cae682;">revelation</span> <span style="color: #cae682;">::</span> <span style="color: #92a65e; font-weight: bold;">Parser</span> <span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #92a65e; font-weight: bold;">Integer</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #cae682;">revelation</span> <span style="color: #cae682;">=</span>
+  <span style="color: #8ac6f2; font-weight: bold;">do</span>
+    n <span style="color: #cae682;">&lt;-</span> natural
+    <span style="color: #92a65e; font-weight: bold;">V3</span> n 0 0 <span style="color: #cae682;">&lt;$</span> string <span style="color: #95e454;">"red"</span>
+      <span style="color: #cae682;">&lt;|&gt;</span> <span style="color: #92a65e; font-weight: bold;">V3</span> 0 n 0 <span style="color: #cae682;">&lt;$</span> string <span style="color: #95e454;">"green"</span>
+      <span style="color: #cae682;">&lt;|&gt;</span> <span style="color: #92a65e; font-weight: bold;">V3</span> 0 0 n <span style="color: #cae682;">&lt;$</span> string <span style="color: #95e454;">"blue"</span>
 </pre>
 </div>
 
@@ -141,11 +141,11 @@ The <code>Monad</code> instance, however, enables the following.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="org426ea09"><span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">::</span> <span style="font-weight: bold; text-decoration: underline;">Parser</span> (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>)
-<span style="font-weight: bold;">revelation</span> <span style="font-weight: bold; font-style: italic;">=</span>
-  natural <span style="font-weight: bold; font-style: italic;">&gt;&gt;=</span> <span style="font-weight: bold; font-style: italic;">\</span>n <span style="font-weight: bold; font-style: italic;">-&gt;</span>
-    for (<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-style: italic;">"red"</span> <span style="font-style: italic;">"green"</span> <span style="font-style: italic;">"blue"</span>) <span style="font-weight: bold; font-style: italic;">$</span> <span style="font-weight: bold; font-style: italic;">\</span>color <span style="font-weight: bold; font-style: italic;">-&gt;</span>
-      n <span style="font-weight: bold; font-style: italic;">&lt;$</span> string color <span style="font-weight: bold; font-style: italic;">&lt;|&gt;</span> pure 0
+<pre class="src src-haskell" id="org426ea09"><span style="color: #cae682;">revelation</span> <span style="color: #cae682;">::</span> <span style="color: #92a65e; font-weight: bold;">Parser</span> <span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #92a65e; font-weight: bold;">Integer</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #cae682;">revelation</span> <span style="color: #cae682;">=</span>
+  natural <span style="color: #cae682;">&gt;&gt;=</span> <span style="color: #cae682;">\</span>n <span style="color: #cae682;">-&gt;</span>
+    for <span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #95e454;">"red"</span> <span style="color: #95e454;">"green"</span> <span style="color: #95e454;">"blue"</span><span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">$</span> <span style="color: #cae682;">\</span>color <span style="color: #cae682;">-&gt;</span>
+      n <span style="color: #cae682;">&lt;$</span> string color <span style="color: #cae682;">&lt;|&gt;</span> pure 0
 </pre>
 </div>
 
@@ -154,8 +154,8 @@ Also delightfully concise is this way of determining which games are possible.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell" id="org248a5e6"><span style="font-weight: bold;">isPossible</span> <span style="font-weight: bold; font-style: italic;">::</span> [<span style="font-weight: bold; text-decoration: underline;">V3</span> <span style="font-weight: bold; text-decoration: underline;">Integer</span>] <span style="font-weight: bold; font-style: italic;">-&gt;</span> <span style="font-weight: bold; text-decoration: underline;">Bool</span>
-<span style="font-weight: bold;">isPossible</span> <span style="font-weight: bold; font-style: italic;">=</span> all (and <span style="font-weight: bold; font-style: italic;">.</span> liftA2 (<span style="font-weight: bold; font-style: italic;">&gt;=</span>) (<span style="font-weight: bold; text-decoration: underline;">V3</span> 12 13 14))
+<pre class="src src-haskell" id="org248a5e6"><span style="color: #cae682;">isPossible</span> <span style="color: #cae682;">::</span> <span style="color: #8c8c8c;">[</span><span style="color: #92a65e; font-weight: bold;">V3</span> <span style="color: #92a65e; font-weight: bold;">Integer</span><span style="color: #8c8c8c;">]</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #92a65e; font-weight: bold;">Bool</span>
+<span style="color: #cae682;">isPossible</span> <span style="color: #cae682;">=</span> all <span style="color: #8c8c8c;">(</span>and <span style="color: #cae682;">.</span> liftA2 <span style="color: #93a8c6;">(</span><span style="color: #cae682;">&gt;=</span><span style="color: #93a8c6;">)</span> <span style="color: #93a8c6;">(</span><span style="color: #92a65e; font-weight: bold;">V3</span> 12 13 14<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 

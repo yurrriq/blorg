@@ -61,7 +61,7 @@ languages</a> and am determined to write as little non-Lisp code as possible.
 
 <p>
 As such, I've started experimenting with writing more <a href="https://www.lilypond.org/doc/v2.19/Documentation/extending/scheme-in-lilypond">Scheme in Lilypond</a>.
-<label for="mn-auto.7513808" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.7513808" class="margin-toggle"><span class="marginnote"> <b>Note to self</b>: Dive deeper into <a href="https://web.archive.org/web/20141204001318/https://www.lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/">these</a> <a href="https://web.archive.org/web/20200224054432/http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/">pertinent</a> <a href="https://web.archive.org/web/20200221224150/http://lilypondblog.org/2014/04/music-functions-3-reusing-code/">blog</a> <a href="https://web.archive.org/web/20150131053751/https://www.lilypondblog.org/2014/04/music-functions-4-recursion/">posts</a> ASAP. </span>  This is an entirely impractical example, but it gives a glimpse of
+<label for="mn-auto.4665824" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.4665824" class="margin-toggle"><span class="marginnote"> <b>Note to self</b>: Dive deeper into <a href="https://web.archive.org/web/20141204001318/https://www.lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/">these</a> <a href="https://web.archive.org/web/20200224054432/http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/">pertinent</a> <a href="https://web.archive.org/web/20200221224150/http://lilypondblog.org/2014/04/music-functions-3-reusing-code/">blog</a> <a href="https://web.archive.org/web/20150131053751/https://www.lilypondblog.org/2014/04/music-functions-4-recursion/">posts</a> ASAP. </span>  This is an entirely impractical example, but it gives a glimpse of
 what's possible. I can't wait to start <a href="https://www.gnu.org/software/guile/manual/guile.html#List-Mapping"><code>map</code>-ping</a> lists of musical expressions
 and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/2014/07/trees-music-and-lilypond/">representing music as trees</a>.
 </p>
@@ -70,53 +70,53 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 <h2 id="org4604e59">Scheme</h2>
 <div class="outline-text-2" id="text-org4604e59">
 <p>
-<label for="mn-auto.5934256" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.5934256" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-make_002dhash_002dtable">Create a new hash table</a> with minimum vector size <code>5</code>. </span>
+<label for="mn-auto.4745173" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.4745173" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-make_002dhash_002dtable">Create a new hash table</a> with minimum vector size <code>5</code>. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-scheme">(<span style="font-weight: bold;">define</span> <span style="font-weight: bold;">riffs</span>
-  (make-hash-table 5))
+<pre class="src src-scheme"><span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">define</span> <span style="color: #cae682;">riffs</span>
+  <span style="color: #93a8c6;">(</span>make-hash-table 5<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
 <p>
-<label for="mn-auto.7303099" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.7303099" class="margin-toggle"><span class="marginnote"> Associate a LilyPond snippet with the key <code>'I</code> in the <code>riffs</code> hash table. </span>
+<label for="mn-auto.5680521" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.5680521" class="margin-toggle"><span class="marginnote"> Associate a LilyPond snippet with the key <code>'I</code> in the <code>riffs</code> hash table. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-scheme">(hashq-set! riffs 'I
-  #{
-    \mark \markup { I }
-    f4 a c d <span style="font-style: italic;">| f d c a |</span>
-    f4 a c d <span style="font-style: italic;">| ees d c b |</span>
-  #})
+<pre class="src src-scheme"><span style="color: #8c8c8c;">(</span>hashq-set! riffs 'I
+  #<span style="color: #93a8c6;">{</span>
+    \mark \markup <span style="color: #b0b1a3;">{</span> I <span style="color: #b0b1a3;">}</span>
+    f4 a c d <span style="color: #95e454;">| f d c a |</span>
+    f4 a c d <span style="color: #95e454;">| ees d c b |</span>
+  #<span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
 <p>
-<label for="mn-auto.8107708" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.8107708" class="margin-toggle"><span class="marginnote"> Do the same for the <code>'IV</code>, <code>'I'</code>, <code>'V</code>, and <code>'turnaround</code> snippets. </span>
+<label for="mn-auto.9270204" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.9270204" class="margin-toggle"><span class="marginnote"> Do the same for the <code>'IV</code>, <code>'I'</code>, <code>'V</code>, and <code>'turnaround</code> snippets. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-scheme">(hashq-set! riffs 'IV
-  #{
-    \mark \markup { IV }
-    bes4 d f g <span style="font-style: italic;">| bes g f d |</span>
-  #})
+<pre class="src src-scheme"><span style="color: #8c8c8c;">(</span>hashq-set! riffs 'IV
+  #<span style="color: #93a8c6;">{</span>
+    \mark \markup <span style="color: #b0b1a3;">{</span> IV <span style="color: #b0b1a3;">}</span>
+    bes4 d f g <span style="color: #95e454;">| bes g f d |</span>
+  #<span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span>
 
-(hashq-set! riffs 'I'
-  #{
-    \mark \markup { <span style="font-style: italic;">"I'"</span> }
-    f,4 a c d <span style="font-style: italic;">| f d c a |</span>
-  #})
+<span style="color: #8c8c8c;">(</span>hashq-set! riffs 'I'
+  #<span style="color: #93a8c6;">{</span>
+    \mark \markup <span style="color: #b0b1a3;">{</span> <span style="color: #95e454;">"I'"</span> <span style="color: #b0b1a3;">}</span>
+    f,4 a c d <span style="color: #95e454;">| f d c a |</span>
+  #<span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span>
 
-(hashq-set! riffs 'V
-  #{
-    \mark \markup { V }
-    g a bes b <span style="font-style: italic;">| c bes a g |</span>
-  #})
+<span style="color: #8c8c8c;">(</span>hashq-set! riffs 'V
+  #<span style="color: #93a8c6;">{</span>
+    \mark \markup <span style="color: #b0b1a3;">{</span> V <span style="color: #b0b1a3;">}</span>
+    g a bes b <span style="color: #95e454;">| c bes a g |</span>
+  #<span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span>
 
-(hashq-set! riffs 'turnaround
-  #{
-    f4 f aes aes <span style="font-style: italic;">| g g ges c |</span>
-  #})
+<span style="color: #8c8c8c;">(</span>hashq-set! riffs 'turnaround
+  #<span style="color: #93a8c6;">{</span>
+    f4 f aes aes <span style="color: #95e454;">| g g ges c |</span>
+  #<span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 </div>
@@ -126,37 +126,37 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 <h2 id="org7a57ead">LilyPond</h2>
 <div class="outline-text-2" id="text-org7a57ead">
 <div class="org-src-container">
-<pre class="src src-LilyPond"><span style="font-weight: bold;">\version</span> <span style="font-style: italic;">"2.24.1"</span>
-<span style="font-weight: bold;">\paper</span> <span style="font-weight: bold; text-decoration: underline;">{</span> <span style="font-weight: bold; font-style: italic;">oddFooterMarkup</span> = <span style="font-style: italic;">##f</span> <span style="font-weight: bold; text-decoration: underline;">}</span>
+<pre class="src src-LilyPond"><span style="color: #8ac6f2; font-weight: bold;">\version</span> <span style="color: #95e454;">"2.24.1"</span>
+<span style="color: #8ac6f2; font-weight: bold;">\paper</span> <span style="color: #e5786d;">{</span> <span style="color: #cae682;">oddFooterMarkup</span> = <span style="color: #95e454;">##f</span> <span style="color: #e5786d;">}</span>
 </pre>
 </div>
 
 <p>
-<label for="mn-auto.1967361" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.1967361" class="margin-toggle"><span class="marginnote"> Load the Scheme code from above. </span>
+<label for="mn-auto.4690373" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.4690373" class="margin-toggle"><span class="marginnote"> Load the Scheme code from above. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-LilyPond"><span style="font-style: italic;">#(load "the_dream.scm")</span>
+<pre class="src src-LilyPond"><span style="color: #95e454;">#(load "the_dream.scm")</span>
 </pre>
 </div>
 
 <p>
-<label for="mn-auto.3312289" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.3312289" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-hashq_002dref">Lookup</a> the riffs from the hash table and add them to the score. </span>
+<label for="mn-auto.6373901" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.6373901" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-hashq_002dref">Lookup</a> the riffs from the hash table and add them to the score. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-LilyPond"><span style="font-weight: bold;">\score</span> <span style="font-weight: bold; text-decoration: underline;">{</span>
-  <span style="font-weight: bold;">\relative</span> <span style="font-weight: bold; text-decoration: underline;">c,</span> <span style="font-weight: bold; text-decoration: underline;">{</span>
-    <span style="font-weight: bold;">\clef</span> <span style="font-weight: bold; text-decoration: underline;">b</span>ass
-    <span style="font-style: italic;">#(hashq-ref riffs 'I)</span>
-    <span style="font-weight: bold;">\break</span>
-    <span style="font-style: italic;">#(hashq-ref riffs 'IV)</span>
-    <span style="font-style: italic;">#(hashq-ref riffs 'I')</span>
-    <span style="font-weight: bold;">\break</span>
-    <span style="font-style: italic;">#(hashq-ref riffs 'V)</span>
-    <span style="font-style: italic;">#(hashq-ref riffs 'turnaround)</span>
-    <span style="font-weight: bold;">\bar</span> <span style="font-style: italic;">"|."</span>
-  <span style="font-weight: bold; text-decoration: underline;">}</span>
-  <span style="font-weight: bold;">\layout</span> <span style="font-weight: bold; text-decoration: underline;">{</span> <span style="font-weight: bold; font-style: italic;">indent</span> = <span style="font-weight: bold; font-style: italic;">0</span> <span style="font-weight: bold; text-decoration: underline;">}</span>
-<span style="font-weight: bold; text-decoration: underline;">}</span>
+<pre class="src src-LilyPond"><span style="color: #8ac6f2; font-weight: bold;">\score</span> <span style="color: #e5786d;">{</span>
+  <span style="color: #8ac6f2; font-weight: bold;">\relative</span> <span style="color: #92a65e; font-weight: bold;">c,</span> <span style="color: #e5786d;">{</span>
+    <span style="color: #8ac6f2; font-weight: bold;">\clef</span> <span style="color: #92a65e; font-weight: bold;">b</span>ass
+    <span style="color: #95e454;">#(hashq-ref riffs 'I)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">\break</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'IV)</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'I')</span>
+    <span style="color: #8ac6f2; font-weight: bold;">\break</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'V)</span>
+    <span style="color: #95e454;">#(hashq-ref riffs 'turnaround)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">\bar</span> <span style="color: #95e454;">"|."</span>
+  <span style="color: #e5786d;">}</span>
+  <span style="color: #8ac6f2; font-weight: bold;">\layout</span> <span style="color: #e5786d;">{</span> <span style="color: #cae682;">indent</span> = <span style="color: #cae682;">0</span> <span style="color: #e5786d;">}</span>
+<span style="color: #e5786d;">}</span>
 </pre>
 </div>
 </div>
@@ -166,10 +166,10 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 <h2 id="org1b56f5d">Generate the PNG</h2>
 <div class="outline-text-2" id="text-org1b56f5d">
 <p>
-<label for="mn-auto.1085118" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.1085118" class="margin-toggle"><span class="marginnote"> N.B. The order of the flags matters. </span>
+<label for="mn-auto.5486418" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.5486418" class="margin-toggle"><span class="marginnote"> N.B. The order of the flags matters. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-sh" id="org5cda50b">lilypond --include $<span style="font-weight: bold; font-style: italic;">PWD</span> -dcrop -dresolution=200 --png the_dream.ly
+<pre class="src src-sh" id="org5cda50b">lilypond --include $<span style="color: #cae682;">PWD</span> -dcrop -dresolution=200 --png the_dream.ly
 </pre>
 </div>
 </div>

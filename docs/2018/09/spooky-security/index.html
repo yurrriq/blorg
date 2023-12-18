@@ -55,10 +55,10 @@ modified slightly here.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">ioreg -lw 0 <span style="font-style: italic;">\</span>
-    | perl -nle <span style="font-style: italic;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="font-style: italic;">\</span>
-    | uniq <span style="font-style: italic;">\</span>
-    | xargs ps -o <span style="font-weight: bold; font-style: italic;">comm</span>= -p
+<pre class="src src-sh">ioreg -lw 0 <span style="color: #95e454;">\</span>
+    | perl -nle <span style="color: #95e454;">'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/'</span> <span style="color: #95e454;">\</span>
+    | uniq <span style="color: #95e454;">\</span>
+    | xargs ps -o <span style="color: #cae682;">comm</span>= -p
 </pre>
 </div>
 
@@ -67,7 +67,7 @@ For example, when I enable secure keyboard entry in <code>Terminal.app</code>, I
 following output.
 </p>
 
-<pre class="example" id="org2f3eb89">
+<pre class="example" id="org8215e8c">
 /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
 </pre>
 
@@ -79,7 +79,7 @@ suddenly stopped working. When I try to start it manually, I get the following
 error.
 </p>
 
-<pre class="example" id="org50a4ba5">
+<pre class="example" id="org8f88adf">
 skhd: secure keyboard entry is enabled! abort..
 </pre>
 
@@ -95,22 +95,22 @@ program to call it and try to end my troubles.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;</span><span style="font-style: italic;">Carbon/Carbon.h</span><span style="font-style: italic;">&gt;</span>
+<pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #8c8c8c;">&lt;</span><span style="color: #95e454;">Carbon/Carbon.h</span><span style="color: #8c8c8c;">&gt;</span>
 
 
-<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
-{
-    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
-        printf(<span style="font-style: italic;">"Secure keyboard entry is enabled.\n"</span>);
+<span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #8ac6f2; font-weight: bold;">const</span> <span style="color: #92a65e; font-weight: bold;">char</span> *<span style="color: #cae682;">argv</span><span style="color: #93a8c6;">[]</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">{</span>
+    <span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #93a8c6;">(</span>IsSecureEventInputEnabled<span style="color: #b0b1a3;">()</span><span style="color: #93a8c6;">)</span>
+        printf<span style="color: #93a8c6;">(</span><span style="color: #95e454;">"Secure keyboard entry is enabled.\n"</span><span style="color: #93a8c6;">)</span>;
 
-    DisableSecureEventInput();
+    DisableSecureEventInput<span style="color: #93a8c6;">()</span>;
 
-    <span style="font-weight: bold;">if</span> (IsSecureEventInputEnabled())
-        printf(<span style="font-style: italic;">"Secure keyboard entry is still enabled.\n"</span>);
+    <span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #93a8c6;">(</span>IsSecureEventInputEnabled<span style="color: #b0b1a3;">()</span><span style="color: #93a8c6;">)</span>
+        printf<span style="color: #93a8c6;">(</span><span style="color: #95e454;">"Secure keyboard entry is still enabled.\n"</span><span style="color: #93a8c6;">)</span>;
 
 
-    <span style="font-weight: bold;">return</span> 0;
-}
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> 0;
+<span style="color: #8c8c8c;">}</span>
 </pre>
 </div>
 

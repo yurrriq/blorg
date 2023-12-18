@@ -54,12 +54,12 @@ singleton list, <code>head</code> holds the single element and <code>tail</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">let</span> ((`(,head . ,tail) '(a-single-element)))
-    (lfe_io:format '<span style="font-style: italic;">"Head: ~w~nTail: ~w~n"</span> `(,head ,tail)))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((`(,head . ,tail) '(a-single-element)))
+    (lfe_io:format '<span style="color: #95e454;">"Head: ~w~nTail: ~w~n"</span> `(,head ,tail)))
 </pre>
 </div>
 
-<pre class="example" id="org95d09bf">
+<pre class="example" id="orgfcfb646">
 Head: a-single-element
 Tail: ()
 ok
@@ -72,11 +72,11 @@ the same atom.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">=:=</span> (<span style="font-weight: bold;">cons</span> 'a-single-element '()) '(a-single-element))
+<pre class="src src-lfe">&gt; (<span style="color: #e5786d;">=:=</span> (<span style="color: #e5786d;">cons</span> 'a-single-element '()) '(a-single-element))
 </pre>
 </div>
 
-<pre class="example" id="org2b08394">
+<pre class="example" id="org8104d90">
 true
 </pre>
 

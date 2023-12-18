@@ -49,7 +49,7 @@ whole workflow was a bit too clunky for my taste.
 In July of 2015, I decided to migrate to <a href="https://jekyllrb.com">Jekyll</a>. It's pretty widely used and the
 integration with <a href="https://pages.github.com">GitHub Pages</a> promised to be smooth and easy.  In practice, I
 found its workflow to be similarly annoying. Worst of all, it made me install,
-write and use Ruby.<label for='mn-auto.3854819' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3854819' class='margin-toggle'><span class='marginnote'> I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a> </span>
+write and use Ruby.<label for='mn-auto.888550' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.888550' class='margin-toggle'><span class='marginnote'> I'm a long-time Ruby hater. <a href="https://twitter.com/search?q=%2523sorrynotsorry">#sorrynotsorry</a> </span>
 </p>
 
 <p>
@@ -133,8 +133,8 @@ didn't have to be that way.
 <div class="outline-text-2" id="text-org0c861a3">
 <p>
 To further my quest, <a href="https://github.com/tsloughter">Tristan</a> pointed me to <a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L45-L48">run/7</a>, specifically its use of
-<code class="src src-erlang">[check_last_mod]</code>. Before I <a href="https://github.com/quasiquoting/lfe-compile">forked</a> <a href="https://github.com/lfe-rebar3/compile">lfe-rebar3/compile</a>, it was using
-<a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L41-L43">run/4</a>, which does <b>NOT</b> make use of <code class="src src-erlang">[check_last_mod]</code>, hence the
+<code class="src src-erlang"><span style="color: #8c8c8c;">[</span>check_last_mod<span style="color: #8c8c8c;">]</span></code>. Before I <a href="https://github.com/quasiquoting/lfe-compile">forked</a> <a href="https://github.com/lfe-rebar3/compile">lfe-rebar3/compile</a>, it was using
+<a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L41-L43">run/4</a>, which does <b>NOT</b> make use of <code class="src src-erlang"><span style="color: #8c8c8c;">[</span>check_last_mod<span style="color: #8c8c8c;">]</span></code>, hence the
 unnecessary recompilation.
 </p>
 
@@ -142,7 +142,7 @@ unnecessary recompilation.
 <a href="https://github.com/lfe-rebar3/compile/blob/0.2.1/src/lr3_comp.erl#L74">lfe-rebar3/compile/src/lr3_comp.erl:74</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="font-weight: bold; text-decoration: underline;">rebar_base_compiler</span>:<span style="font-weight: bold; text-decoration: underline;">run</span>(<span style="font-weight: bold; font-style: italic;">Opts</span>, [], <span style="font-weight: bold; font-style: italic;">Files</span>, <span style="font-weight: bold; font-style: italic;">DoCompile</span>).
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Opts</span>, <span style="color: #93a8c6;">[]</span>, <span style="color: #cae682;">Files</span>, <span style="color: #cae682;">DoCompile</span><span style="color: #8c8c8c;">)</span>.
 </pre>
 </div>
 
@@ -155,9 +155,9 @@ appropriate <code>run/7</code> incantation and made <a href="https://github.com/
 <a href="https://github.com/quasiquoting/lfe-compile/blob/0.3.0/src/lr3_comp.erl#L37-L39">quasiquoting/lfe-compile/src/lr3_comp.erl:37-39</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="font-weight: bold; text-decoration: underline;">rebar_base_compiler</span>:<span style="font-weight: bold; text-decoration: underline;">run</span>(<span style="font-weight: bold; font-style: italic;">Config</span>, <span style="font-weight: bold; font-style: italic;">FirstFiles</span>,
-                        <span style="font-weight: bold; font-style: italic;">SourceDir</span>, <span style="font-style: italic;">".lfe"</span>, <span style="font-weight: bold; font-style: italic;">TargetDir</span>, <span style="font-style: italic;">".beam"</span>,
-                        <span style="font-weight: bold;">fun</span> <span style="font-weight: bold; text-decoration: underline;">compile/3</span>).
+<pre class="src src-erlang"><span style="color: #92a65e; font-weight: bold;">rebar_base_compiler</span>:<span style="color: #92a65e; font-weight: bold;">run</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Config</span>, <span style="color: #cae682;">FirstFiles</span>,
+                        <span style="color: #cae682;">SourceDir</span>, <span style="color: #95e454;">".lfe"</span>, <span style="color: #cae682;">TargetDir</span>, <span style="color: #95e454;">".beam"</span>,
+                        <span style="color: #8ac6f2; font-weight: bold;">fun</span> <span style="color: #92a65e; font-weight: bold;">compile/3</span><span style="color: #8c8c8c;">)</span>.
 </pre>
 </div>
 
@@ -183,15 +183,15 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
-<pre class="example" id="org46544c6">
-~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
-~~&gt;    Compiling ./src/lodox-p.lfe ...
-~~&gt;    Compiling ./src/lodox-parse.lfe ...
-~~&gt;    Compiling ./src/lodox-util.lfe ...
-~~&gt;    Compiling ./src/lodox.lfe ...
-~~&gt;    Compiling ./src/pandoc.lfe ...
-~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
-       1.39 real         1.14 user         0.24 sys
+<pre class="example" id="org69412e0">
+ ~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
+ ~~&gt;    Compiling ./src/lodox-p.lfe ...
+ ~~&gt;    Compiling ./src/lodox-parse.lfe ...
+ ~~&gt;    Compiling ./src/lodox-util.lfe ...
+ ~~&gt;    Compiling ./src/lodox.lfe ...
+ ~~&gt;    Compiling ./src/pandoc.lfe ...
+ ~~&gt;    Compiling ./test/unit-lodox-tests.lfe ...
+        1.39 real         1.14 user         0.24 sys
 </pre>
 
 <p>
@@ -201,21 +201,21 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
-<pre class="example" id="orgc4e6197">
-0.94 real         0.73 user         0.20 sys
+<pre class="example" id="org9cdf1a5">
+        0.94 real         0.73 user         0.20 sys
 </pre>
 
 <p>
 A little more 🐄💩 microbenchmarking on a proprietary work project:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">run/4</span>
+<pre class="src src-bash"><span style="color: #99968b;"># </span><span style="color: #99968b;">run/4</span>
         3.58 real         3.02 user         0.58 sys
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">run/7</span>
+<pre class="src src-bash"><span style="color: #99968b;"># </span><span style="color: #99968b;">run/7</span>
         1.83 real         1.46 user         0.35 sys
 </pre>
 </div>
@@ -257,17 +257,17 @@ While writing an LFE solution for <a href="https://adventofcode.com/2015/day/6">
 wanting to write <code>parse_instruction/1</code> like this:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"toggle "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">toggle</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>));
-<span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"turn on "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">turn_on</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>));
-<span style="font-weight: bold;">parse_instruction</span>(<span style="font-style: italic;">"turn off "</span> ++ <span style="font-weight: bold; font-style: italic;">Rest</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">turn_off</span>(<span style="font-weight: bold; text-decoration: underline;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">Rest</span>)).
+<pre class="src src-erlang"><span style="color: #cae682;">parse_instruction</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"toggle "</span> ++ <span style="color: #cae682;">Rest</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">toggle</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">parse_coordinates</span><span style="color: #93a8c6;">(</span><span style="color: #cae682;">Rest</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>;
+<span style="color: #cae682;">parse_instruction</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"turn on "</span> ++ <span style="color: #cae682;">Rest</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_on</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">parse_coordinates</span><span style="color: #93a8c6;">(</span><span style="color: #cae682;">Rest</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>;
+<span style="color: #cae682;">parse_instruction</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"turn off "</span> ++ <span style="color: #cae682;">Rest</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">turn_off</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">parse_coordinates</span><span style="color: #93a8c6;">(</span><span style="color: #cae682;">Rest</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>.
 
-<span style="font-weight: bold;">parse_coordinates</span>(<span style="font-weight: bold; font-style: italic;">String</span>) -&gt;
-  {ok,[<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>,<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y2</span>],[]} = <span style="font-weight: bold; text-decoration: underline;">io_lib</span>:<span style="font-weight: bold; text-decoration: underline;">fread</span>(<span style="font-style: italic;">"~d,~d through ~d,~d"</span>, <span style="font-weight: bold; font-style: italic;">String</span>),
-  {{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}.
+<span style="color: #cae682;">parse_coordinates</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">String</span><span style="color: #8c8c8c;">)</span> -&gt;
+  <span style="color: #8c8c8c;">{</span>ok,<span style="color: #93a8c6;">[</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span>,<span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y2</span><span style="color: #93a8c6;">]</span>,<span style="color: #93a8c6;">[]</span><span style="color: #8c8c8c;">}</span> = <span style="color: #92a65e; font-weight: bold;">io_lib</span>:<span style="color: #92a65e; font-weight: bold;">fread</span><span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"~d,~d through ~d,~d"</span>, <span style="color: #cae682;">String</span><span style="color: #8c8c8c;">)</span>,
+  <span style="color: #8c8c8c;">{</span><span style="color: #93a8c6;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #93a8c6;">}</span>,<span style="color: #93a8c6;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">}</span>.
 
-<span style="font-weight: bold;">toggle</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
-<span style="font-weight: bold;">turn_on</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
-<span style="font-weight: bold;">turn_off</span>({{<span style="font-weight: bold; font-style: italic;">X0</span>,<span style="font-weight: bold; font-style: italic;">Y0</span>},{<span style="font-weight: bold; font-style: italic;">X1</span>,<span style="font-weight: bold; font-style: italic;">Y1</span>}}) -&gt;<span style="font-weight: bold;"> </span>undefined.
+<span style="color: #cae682;">toggle</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_on</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
+<span style="color: #cae682;">turn_off</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
 </pre>
 </div>
 
@@ -278,8 +278,8 @@ wanting to write <code>parse_instruction/1</code> like this:
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">parse-instruction</span>
-  ([(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"turn off "</span> rest)]
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">parse-instruction</span>
+  ([(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"turn off "</span> rest)]
    ...))
 </pre>
 </div>
@@ -289,8 +289,8 @@ But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/
 <input type="checkbox" id="mn-exp_append-before" class="margin-toggle"/>
 <span class="marginnote">
 N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</a>, <code>exp_append/1</code> had the following <a href="https://github.com/rvirding/lfe/blob/v0.10.1/src/lfe_macro.erl#L911-L912">clause</a>, commented out.<br/>
-<code class="src src-erlang"><span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">Cases with lists of numbers (strings).</span></code><br/>
-<code class="src src-erlang">[[<span style="font-weight: bold; font-style: italic;">N</span>|<span style="font-weight: bold; font-style: italic;">Ns</span>]|<span style="font-weight: bold; font-style: italic;">Es</span>] <span style="font-weight: bold;">when</span> <span style="font-weight: bold;">is_number</span>(<span style="font-weight: bold; font-style: italic;">N</span>) -&gt;<span style="font-weight: bold;"> </span>[cons,<span style="font-weight: bold; font-style: italic;">N</span>,[<span style="font-style: italic;">'++'</span>,<span style="font-weight: bold; font-style: italic;">Ns</span>|<span style="font-weight: bold; font-style: italic;">Es</span>]];</code>
+<code class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">Cases with lists of numbers (strings).</span></code><br/>
+<code class="src src-erlang"><span style="color: #8c8c8c;">[</span><span style="color: #93a8c6;">[</span><span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span><span style="color: #93a8c6;">]</span>|<span style="color: #cae682;">Es</span><span style="color: #8c8c8c;">]</span> <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">N</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #8c8c8c;">[</span>cons,<span style="color: #cae682;">N</span>,<span style="color: #93a8c6;">[</span><span style="color: #95e454;">'++'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">]</span>;</code>
 </span>
 </p>
 
@@ -298,9 +298,9 @@ N.B. In <a href="https://github.com/rvirding/lfe/releases/tag/v0.10.1">v0.10.1</
 Instead, invocation of a <code>defun</code> of that form throws a <code>function_clause</code> error.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"prefix"</span> suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"prefix"</span> suffix)] suffix))
 f
-&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
 exception error: function_clause
 </pre>
 </div>
@@ -327,15 +327,15 @@ decided to <a href="http://www.catb.org/jargon/html/K/KISS-Principle.html">keep 
 The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00aa08b27b3a7d6...a5d7c23ebd3005d4f9ff8714d8e02f06aa2d6abe">solution</a> we came up with is as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-erlang"><span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">exp_predef(...) -&gt; ...;</span>
-<span style="font-weight: bold;">exp_predef</span>([<span style="font-style: italic;">'++*'</span>|<span style="font-weight: bold; font-style: italic;">Abody</span>], <span style="font-weight: bold; font-style: italic;">_</span>, <span style="font-weight: bold; font-style: italic;">St</span>) -&gt;
-  <span style="font-weight: bold; font-style: italic;">Exp</span> = <span style="font-weight: bold; text-decoration: underline;">exp_prefix</span>(<span style="font-weight: bold; font-style: italic;">Abody</span>),
-  {yes,<span style="font-weight: bold; font-style: italic;">Exp</span>,<span style="font-weight: bold; font-style: italic;">St</span>};
-<span style="font-weight: bold; font-style: italic;">%% </span><span style="font-weight: bold; font-style: italic;">exp_predef(...) -&gt; ....</span>
+<pre class="src src-erlang"><span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ...;</span>
+<span style="color: #cae682;">exp_predef</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">[</span><span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Abody</span><span style="color: #93a8c6;">]</span>, <span style="color: #cae682;">_</span>, <span style="color: #cae682;">St</span><span style="color: #8c8c8c;">)</span> -&gt;
+  <span style="color: #cae682;">Exp</span> = <span style="color: #92a65e; font-weight: bold;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Abody</span><span style="color: #8c8c8c;">)</span>,
+  <span style="color: #8c8c8c;">{</span>yes,<span style="color: #cae682;">Exp</span>,<span style="color: #cae682;">St</span><span style="color: #8c8c8c;">}</span>;
+<span style="color: #99968b;">%% </span><span style="color: #99968b;">exp_predef(...) -&gt; ....</span>
 
-<span style="font-weight: bold;">exp_prefix</span>([[<span style="font-weight: bold; font-style: italic;">N</span>|<span style="font-weight: bold; font-style: italic;">Ns</span>]|<span style="font-weight: bold; font-style: italic;">Es</span>]) <span style="font-weight: bold;">when</span> <span style="font-weight: bold;">is_number</span>(<span style="font-weight: bold; font-style: italic;">N</span>) -&gt;<span style="font-weight: bold;"> </span>[cons,<span style="font-weight: bold; font-style: italic;">N</span>,[<span style="font-style: italic;">'++*'</span>,<span style="font-weight: bold; font-style: italic;">Ns</span>|<span style="font-weight: bold; font-style: italic;">Es</span>]];
-<span style="font-weight: bold;">exp_prefix</span>([[]|<span style="font-weight: bold; font-style: italic;">Es</span>]) -&gt;<span style="font-weight: bold;"> </span>[<span style="font-style: italic;">'++*'</span>|<span style="font-weight: bold; font-style: italic;">Es</span>];
-<span style="font-weight: bold;">exp_prefix</span>(<span style="font-weight: bold; font-style: italic;">Args</span>) -&gt;<span style="font-weight: bold;"> </span><span style="font-weight: bold; text-decoration: underline;">exp_append</span>(<span style="font-weight: bold; font-style: italic;">Args</span>).
+<span style="color: #cae682;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">[</span><span style="color: #b0b1a3;">[</span><span style="color: #cae682;">N</span>|<span style="color: #cae682;">Ns</span><span style="color: #b0b1a3;">]</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">)</span> <span style="color: #8ac6f2; font-weight: bold;">when</span> <span style="color: #e5786d;">is_number</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">N</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #8c8c8c;">[</span>cons,<span style="color: #cae682;">N</span>,<span style="color: #93a8c6;">[</span><span style="color: #95e454;">'++*'</span>,<span style="color: #cae682;">Ns</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">]</span>;
+<span style="color: #cae682;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">[</span><span style="color: #b0b1a3;">[]</span>|<span style="color: #cae682;">Es</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #8c8c8c;">[</span><span style="color: #95e454;">'++*'</span>|<span style="color: #cae682;">Es</span><span style="color: #8c8c8c;">]</span>;
+<span style="color: #cae682;">exp_prefix</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Args</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span><span style="color: #92a65e; font-weight: bold;">exp_append</span><span style="color: #8c8c8c;">(</span><span style="color: #cae682;">Args</span><span style="color: #8c8c8c;">)</span>.
 </pre>
 </div>
 </div>
@@ -348,10 +348,10 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++*</span> <span style="font-style: italic;">"prefix"</span> suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++*</span> <span style="color: #95e454;">"prefix"</span> suffix)] suffix))
 f
-&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
-<span style="font-style: italic;">"suffix"</span>
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
+<span style="color: #95e454;">"suffix"</span>
 </pre>
 </div>
 
@@ -359,10 +359,10 @@ f
 or even:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">f</span> ([(<span style="font-weight: bold;">++*</span> <span style="font-style: italic;">"p"</span> <span style="font-style: italic;">"r"</span> <span style="font-style: italic;">"e"</span> <span style="font-style: italic;">"f"</span> <span style="font-style: italic;">"i"</span> <span style="font-style: italic;">"x"</span> suffix)] suffix))
+<pre class="src src-lfe">&gt; (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">f</span> ([(<span style="color: #8ac6f2; font-weight: bold;">++*</span> <span style="color: #95e454;">"p"</span> <span style="color: #95e454;">"r"</span> <span style="color: #95e454;">"e"</span> <span style="color: #95e454;">"f"</span> <span style="color: #95e454;">"i"</span> <span style="color: #95e454;">"x"</span> suffix)] suffix))
 f
-&gt; (f <span style="font-style: italic;">"prefixsuffix"</span>)
-<span style="font-style: italic;">"suffix"</span>
+&gt; (f <span style="color: #95e454;">"prefixsuffix"</span>)
+<span style="color: #95e454;">"suffix"</span>
 </pre>
 </div>
 </div>
@@ -412,17 +412,17 @@ on the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erla
 <div class="outline-text-2" id="text-org252f65a">
 <p>
 Without further ado, here's a contrived example.
-<label for='mn-auto.4626400' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.4626400' class='margin-toggle'><span class='marginnote'> <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and macros for LFE, which has since been <a href="https://github.com/lfe/lfe/pull/267">merged into LFE</a>. </span>
+<label for='mn-auto.6820920' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6820920' class='margin-toggle'><span class='marginnote'> <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and macros for LFE, which has since been <a href="https://github.com/lfe/lfe/pull/267">merged into LFE</a>. </span>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lfe">(-&lt;&gt; <span style="font-style: italic;">"testing"</span>
+<pre class="src src-lfe">(-&lt;&gt; <span style="color: #95e454;">"testing"</span>
      (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
             (lists:duplicate 3)
             (compose #'list/1 #'lists:flatten/1)
-            (lfe_io:format '<span style="font-style: italic;">"non-updating: ~p\n"</span>))
+            (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
      (string:substr 5)
-     (<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> &lt;&gt;))
+     (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -431,15 +431,15 @@ The wild-looking form above expands to something more like the following.
 </p>
 <div class="org-src-container">
 <pre class="src src-lfe">(-&lt;&gt;
- (<span style="font-weight: bold;">progn</span>
+ (<span style="color: #8ac6f2; font-weight: bold;">progn</span>
    (lfe_io:format
-    '<span style="font-style: italic;">"non-updating: ~p\n"</span>
-    (<span style="font-weight: bold;">list</span>
+    '<span style="color: #95e454;">"non-updating: ~p\n"</span>
+    (<span style="color: #e5786d;">list</span>
      (lists:flatten
-      (lists:duplicate 3 (string:substr <span style="font-style: italic;">"testing"</span> 1 4)))))
-   <span style="font-style: italic;">"testing"</span>)
+      (lists:duplicate 3 (string:substr <span style="color: #95e454;">"testing"</span> 1 4)))))
+   <span style="color: #95e454;">"testing"</span>)
  (string:substr 5)
- (<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> &lt;&gt;))
+ (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
 </pre>
 </div>
 
@@ -447,20 +447,20 @@ The wild-looking form above expands to something more like the following.
 After that, it becomes apparent the "return track" is rather simple.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe">(<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> (string:substr 5 <span style="font-style: italic;">"testing"</span>))
+<pre class="src src-lfe">(<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> (string:substr 5 <span style="color: #95e454;">"testing"</span>))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe">&gt; (-&lt;&gt; <span style="font-style: italic;">"testing"</span>
+<pre class="src src-lfe">&gt; (-&lt;&gt; <span style="color: #95e454;">"testing"</span>
        (-!&lt;&gt;&gt; (string:substr &lt;&gt; 1 4)
               (lists:duplicate 3)
               (compose #'list/1 #'lists:flatten/1)
-              (lfe_io:format '<span style="font-style: italic;">"non-updating: ~p\n"</span>))
+              (lfe_io:format '<span style="color: #95e454;">"non-updating: ~p\n"</span>))
        (string:substr 5)
-       (<span style="font-weight: bold;">++</span> <span style="font-style: italic;">"winn"</span> &lt;&gt;))
-non-updating: <span style="font-style: italic;">"testtesttest"</span> <span style="font-weight: bold; font-style: italic;">; printed</span>
-<span style="font-style: italic;">"winning"</span>                    <span style="font-weight: bold; font-style: italic;">; returned</span>
+       (<span style="color: #8ac6f2; font-weight: bold;">++</span> <span style="color: #95e454;">"winn"</span> &lt;&gt;))
+non-updating: <span style="color: #95e454;">"testtesttest"</span> <span style="color: #99968b;">; printed</span>
+<span style="color: #95e454;">"winning"</span>                    <span style="color: #99968b;">; returned</span>
 </pre>
 </div>
 </div>
@@ -506,16 +506,16 @@ Its <a href="https://github.com/yurrriq/what-is-my-ip/blob/master/src/me/ericb/w
 </p>
 
 <div class="org-src-container">
-<pre class="src src-clojure">(defroutes app
-  (GET <span style="font-style: italic;">"/"</span> {{x-real-ip <span style="font-style: italic;">"x-real-ip"</span>} <span style="font-weight: bold; text-decoration: underline;">:headers</span>}
-    {<span style="font-weight: bold; text-decoration: underline;">:status</span>  200
-     <span style="font-weight: bold; text-decoration: underline;">:headers</span> {<span style="font-style: italic;">"Content-Type"</span> <span style="font-style: italic;">"text/plain"</span>}
-     <span style="font-weight: bold; text-decoration: underline;">:body</span>    x-real-ip}))
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>defroutes app
+  <span style="color: #93a8c6;">(</span>GET <span style="color: #95e454;">"/"</span> <span style="color: #b0b1a3;">{</span><span style="color: #97b098;">{</span>x-real-ip <span style="color: #95e454;">"x-real-ip"</span><span style="color: #97b098;">}</span> <span style="color: #e5786d;">:headers</span><span style="color: #b0b1a3;">}</span>
+    <span style="color: #b0b1a3;">{</span><span style="color: #e5786d;">:status</span>  200
+     <span style="color: #e5786d;">:headers</span> <span style="color: #97b098;">{</span><span style="color: #95e454;">"Content-Type"</span> <span style="color: #95e454;">"text/plain"</span><span style="color: #97b098;">}</span>
+     <span style="color: #e5786d;">:body</span>    x-real-ip<span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 
-(<span style="font-weight: bold;">defn</span> <span style="font-weight: bold;">-main</span> [&amp; args]
-  (<span style="font-weight: bold;">-&gt;&gt;</span> (<span style="font-weight: bold;">or</span> (<span style="font-weight: bold;">some-&gt;</span> (env <span style="font-weight: bold; text-decoration: underline;">:port</span>) (<span style="font-weight: bold; text-decoration: underline;">Integer</span>/parseInt)) 5000)
-       (hash-map <span style="font-weight: bold; text-decoration: underline;">:port</span>)
-       (run-server app)))
+<span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">defn</span> <span style="color: #cae682;">-main</span> <span style="color: #93a8c6;">[</span>&amp; args<span style="color: #93a8c6;">]</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #8ac6f2; font-weight: bold;">-&gt;&gt;</span> <span style="color: #b0b1a3;">(</span><span style="color: #8ac6f2; font-weight: bold;">or</span> <span style="color: #97b098;">(</span><span style="color: #8ac6f2; font-weight: bold;">some-&gt;</span> <span style="color: #aebed8;">(</span>env <span style="color: #e5786d;">:port</span><span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span><span style="color: #92a65e; font-weight: bold;">Integer</span>/parseInt<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span> 5000<span style="color: #b0b1a3;">)</span>
+       <span style="color: #b0b1a3;">(</span>hash-map <span style="color: #e5786d;">:port</span><span style="color: #b0b1a3;">)</span>
+       <span style="color: #b0b1a3;">(</span>run-server app<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
