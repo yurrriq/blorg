@@ -40,7 +40,7 @@
       Written on  2 December, 2023
       
       <br />
-      Updated on 18 December, 2023
+      Updated on 02 January, 2024
       
       
       <br />
@@ -72,7 +72,12 @@ basis vector, preserving the structure of the 3-D vector.
 <a href="https://hackage.haskell.org/package/linear-1.22/docs/src/Linear.V3.html#line-148">The <code>Applicative</code> instance</a> provides operations to embed pure expressions
 (<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:pure"><code>pure</code></a>), and sequence computations and combine their results (<a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:-60--42--62-"><code>&lt;*&gt;</code></a> and
 <a href="https://hackage.haskell.org/package/base-4.19.0.0/docs/Prelude.html#v:liftA2"><code>liftA2</code></a>).
-<label for="mn-auto.5248061" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.5248061" class="margin-toggle"><span class="marginnote"> N.B. The default definition is:<br> </span>
+<label for="mn-lifta2" class="margin-toggle">⊕</label>
+<input type="checkbox" id="mn-lifta2" class="margin-toggle" />
+<span class="marginnote">
+N.B. The default definition is:<br />
+<code class="src src-haskell"><span style="color: #cae682;">liftA2</span> f x y <span style="color: #cae682;">=</span> f <span style="color: #cae682;">&lt;$&gt;</span> x <span style="color: #cae682;">&lt;*&gt;</span> y</code>
+</span>
 </p>
 
 <div class="org-src-container">
