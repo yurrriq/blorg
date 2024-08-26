@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/elixir.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>18 December, 2023</updated>
     <entry>
@@ -24,14 +26,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  1 January, 2016
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;elixir&#39;." href="/tag/elixir/index.html">elixir</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;polyglot&#39;." href="/tag/polyglot/index.html">polyglot</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;elixir&#39;." href="/tag/elixir/index.html" rel="tag">elixir</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;polyglot&#39;." href="/tag/polyglot/index.html" rel="tag">polyglot</a>
+
     </span>
   </p>
 </section>
@@ -56,12 +58,11 @@ This is why I love <a href="https://lfe.io">Lisp Flavoured Erlang</a>.
 </div>
 
 <p>
-Gott nytt år! <label for='mn-auto.3624089' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3624089' class='margin-toggle'><span class='marginnote'> <a href="https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r">https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r</a> </span>
+Gott nytt år! <label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> <a href="https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r">https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r</a> </span>
 </p>
-
-<section id="outline-container-org2f8fdbd" class="outline-2">
-<h2 id="org2f8fdbd">References</h2>
-<div class="outline-text-2" id="text-org2f8fdbd">
+<section id="outline-container-orgb948b55" class="outline-2">
+<h2 id="orgb948b55">References</h2>
+<div class="outline-text-2" id="text-orgb948b55">
 <ul class="org-ul">
 <li><a href="https://github.com/lfe/lfe/blob/develop/include/clj.lfe">clj: Clojure functions and macros for LFE</a></li>
 <li><a href="https://github.com/lfe-rebar3/lodox">Lodox: Like Codox for LFE</a></li>

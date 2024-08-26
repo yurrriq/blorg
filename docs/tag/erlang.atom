@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/erlang.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>18 December, 2023</updated>
     <entry>
@@ -24,14 +26,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 11 February, 2016
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;erlang&#39;." href="/tag/erlang/index.html">erlang</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;rebar3&#39;." href="/tag/rebar3/index.html">rebar3</a>, <a title="All pages tagged &#39;tooling&#39;." href="/tag/tooling/index.html">tooling</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;erlang&#39;." href="/tag/erlang/index.html" rel="tag">erlang</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;rebar3&#39;." href="/tag/rebar3/index.html" rel="tag">rebar3</a>, <a title="All pages tagged &#39;tooling&#39;." href="/tag/tooling/index.html" rel="tag">tooling</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html" rel="tag">open-source</a>
+
     </span>
   </p>
 </section>
@@ -43,10 +45,9 @@ compiler plugin</a> extensively. In doing so, I noticed it always recompiles eve
 file. Having <a href="https://www.rebar3.org/docs/basic-usage#building">compiled</a> a fair amount of vanilla Erlang via <code>rebar3</code>, I knew it
 didn't have to be that way.
 </p>
-
-<section id="outline-container-org0c861a3" class="outline-2">
-<h2 id="org0c861a3">Replacing <code>run/4</code> with <code>run/7</code></h2>
-<div class="outline-text-2" id="text-org0c861a3">
+<section id="outline-container-org0c8fbd7" class="outline-2">
+<h2 id="org0c8fbd7">Replacing <code>run/4</code> with <code>run/7</code></h2>
+<div class="outline-text-2" id="text-org0c8fbd7">
 <p>
 To further my quest, <a href="https://github.com/tsloughter">Tristan</a> pointed me to <a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L45-L48">run/7</a>, specifically its use of
 <code class="src src-erlang"><span style="color: #8c8c8c;">[</span>check_last_mod<span style="color: #8c8c8c;">]</span></code>. Before I <a href="https://github.com/quasiquoting/lfe-compile">forked</a> <a href="https://github.com/lfe-rebar3/compile">lfe-rebar3/compile</a>, it was using
@@ -84,10 +85,9 @@ the long run.
 </p>
 </div>
 </section>
-
-<section id="outline-container-orged159db" class="outline-2">
-<h2 id="orged159db">Examples of time saving</h2>
-<div class="outline-text-2" id="text-orged159db">
+<section id="outline-container-org819e6b8" class="outline-2">
+<h2 id="org819e6b8">Examples of time saving</h2>
+<div class="outline-text-2" id="text-org819e6b8">
 <p>
 Here's an example of the difference when compiling <a href="https://github.com/quasiquoting/lodox">Lodox</a>&#x2026;
 </p>
@@ -99,7 +99,7 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
-<pre class="example" id="org69412e0">
+<pre class="example" id="org0c2fec5">
  ~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
  ~~&gt;    Compiling ./src/lodox-p.lfe ...
  ~~&gt;    Compiling ./src/lodox-parse.lfe ...
@@ -117,7 +117,7 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
-<pre class="example" id="org9cdf1a5">
+<pre class="example" id="org5c0e423">
         0.94 real         0.73 user         0.20 sys
 </pre>
 

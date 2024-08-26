@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/theorem-proving.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>18 December, 2023</updated>
     <entry>
@@ -24,14 +26,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  7 September, 2016
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;idris&#39;." href="/tag/idris/index.html">idris</a>, <a title="All pages tagged &#39;theorem-proving&#39;." href="/tag/theorem-proving/index.html">theorem-proving</a>, <a title="All pages tagged &#39;books&#39;." href="/tag/books/index.html">books</a>
-      
+      Tags: <a title="All pages tagged &#39;idris&#39;." href="/tag/idris/index.html" rel="tag">idris</a>, <a title="All pages tagged &#39;theorem-proving&#39;." href="/tag/theorem-proving/index.html" rel="tag">theorem-proving</a>, <a title="All pages tagged &#39;books&#39;." href="/tag/books/index.html" rel="tag">books</a>
+
     </span>
   </p>
 </section>
@@ -40,12 +42,11 @@
 First off, I think <a href="http://www.idris-lang.org">Idris</a> is pretty great. Over the past several months, I've
 been thoroughly enjoying reading and working through <a href="https://www.manning.com/books/type-driven-development-with-idris"><i>Type-Driven Development
 with Idris</i></a>, as well as chatting with the community on IRC.
-<label for='mn-auto.2493388' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.2493388' class='margin-toggle'><span class='marginnote'> <code>#idris</code> on freenode </span>
+<label for='mn-auto.6293918' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6293918' class='margin-toggle'><span class='marginnote'> <code>#idris</code> on freenode </span>
 </p>
-
-<section id="outline-container-org1cd360a" class="outline-2">
-<h2 id="org1cd360a">Posting to the MEAP forum</h2>
-<div class="outline-text-2" id="text-org1cd360a">
+<section id="outline-container-orgee35afe" class="outline-2">
+<h2 id="orgee35afe">Posting to the MEAP forum</h2>
+<div class="outline-text-2" id="text-orgee35afe">
 <p>
 For every <a href="https://www.manning.com/meap-program">MEAP</a> book, Manning provides a forum. To be honest, though I've
 partaken in quite a few MEAPs, I've never really participated in the fora. In
@@ -57,10 +58,9 @@ post. Here goes.
 </p>
 </div>
 </section>
-
-<section id="outline-container-orgd1bb8e1" class="outline-2">
-<h2 id="orgd1bb8e1">Proving it with Idris</h2>
-<div class="outline-text-2" id="text-orgd1bb8e1">
+<section id="outline-container-orgf4316c4" class="outline-2">
+<h2 id="orgf4316c4">Proving it with Idris</h2>
+<div class="outline-text-2" id="text-orgf4316c4">
 <p>
 In this example, we're trying to prove that addition of natural numbers is
 <a href="https://en.wikipedia.org/wiki/Commutative_property">commutative</a>, i.e.
@@ -232,10 +232,9 @@ At this point, Idris can fill in the hole for us, via <code>idris-proof-search</
 </div>
 </div>
 </section>
-
-<section id="outline-container-orgeb6cbed" class="outline-2">
-<h2 id="orgeb6cbed">The final product</h2>
-<div class="outline-text-2" id="text-orgeb6cbed">
+<section id="outline-container-org97f457e" class="outline-2">
+<h2 id="org97f457e">The final product</h2>
+<div class="outline-text-2" id="text-org97f457e">
 <p>
 Tidying up a bit for my taste, we arrive at the complete (and total) definition:
 </p>

@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/openconnect.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>2019-06-17T00:00:00Z</updated>
     <entry>
@@ -24,11 +26,11 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 17 June, 2019
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;darwin&#39;." href="/tag/darwin/index.html">darwin</a>, <a title="All pages tagged &#39;vpn&#39;." href="/tag/vpn/index.html">vpn</a>, <a title="All pages tagged &#39;openconnect&#39;." href="/tag/openconnect/index.html">openconnect</a>, <a title="All pages tagged &#39;launchd&#39;." href="/tag/launchd/index.html">launchd</a>, <a title="All pages tagged &#39;daemon&#39;." href="/tag/daemon/index.html">daemon</a>
-      
+      Tags: <a title="All pages tagged &#39;darwin&#39;." href="/tag/darwin/index.html" rel="tag">darwin</a>, <a title="All pages tagged &#39;vpn&#39;." href="/tag/vpn/index.html" rel="tag">vpn</a>, <a title="All pages tagged &#39;openconnect&#39;." href="/tag/openconnect/index.html" rel="tag">openconnect</a>, <a title="All pages tagged &#39;launchd&#39;." href="/tag/launchd/index.html" rel="tag">launchd</a>, <a title="All pages tagged &#39;daemon&#39;." href="/tag/daemon/index.html" rel="tag">daemon</a>
+
     </span>
   </p>
 </section>
@@ -39,10 +41,9 @@ VPN connection with <code>launchd</code> on macOS. Many thanks to <a href="https
 blog post, <a href="https://ashgillman.github.io/2017/02/14/openconnect-launchd.html">Managing an Openconnect VPN Connection with launchd on OSX</a>, upon
 which this is based.
 </p>
-
-<section id="outline-container-org787f1a6" class="outline-2">
-<h2 id="org787f1a6">OpenConnect Wrapper</h2>
-<div class="outline-text-2" id="text-org787f1a6">
+<section id="outline-container-org2dc1f56" class="outline-2">
+<h2 id="org2dc1f56">OpenConnect Wrapper</h2>
+<div class="outline-text-2" id="text-org2dc1f56">
 <p>
 Define a function <code>handler</code> to send an <code>INT</code> signal to <code>$PID</code>, then <code>trap</code>
 <code>TERM</code> signals and call <code>handler</code> instead, which will enable ending an
@@ -77,10 +78,9 @@ capturing its PID and <code>wait</code>-ing for it.
 </div>
 </div>
 </section>
-
-<section id="outline-container-orgc328e80" class="outline-2">
-<h2 id="orgc328e80">Password File</h2>
-<div class="outline-text-2" id="text-orgc328e80">
+<section id="outline-container-org194cf40" class="outline-2">
+<h2 id="org194cf40">Password File</h2>
+<div class="outline-text-2" id="text-org194cf40">
 <p>
 Store the password (without a trailing newline) in a file,
 <code>/etc/openconnect/passwd</code>, owned by <code>root</code>.
@@ -95,10 +95,9 @@ Remove read/write access from all but <code>root</code>.
 </div>
 </div>
 </section>
-
-<section id="outline-container-org5995973" class="outline-2">
-<h2 id="org5995973">Launch Daemon</h2>
-<div class="outline-text-2" id="text-org5995973">
+<section id="outline-container-org0c96d26" class="outline-2">
+<h2 id="org0c96d26">Launch Daemon</h2>
+<div class="outline-text-2" id="text-org0c96d26">
 <p>
 Set up a launch daemon by creating a property list file,
 <code>/Library/LaunchDaemons/me.ericb.openconnect.plist</code>.
