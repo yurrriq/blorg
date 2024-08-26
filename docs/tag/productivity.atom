@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/productivity.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>2015-09-09T00:00:00Z</updated>
     <entry>
@@ -24,11 +26,11 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  9 September, 2015
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;osx&#39;." href="/tag/osx/index.html">osx</a>, <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html">hack</a>, <a title="All pages tagged &#39;terminal&#39;." href="/tag/terminal/index.html">terminal</a>, <a title="All pages tagged &#39;productivity&#39;." href="/tag/productivity/index.html">productivity</a>
-      
+      Tags: <a title="All pages tagged &#39;osx&#39;." href="/tag/osx/index.html" rel="tag">osx</a>, <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html" rel="tag">hack</a>, <a title="All pages tagged &#39;terminal&#39;." href="/tag/terminal/index.html" rel="tag">terminal</a>, <a title="All pages tagged &#39;productivity&#39;." href="/tag/productivity/index.html" rel="tag">productivity</a>
+
     </span>
   </p>
 </section>

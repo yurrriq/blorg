@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/lisp.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>18 December, 2023</updated>
     <entry>
@@ -24,14 +26,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 12 April, 2016
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;tracing&#39;." href="/tag/tracing/index.html">tracing</a>, <a title="All pages tagged &#39;debugging&#39;." href="/tag/debugging/index.html">debugging</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;tracing&#39;." href="/tag/tracing/index.html" rel="tag">tracing</a>, <a title="All pages tagged &#39;debugging&#39;." href="/tag/debugging/index.html" rel="tag">debugging</a>
+
     </span>
   </p>
 </section>
@@ -48,7 +50,7 @@ Tracing LFE functions for debugging purposes is quite simple.
 Let's say you have the following module and want to trace one of its functions.
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org616e3f0">(<span style="color: #8ac6f2; font-weight: bold;">defmodule</span> <span style="color: #92a65e; font-weight: bold;">maths</span>
+<pre class="src src-lfe" id="orgee35afe">(<span style="color: #8ac6f2; font-weight: bold;">defmodule</span> <span style="color: #92a65e; font-weight: bold;">maths</span>
   (export (sum 2) (diff 2)))
 
 (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">sum</span> (a b) (<span style="color: #e5786d;">+</span> a b))
@@ -61,7 +63,7 @@ Let's say you have the following module and want to trace one of its functions.
 Before we get started, make sure you compile the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org4b1dc3d">(c <span style="color: #95e454;">"/path/to/maths.lfe"</span>)
+<pre class="src src-lfe" id="orgb948b55">(c <span style="color: #95e454;">"/path/to/maths.lfe"</span>)
 </pre>
 </div>
 
@@ -69,7 +71,7 @@ Before we get started, make sure you compile the <code>maths</code> module:
 Just start the tracer:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org3499bbc">(dbg:tracer)
+<pre class="src src-lfe" id="orgfa898cb">(dbg:tracer)
 </pre>
 </div>
 
@@ -82,7 +84,7 @@ Just start the tracer:
 Tell the tracer you are interested in all calls for all processes:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgeadd3be">(dbg:p 'all 'c)
+<pre class="src src-lfe" id="orgff52af2">(dbg:p 'all 'c)
 </pre>
 </div>
 
@@ -95,7 +97,7 @@ Tell the tracer you are interested in all calls for all processes:
 Finally, tell it you want to trace the function, <code>sum</code>, from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgdaabc0f">(dbg:tpl 'maths 'sum [])
+<pre class="src src-lfe" id="org72a3840">(dbg:tpl 'maths 'sum [])
 </pre>
 </div>
 
@@ -108,7 +110,7 @@ Finally, tell it you want to trace the function, <code>sum</code>, from the <cod
 Now, try to call the function, as usual. The tracer is active!
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orgcbc9cb7">(maths:sum 2 3)
+<pre class="src src-lfe" id="orgd9cd98a">(maths:sum 2 3)
 </pre>
 </div>
 
@@ -122,7 +124,7 @@ Now, try to call the function, as usual. The tracer is active!
 To trace all functions from the <code>maths</code> module:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="orga71ca6a">&gt; (dbg:tpl 'maths [])
+<pre class="src src-lfe" id="org530237a">&gt; (dbg:tpl 'maths [])
 </pre>
 </div>
 
@@ -130,7 +132,7 @@ To trace all functions from the <code>maths</code> module:
 To trace the return value for a given function:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org75a5bf7">(dbg:tpl 'maths 'sum (<span style="color: #8ac6f2; font-weight: bold;">match-spec</span> ([_] (return_trace))))
+<pre class="src src-lfe" id="orgbec9ad4">(dbg:tpl 'maths 'sum (<span style="color: #8ac6f2; font-weight: bold;">match-spec</span> ([_] (return_trace))))
 </pre>
 </div>
 
@@ -140,7 +142,7 @@ To trace the return value for a given function:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lfe" id="org11fa093">(maths:sum 19 23)
+<pre class="src src-lfe" id="org39af42c">(maths:sum 19 23)
 </pre>
 </div>
 
@@ -155,7 +157,7 @@ To trace the return value for a given function:
 To stop the trace:
 </p>
 <div class="org-src-container">
-<pre class="src src-lfe" id="org998327e">(dbg:stop)
+<pre class="src src-lfe" id="org97f457e">(dbg:stop)
 </pre>
 </div>
 
@@ -182,14 +184,14 @@ To stop the trace:
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 11 February, 2016
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;erlang&#39;." href="/tag/erlang/index.html">erlang</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;rebar3&#39;." href="/tag/rebar3/index.html">rebar3</a>, <a title="All pages tagged &#39;tooling&#39;." href="/tag/tooling/index.html">tooling</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;erlang&#39;." href="/tag/erlang/index.html" rel="tag">erlang</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;rebar3&#39;." href="/tag/rebar3/index.html" rel="tag">rebar3</a>, <a title="All pages tagged &#39;tooling&#39;." href="/tag/tooling/index.html" rel="tag">tooling</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html" rel="tag">open-source</a>
+
     </span>
   </p>
 </section>
@@ -201,10 +203,9 @@ compiler plugin</a> extensively. In doing so, I noticed it always recompiles eve
 file. Having <a href="https://www.rebar3.org/docs/basic-usage#building">compiled</a> a fair amount of vanilla Erlang via <code>rebar3</code>, I knew it
 didn't have to be that way.
 </p>
-
-<section id="outline-container-org0c861a3" class="outline-2">
-<h2 id="org0c861a3">Replacing <code>run/4</code> with <code>run/7</code></h2>
-<div class="outline-text-2" id="text-org0c861a3">
+<section id="outline-container-org0c8fbd7" class="outline-2">
+<h2 id="org0c8fbd7">Replacing <code>run/4</code> with <code>run/7</code></h2>
+<div class="outline-text-2" id="text-org0c8fbd7">
 <p>
 To further my quest, <a href="https://github.com/tsloughter">Tristan</a> pointed me to <a href="https://github.com/rebar/rebar3/blob/beta-4/src/rebar_base_compiler.erl#L45-L48">run/7</a>, specifically its use of
 <code class="src src-erlang"><span style="color: #8c8c8c;">[</span>check_last_mod<span style="color: #8c8c8c;">]</span></code>. Before I <a href="https://github.com/quasiquoting/lfe-compile">forked</a> <a href="https://github.com/lfe-rebar3/compile">lfe-rebar3/compile</a>, it was using
@@ -242,10 +243,9 @@ the long run.
 </p>
 </div>
 </section>
-
-<section id="outline-container-orged159db" class="outline-2">
-<h2 id="orged159db">Examples of time saving</h2>
-<div class="outline-text-2" id="text-orged159db">
+<section id="outline-container-org819e6b8" class="outline-2">
+<h2 id="org819e6b8">Examples of time saving</h2>
+<div class="outline-text-2" id="text-org819e6b8">
 <p>
 Here's an example of the difference when compiling <a href="https://github.com/quasiquoting/lodox">Lodox</a>&#x2026;
 </p>
@@ -257,7 +257,7 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
-<pre class="example" id="org69412e0">
+<pre class="example" id="org0c2fec5">
  ~~&gt;    Compiling ./src/lodox-html-writer.lfe ...
  ~~&gt;    Compiling ./src/lodox-p.lfe ...
  ~~&gt;    Compiling ./src/lodox-parse.lfe ...
@@ -275,7 +275,7 @@ Here's an example of the difference when compiling <a href="https://github.com/q
 <pre class="src src-bash">$ time rebar3 lfe compile
 </pre>
 </div>
-<pre class="example" id="org9cdf1a5">
+<pre class="example" id="org5c0e423">
         0.94 real         0.73 user         0.20 sys
 </pre>
 
@@ -314,14 +314,14 @@ A little more 🐄💩 microbenchmarking on a proprietary work project:
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  1 January, 2016
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;elixir&#39;." href="/tag/elixir/index.html">elixir</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;polyglot&#39;." href="/tag/polyglot/index.html">polyglot</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;elixir&#39;." href="/tag/elixir/index.html" rel="tag">elixir</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;polyglot&#39;." href="/tag/polyglot/index.html" rel="tag">polyglot</a>
+
     </span>
   </p>
 </section>
@@ -346,12 +346,11 @@ This is why I love <a href="https://lfe.io">Lisp Flavoured Erlang</a>.
 </div>
 
 <p>
-Gott nytt år! <label for='mn-auto.3624089' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.3624089' class='margin-toggle'><span class='marginnote'> <a href="https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r">https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r</a> </span>
+Gott nytt år! <label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> <a href="https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r">https://en.wiktionary.org/wiki/gott_nytt_%C3%A5r</a> </span>
 </p>
-
-<section id="outline-container-org2f8fdbd" class="outline-2">
-<h2 id="org2f8fdbd">References</h2>
-<div class="outline-text-2" id="text-org2f8fdbd">
+<section id="outline-container-orgb948b55" class="outline-2">
+<h2 id="orgb948b55">References</h2>
+<div class="outline-text-2" id="text-orgb948b55">
 <ul class="org-ul">
 <li><a href="https://github.com/lfe/lfe/blob/develop/include/clj.lfe">clj: Clojure functions and macros for LFE</a></li>
 <li><a href="https://github.com/lfe-rebar3/lodox">Lodox: Like Codox for LFE</a></li>
@@ -383,14 +382,14 @@ Gott nytt år! <label for='mn-auto.3624089' class='margin-toggle'>&#8853;</label
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 28 December, 2015
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;pattern-matching&#39;." href="/tag/pattern-matching/index.html">pattern-matching</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;pattern-matching&#39;." href="/tag/pattern-matching/index.html" rel="tag">pattern-matching</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html" rel="tag">open-source</a>
+
     </span>
   </p>
 </section>
@@ -413,10 +412,9 @@ wanting to write <code>parse_instruction/1</code> like this:
 <span style="color: #cae682;">turn_off</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
 </pre>
 </div>
-
-<section id="outline-container-org5794d3a" class="outline-2">
-<h2 id="org5794d3a">Trying it out</h2>
-<div class="outline-text-2" id="text-org5794d3a">
+<section id="outline-container-org0c8fbd7" class="outline-2">
+<h2 id="org0c8fbd7">Trying it out</h2>
+<div class="outline-text-2" id="text-org0c8fbd7">
 <p>
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
@@ -449,10 +447,9 @@ exception error: function_clause
 </div>
 </div>
 </section>
-
-<section id="outline-container-org9f95e8e" class="outline-2">
-<h2 id="org9f95e8e">Adding <code>++*</code> patterns to LFE</h2>
-<div class="outline-text-2" id="text-org9f95e8e">
+<section id="outline-container-org79c4fb7" class="outline-2">
+<h2 id="org79c4fb7">Adding <code>++*</code> patterns to LFE</h2>
+<div class="outline-text-2" id="text-org79c4fb7">
 <p>
 After this discovery, I took to <a href="http://webchat.freenode.net/?channels=erlang-lisp">#erlang-lisp</a> and tried to figure out why.
 Discussing the issue with <code>@rvirding</code> for a few minutes, we decided adding <code>++*</code>
@@ -483,10 +480,9 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 </div>
 </div>
 </section>
-
-<section id="outline-container-orgb192477" class="outline-2">
-<h2 id="orgb192477">Usage</h2>
-<div class="outline-text-2" id="text-orgb192477">
+<section id="outline-container-org5c0e423" class="outline-2">
+<h2 id="org5c0e423">Usage</h2>
+<div class="outline-text-2" id="text-org5c0e423">
 <p>
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>
@@ -529,11 +525,11 @@ f
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 10 August, 2015
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>
+
     </span>
   </p>
 </section>
@@ -550,7 +546,7 @@ singleton list, <code>head</code> holds the single element and <code>tail</code>
 </pre>
 </div>
 
-<pre class="example" id="orgfcfb646">
+<pre class="example" id="orgb948b55">
 Head: a-single-element
 Tail: ()
 ok
@@ -567,7 +563,7 @@ the same atom.
 </pre>
 </div>
 
-<pre class="example" id="org8104d90">
+<pre class="example" id="orgfa898cb">
 true
 </pre>
 
@@ -589,14 +585,14 @@ true
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  6 August, 2015
-      
+
       <br />
       Updated on 16 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;metaprogramming&#39;." href="/tag/metaprogramming/index.html">metaprogramming</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;metaprogramming&#39;." href="/tag/metaprogramming/index.html" rel="tag">metaprogramming</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html" rel="tag">open-source</a>
+
     </span>
   </p>
 </section>
@@ -609,13 +605,12 @@ from Clojure to LFE.  It's been going well so far, despite having to rename it
 to <a href="https://github.com/quasiquoting/pynchon">pynchon</a>, since Erlang wasn't down with the hyphenated name and a few people
 on the <a href="https://groups.google.com/forum/#!aboutgroup/lisp-flavoured-erlang">LFE Google group</a> suggested it.
 </p>
-
-<section id="outline-container-org252f65a" class="outline-2">
-<h2 id="org252f65a">Example</h2>
-<div class="outline-text-2" id="text-org252f65a">
+<section id="outline-container-org1520f12" class="outline-2">
+<h2 id="org1520f12">Example</h2>
+<div class="outline-text-2" id="text-org1520f12">
 <p>
 Without further ado, here's a contrived example.
-<label for='mn-auto.6820920' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6820920' class='margin-toggle'><span class='marginnote'> <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and macros for LFE, which has since been <a href="https://github.com/lfe/lfe/pull/267">merged into LFE</a>. </span>
+<label for='mn-auto.2856921' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.2856921' class='margin-toggle'><span class='marginnote'> <code>#'compose/2</code> comes from Duncan McGreggor's <a href="https://github.com/lfex/clj">clj</a>, Clojure functions and macros for LFE, which has since been <a href="https://github.com/lfe/lfe/pull/267">merged into LFE</a>. </span>
 </p>
 
 <div class="org-src-container">
@@ -687,14 +682,14 @@ non-updating: <span style="color: #95e454;">"testtesttest"</span> <span style="c
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  2 January, 2015
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;metaprogramming&#39;." href="/tag/metaprogramming/index.html">metaprogramming</a>
-      
+      Tags: <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html" rel="tag">clojure</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;metaprogramming&#39;." href="/tag/metaprogramming/index.html" rel="tag">metaprogramming</a>
+
     </span>
   </p>
 </section>
@@ -708,7 +703,7 @@ In 2015, my love for these <a href="http://xkcd.com/297/">elegant weapons</a> wi
 </p>
 
 <p>
-<label for='mn-auto.7254263' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.7254263' class='margin-toggle'><span class='marginnote'> See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub </span>
+<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> See also: <a href="https://github.com/clojure/clojure/blob/28509b8caa95537cddd31152b7603de4d866c951/src/clj/clojure/core.clj#L7204-L7213"><code>#'clojure.core/some-&gt;</code> source</a> on GitHub </span>
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">comment</span>

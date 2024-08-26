@@ -38,14 +38,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
     <span class="marginnote">
       Written on  7 May, 2018
-      
+
       <br />
-      Updated on 18 December, 2023
-      
-      
+      Updated on 26 August, 2024
+
+
       <br />
-      Tags: <a title="All pages tagged 'c'." href="../../../tag/c/">c</a>, <a title="All pages tagged 'compilers'." href="../../../tag/compilers/">compilers</a>, <a title="All pages tagged 'school'." href="../../../tag/school/">school</a>, <a title="All pages tagged 'facepalm'." href="../../../tag/facepalm/">facepalm</a>
-      
+      Tags: <a title="All pages tagged 'c'." href="../../../tag/c/" rel="tag">c</a>, <a title="All pages tagged 'compilers'." href="../../../tag/compilers/" rel="tag">compilers</a>, <a title="All pages tagged 'school'." href="../../../tag/school/" rel="tag">school</a>, <a title="All pages tagged 'facepalm'." href="../../../tag/facepalm/" rel="tag">facepalm</a>
+
     </span>
   </p>
 </section>
@@ -56,19 +56,18 @@ students were asked to predict the behaviour of the following snippet.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c" id="org17f2376">x = 10;
+<pre class="src src-c" id="orgee35afe">x = 10;
 y = ++x + --x;
 </pre>
 </div>
-
-<section id="outline-container-orgbbfa1ef" class="outline-2">
-<h2 id="orgbbfa1ef">Example</h2>
-<div class="outline-text-2" id="text-orgbbfa1ef">
+<section id="outline-container-org0c8fbd7" class="outline-2">
+<h2 id="org0c8fbd7">Example</h2>
+<div class="outline-text-2" id="text-org0c8fbd7">
 <p>
 For simplicity, let's assume the type of both <code>x</code> and <code>y</code> is <code>int</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org9ccb301"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
+<pre class="src src-c" id="orgb948b55"><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
 </pre>
 </div>
 
@@ -76,12 +75,12 @@ For simplicity, let's assume the type of both <code>x</code> and <code>y</code> 
 We can inspect the final state of <code>x</code> and <code>y</code> with a simple <code>printf</code> call.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org711702a">printf<span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y<span style="color: #8c8c8c;">)</span>;
+<pre class="src src-c" id="orgfa898cb">printf<span style="color: #8c8c8c;">(</span><span style="color: #95e454;">"x = %d, y = %d\n"</span>, x, y<span style="color: #8c8c8c;">)</span>;
 </pre>
 </div>
 
 <p>
-Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c">our program</a>.
+Now, let's see how different compilers handle <a href="https://github.com/yurrriq/blorg/blob/main/hakyll/code/incdec.c">our program</a>.
 </p>
 <div class="org-src-container">
 <pre class="src src-c"><span style="color: #e5786d;">#include</span> <span style="color: #8c8c8c;">&lt;</span><span style="color: #95e454;">stdio.h</span><span style="color: #8c8c8c;">&gt;</span>
@@ -89,6 +88,7 @@ Now, let's see how different compilers handle <a href="https://github.com/yurrri
 
 <span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">main</span><span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">argc</span>, <span style="color: #92a65e; font-weight: bold;">char</span> **<span style="color: #cae682;">argv</span><span style="color: #8c8c8c;">)</span>
 <span style="color: #8c8c8c;">{</span>
+    <span style="color: #92a65e; font-weight: bold;">int</span> <span style="color: #cae682;">x</span>, <span style="color: #cae682;">y</span>;
     x = 10;
     y = ++x + --x;
 
@@ -99,14 +99,24 @@ Now, let's see how different compilers handle <a href="https://github.com/yurrri
 
 <p>
 At first glance, I would expect the right-hand side of the initialization of <code>y</code>
-to evaluate to <code>11 + 10</code>, i.e. <code>21</code>.
+to evaluate to <code>11 + 10</code>, i.e., <code>21</code>.
 </p>
+
+<pre class="example">
+gcc (GCC) 13.2.0
+
+incdec.c: In function ‘main’:
+incdec.c:8:9: warning: operation on ‘x’ may be undefined [-Wsequence-point]
+    8 |     y = ++x + --x;
+      |         ^~~
+
+x = 10, y = 20
+</pre>
 </div>
 </section>
-
-<section id="outline-container-org408adff" class="outline-2">
-<h2 id="org408adff">Curiouser and curiouser!</h2>
-<div class="outline-text-2" id="text-org408adff">
+<section id="outline-container-orga55bdd4" class="outline-2">
+<h2 id="orga55bdd4">Curiouser and curiouser!</h2>
+<div class="outline-text-2" id="text-orga55bdd4">
 <p>
 Unsurprisingly, GCC computes the final value of <code>x</code> to be <code>10</code>, the same as its
 initial value, after being incremented and decremented. It's markedly <b>less</b>
@@ -114,15 +124,25 @@ intuitive to me that the final value of <code>y</code> is <code>20</code>.
 </p>
 
 <p>
-Clang, on the other hand, agrees with me, i.e. computes the final value of <code>y</code>
+Clang, on the other hand, agrees with me, i.e., computes the final value of <code>y</code>
 to be <code>21</code>.
 </p>
+
+<pre class="example">
+clang version 17.0.6
+
+incdec.c:8:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
+    8 |     y = ++x + --x;
+      |         ^     ~~
+1 warning generated.
+
+x = 10, y = 21
+</pre>
 </div>
 </section>
-
-<section id="outline-container-orgfca565a" class="outline-2">
-<h2 id="orgfca565a">The more you know</h2>
-<div class="outline-text-2" id="text-orgfca565a">
+<section id="outline-container-org1520f12" class="outline-2">
+<h2 id="org1520f12">The more you know</h2>
+<div class="outline-text-2" id="text-org1520f12">
 <p>
 Both compilers warn about unsequenced modifications and the resultant undefined
 behaviour. Digging around a bit leads to some fascinating discussions. The GCC
@@ -131,11 +151,10 @@ analyses of sequence points in C. Further exploration is left as an exercise for
 the reader.
 </p>
 </div>
-
-<div id="outline-container-org36a9faf" class="outline-3">
-<h3 id="org36a9faf">tl;dr</h3>
-<div class="outline-text-3" id="text-org36a9faf">
-<blockquote cite="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html" id="org3af2428">
+<div id="outline-container-org79c4fb7" class="outline-3">
+<h3 id="org79c4fb7">tl;dr</h3>
+<div class="outline-text-3" id="text-org79c4fb7">
+<blockquote cite="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html" id="orgff52af2">
 <p>
 It is not specified when between sequence points modifications to the values of
 objects take effect.

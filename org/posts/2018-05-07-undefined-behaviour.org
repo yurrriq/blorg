@@ -5,7 +5,7 @@
 title:  "Undefined Behaviour"
 author: Eric Bailey
 tags: c, compilers, school, facepalm
-updated: 18 December, 2023
+updated: 26 August, 2024
 ---
 #+end_export
 
@@ -31,13 +31,14 @@ We can inspect the final state of ~x~ and ~y~ with a simple ~printf~ call.
 printf("x = %d, y = %d\n", x, y);
 #+end_src
 
-Now, let's see how different compilers handle [[https://github.com/yurrriq/blorg/blob/master/hakyll/code/incdec.c][our program]].
-#+begin_src c :noweb yes :tangle ../../hakyll/code/incdec.c
+Now, let's see how different compilers handle [[https://github.com/yurrriq/blorg/blob/main/hakyll/code/incdec.c][our program]].
+#+begin_src c :noweb yes :tangle ../../code/incdec.c
 #include <stdio.h>
 
 
 int main(int argc, char **argv)
 {
+    <<declarations>>
     <<unsequenced>>
 
     <<print-final-state>>
@@ -45,7 +46,7 @@ int main(int argc, char **argv)
 #+end_src
 
 At first glance, I would expect the right-hand side of the initialization of ~y~
-to evaluate to =11 + 10=, i.e. =21=.
+to evaluate to =11 + 10=, i.e., =21=.
 
 #+NAME: with-compiler
 #+begin_src sh :exports none :results code :eval no-export
@@ -58,21 +59,41 @@ echo
 EOS
 #+end_src
 
-#+begin_src sh :dir ../../hakyll/code :noweb yes :exports results :results output :eval no-export
+#+begin_src sh :dir ../../code :noweb yes :exports results :results output :eval no-export
 <<with-compiler(compiler="gcc")>>
 #+end_src
+
+#+RESULTS:
+: gcc (GCC) 13.2.0
+:
+: incdec.c: In function ‘main’:
+: incdec.c:8:9: warning: operation on ‘x’ may be undefined [-Wsequence-point]
+:     8 |     y = ++x + --x;
+:       |         ^~~
+:
+: x = 10, y = 20
 
 * Curiouser and curiouser!
 Unsurprisingly, GCC computes the final value of ~x~ to be ~10~, the same as its
 initial value, after being incremented and decremented. It's markedly *less*
 intuitive to me that the final value of ~y~ is ~20~.
 
-Clang, on the other hand, agrees with me, i.e. computes the final value of ~y~
+Clang, on the other hand, agrees with me, i.e., computes the final value of ~y~
 to be ~21~.
 
-#+begin_src sh :dir ../../hakyll/code :noweb yes :exports results :results output :eval no-export
+#+begin_src sh :dir ../../code :noweb yes :exports results :results output :eval no-export
 <<with-compiler(compiler="clang")>>
 #+end_src
+
+#+RESULTS:
+: clang version 17.0.6
+:
+: incdec.c:8:9: warning: multiple unsequenced modifications to 'x' [-Wunsequenced]
+:     8 |     y = ++x + --x;
+:       |         ^     ~~
+: 1 warning generated.
+:
+: x = 10, y = 21
 
 * The more you know
 Both compilers warn about unsequenced modifications and the resultant undefined

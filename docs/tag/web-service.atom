@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/web-service.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>18 December, 2023</updated>
     <entry>
@@ -24,14 +26,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 13 July, 2015
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html">hack</a>, <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html">clojure</a>, <a title="All pages tagged &#39;web-service&#39;." href="/tag/web-service/index.html">web-service</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
-      
+      Tags: <a title="All pages tagged &#39;hack&#39;." href="/tag/hack/index.html" rel="tag">hack</a>, <a title="All pages tagged &#39;clojure&#39;." href="/tag/clojure/index.html" rel="tag">clojure</a>, <a title="All pages tagged &#39;web-service&#39;." href="/tag/web-service/index.html" rel="tag">web-service</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html" rel="tag">open-source</a>
+
     </span>
   </p>
 </section>

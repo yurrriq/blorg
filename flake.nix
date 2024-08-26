@@ -53,6 +53,13 @@
         };
 
         devShells = {
+          c = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [
+              clang
+              gcc
+            ];
+          };
+
           clojure = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [
               clojure

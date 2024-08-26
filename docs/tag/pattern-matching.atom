@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/pattern-matching.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>18 December, 2023</updated>
     <entry>
@@ -24,14 +26,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on 28 December, 2015
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html">beam</a>, <a title="All pages tagged &#39;pattern-matching&#39;." href="/tag/pattern-matching/index.html">pattern-matching</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html">open-source</a>
-      
+      Tags: <a title="All pages tagged &#39;lfe&#39;." href="/tag/lfe/index.html" rel="tag">lfe</a>, <a title="All pages tagged &#39;lisp&#39;." href="/tag/lisp/index.html" rel="tag">lisp</a>, <a title="All pages tagged &#39;beam&#39;." href="/tag/beam/index.html" rel="tag">beam</a>, <a title="All pages tagged &#39;pattern-matching&#39;." href="/tag/pattern-matching/index.html" rel="tag">pattern-matching</a>, <a title="All pages tagged &#39;open-source&#39;." href="/tag/open-source/index.html" rel="tag">open-source</a>
+
     </span>
   </p>
 </section>
@@ -54,10 +56,9 @@ wanting to write <code>parse_instruction/1</code> like this:
 <span style="color: #cae682;">turn_off</span><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">{</span><span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X0</span>,<span style="color: #cae682;">Y0</span><span style="color: #b0b1a3;">}</span>,<span style="color: #b0b1a3;">{</span><span style="color: #cae682;">X1</span>,<span style="color: #cae682;">Y1</span><span style="color: #b0b1a3;">}</span><span style="color: #93a8c6;">}</span><span style="color: #8c8c8c;">)</span> -&gt;<span style="color: #cae682;"> </span>undefined.
 </pre>
 </div>
-
-<section id="outline-container-org5794d3a" class="outline-2">
-<h2 id="org5794d3a">Trying it out</h2>
-<div class="outline-text-2" id="text-org5794d3a">
+<section id="outline-container-org0c8fbd7" class="outline-2">
+<h2 id="org0c8fbd7">Trying it out</h2>
+<div class="outline-text-2" id="text-org0c8fbd7">
 <p>
 But the literal LFE translation <a href="https://github.com/rvirding/lfe/issues/176">doesn't work as desired</a>.
 </p>
@@ -90,10 +91,9 @@ exception error: function_clause
 </div>
 </div>
 </section>
-
-<section id="outline-container-org9f95e8e" class="outline-2">
-<h2 id="org9f95e8e">Adding <code>++*</code> patterns to LFE</h2>
-<div class="outline-text-2" id="text-org9f95e8e">
+<section id="outline-container-org79c4fb7" class="outline-2">
+<h2 id="org79c4fb7">Adding <code>++*</code> patterns to LFE</h2>
+<div class="outline-text-2" id="text-org79c4fb7">
 <p>
 After this discovery, I took to <a href="http://webchat.freenode.net/?channels=erlang-lisp">#erlang-lisp</a> and tried to figure out why.
 Discussing the issue with <code>@rvirding</code> for a few minutes, we decided adding <code>++*</code>
@@ -124,10 +124,9 @@ The <a href="https://github.com/rvirding/lfe/compare/b867573e9d144988b5bc70bfe00
 </div>
 </div>
 </section>
-
-<section id="outline-container-orgb192477" class="outline-2">
-<h2 id="orgb192477">Usage</h2>
-<div class="outline-text-2" id="text-orgb192477">
+<section id="outline-container-org5c0e423" class="outline-2">
+<h2 id="org5c0e423">Usage</h2>
+<div class="outline-text-2" id="text-org5c0e423">
 <p>
 Now in the <a href="https://github.com/rvirding/lfe/tree/develop">develop</a> branch, you can do the following:
 </p>

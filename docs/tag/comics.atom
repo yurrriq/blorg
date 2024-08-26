@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/comics.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>2020-08-02T00:00:00Z</updated>
     <entry>
@@ -24,11 +26,11 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  2 August, 2020
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;mathematics&#39;." href="/tag/mathematics/index.html">mathematics</a>, <a title="All pages tagged &#39;proof&#39;." href="/tag/proof/index.html">proof</a>, <a title="All pages tagged &#39;comics&#39;." href="/tag/comics/index.html">comics</a>
-      
+      Tags: <a title="All pages tagged &#39;mathematics&#39;." href="/tag/mathematics/index.html" rel="tag">mathematics</a>, <a title="All pages tagged &#39;proof&#39;." href="/tag/proof/index.html" rel="tag">proof</a>, <a title="All pages tagged &#39;comics&#39;." href="/tag/comics/index.html" rel="tag">comics</a>
+
     </span>
   </p>
 </section>

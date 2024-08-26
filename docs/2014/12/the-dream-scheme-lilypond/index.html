@@ -38,14 +38,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
     <span class="marginnote">
       Written on  7 December, 2014
-      
+
       <br />
       Updated on 17 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged 'lilypond'." href="../../../tag/lilypond/">lilypond</a>, <a title="All pages tagged 'scheme'." href="../../../tag/scheme/">scheme</a>, <a title="All pages tagged 'music'." href="../../../tag/music/">music</a>
-      
+      Tags: <a title="All pages tagged 'lilypond'." href="../../../tag/lilypond/" rel="tag">lilypond</a>, <a title="All pages tagged 'scheme'." href="../../../tag/scheme/" rel="tag">scheme</a>, <a title="All pages tagged 'music'." href="../../../tag/music/" rel="tag">music</a>
+
     </span>
   </p>
 </section>
@@ -61,16 +61,15 @@ languages</a> and am determined to write as little non-Lisp code as possible.
 
 <p>
 As such, I've started experimenting with writing more <a href="https://www.lilypond.org/doc/v2.19/Documentation/extending/scheme-in-lilypond">Scheme in Lilypond</a>.
-<label for="mn-auto.4665824" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.4665824" class="margin-toggle"><span class="marginnote"> <b>Note to self</b>: Dive deeper into <a href="https://web.archive.org/web/20141204001318/https://www.lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/">these</a> <a href="https://web.archive.org/web/20200224054432/http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/">pertinent</a> <a href="https://web.archive.org/web/20200221224150/http://lilypondblog.org/2014/04/music-functions-3-reusing-code/">blog</a> <a href="https://web.archive.org/web/20150131053751/https://www.lilypondblog.org/2014/04/music-functions-4-recursion/">posts</a> ASAP. </span>  This is an entirely impractical example, but it gives a glimpse of
+<label for="mn-auto.4993595" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.4993595" class="margin-toggle"><span class="marginnote"> <b>Note to self</b>: Dive deeper into <a href="https://web.archive.org/web/20141204001318/https://www.lilypondblog.org/2014/03/music-functions-1-getting-to-grips-with-scheme-in-lilypond/">these</a> <a href="https://web.archive.org/web/20200224054432/http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/">pertinent</a> <a href="https://web.archive.org/web/20200221224150/http://lilypondblog.org/2014/04/music-functions-3-reusing-code/">blog</a> <a href="https://web.archive.org/web/20150131053751/https://www.lilypondblog.org/2014/04/music-functions-4-recursion/">posts</a> ASAP. </span>  This is an entirely impractical example, but it gives a glimpse of
 what's possible. I can't wait to start <a href="https://www.gnu.org/software/guile/manual/guile.html#List-Mapping"><code>map</code>-ping</a> lists of musical expressions
 and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/2014/07/trees-music-and-lilypond/">representing music as trees</a>.
 </p>
-
-<section id="outline-container-org4604e59" class="outline-2">
-<h2 id="org4604e59">Scheme</h2>
-<div class="outline-text-2" id="text-org4604e59">
+<section id="outline-container-org2dc1f56" class="outline-2">
+<h2 id="org2dc1f56">Scheme</h2>
+<div class="outline-text-2" id="text-org2dc1f56">
 <p>
-<label for="mn-auto.4745173" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.4745173" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-make_002dhash_002dtable">Create a new hash table</a> with minimum vector size <code>5</code>. </span>
+<label for="mn-auto.9790334" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.9790334" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-make_002dhash_002dtable">Create a new hash table</a> with minimum vector size <code>5</code>. </span>
 </p>
 <div class="org-src-container">
 <pre class="src src-scheme"><span style="color: #8c8c8c;">(</span><span style="color: #8ac6f2; font-weight: bold;">define</span> <span style="color: #cae682;">riffs</span>
@@ -79,7 +78,7 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 </div>
 
 <p>
-<label for="mn-auto.5680521" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.5680521" class="margin-toggle"><span class="marginnote"> Associate a LilyPond snippet with the key <code>'I</code> in the <code>riffs</code> hash table. </span>
+<label for="mn-auto.6293918" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.6293918" class="margin-toggle"><span class="marginnote"> Associate a LilyPond snippet with the key <code>'I</code> in the <code>riffs</code> hash table. </span>
 </p>
 <div class="org-src-container">
 <pre class="src src-scheme"><span style="color: #8c8c8c;">(</span>hashq-set! riffs 'I
@@ -92,7 +91,7 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 </div>
 
 <p>
-<label for="mn-auto.9270204" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.9270204" class="margin-toggle"><span class="marginnote"> Do the same for the <code>'IV</code>, <code>'I'</code>, <code>'V</code>, and <code>'turnaround</code> snippets. </span>
+<label for="mn-auto.6293918" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.6293918" class="margin-toggle"><span class="marginnote"> Do the same for the <code>'IV</code>, <code>'I'</code>, <code>'V</code>, and <code>'turnaround</code> snippets. </span>
 </p>
 <div class="org-src-container">
 <pre class="src src-scheme"><span style="color: #8c8c8c;">(</span>hashq-set! riffs 'IV
@@ -121,10 +120,9 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 </div>
 </div>
 </section>
-
-<section id="outline-container-org7a57ead" class="outline-2">
-<h2 id="org7a57ead">LilyPond</h2>
-<div class="outline-text-2" id="text-org7a57ead">
+<section id="outline-container-org79c4fb7" class="outline-2">
+<h2 id="org79c4fb7">LilyPond</h2>
+<div class="outline-text-2" id="text-org79c4fb7">
 <div class="org-src-container">
 <pre class="src src-LilyPond"><span style="color: #8ac6f2; font-weight: bold;">\version</span> <span style="color: #95e454;">"2.24.1"</span>
 <span style="color: #8ac6f2; font-weight: bold;">\paper</span> <span style="color: #e5786d;">{</span> <span style="color: #cae682;">oddFooterMarkup</span> = <span style="color: #95e454;">##f</span> <span style="color: #e5786d;">}</span>
@@ -132,7 +130,7 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 </div>
 
 <p>
-<label for="mn-auto.4690373" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.4690373" class="margin-toggle"><span class="marginnote"> Load the Scheme code from above. </span>
+<label for="mn-auto.6293918" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.6293918" class="margin-toggle"><span class="marginnote"> Load the Scheme code from above. </span>
 </p>
 <div class="org-src-container">
 <pre class="src src-LilyPond"><span style="color: #95e454;">#(load "the_dream.scm")</span>
@@ -140,7 +138,7 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 </div>
 
 <p>
-<label for="mn-auto.6373901" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.6373901" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-hashq_002dref">Lookup</a> the riffs from the hash table and add them to the score. </span>
+<label for="mn-auto.9790334" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.9790334" class="margin-toggle"><span class="marginnote"> <a href="https://www.gnu.org/software/guile/manual/html_node/Hash-Table-Reference.html#index-hashq_002dref">Lookup</a> the riffs from the hash table and add them to the score. </span>
 </p>
 <div class="org-src-container">
 <pre class="src src-LilyPond"><span style="color: #8ac6f2; font-weight: bold;">\score</span> <span style="color: #e5786d;">{</span>
@@ -161,15 +159,14 @@ and <a href="https://web.archive.org/web/20150130095849/http://lilypondblog.org/
 </div>
 </div>
 </section>
-
-<section id="outline-container-org1b56f5d" class="outline-2">
-<h2 id="org1b56f5d">Generate the PNG</h2>
-<div class="outline-text-2" id="text-org1b56f5d">
+<section id="outline-container-orgf42ba8d" class="outline-2">
+<h2 id="orgf42ba8d">Generate the PNG</h2>
+<div class="outline-text-2" id="text-orgf42ba8d">
 <p>
-<label for="mn-auto.5486418" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.5486418" class="margin-toggle"><span class="marginnote"> N.B. The order of the flags matters. </span>
+<label for="mn-auto.6293918" class="margin-toggle">⊕</label><input type="checkbox" id="mn-auto.6293918" class="margin-toggle"><span class="marginnote"> N.B. The order of the flags matters. </span>
 </p>
 <div class="org-src-container">
-<pre class="src src-sh" id="org5cda50b">lilypond --include $<span style="color: #cae682;">PWD</span> -dcrop -dresolution=200 --png the_dream.ly
+<pre class="src src-sh" id="org8a1512e">lilypond --include $<span style="color: #cae682;">PWD</span> -dcrop -dresolution=200 --png the_dream.ly
 </pre>
 </div>
 </div>

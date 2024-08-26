@@ -6,7 +6,9 @@
     <id>https://blorg.ericb.me/tag/firefox.atom</id>
     <author>
         <name>Eric Bailey</name>
+        
         <email>eric@ericb.me</email>
+        
     </author>
     <updated>18 December, 2023</updated>
     <entry>
@@ -24,14 +26,14 @@
     <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
     <span class="marginnote">
       Written on  2 October, 2019
-      
+
       <br />
       Updated on 18 December, 2023
-      
-      
+
+
       <br />
-      Tags: <a title="All pages tagged &#39;nixos&#39;." href="/tag/nixos/index.html">nixos</a>, <a title="All pages tagged &#39;pass&#39;." href="/tag/pass/index.html">pass</a>, <a title="All pages tagged &#39;browserpass&#39;." href="/tag/browserpass/index.html">browserpass</a>, <a title="All pages tagged &#39;firefox&#39;." href="/tag/firefox/index.html">firefox</a>
-      
+      Tags: <a title="All pages tagged &#39;nixos&#39;." href="/tag/nixos/index.html" rel="tag">nixos</a>, <a title="All pages tagged &#39;pass&#39;." href="/tag/pass/index.html" rel="tag">pass</a>, <a title="All pages tagged &#39;browserpass&#39;." href="/tag/browserpass/index.html" rel="tag">browserpass</a>, <a title="All pages tagged &#39;firefox&#39;." href="/tag/firefox/index.html" rel="tag">firefox</a>
+
     </span>
   </p>
 </section>
@@ -47,7 +49,7 @@ application README</a>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orge7d8e90">$ make -C /run/current-system/sw/lib/browserpass <span style="color: #cae682;">DESTDIR</span>=/run/current-system/sw hosts-firefox-user
+<pre class="src src-bash" id="orgee35afe">$ make -C /run/current-system/sw/lib/browserpass <span style="color: #cae682;">DESTDIR</span>=/run/current-system/sw hosts-firefox-user
 make: Entering directory <span style="color: #95e454;">'/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'</span>
 <span style="color: #95e454;">'/home/yurrriq/.mozilla/native-messaging-hosts/com.github.browserpass.native.json'</span> -&gt; <span style="color: #95e454;">'/run/current-system/sw/lib/browserpass/hosts/firefox/com.github.browserpass.native.json'</span>
 make: Leaving directory <span style="color: #95e454;">'/nix/store/wxqd9qs2mfgynh5v7zi72mfw0f81rkgg-browserpass-3.0.6/lib/browserpass'</span>
