@@ -40,7 +40,7 @@ main = hakyllWith config $ do
 handleStaticFiles :: Rules ()
 handleStaticFiles =
   do
-    match "code/*" $
+    match "code/**" $
       route idRoute >> compile copyFileCompiler
     match "css/*" $
       route idRoute >> compile compressCssCompiler
