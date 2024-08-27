@@ -1,0 +1,354 @@
+#+startup: showall
+#+options: toc:nil ^:{}
+#+property: header-args :exports code
+#+begin_export html
+---
+title: "Kubernetes E2E Testing with Chainsaw"
+author: Eric Bailey
+tags: kubernetes, e2e-testing
+updated: 27 August, 2024
+---
+#+end_export
+
+[[https://kyverno.github.io/chainsaw/][Chainsaw]] was developed to be used internally to continuously test [[https://kyverno.io/][Kyverno]]. Due
+to its declarative YAML-based design and highly expressive assertion
+model,{{{marginnote([[https://kyverno.github.io/chainsaw/][Chainsaw]]'s assertion model is based on [[https://kyverno.github.io/kyverno-json/][kyverno-json]].)}}}
+it's generally useful for managing complex end to end tests.
+
+@@html:<span class="newthought">A common problem domain</span>@@ on Kubernetes
+is management of DNS records to point to load balancers and certificates to
+secure them. Arguably, the industry standard tools are [[https://kubernetes-sigs.github.io/external-dns/][ExternalDNS]] and
+[[https://cert-manager.io/][cert-manager]], respectively. Both rely on being able to manage particular DNS
+records,{{{marginnote(Such as =CNAME= records to point to =Ingresses= of type
+=LoadBalancer= and =TXT= records to solve [[https://letsencrypt.org/docs/challenge-types/#dns-01-challenge][DNS-01 challenges]].)}}} which requires
+appropriate cloud provider permissions, proper configuration ensuring the tools
+point to the correct DNS zones, etc. While it's fairly easy to reason about,
+there are many +moving parts+ points of failure, making it complex to test.
+
+#+name: fig:handsaw
+#+caption: [[https://photos.jdhancock.com/photo/2012-05-21-011441-handsaw.html][Photo]] by [[https://photos.jdhancock.com][JD Hancock]] [[https://creativecommons.org/licenses/by/3.0/deed.en_US][cc]]
+#+attr_html: :alt Handsaw
+[[https://farm8.staticflickr.com/7228/7239646948_8cf86fbdbf_b.jpg]]
+
+@@html:<span class="newthought">@@Fortunately@@html:</span>@@, Chainsaw makes it
+easy to define a [[https://kyverno.github.io/chainsaw/0.2.3/reference/apis/chainsaw.v1alpha1/#chainsaw-kyverno-io-v1alpha1-Test][=Test=]] covering the DNS management scenario.
+
+{{{marginnote(This post is a literate program using [[https://orgmode.org/manual/Noweb-Reference-Syntax.html][Org Mode's noweb style
+syntax]]. The [[https://manpages.org/notangle][tangled]] results can be found [[https://github.com/yurrriq/blorg/tree/main/code/chainsaw][on GitHub]].)}}}
+#+name: dns-test
+#+caption: [[https://github.com/yurrriq/blorg/blob/main/code/chainsaw/chainsaw-test.yaml][chainsaw-test.yaml]]
+#+begin_src yaml :noweb no-export :tangle ../../code/chainsaw/chainsaw-test.yaml
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: dns
+spec:
+  description: |
+    Verify the DNS management provided by cert-manager and ExternalDNS.
+  steps:
+    - name: create-ingress
+      description: |
+        Create an Ingress with rules for hosts matching each of the zones and
+        names configured in the ClusterIssuer/letsencrypt-staging, including a
+        single TLS certificate for all the DNS names.
+      try:
+        - description: |
+            Parse the solvers from the ClusterIssuer/letsencrypt-staging.
+          <<Parse the solvers from the ClusterIssuer>>
+        - description: |
+            Create an nginx Deployment and Service as a backend.
+          <<Create an nginx Deployment and Service as a backend>>
+        - description: |
+            Create the Ingress.
+          <<Create an Ingress for all zones and names, including TLS>>
+    - name: verify-ingress
+      <<Verify the expected Ingress>>
+    - name: verify-certificate
+      <<Verify the expected Certificate>>
+#+end_src
+
+@@html:<span class="newthought">For the first step,</span>@@ {{{marginnote(That
+is\, a [[https://kyverno.github.io/chainsaw/0.2.3/reference/apis/chainsaw.v1alpha1/#chainsaw-kyverno-io-v1alpha1-TestStep][TestStep]].)}}} assume the existence of a
+=ClusterIssuer/letsencrypt-staging= similar to the following, and parse its
+[[https://letsencrypt.org/docs/challenge-types/#dns-01-challenge][DNS-01]] [[https://cert-manager.io/docs/reference/api-docs/#acme.cert-manager.io/v1.ACMEChallengeSolverDNS01][solvers]].
+
+#+name: ClusterIssuer/letsencrypt-staging
+#+begin_src yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    solvers:
+      - dns01:
+          route53: {}
+        selector:
+          dnsZones:
+            - foo.example.com
+      - dns01:
+          route53: {}
+        selector:
+          dnsZones:
+            - bar.example.net
+      - dns01:
+          route53: {}
+        selector:
+          dnsNames:
+            - baz.example.org
+#+end_src
+{{{marginnote(N.B. This example also assumes [[https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html][IRSA]] is configured.)}}}
+
+This =ClusterIssuer= is responsible for solving [[https://letsencrypt.org/docs/challenge-types/#dns-01-challenge][DNS-01 challenges]] for the
+=foo.example.com= and =bar.example.net= zones, and for the specific DNS name
+=baz.example.org=.
+
+First, use =kubectl='s [[https://kubernetes.io/docs/reference/kubectl/jsonpath/][JSONPath support]] to extract just the =solvers=.
+
+#+name: Extract the solvers
+#+begin_src bash
+kubectl get clusterissuer/letsencrypt-staging \
+    --output jsonpath='{.spec.acme.solvers}'
+#+end_src
+
+Parse =stdout= and bind the result to ~$solvers~.{{{marginnote(Refer to the
+Chainsaw documentation on [[https://kyverno.github.io/chainsaw/0.2.3/quick-start/operation-outputs/#load-an-existing-resource][loading an existing resource]].)}}}
+
+#+name: Parse stdout and bind the result to $solvers
+#+begin_src yaml
+- name: solvers
+  value: (json_parse($stdout))
+#+end_src
+
+From ~$solvers~ extract all the DNS names and zones as two flat arrays,
+leveraging Chainsaw's [[https://jmespath.site][JMESPath]] support.
+
+#+name: Extract the names and zones
+#+begin_src yaml
+- name: dns_names
+  value: ($solvers[?selector.dnsNames].selector.dnsNames[])
+- name: dns_zones
+  value: ($solvers[?selector.dnsZones].selector.dnsZones[])
+#+end_src
+
+Bring it all together to define the first [[https://kyverno.github.io/chainsaw/0.2.3/operations/][=Operation=]].
+
+#+name: Parse the solvers from the ClusterIssuer
+#+begin_src yaml :noweb no-export
+script:
+  content: |
+    <<Extract the solvers>>
+  outputs:
+    <<Parse stdout and bind the result to $solvers>>
+    <<Extract the names and zones>>
+#+end_src
+
+@@html:<span class="newthought">Define a simple backend,</span>@@ using a
+vanilla nginx container, to test the DNS management setup. Include a
+=Deployment=, =Service=, and, mostly importantly, an =Ingress=.
+
+#+name: Create an nginx Deployment and Service as a backend
+#+begin_src yaml
+apply:
+  file: nginx.yaml
+#+end_src
+
+{{{marginnote(Since the particular backend is irrelevant to the test\, just use
+a =Deployment= with a single =nginx:alpine= container to keep it simple.)}}}
+
+#+caption: [[https://github.com/yurrriq/blorg/blob/main/code/chainsaw/nginx.yaml][nginx.yaml]]
+#+begin_src yaml :tangle ../../code/chainsaw/nginx.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nginx
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+#+end_src
+
+{{{marginnote(Create a =Service= using the same selectors as the =Deployment=\,
+which will be referenced by the =Ingress= rules.)}}}
+
+#+begin_src yaml :tangle ../../code/chainsaw/nginx.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  selector:
+    app.kubernetes.io/name: nginx
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http
+type: ClusterIP
+#+end_src
+
+With the boring =Deployment= and =Service= out of the way, define the =Ingress=,
+using several key Chainsaw features.
+
+{{{marginnote(This is one of the major selling points of Chainsaw.)}}}
+@@html:<span class="newthought">For the Ingress,</span>@@ [[https://kyverno.github.io/chainsaw/0.2.3/quick-start/bindings/][use bindings]] to
+declare ~$hosts~ based on the ~$dns_names~ and ~$dns_zones~.
+
+#+name: Define some bindings for the Ingress
+#+begin_src yaml
+bindings:
+  - name: hosts
+    value: ([$dns_names, $dns_zones[].join('.', ['burek', @])][])
+  - name: secret_name
+    value: (join('-', [$namespace, 'tls']))
+#+end_src
+
+Define [[https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules][rules]] for each host in ~$hosts~, again using [[https://jmespath.site][JMESPath]].
+
+#+name: Define rules for each host in $hosts
+#+begin_src yaml
+rules: |-
+  ($hosts[].{"host": @, "http": {"paths": [{"backend": {"service": {"name": 'nginx', "port": {"number": `80`}}}, "path": '/', "pathType": 'ImplementationSpecific'}]}})
+#+end_src
+
+Request a single certificate for each DNS name, in order to verify cert-manager
+is working as expected.
+
+#+name: Declare a single TLS secret for all hosts
+#+begin_src yaml
+tls: |-
+  ([{"hosts": $hosts, "secretName": $secret_name}])
+#+end_src
+
+Finally, define the =Operation= to create the =Ingress=.{{{marginnote(N.B. The
+=Ingress= assumes an existing =IngressClass/alb=\, such as part of an
+installation of the [[https://kubernetes-sigs.github.io/aws-load-balancer-controller/][AWS Load Balancer Controller]].)}}}
+
+#+name: Create an Ingress for all zones and names, including TLS
+#+begin_src yaml :noweb no-export
+apply:
+  <<Define some bindings for the Ingress>>
+  resource:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      annotations:
+        alb.ingress.kubernetes.io/scheme: internal
+        alb.ingress.kubernetes.io/target-type: ip
+        cert-manager.io/cluster-issuer: letsencrypt-staging
+      name: ($namespace)
+    spec:
+      ingressClassName: alb
+      <<Define rules for each host in $hosts>>
+      <<Declare a single TLS secret for all hosts>>
+#+end_src
+
+@@html:<span class="newthought">With those resources created,</span>@@ it's time
+to verify the =Ingress=.{{{marginnote(Verifying DNS records is left as an
+exercise to the reader.)}}} The main idea here is to use a [[https://jmespath.site][JMESPath]] expression
+and assert the result is ~true~, i.e., ensure the presence of
+~status.loadBalancer.ingress~, meaning a load balancer was successfully
+provisioned.{{{marginnote(cf. [[https://kyverno.github.io/chainsaw/0.2.3/quick-start/assertion-trees/#beyond-simple-equality][Beyond simple equality]])}}}
+
+#+name: Verify the expected Ingress
+#+begin_src yaml
+description: |
+  Verify the Ingress and dump ExternalDNS logs. Otherwise dump LBC logs.
+try:
+  - description: |
+     Ensure the Ingress has successfully provisioned a load balancer
+     within 5m.
+    assert:
+      resource:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: ($namespace)
+        (status.loadBalancer.ingress != null): true
+      timeout: 5m
+catch:
+  - description: |
+      Dump LBC logs.
+    podLogs:
+      container: aws-load-balancer-controller
+      namespace: kube-system
+      selector: app.kubernetes.io/name=aws-load-balancer-controller
+      tail: 30
+finally:
+  - description: |
+      Dump ExternalDNS logs.
+    podLogs:
+      container: external-dns
+      namespace: kube-system
+      selector: app.kubernetes.io/name=external-dns
+      tail: 30
+#+end_src
+
+@@html:<span class="newthought">Verifying the Certificate</span>@@ is more
+straightforward, not least because [[https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate][=Certificate=]] is a Kubernetes
+resource. cert-manager won't mark it as ready until Let's Encrypt has
+successfully issued it. The issuance shouldn't take more than five
+minutes,{{{marginnote(It's also possible to [[https://kyverno.github.io/chainsaw/0.2.3/configuration/options/timeouts/][configure timeouts globally]], instead
+of per operation.)}}} so give up and dump the last 30 cert-manager log lines if
+it's been longer.
+
+#+name: Verify the expected Certificate
+#+begin_src yaml
+description: |
+  Verify the expected certificate. Otherwise dump cert-manager logs.
+try:
+  - description: |
+      Ensure the Certificate is ready within 5m.
+    assert:
+      resource:
+        apiVersion: cert-manager.io/v1
+        kind: Certificate
+        metadata:
+          name: (join('-', [$namespace, 'tls']))
+        status:
+          (conditions[?type == 'Ready']):
+            - status: "True"
+      timeout: 5m
+catch:
+  - description: |
+      Dump cert-manager logs.
+    podLogs:
+      container: cert-manager-controller
+      namespace: cert-manager
+      selector: app.kubernetes.io/name=cert-manager
+      tail: 30
+#+end_src
+
+@@html:<span class="newthought">@@Chainsaw's power@@html:</span>@@ makes it an
+indispensable tool. Writing complex tests using YAML{{{marginnote(Admittedly\,
+said YAML is rather complex and includes extra features such as [[https://jmespath.site][JMESPath]]
+support.)}}} is a pleasant experience, compared to something like Go with
+substantial and unavoidable boilerplate. As a bonus, it has a very
+Kubernetes-native feel. This post only scratches the surface of what Chainsaw
+can do. It supports [[https://kyverno.github.io/chainsaw/0.2.3/quick-start/run-tests/][kind]], [[https://kyverno.github.io/chainsaw/0.2.3/examples/multi-cluster/][multi-cluster setups]], [[https://kyverno.github.io/chainsaw/0.2.3/guides/test-docs/][building documention of tests]],
+and much more!
+
+#+begin_epigraph
+#+caption: Ash Williams, @@html:<cite>@@[[https://letterboxd.com/film/evil-dead-ii/][Evil Dead II]]@@html:</cite>@@ (1987)
+#+begin_quote
+Let's head down into that cellar and carve ourselves a witch.
+#+end_quote
+#+end_epigraph

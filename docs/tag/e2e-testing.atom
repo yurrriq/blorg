@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>blorg.ericb.me - e2e-testing</title>
+    <link href="https://blorg.ericb.me/tag/e2e-testing.atom" rel="self" />
+    <link href="https://blorg.ericb.me" />
+    <id>https://blorg.ericb.me/tag/e2e-testing.atom</id>
+    <author>
+        <name>Eric Bailey</name>
+        
+        <email>eric@ericb.me</email>
+        
+    </author>
+    <updated>27 August, 2024</updated>
+    <entry>
+    <title>Kubernetes E2E Testing with Chainsaw</title>
+    <link href="https://blorg.ericb.me/2024/08/chainsaw/index.html" />
+    <id>https://blorg.ericb.me/2024/08/chainsaw/index.html</id>
+    <published>2024-08-27T00:00:00Z</published>
+    <updated>27 August, 2024</updated>
+    <summary type="html"><![CDATA[
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle"/>
+    <span class="marginnote">
+      Written on 27 August, 2024
+
+      <br />
+      Updated on 27 August, 2024
+
+
+      <br />
+      Tags: <a title="All pages tagged &#39;kubernetes&#39;." href="/tag/kubernetes/index.html" rel="tag">kubernetes</a>, <a title="All pages tagged &#39;e2e-testing&#39;." href="/tag/e2e-testing/index.html" rel="tag">e2e-testing</a>
+
+    </span>
+  </p>
+</section>
+<section>
+  <p>
+<a href="https://kyverno.github.io/chainsaw/">Chainsaw</a> was developed to be used internally to continuously test <a href="https://kyverno.io/">Kyverno</a>. Due
+to its declarative YAML-based design and highly expressive assertion
+model,<label for='mn-auto.2856921' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.2856921' class='margin-toggle'><span class='marginnote'> <a href="https://kyverno.github.io/chainsaw/">Chainsaw</a>'s assertion model is based on <a href="https://kyverno.github.io/kyverno-json/">kyverno-json</a>. </span>
+it's generally useful for managing complex end to end tests.
+</p>
+
+<p>
+<span class="newthought">A common problem domain</span> on Kubernetes
+is management of DNS records to point to load balancers and certificates to
+secure them. Arguably, the industry standard tools are <a href="https://kubernetes-sigs.github.io/external-dns/">ExternalDNS</a> and
+<a href="https://cert-manager.io/">cert-manager</a>, respectively. Both rely on being able to manage particular DNS
+records,<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> Such as <code>CNAME</code> records to point to <code>Ingresses</code> of type <code>LoadBalancer</code> and <code>TXT</code> records to solve <a href="https://letsencrypt.org/docs/challenge-types/#dns-01-challenge">DNS-01 challenges</a>. </span> which requires
+appropriate cloud provider permissions, proper configuration ensuring the tools
+point to the correct DNS zones, etc. While it's fairly easy to reason about,
+there are many <del>moving parts</del> points of failure, making it complex to test.
+</p>
+
+
+<figure id="org0ce0959">
+<img src="https://farm8.staticflickr.com/7228/7239646948_8cf86fbdbf_b.jpg" alt="Handsaw">
+
+<figcaption><span class="figure-number">Figure 1: </span><a href="https://photos.jdhancock.com/photo/2012-05-21-011441-handsaw.html">Photo</a> by <a href="https://photos.jdhancock.com">JD Hancock</a> <a href="https://creativecommons.org/licenses/by/3.0/deed.en_US">cc</a></figcaption>
+</figure>
+
+<p>
+<span class="newthought">Fortunately</span>, Chainsaw makes it
+easy to define a <a href="https://kyverno.github.io/chainsaw/0.2.3/reference/apis/chainsaw.v1alpha1/#chainsaw-kyverno-io-v1alpha1-Test"><code>Test</code></a> covering the DNS management scenario.
+</p>
+
+<p>
+<label for='mn-auto.572549' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.572549' class='margin-toggle'><span class='marginnote'> This post is a literate program using <a href="https://orgmode.org/manual/Noweb-Reference-Syntax.html">Org Mode's noweb style syntax</a>. The <a href="https://manpages.org/notangle">tangled</a> results can be found <a href="https://github.com/yurrriq/blorg/tree/main/code/chainsaw">on GitHub</a>. </span>
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span><a href="https://github.com/yurrriq/blorg/blob/main/code/chainsaw/chainsaw-test.yaml">chainsaw-test.yaml</a></label><pre class="src src-yaml" id="org9beed48"><span style="color: #cae682;">apiVersion</span>: chainsaw.kyverno.io/v1alpha1
+<span style="color: #cae682;">kind</span>: Test
+<span style="color: #cae682;">metadata</span>:
+  <span style="color: #cae682;">name</span>: dns
+<span style="color: #cae682;">spec</span>:
+  <span style="color: #cae682;">description</span>: |
+    <span style="color: #95e454;">Verify the DNS management provided by cert-manager and ExternalDNS.</span>
+  <span style="color: #cae682;">steps</span>:
+    - <span style="color: #cae682;">name</span>: create-ingress
+      <span style="color: #cae682;">description</span>: |
+        <span style="color: #95e454;">Create an Ingress with rules for hosts matching each of the zones and</span>
+<span style="color: #95e454;">        names configured in the ClusterIssuer/letsencrypt-staging, including a</span>
+<span style="color: #95e454;">        single TLS certificate for all the DNS names.</span>
+      <span style="color: #cae682;">try</span>:
+        - <span style="color: #cae682;">description</span>: |
+            <span style="color: #95e454;">Parse the solvers from the ClusterIssuer/letsencrypt-staging.</span>
+          &lt;&lt;Parse the solvers from the ClusterIssuer&gt;&gt;
+        - <span style="color: #cae682;">description</span>: |
+            <span style="color: #95e454;">Create an nginx Deployment and Service as a backend.</span>
+          &lt;&lt;Create an nginx Deployment and Service as a backend&gt;&gt;
+        - <span style="color: #cae682;">description</span>: |
+            <span style="color: #95e454;">Create the Ingress.</span>
+          &lt;&lt;Create an Ingress for all zones and names, including TLS&gt;&gt;
+    - <span style="color: #cae682;">name</span>: verify-ingress
+      &lt;&lt;Verify the expected Ingress&gt;&gt;
+    - <span style="color: #cae682;">name</span>: verify-certificate
+      &lt;&lt;Verify the expected Certificate&gt;&gt;
+</pre>
+</div>
+
+<p>
+<span class="newthought">For the first step,</span> <label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> That is, a <a href="https://kyverno.github.io/chainsaw/0.2.3/reference/apis/chainsaw.v1alpha1/#chainsaw-kyverno-io-v1alpha1-TestStep">TestStep</a>. </span> assume the existence of a
+<code>ClusterIssuer/letsencrypt-staging</code> similar to the following, and parse its
+<a href="https://letsencrypt.org/docs/challenge-types/#dns-01-challenge">DNS-01</a> <a href="https://cert-manager.io/docs/reference/api-docs/#acme.cert-manager.io/v1.ACMEChallengeSolverDNS01">solvers</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="org7161a33"><span style="color: #cae682;">apiVersion</span>: cert-manager.io/v1
+<span style="color: #cae682;">kind</span>: ClusterIssuer
+<span style="color: #cae682;">metadata</span>:
+  <span style="color: #cae682;">name</span>: letsencrypt-staging
+<span style="color: #cae682;">spec</span>:
+  <span style="color: #cae682;">acme</span>:
+    <span style="color: #cae682;">privateKeySecretRef</span>:
+      <span style="color: #cae682;">name</span>: letsencrypt-staging
+    <span style="color: #cae682;">server</span>: https://acme-staging-v02.api.letsencrypt.org/directory
+    <span style="color: #cae682;">solvers</span>:
+      - <span style="color: #cae682;">dns01</span>:
+          <span style="color: #cae682;">route53</span>: {<span style="color: #cae682;">}</span>
+<span style="color: #cae682;">        selector</span>:
+          <span style="color: #cae682;">dnsZones</span>:
+            - foo.example.com
+      - <span style="color: #cae682;">dns01</span>:
+          <span style="color: #cae682;">route53</span>: {<span style="color: #cae682;">}</span>
+<span style="color: #cae682;">        selector</span>:
+          <span style="color: #cae682;">dnsZones</span>:
+            - bar.example.net
+      - <span style="color: #cae682;">dns01</span>:
+          <span style="color: #cae682;">route53</span>: {<span style="color: #cae682;">}</span>
+<span style="color: #cae682;">        selector</span>:
+          <span style="color: #cae682;">dnsNames</span>:
+            - baz.example.org
+</pre>
+</div>
+<p>
+<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> N.B. This example also assumes <a href="https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html">IRSA</a> is configured. </span>
+</p>
+
+<p>
+This <code>ClusterIssuer</code> is responsible for solving <a href="https://letsencrypt.org/docs/challenge-types/#dns-01-challenge">DNS-01 challenges</a> for the
+<code>foo.example.com</code> and <code>bar.example.net</code> zones, and for the specific DNS name
+<code>baz.example.org</code>.
+</p>
+
+<p>
+First, use <code>kubectl</code>'s <a href="https://kubernetes.io/docs/reference/kubectl/jsonpath/">JSONPath support</a> to extract just the <code>solvers</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="orga55bdd4">kubectl get clusterissuer/letsencrypt-staging <span style="color: #95e454;">\</span>
+    --output <span style="color: #cae682;">jsonpath</span>=<span style="color: #95e454;">'{.spec.acme.solvers}'</span>
+</pre>
+</div>
+
+<p>
+Parse <code>stdout</code> and bind the result to <code>$solvers</code>.<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> Refer to the Chainsaw documentation on <a href="https://kyverno.github.io/chainsaw/0.2.3/quick-start/operation-outputs/#load-an-existing-resource">loading an existing resource</a>. </span>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="orgf718da5">- <span style="color: #cae682;">name</span>: solvers
+  <span style="color: #cae682;">value</span>: (json_parse($stdout))
+</pre>
+</div>
+
+<p>
+From <code>$solvers</code> extract all the DNS names and zones as two flat arrays,
+leveraging Chainsaw's <a href="https://jmespath.site">JMESPath</a> support.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="orgf42ba8d">- <span style="color: #cae682;">name</span>: dns_names
+  <span style="color: #cae682;">value</span>: ($solvers[?selector.dnsNames].selector.dnsNames[])
+- <span style="color: #cae682;">name</span>: dns_zones
+  <span style="color: #cae682;">value</span>: ($solvers[?selector.dnsZones].selector.dnsZones[])
+</pre>
+</div>
+
+<p>
+Bring it all together to define the first <a href="https://kyverno.github.io/chainsaw/0.2.3/operations/"><code>Operation</code></a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="orgc025086"><span style="color: #cae682;">script</span>:
+  <span style="color: #cae682;">content</span>: |
+    <span style="color: #95e454;">&lt;&lt;Extract the solvers&gt;&gt;</span>
+  <span style="color: #cae682;">outputs</span>:
+    &lt;&lt;Parse stdout and bind the result to $solvers&gt;&gt;
+    &lt;&lt;Extract the names and zones&gt;&gt;
+</pre>
+</div>
+
+<p>
+<span class="newthought">Define a simple backend,</span> using a
+vanilla nginx container, to test the DNS management setup. Include a
+<code>Deployment</code>, <code>Service</code>, and, mostly importantly, an <code>Ingress</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="orgd9cd98a"><span style="color: #cae682;">apply</span>:
+  <span style="color: #cae682;">file</span>: nginx.yaml
+</pre>
+</div>
+
+<p>
+<label for='mn-auto.6293918' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6293918' class='margin-toggle'><span class='marginnote'> Since the particular backend is irrelevant to the test, just use a <code>Deployment</code> with a single <code>nginx:alpine</code> container to keep it simple. </span>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 2: </span><a href="https://github.com/yurrriq/blorg/blob/main/code/chainsaw/nginx.yaml">nginx.yaml</a></label><pre class="src src-yaml"><span style="color: #99968b;">---</span>
+<span style="color: #cae682;">apiVersion</span>: apps/v1
+<span style="color: #cae682;">kind</span>: Deployment
+<span style="color: #cae682;">metadata</span>:
+  <span style="color: #cae682;">name</span>: nginx
+<span style="color: #cae682;">spec</span>:
+  <span style="color: #cae682;">replicas</span>: 1
+  <span style="color: #cae682;">selector</span>:
+    <span style="color: #cae682;">matchLabels</span>:
+      <span style="color: #cae682;">app.kubernetes.io/name</span>: nginx
+  <span style="color: #cae682;">template</span>:
+    <span style="color: #cae682;">metadata</span>:
+      <span style="color: #cae682;">labels</span>:
+        <span style="color: #cae682;">app.kubernetes.io/name</span>: nginx
+    <span style="color: #cae682;">spec</span>:
+      <span style="color: #cae682;">containers</span>:
+        - <span style="color: #cae682;">name</span>: nginx
+          <span style="color: #cae682;">image</span>: nginx:alpine
+          <span style="color: #cae682;">ports</span>:
+            - <span style="color: #cae682;">containerPort</span>: 80
+              <span style="color: #cae682;">name</span>: http
+              <span style="color: #cae682;">protocol</span>: TCP
+</pre>
+</div>
+
+<p>
+<label for='mn-auto.6293918' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6293918' class='margin-toggle'><span class='marginnote'> Create a <code>Service</code> using the same selectors as the <code>Deployment</code>, which will be referenced by the <code>Ingress</code> rules. </span>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span style="color: #99968b;">---</span>
+<span style="color: #cae682;">apiVersion</span>: v1
+<span style="color: #cae682;">kind</span>: Service
+<span style="color: #cae682;">metadata</span>:
+  <span style="color: #cae682;">name</span>: nginx
+<span style="color: #cae682;">spec</span>:
+  <span style="color: #cae682;">selector</span>:
+    <span style="color: #cae682;">app.kubernetes.io/name</span>: nginx
+  <span style="color: #cae682;">ports</span>:
+    - <span style="color: #cae682;">name</span>: http
+      <span style="color: #cae682;">protocol</span>: TCP
+      <span style="color: #cae682;">port</span>: 80
+      <span style="color: #cae682;">targetPort</span>: http
+<span style="color: #cae682;">type</span>: ClusterIP
+</pre>
+</div>
+
+<p>
+With the boring <code>Deployment</code> and <code>Service</code> out of the way, define the <code>Ingress</code>,
+using several key Chainsaw features.
+</p>
+
+<p>
+<label for='mn-auto.6293918' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6293918' class='margin-toggle'><span class='marginnote'> This is one of the major selling points of Chainsaw. </span>
+<span class="newthought">For the Ingress,</span> <a href="https://kyverno.github.io/chainsaw/0.2.3/quick-start/bindings/">use bindings</a> to
+declare <code>$hosts</code> based on the <code>$dns_names</code> and <code>$dns_zones</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="org8948797"><span style="color: #cae682;">bindings</span>:
+  - <span style="color: #cae682;">name</span>: hosts
+    <span style="color: #cae682;">value</span>: ([$dns_names, $dns_zones[].join(<span style="color: #95e454;">'.'</span>, [<span style="color: #95e454;">'burek'</span>, @])][])
+  - <span style="color: #cae682;">name</span>: secret_name
+    <span style="color: #cae682;">value</span>: (join(<span style="color: #95e454;">'-'</span>, [$namespace, <span style="color: #95e454;">'tls'</span>]))
+</pre>
+</div>
+
+<p>
+Define <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules">rules</a> for each host in <code>$hosts</code>, again using <a href="https://jmespath.site">JMESPath</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="org7e0b801"><span style="color: #cae682;">rules</span>: |-
+  ($hosts[].{<span style="color: #95e454;">"host"</span>: @, <span style="color: #95e454;">"http"</span>: {<span style="color: #95e454;">"paths"</span>: [{<span style="color: #95e454;">"backend"</span>: {<span style="color: #95e454;">"service"</span>: {<span style="color: #95e454;">"name"</span>: <span style="color: #95e454;">'nginx'</span>, <span style="color: #95e454;">"port"</span>: {<span style="color: #95e454;">"number"</span>: `80`}}}, <span style="color: #95e454;">"path"</span>: <span style="color: #95e454;">'/'</span>, <span style="color: #95e454;">"pathType"</span>: <span style="color: #95e454;">'ImplementationSpecific'</span>}]}})
+</pre>
+</div>
+
+<p>
+Request a single certificate for each DNS name, in order to verify cert-manager
+is working as expected.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="org39af42c"><span style="color: #cae682;">tls</span>: |-
+  ([{<span style="color: #95e454;">"hosts"</span>: $hosts, <span style="color: #95e454;">"secretName"</span>: $secret_name}])
+</pre>
+</div>
+
+<p>
+Finally, define the <code>Operation</code> to create the <code>Ingress</code>.<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> N.B. The <code>Ingress</code> assumes an existing <code>IngressClass/alb</code>, such as part of an installation of the <a href="https://kubernetes-sigs.github.io/aws-load-balancer-controller/">AWS Load Balancer Controller</a>. </span>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="org288531e"><span style="color: #cae682;">apply</span>:
+  &lt;&lt;Define some bindings for the Ingress&gt;&gt;
+  <span style="color: #cae682;">resource</span>:
+    <span style="color: #cae682;">apiVersion</span>: networking.k8s.io/v1
+    <span style="color: #cae682;">kind</span>: Ingress
+    <span style="color: #cae682;">metadata</span>:
+      <span style="color: #cae682;">annotations</span>:
+        <span style="color: #cae682;">alb.ingress.kubernetes.io/scheme</span>: internal
+        <span style="color: #cae682;">alb.ingress.kubernetes.io/target-type</span>: ip
+        <span style="color: #cae682;">cert-manager.io/cluster-issuer</span>: letsencrypt-staging
+      <span style="color: #cae682;">name</span>: ($namespace)
+    <span style="color: #cae682;">spec</span>:
+      <span style="color: #cae682;">ingressClassName</span>: alb
+      &lt;&lt;Define rules for each host in $hosts&gt;&gt;
+      &lt;&lt;Declare a single TLS secret for all hosts&gt;&gt;
+</pre>
+</div>
+
+<p>
+<span class="newthought">With those resources created,</span> it's time
+to verify the <code>Ingress</code>.<label for='mn-auto.6293918' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.6293918' class='margin-toggle'><span class='marginnote'> Verifying DNS records is left as an exercise to the reader. </span> The main idea here is to use a <a href="https://jmespath.site">JMESPath</a> expression
+and assert the result is <code>true</code>, i.e., ensure the presence of
+<code>status.loadBalancer.ingress</code>, meaning a load balancer was successfully
+provisioned.<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> cf. <a href="https://kyverno.github.io/chainsaw/0.2.3/quick-start/assertion-trees/#beyond-simple-equality">Beyond simple equality</a> </span>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="orge449b50"><span style="color: #cae682;">description</span>: |
+  <span style="color: #95e454;">Verify the Ingress and dump ExternalDNS logs. Otherwise dump LBC logs.</span>
+<span style="color: #cae682;">try</span>:
+  - <span style="color: #cae682;">description</span>: |
+     <span style="color: #95e454;">Ensure the Ingress has successfully provisioned a load balancer</span>
+<span style="color: #95e454;">     within 5m.</span>
+    <span style="color: #cae682;">assert</span>:
+      <span style="color: #cae682;">resource</span>:
+        <span style="color: #cae682;">apiVersion</span>: networking.k8s.io/v1
+        <span style="color: #cae682;">kind</span>: Ingress
+        <span style="color: #cae682;">metadata</span>:
+          <span style="color: #cae682;">name</span>: ($namespace)
+        (status.loadBalancer.ingress <span style="color: #92a65e; font-weight: bold;">!=</span> null): <span style="color: #e5786d;">true</span>
+      <span style="color: #cae682;">timeout</span>: 5m
+<span style="color: #cae682;">catch</span>:
+  - <span style="color: #cae682;">description</span>: |
+      <span style="color: #95e454;">Dump LBC logs.</span>
+    <span style="color: #cae682;">podLogs</span>:
+      <span style="color: #cae682;">container</span>: aws-load-balancer-controller
+      <span style="color: #cae682;">namespace</span>: kube-system
+      <span style="color: #cae682;">selector</span>: app.kubernetes.io/name=aws-load-balancer-controller
+      <span style="color: #cae682;">tail</span>: 30
+<span style="color: #cae682;">finally</span>:
+  - <span style="color: #cae682;">description</span>: |
+      <span style="color: #95e454;">Dump ExternalDNS logs.</span>
+    <span style="color: #cae682;">podLogs</span>:
+      <span style="color: #cae682;">container</span>: external-dns
+      <span style="color: #cae682;">namespace</span>: kube-system
+      <span style="color: #cae682;">selector</span>: app.kubernetes.io/name=external-dns
+      <span style="color: #cae682;">tail</span>: 30
+</pre>
+</div>
+
+<p>
+<span class="newthought">Verifying the Certificate</span> is more
+straightforward, not least because <a href="https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate"><code>Certificate</code></a> is a Kubernetes
+resource. cert-manager won't mark it as ready until Let's Encrypt has
+successfully issued it. The issuance shouldn't take more than five
+minutes,<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> It's also possible to <a href="https://kyverno.github.io/chainsaw/0.2.3/configuration/options/timeouts/">configure timeouts globally</a><br> instead of per operation. </span> so give up and dump the last 30 cert-manager log lines if
+it's been longer.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml" id="org049cd7c"><span style="color: #cae682;">description</span>: |
+  <span style="color: #95e454;">Verify the expected certificate. Otherwise dump cert-manager logs.</span>
+<span style="color: #cae682;">try</span>:
+  - <span style="color: #cae682;">description</span>: |
+      <span style="color: #95e454;">Ensure the Certificate is ready within 5m.</span>
+    <span style="color: #cae682;">assert</span>:
+      <span style="color: #cae682;">resource</span>:
+        <span style="color: #cae682;">apiVersion</span>: cert-manager.io/v1
+        <span style="color: #cae682;">kind</span>: Certificate
+        <span style="color: #cae682;">metadata</span>:
+          <span style="color: #cae682;">name</span>: (join(<span style="color: #95e454;">'-'</span>, [$namespace, <span style="color: #95e454;">'tls'</span>]))
+        <span style="color: #cae682;">status</span>:
+          (conditions[?type == <span style="color: #95e454;">'Ready'</span>]):
+            - <span style="color: #cae682;">status</span>: <span style="color: #95e454;">"True"</span>
+      <span style="color: #cae682;">timeout</span>: 5m
+<span style="color: #cae682;">catch</span>:
+  - <span style="color: #cae682;">description</span>: |
+      <span style="color: #95e454;">Dump cert-manager logs.</span>
+    <span style="color: #cae682;">podLogs</span>:
+      <span style="color: #cae682;">container</span>: cert-manager-controller
+      <span style="color: #cae682;">namespace</span>: cert-manager
+      <span style="color: #cae682;">selector</span>: app.kubernetes.io/name=cert-manager
+      <span style="color: #cae682;">tail</span>: 30
+</pre>
+</div>
+
+<p>
+<span class="newthought">Chainsaw's power</span> makes it an
+indispensable tool. Writing complex tests using YAML<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><input type='checkbox' id='mn-auto.9790334' class='margin-toggle'><span class='marginnote'> Admittedly, said YAML is rather complex and includes extra features such as <a href="https://jmespath.site">JMESPath</a> support. </span> is a pleasant experience, compared to something like Go with
+substantial and unavoidable boilerplate. As a bonus, it has a very
+Kubernetes-native feel. This post only scratches the surface of what Chainsaw
+can do. It supports <a href="https://kyverno.github.io/chainsaw/0.2.3/quick-start/run-tests/">kind</a>, <a href="https://kyverno.github.io/chainsaw/0.2.3/examples/multi-cluster/">multi-cluster setups</a>, <a href="https://kyverno.github.io/chainsaw/0.2.3/guides/test-docs/">building documention of tests</a>,
+and much more!
+</p>
+
+<div class="epigraph" id="orgc36236b">
+<blockquote>
+<p>
+Let's head down into that cellar and carve ourselves a witch.
+</p>
+<footer>Ash Williams, <cite><a href="https://letterboxd.com/film/evil-dead-ii/">Evil Dead II</a></cite> (1987)</footer></blockquote>
+
+</div>
+
+</section>
+]]></summary>
+</entry>
+
+</feed>
