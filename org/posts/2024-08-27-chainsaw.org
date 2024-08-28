@@ -6,7 +6,7 @@
 title: "Kubernetes E2E Testing with Chainsaw"
 author: Eric Bailey
 tags: kubernetes, e2e-testing
-updated: 27 August, 2024
+updated: 28 August, 2024
 ---
 #+end_export
 
@@ -43,22 +43,22 @@ kind: Test
 metadata:
   name: dns
 spec:
-  description: |
+  description: |-
     Verify the DNS management provided by cert-manager and ExternalDNS.
   steps:
     - name: create-ingress
-      description: |
+      description: |-
         Create an Ingress with rules for hosts matching each of the zones and
         names configured in the ClusterIssuer/letsencrypt-staging, including a
         single TLS certificate for all the DNS names.
       try:
-        - description: |
+        - description: |-
             Parse the solvers from the ClusterIssuer/letsencrypt-staging.
           <<Parse the solvers from the ClusterIssuer>>
-        - description: |
+        - description: |-
             Create an nginx Deployment and Service as a backend.
           <<Create an nginx Deployment and Service as a backend>>
-        - description: |
+        - description: |-
             Create the Ingress.
           <<Create an Ingress for all zones and names, including TLS>>
     - name: verify-ingress
@@ -270,10 +270,10 @@ provisioned.{{{marginnote(cf. [[https://kyverno.github.io/chainsaw/0.2.3/quick-s
 
 #+name: Verify the expected Ingress
 #+begin_src yaml
-description: |
+description: |-
   Verify the Ingress and dump ExternalDNS logs. Otherwise dump LBC logs.
 try:
-  - description: |
+  - description: |-
      Ensure the Ingress has successfully provisioned a load balancer
      within 5m.
     assert:
@@ -285,7 +285,7 @@ try:
         (status.loadBalancer.ingress != null): true
       timeout: 5m
 catch:
-  - description: |
+  - description: |-
       Dump LBC logs.
     podLogs:
       container: aws-load-balancer-controller
@@ -293,7 +293,7 @@ catch:
       selector: app.kubernetes.io/name=aws-load-balancer-controller
       tail: 30
 finally:
-  - description: |
+  - description: |-
       Dump ExternalDNS logs.
     podLogs:
       container: external-dns
@@ -312,10 +312,10 @@ it's been longer.
 
 #+name: Verify the expected Certificate
 #+begin_src yaml
-description: |
+description: |-
   Verify the expected certificate. Otherwise dump cert-manager logs.
 try:
-  - description: |
+  - description: |-
       Ensure the Certificate is ready within 5m.
     assert:
       resource:
@@ -328,7 +328,7 @@ try:
             - status: "True"
       timeout: 5m
 catch:
-  - description: |
+  - description: |-
       Dump cert-manager logs.
     podLogs:
       container: cert-manager-controller
