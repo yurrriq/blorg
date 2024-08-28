@@ -3,16 +3,16 @@ kind: Test
 metadata:
   name: dns
 spec:
-  description: |
+  description: |-
     Verify the DNS management provided by cert-manager and ExternalDNS.
   steps:
     - name: create-ingress
-      description: |
+      description: |-
         Create an Ingress with rules for hosts matching each of the zones and
         names configured in the ClusterIssuer/letsencrypt-staging, including a
         single TLS certificate for all the DNS names.
       try:
-        - description: |
+        - description: |-
             Parse the solvers from the ClusterIssuer/letsencrypt-staging.
           script:
             content: |
@@ -25,11 +25,11 @@ spec:
                 value: ($solvers[?selector.dnsNames].selector.dnsNames[])
               - name: dns_zones
                 value: ($solvers[?selector.dnsZones].selector.dnsZones[])
-        - description: |
+        - description: |-
             Create an nginx Deployment and Service as a backend.
           apply:
             file: nginx.yaml
-        - description: |
+        - description: |-
             Create the Ingress.
           apply:
             bindings:
@@ -53,10 +53,10 @@ spec:
                 tls: |-
                   ([{"hosts": $hosts, "secretName": $secret_name}])
     - name: verify-ingress
-      description: |
+      description: |-
         Verify the Ingress and dump ExternalDNS logs. Otherwise dump LBC logs.
       try:
-        - description: |
+        - description: |-
            Ensure the Ingress has successfully provisioned a load balancer
            within 5m.
           assert:
@@ -68,7 +68,7 @@ spec:
               (status.loadBalancer.ingress != null): true
             timeout: 5m
       catch:
-        - description: |
+        - description: |-
             Dump LBC logs.
           podLogs:
             container: aws-load-balancer-controller
@@ -76,7 +76,7 @@ spec:
             selector: app.kubernetes.io/name=aws-load-balancer-controller
             tail: 30
       finally:
-        - description: |
+        - description: |-
             Dump ExternalDNS logs.
           podLogs:
             container: external-dns
@@ -84,10 +84,10 @@ spec:
             selector: app.kubernetes.io/name=external-dns
             tail: 30
     - name: verify-certificate
-      description: |
+      description: |-
         Verify the expected certificate. Otherwise dump cert-manager logs.
       try:
-        - description: |
+        - description: |-
             Ensure the Certificate is ready within 5m.
           assert:
             resource:
@@ -100,7 +100,7 @@ spec:
                   - status: "True"
             timeout: 5m
       catch:
-        - description: |
+        - description: |-
             Dump cert-manager logs.
           podLogs:
             container: cert-manager-controller

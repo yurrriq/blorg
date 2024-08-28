@@ -10,13 +10,13 @@
         <email>eric@ericb.me</email>
         
     </author>
-    <updated>27 August, 2024</updated>
+    <updated>28 August, 2024</updated>
     <entry>
     <title>Kubernetes E2E Testing with Chainsaw</title>
     <link href="https://blorg.ericb.me/2024/08/chainsaw/index.html" />
     <id>https://blorg.ericb.me/2024/08/chainsaw/index.html</id>
     <published>2024-08-27T00:00:00Z</published>
-    <updated>27 August, 2024</updated>
+    <updated>28 August, 2024</updated>
     <summary type="html"><![CDATA[
 <p class="subtitle">Eric Bailey</p>
 
@@ -28,7 +28,7 @@
       Written on 27 August, 2024
 
       <br />
-      Updated on 27 August, 2024
+      Updated on 28 August, 2024
 
 
       <br />
@@ -77,22 +77,22 @@ easy to define a <a href="https://kyverno.github.io/chainsaw/0.2.3/reference/api
 <span style="color: #cae682;">metadata</span>:
   <span style="color: #cae682;">name</span>: dns
 <span style="color: #cae682;">spec</span>:
-  <span style="color: #cae682;">description</span>: |
+  <span style="color: #cae682;">description</span>: |-
     <span style="color: #95e454;">Verify the DNS management provided by cert-manager and ExternalDNS.</span>
   <span style="color: #cae682;">steps</span>:
     - <span style="color: #cae682;">name</span>: create-ingress
-      <span style="color: #cae682;">description</span>: |
+      <span style="color: #cae682;">description</span>: |-
         <span style="color: #95e454;">Create an Ingress with rules for hosts matching each of the zones and</span>
 <span style="color: #95e454;">        names configured in the ClusterIssuer/letsencrypt-staging, including a</span>
 <span style="color: #95e454;">        single TLS certificate for all the DNS names.</span>
       <span style="color: #cae682;">try</span>:
-        - <span style="color: #cae682;">description</span>: |
+        - <span style="color: #cae682;">description</span>: |-
             <span style="color: #95e454;">Parse the solvers from the ClusterIssuer/letsencrypt-staging.</span>
           &lt;&lt;Parse the solvers from the ClusterIssuer&gt;&gt;
-        - <span style="color: #cae682;">description</span>: |
+        - <span style="color: #cae682;">description</span>: |-
             <span style="color: #95e454;">Create an nginx Deployment and Service as a backend.</span>
           &lt;&lt;Create an nginx Deployment and Service as a backend&gt;&gt;
-        - <span style="color: #cae682;">description</span>: |
+        - <span style="color: #cae682;">description</span>: |-
             <span style="color: #95e454;">Create the Ingress.</span>
           &lt;&lt;Create an Ingress for all zones and names, including TLS&gt;&gt;
     - <span style="color: #cae682;">name</span>: verify-ingress
@@ -330,10 +330,10 @@ provisioned.<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><i
 </p>
 
 <div class="org-src-container">
-<pre class="src src-yaml" id="orge449b50"><span style="color: #cae682;">description</span>: |
+<pre class="src src-yaml" id="orge449b50"><span style="color: #cae682;">description</span>: |-
   <span style="color: #95e454;">Verify the Ingress and dump ExternalDNS logs. Otherwise dump LBC logs.</span>
 <span style="color: #cae682;">try</span>:
-  - <span style="color: #cae682;">description</span>: |
+  - <span style="color: #cae682;">description</span>: |-
      <span style="color: #95e454;">Ensure the Ingress has successfully provisioned a load balancer</span>
 <span style="color: #95e454;">     within 5m.</span>
     <span style="color: #cae682;">assert</span>:
@@ -345,7 +345,7 @@ provisioned.<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><i
         (status.loadBalancer.ingress <span style="color: #92a65e; font-weight: bold;">!=</span> null): <span style="color: #e5786d;">true</span>
       <span style="color: #cae682;">timeout</span>: 5m
 <span style="color: #cae682;">catch</span>:
-  - <span style="color: #cae682;">description</span>: |
+  - <span style="color: #cae682;">description</span>: |-
       <span style="color: #95e454;">Dump LBC logs.</span>
     <span style="color: #cae682;">podLogs</span>:
       <span style="color: #cae682;">container</span>: aws-load-balancer-controller
@@ -353,7 +353,7 @@ provisioned.<label for='mn-auto.9790334' class='margin-toggle'>&#8853;</label><i
       <span style="color: #cae682;">selector</span>: app.kubernetes.io/name=aws-load-balancer-controller
       <span style="color: #cae682;">tail</span>: 30
 <span style="color: #cae682;">finally</span>:
-  - <span style="color: #cae682;">description</span>: |
+  - <span style="color: #cae682;">description</span>: |-
       <span style="color: #95e454;">Dump ExternalDNS logs.</span>
     <span style="color: #cae682;">podLogs</span>:
       <span style="color: #cae682;">container</span>: external-dns
@@ -373,10 +373,10 @@ it's been longer.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-yaml" id="org049cd7c"><span style="color: #cae682;">description</span>: |
+<pre class="src src-yaml" id="org049cd7c"><span style="color: #cae682;">description</span>: |-
   <span style="color: #95e454;">Verify the expected certificate. Otherwise dump cert-manager logs.</span>
 <span style="color: #cae682;">try</span>:
-  - <span style="color: #cae682;">description</span>: |
+  - <span style="color: #cae682;">description</span>: |-
       <span style="color: #95e454;">Ensure the Certificate is ready within 5m.</span>
     <span style="color: #cae682;">assert</span>:
       <span style="color: #cae682;">resource</span>:
@@ -389,7 +389,7 @@ it's been longer.
             - <span style="color: #cae682;">status</span>: <span style="color: #95e454;">"True"</span>
       <span style="color: #cae682;">timeout</span>: 5m
 <span style="color: #cae682;">catch</span>:
-  - <span style="color: #cae682;">description</span>: |
+  - <span style="color: #cae682;">description</span>: |-
       <span style="color: #95e454;">Dump cert-manager logs.</span>
     <span style="color: #cae682;">podLogs</span>:
       <span style="color: #cae682;">container</span>: cert-manager-controller
