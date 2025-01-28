@@ -1,0 +1,223 @@
+#+startup: showall
+#+options: toc:nil ^:{}
+#+property: header-args :exports code
+#+begin_export html
+---
+title: Generating Binary Necklaces
+author: Eric Bailey
+tags: haskell, combinatorics, necklaces, mathematics
+updated: 05 February, 2025
+---
+#+end_export
+
+#+caption: @@html:<cite>@@[[http://www.combos.org/necklace][The Combinatorial Object Server]]@@html:</cite>@@
+#+begin_quote
+A /necklace/ is an equivalence class of \(k\)-ary strings under rotation.
+#+end_quote
+
+Ruskey, Savage, and Wang (RSW) [[https://webhome.cs.uvic.ca/~ruskey/Publications/GenNecklaces/GenNecklaces.html][present]] a recursive algorithm for generating a
+tree of necklaces of a given length, staring with \(0^n\) as root. Children of
+each node \(x\) are necklaces[[mn:1][A necklace is the lexicographically smallest
+rotation.]] of the form \(\tau\sigma^j(x)\) for \(1 \le j \le n -1\), where
+\(\sigma(x_1 \dotsm x_n) = x_2 \dotsm x_n x_1\), i.e., rotation left by one
+position, and \(\tau(x_1 \dotsm x_n) = x_1 \dotsm x_{n-1}
+\overline{x_n}\)[[mn:2][\(\overline{x_n}\) denotes the complement of \(x_n\).]].
+
+@@html:<span class="newthought">@@For example,@@html:</span>@@ with \(n = 4\),
+the root of the tree is \(0^n = 0000\). All rotations of \(0000\) are equal, so
+the first child is \(\tau(0000) = 0001\).
+
+#+begin_example
+0000
+|
+`- 0001
+#+end_example
+
+To find the children of \(0001\), consider all rotations \(\sigma^j(0001) =
+\Set{0010, 0100, 1000}\) then apply \(\tau\) to each of them:
+\(\tau\sigma^j(0001) = \Set{0011, 0101, 1001}\).
+
+\(\min\left(\sigma^j(0011)\right) = \sigma(0011) = 0110\) and \(0011 < 0110\),
+so \(0011\) is a necklace.
+
+#+begin_example
+0000
+|
+`- 0001
+   |
+   `- 0011
+#+end_example
+
+\(\min\left(\sigma^j(0101)\right) = \sigma^2(0101) = 0101\), and \(0101 \le
+0101\), so \(0101\) is a necklace.
+
+#+begin_example
+0000
+|
+`- 0001
+   |
+   +- 0011
+   |
+   `- 0101
+#+end_example
+
+\(1001\) is not a necklace, because \(\min\left(\sigma^j(1001)\right) =
+\sigma(1001) = 0011\) and \(1001 > 0011\).
+
+Next, consider possible children of \(0011\): \(\tau\sigma^j(0011) = \Set{0111,
+1101, 1000}\).
+
+\(\min\left(\sigma^j(0111)\right) = \sigma^3(0111) = 1011\), and \(0111 <
+1011\), so \(0111\) is a necklace.
+
+#+begin_example
+0000
+|
+`- 0001
+   |
+   `- 0011
+      |
+      `- 0111
+#+end_example
+
+\(\min\left(\sigma^j(1101)\right) = \sigma^2(1101) = 0111\) and \(1101 > 0111\),
+so \(1101\) is not a necklace.
+
+\(\min\left(\sigma^j(1000)\right) = \sigma(1000) = 0001\) and \(1000 > 0001\),
+so \(1000\) is not a necklace.
+
+Next, consider possible children of \(0101\): \(\tau\sigma^j(0101) = \Set{1011,
+0100}\)[[mn:6][\(\tau\sigma(0101) = 1011 = \tau\sigma^3(0101)\), so
+\(\left|\tau\sigma^j(0101)\right| = 2\).]].
+
+\(\min\left(\sigma^j(1011)\right) = \sigma(1011) = 0111\) and \(1011 > 0111\),
+so \(1011\) is not a necklace.
+
+\(\min\left(\sigma^j(0100)\right) = \sigma^2(0100) = 0001\) and \(0100 > 0001\),
+so \(0100\) is not a necklace.
+
+Finally, consider children of \(0111\): \(\tau\sigma^j(0111) = \Set{1111, 1100,
+1010}\).
+
+\(\min\left(\sigma^j(1111)\right) = 1111\), so \(1111\) is a necklace.
+
+#+begin_example
+0000
+|
+`- 0001
+   |
+   +- 0011
+   |  |
+   |  `- 0111
+   |     |
+   |     `- 1111
+   |
+   `- 0101
+#+end_example
+
+\(\min\left(\sigma^j(1100)\right) = \sigma^2(1100) = 0011\) and \(1100 > 0011\),
+so \(1100\) is not a necklace.
+
+\(\min\left(\sigma^j(1010)\right) = \sigma(1010) = \sigma^3(1010) = 0101\) and
+\(1010 > 0101\), so \(1010\) is not a necklace.
+
+@@html:<span class="newthought">@@The Haskell package@@html:</span>@@ [[https://hackage.haskell.org/package/containers][containers]]
+provides a rose tree data type [[https://hackage.haskell.org/package/containers/docs/Data-Tree.html#t:Tree][=Tree=]] and the [[https://hackage.haskell.org/package/containers/docs/Data-Tree.html#v:unfoldTree][=unfoldTree=]] function lends it
+self nicely to recursive algorithms such as RSW. =unfoldTree f b= constructs a
+tree with =b= as the root by repeatedly applying =f= to each node to generate
+its children. Thus, RSW's =search= function can be implemented in Haskell as
+follows.
+
+Define the rotation of a necklace, encoded as an \(n\)-bit integer, left by one
+bit[[mn:4][Since rotating an integer by one bit can result in more than \(n\) bits, take
+the result modulo \(2^n - 1\).]].
+
+#+name: Rotate a necklace left by one position
+#+begin_src haskell
+σ necklace = rotateL necklace 1 `mod` m
+#+end_src
+
+Continuing the theme of bit twiddling, define \(m = 2^n - 1\).
+
+#+name: The bitstring 1ⁿ, encoded as an integer
+#+begin_src haskell
+m = shiftL 1 n - 1
+#+end_src
+
+Then define all rotations of a necklace [[mn:5][For example, \(\sigma^j(11010) =
+\Set{10101, 01011, 10110, 01101}\).]].
+
+#+name: All rotations of a necklace
+#+begin_src haskell
+σʲ = take (n - 1) . tail . iterate σ
+#+end_src
+
+Since \(m \equiv 0 \bmod m\), and \(\sigma^j(m) = m\) for \(1 \le j \le n - 1\),
+\(m\) is special case. So, a necklace is either \(m\) or the lexicographically
+smallest rotation.
+
+#+name: Determine whether a given string is a necklace
+#+begin_src haskell
+isNecklace necklace =
+  necklace == m
+    || all (necklace <=) (σʲ necklace)
+#+end_src
+
+Next, define \(\tau\).
+
+#+name: Flip the least significant bit
+#+begin_src haskell
+τ = flip complementBit 0
+#+end_src
+
+Finally, define =search= from RSW, i.e., the unfolding function to build the
+tree of binary necklaces starting with a given root.
+
+#+name: Generate the children of a given necklace
+#+begin_src haskell
+search necklace
+  | necklace == m =
+    (necklace, [])
+  | otherwise =
+    (necklace, takeWhile isNecklace (map τ (σʲ necklace)))
+#+end_src
+
+Bringing it all together, define a function to generate all binary necklaces of
+a given length.
+
+#+begin_src haskell :noweb yes
+necklacesRSW :: (Integral a, Bits a) => Int -> Tree a
+necklacesRSW 0 = Node 0 []
+necklacesRSW n = Node 0 [unfoldTree search 1]
+  where
+    <<Rotate a necklace left by one position>>
+    <<All rotations of a necklace>>
+
+    <<Flip the least significant bit>>
+
+    <<Generate the children of a given necklace>>
+
+    <<Determine whether a given string is a necklace>>
+
+    <<The bitstring 1ⁿ, encoded as an integer>>
+#+end_src
+
+@@html:<span class="newthought">@@Rosetta Code@@html:</span>@@ includes a
+[[https://rosettacode.org/wiki/De_Bruijn_sequences#Permutation-based][permutation-based]] approach for generating Lyndon words, which can be used to
+generate binary necklaces as follows.
+
+#+begin_src haskell
+necklaces :: Int -> [[Int]]
+necklaces n =
+  map (reverse . take n . cycle) $
+    lyndonWords [0, 1] n
+#+end_src
+
+@@html:<span class="newthought">@@Interestingly,@@html:</span>@@ as described in
+[[https://abrazol.com/books/rhythm1/][Creating Rhythms by Stefan Hollos and J. Richard Hollos]], binary necklaces can
+represent rhythms, where a \(1\) indicates an [[https://en.wikipedia.org/wiki/Onset_(audio)][onset]]. For example, the [[https://www.berklee.edu/berklee-now/news/what-is-dembow-tracing-the-roots-of-a-global-phenomenon][dembow
+riddim]] can be represented by the following \(8\)-digit bitstrings, which can
+efficiently be encoded as \(8\)-bit unsigned integers.
+
+| Kick  | \(10001000\) | \(2^7 + 2^3 = 136\) |
+| Snare | \(00010010\) | \(2^4 + 2^1 = 18\)  |
