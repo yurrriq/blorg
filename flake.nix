@@ -11,7 +11,7 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.follows = "nixpkgs-stable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     pre-commit-hooks-nix = {
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -151,7 +151,6 @@
         };
 
         treefmt = {
-          projectRootFile = ./flake.nix;
           programs = {
             deadnix.enable = true;
             erlfmt.enable = true;

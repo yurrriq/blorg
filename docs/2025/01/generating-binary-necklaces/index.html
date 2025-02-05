@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blorg.ericb.me - Generating Binary Necklaces</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" integrity="sha512-F5lKjC1GKbwLFXdThwMWx8yF8TX/WVrdhWYN9PWb6eb5hIRLmO463nrpqLnEUHxy2EHIzfC4dq/mncHD6ndR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" type="text/css" href="/css/ox-tufte.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../../../css/eb-tufte.css" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,400italic" rel="stylesheet" type="text/css" />
+  <link href="../../../index.atom" rel="alternate" title="atom" type="application/atom+xml">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" integrity="sha512-EtUjpk/hY3NXp8vfrPUJWhepp1ZbgSI10DKPzfd+3J/p2Wo89JRBvQIdk3Q83qAEhKOiFOsYfhqFnOEv23L+dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://use.fontawesome.com/668158b00e.js"></script>
+</head>
+
+  <body>
+    <!-- <header> -->
+<!--   <nav class="group"> -->
+<!--     <a href="/"><img class="badge" src="/images/glider.svg" alt="Glider" /></a> -->
+<!--     <a href="/about/">About</a> -->
+<!--     <\!-- <a href="/contact.html">Contact</a> -\-> -->
+<!--     <a href="/posts/">Posts</a> -->
+<!--     <a href="https://github.com/yurrriq/blorg">Source</a> -->
+<!--   </nav> -->
+<!-- </header> -->
+
+    <article>
+      <h1>Generating Binary Necklaces</h1>
+      
+<p class="subtitle">Eric Bailey</p>
+
+<section>
+  <p>
+    <label for="mn-post-metadata" class="margin-toggle">⊕</label>
+    <input type="checkbox" id="mn-post-metadata" class="margin-toggle" />
+    <span class="marginnote">
+      Written on 27 January, 2025
+
+      <br />
+      Updated on 05 February, 2025
+
+
+      <br />
+      Tags: <a title="All pages tagged 'haskell'." href="../../../tag/haskell/" rel="tag">haskell</a>, <a title="All pages tagged 'combinatorics'." href="../../../tag/combinatorics/" rel="tag">combinatorics</a>, <a title="All pages tagged 'necklaces'." href="../../../tag/necklaces/" rel="tag">necklaces</a>, <a title="All pages tagged 'mathematics'." href="../../../tag/mathematics/" rel="tag">mathematics</a>
+
+    </span>
+  </p>
+</section>
+<section>
+  <blockquote>
+<p>
+A <i>necklace</i> is an equivalence class of \(k\)-ary strings under rotation.
+</p>
+<footer><cite><a href="http://www.combos.org/necklace">The Combinatorial Object Server</a></cite></footer></blockquote>
+
+<p>
+Ruskey, Savage, and Wang (RSW) <a href="https://webhome.cs.uvic.ca/~ruskey/Publications/GenNecklaces/GenNecklaces.html">present</a> a recursive algorithm for generating a
+tree of necklaces of a given length, staring with \(0^n\) as root. Children of
+each node \(x\) are necklaces<label for="mn-1.7953239" class="margin-toggle">⊕</label><input type="checkbox" id="mn-1.7953239" class="margin-toggle"><span class="marginnote">A necklace is the lexicographically smallest
+rotation.</span> of the form \(\tau\sigma^j(x)\) for \(1 \le j \le n -1\), where
+\(\sigma(x_1 \dotsm x_n) = x_2 \dotsm x_n x_1\), i.e., rotation left by one
+position, and \(\tau(x_1 \dotsm x_n) = x_1 \dotsm x_{n-1}
+\overline{x_n}\)<label for="mn-2.7849163" class="margin-toggle">⊕</label><input type="checkbox" id="mn-2.7849163" class="margin-toggle"><span class="marginnote">\(\overline{x_n}\) denotes the complement of \(x_n\).</span>.
+</p>
+
+<p>
+<span class="newthought">For example,</span> with \(n = 4\),
+the root of the tree is \(0^n = 0000\). All rotations of \(0000\) are equal, so
+the first child is \(\tau(0000) = 0001\).
+</p>
+
+<pre class="example" id="orgd98eb26">
+0000
+|
+`- 0001
+</pre>
+
+<p>
+To find the children of \(0001\), consider all rotations \(\sigma^j(0001) =
+\Set{0010, 0100, 1000}\) then apply \(\tau\) to each of them:
+\(\tau\sigma^j(0001) = \Set{0011, 0101, 1001}\).
+</p>
+
+<p>
+\(\min\left(\sigma^j(0011)\right) = \sigma(0011) = 0110\) and \(0011 < 0110\),
+so \(0011\) is a necklace.
+</p>
+
+<pre class="example" id="org7925b9e">
+0000
+|
+`- 0001
+   |
+   `- 0011
+</pre>
+
+<p>
+\(\min\left(\sigma^j(0101)\right) = \sigma^2(0101) = 0101\), and \(0101 \le
+0101\), so \(0101\) is a necklace.
+</p>
+
+<pre class="example" id="orgee35afe">
+0000
+|
+`- 0001
+   |
+   +- 0011
+   |
+   `- 0101
+</pre>
+
+<p>
+\(1001\) is not a necklace, because \(\min\left(\sigma^j(1001)\right) =
+\sigma(1001) = 0011\) and \(1001 > 0011\).
+</p>
+
+<p>
+Next, consider possible children of \(0011\): \(\tau\sigma^j(0011) = \Set{0111,
+1101, 1000}\).
+</p>
+
+<p>
+\(\min\left(\sigma^j(0111)\right) = \sigma^3(0111) = 1011\), and \(0111 <
+1011\), so \(0111\) is a necklace.
+</p>
+
+<pre class="example" id="org0ce0959">
+0000
+|
+`- 0001
+   |
+   `- 0011
+      |
+      `- 0111
+</pre>
+
+<p>
+\(\min\left(\sigma^j(1101)\right) = \sigma^2(1101) = 0111\) and \(1101 > 0111\),
+so \(1101\) is not a necklace.
+</p>
+
+<p>
+\(\min\left(\sigma^j(1000)\right) = \sigma(1000) = 0001\) and \(1000 > 0001\),
+so \(1000\) is not a necklace.
+</p>
+
+<p>
+Next, consider possible children of \(0101\): \(\tau\sigma^j(0101) = \Set{1011,
+0100}\)<label for="mn-6.572549" class="margin-toggle">⊕</label><input type="checkbox" id="mn-6.572549" class="margin-toggle"><span class="marginnote">\(\tau\sigma(0101) = 1011 = \tau\sigma^3(0101)\), so
+\(\left|\tau\sigma^j(0101)\right| = 2\).</span>.
+</p>
+
+<p>
+\(\min\left(\sigma^j(1011)\right) = \sigma(1011) = 0111\) and \(1011 > 0111\),
+so \(1011\) is not a necklace.
+</p>
+
+<p>
+\(\min\left(\sigma^j(0100)\right) = \sigma^2(0100) = 0001\) and \(0100 > 0001\),
+so \(0100\) is not a necklace.
+</p>
+
+<p>
+Finally, consider children of \(0111\): \(\tau\sigma^j(0111) = \Set{1111, 1100,
+1010}\).
+</p>
+
+<p>
+\(\min\left(\sigma^j(1111)\right) = 1111\), so \(1111\) is a necklace.
+</p>
+
+<pre class="example" id="org7f6f53b">
+0000
+|
+`- 0001
+   |
+   +- 0011
+   |  |
+   |  `- 0111
+   |     |
+   |     `- 1111
+   |
+   `- 0101
+</pre>
+
+<p>
+\(\min\left(\sigma^j(1100)\right) = \sigma^2(1100) = 0011\) and \(1100 > 0011\),
+so \(1100\) is not a necklace.
+</p>
+
+<p>
+\(\min\left(\sigma^j(1010)\right) = \sigma(1010) = \sigma^3(1010) = 0101\) and
+\(1010 > 0101\), so \(1010\) is not a necklace.
+</p>
+
+<p>
+<span class="newthought">The Haskell package</span> <a href="https://hackage.haskell.org/package/containers">containers</a>
+provides a rose tree data type <a href="https://hackage.haskell.org/package/containers/docs/Data-Tree.html#t:Tree"><code>Tree</code></a> and the <a href="https://hackage.haskell.org/package/containers/docs/Data-Tree.html#v:unfoldTree"><code>unfoldTree</code></a> function lends it
+self nicely to recursive algorithms such as RSW. <code>unfoldTree f b</code> constructs a
+tree with <code>b</code> as the root by repeatedly applying <code>f</code> to each node to generate
+its children. Thus, RSW's <code>search</code> function can be implemented in Haskell as
+follows.
+</p>
+
+<p>
+Define the rotation of a necklace, encoded as an \(n\)-bit integer, left by one
+bit<label for="mn-4.1716693" class="margin-toggle">⊕</label><input type="checkbox" id="mn-4.1716693" class="margin-toggle"><span class="marginnote">Since rotating an integer by one bit can result in more than \(n\) bits, take
+the result modulo \(2^n - 1\).</span>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org2dc1f56"><span style="color: #cae682;">σ</span> necklace <span style="color: #cae682;">=</span> rotateL necklace 1 <span style="color: #cae682;">`mod`</span> m
+</pre>
+</div>
+
+<p>
+Continuing the theme of bit twiddling, define \(m = 2^n - 1\).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org7161a33"><span style="color: #cae682;">m</span> <span style="color: #cae682;">=</span> shiftL 1 n <span style="color: #cae682;">-</span> 1
+</pre>
+</div>
+
+<p>
+Then define all rotations of a necklace <label for="mn-5.8101394" class="margin-toggle">⊕</label><input type="checkbox" id="mn-5.8101394" class="margin-toggle"><span class="marginnote">For example, \(\sigma^j(11010) =
+\Set{10101, 01011, 10110, 01101}\).</span>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="orga55bdd4"><span style="color: #cae682;">σʲ</span> <span style="color: #cae682;">=</span> take <span style="color: #8c8c8c;">(</span>n <span style="color: #cae682;">-</span> 1<span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">.</span> tail <span style="color: #cae682;">.</span> iterate σ
+</pre>
+</div>
+
+<p>
+Since \(m \equiv 0 \bmod m\), and \(\sigma^j(m) = m\) for \(1 \le j \le n - 1\),
+\(m\) is special case. So, a necklace is either \(m\) or the lexicographically
+smallest rotation.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org79c4fb7"><span style="color: #cae682;">isNecklace</span> necklace <span style="color: #cae682;">=</span>
+  necklace <span style="color: #cae682;">==</span> m
+    <span style="color: #cae682;">||</span> all <span style="color: #8c8c8c;">(</span>necklace <span style="color: #cae682;">&lt;=</span><span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span>σʲ necklace<span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+Next, define \(\tau\).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org0c2fec5"><span style="color: #cae682;">τ</span> <span style="color: #cae682;">=</span> flip complementBit 0
+</pre>
+</div>
+
+<p>
+Finally, define <code>search</code> from RSW, i.e., the unfolding function to build the
+tree of binary necklaces starting with a given root.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell" id="org72a3840"><span style="color: #cae682;">search</span> necklace
+  <span style="color: #cae682;">|</span> necklace <span style="color: #cae682;">==</span> m <span style="color: #cae682;">=</span>
+    <span style="color: #8c8c8c;">(</span>necklace, <span style="color: #93a8c6; font-weight: bold;">[]</span><span style="color: #8c8c8c;">)</span>
+  <span style="color: #cae682;">|</span> otherwise <span style="color: #cae682;">=</span>
+    <span style="color: #8c8c8c;">(</span>necklace, takeWhile isNecklace <span style="color: #93a8c6;">(</span>map τ <span style="color: #b0b1a3;">(</span>σʲ necklace<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+Bringing it all together, define a function to generate all binary necklaces of
+a given length.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cae682;">necklacesRSW</span> <span style="color: #cae682;">::</span> <span style="color: #8c8c8c;">(</span><span style="color: #92a65e; font-weight: bold;">Integral</span> a, <span style="color: #92a65e; font-weight: bold;">Bits</span> a<span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">=&gt;</span> <span style="color: #92a65e; font-weight: bold;">Int</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #92a65e; font-weight: bold;">Tree</span> a
+<span style="color: #cae682;">necklacesRSW</span> 0 <span style="color: #cae682;">=</span> <span style="color: #92a65e; font-weight: bold;">Node</span> 0 <span style="color: #8c8c8c; font-weight: bold;">[]</span>
+<span style="color: #cae682;">necklacesRSW</span> n <span style="color: #cae682;">=</span> <span style="color: #92a65e; font-weight: bold;">Node</span> 0 <span style="color: #8c8c8c;">[</span>unfoldTree search 1<span style="color: #8c8c8c;">]</span>
+  <span style="color: #8ac6f2; font-weight: bold;">where</span>
+    σ necklace <span style="color: #cae682;">=</span> rotateL necklace 1 <span style="color: #cae682;">`mod`</span> m
+    σʲ <span style="color: #cae682;">=</span> take <span style="color: #8c8c8c;">(</span>n <span style="color: #cae682;">-</span> 1<span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">.</span> tail <span style="color: #cae682;">.</span> iterate σ
+
+    τ <span style="color: #cae682;">=</span> flip complementBit 0
+
+    search necklace
+      <span style="color: #cae682;">|</span> necklace <span style="color: #cae682;">==</span> m <span style="color: #cae682;">=</span>
+        <span style="color: #8c8c8c;">(</span>necklace, <span style="color: #93a8c6; font-weight: bold;">[]</span><span style="color: #8c8c8c;">)</span>
+      <span style="color: #cae682;">|</span> otherwise <span style="color: #cae682;">=</span>
+        <span style="color: #8c8c8c;">(</span>necklace, takeWhile isNecklace <span style="color: #93a8c6;">(</span>map τ <span style="color: #b0b1a3;">(</span>σʲ necklace<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+
+    isNecklace necklace <span style="color: #cae682;">=</span>
+      necklace <span style="color: #cae682;">==</span> m
+        <span style="color: #cae682;">||</span> all <span style="color: #8c8c8c;">(</span>necklace <span style="color: #cae682;">&lt;=</span><span style="color: #8c8c8c;">)</span> <span style="color: #8c8c8c;">(</span>σʲ necklace<span style="color: #8c8c8c;">)</span>
+
+    m <span style="color: #cae682;">=</span> shiftL 1 n <span style="color: #cae682;">-</span> 1
+</pre>
+</div>
+
+<p>
+<span class="newthought">Rosetta Code</span> includes a
+<a href="https://rosettacode.org/wiki/De_Bruijn_sequences#Permutation-based">permutation-based</a> approach for generating Lyndon words, which can be used to
+generate binary necklaces as follows.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cae682;">necklaces</span> <span style="color: #cae682;">::</span> <span style="color: #92a65e; font-weight: bold;">Int</span> <span style="color: #cae682;">-&gt;</span> <span style="color: #8c8c8c;">[</span><span style="color: #93a8c6;">[</span><span style="color: #92a65e; font-weight: bold;">Int</span><span style="color: #93a8c6;">]</span><span style="color: #8c8c8c;">]</span>
+<span style="color: #cae682;">necklaces</span> n <span style="color: #cae682;">=</span>
+  map <span style="color: #8c8c8c;">(</span>reverse <span style="color: #cae682;">.</span> take n <span style="color: #cae682;">.</span> cycle<span style="color: #8c8c8c;">)</span> <span style="color: #cae682;">$</span>
+    lyndonWords <span style="color: #8c8c8c;">[</span>0, 1<span style="color: #8c8c8c;">]</span> n
+</pre>
+</div>
+
+<p>
+<span class="newthought">Interestingly,</span> as described in
+<a href="https://abrazol.com/books/rhythm1/">Creating Rhythms by Stefan Hollos and J. Richard Hollos</a>, binary necklaces can
+represent rhythms, where a \(1\) indicates an <a href="https://en.wikipedia.org/wiki/Onset_(audio)">onset</a>. For example, the <a href="https://www.berklee.edu/berklee-now/news/what-is-dembow-tracing-the-roots-of-a-global-phenomenon">dembow
+riddim</a> can be represented by the following \(8\)-digit bitstrings, which can
+efficiently be encoded as \(8\)-bit unsigned integers.
+</p>
+
+<table>
+
+
+<colgroup>
+<col class="org-left">
+
+<col class="org-left">
+
+<col class="org-left">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Kick</td>
+<td class="org-left">\(10001000\)</td>
+<td class="org-left">\(2^7 + 2^3 = 136\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Snare</td>
+<td class="org-left">\(00010010\)</td>
+<td class="org-left">\(2^4 + 2^1 = 18\)</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+
+    </article>
+  </body>
+</html>
